@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\CatchCreateHelper;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Models\Category;
+use App\Models\CategoryTranslation;
+use App\Models\VehicleTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -30,35 +34,56 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('admin.category.create');
+        $languages = CatchCreateHelper::getLanguage(App::getLocale());
+        return view('admin.category.create', [
+            'languages' => $languages
+        ]);
     }
 
     public function store(CategoryStoreRequest $request): JsonResponse
     {
         $validated = $request->validated();
+        $languages = CatchCreateHelper::getLanguage(App::getLocale());
         if ((int)$validated['edit_value'] === 0) {
             $category = new Category();
-            $category->name = $request->name;
             if ($request->hasfile('image')) {
                 $image = ImageUploadHelper::imageUpload($request->file('image'), 'category');
                 $category->image = $image;
             }
             $category->save();
+
+            foreach ($languages as $language) {
+                CategoryTranslation::create([
+                    'name' => $request->input($language['language_code'] . '_name'),
+                    'category_id' => $category->id,
+                    'locale' => $language['language_code'],
+                ]);
+            }
             return response()->json([
-                'message' => 'Category Add Successfully'
+                'message' => 'Record Add Successfully'
             ]);
 
         } else {
             if ($request->hasfile('image')) {
-                $image = ImageUploadHelper::imageUpload($request->file('image'),'category');
+                $image = ImageUploadHelper::imageUpload($request->file('image'), 'category');
                 Category::where('id', $validated['edit_value'])->update([
                     'image' => $image
                 ]);
             }
             $category = Category::find($validated['edit_value']);
-            $category->name = $request->name;
             $category->save();
-
+            foreach ($languages as $language) {
+                CategoryTranslation::updateOrCreate(
+                    [
+                        'category_id' => $validated['edit_value'],
+                        'locale' => $language['language_code'],
+                    ],
+                    [
+                        'category_id' => $validated['edit_value'],
+                        'locale' => $language['language_code'],
+                        'name' => $request->input($language['language_code'] . '_name'),
+                    ]);
+            }
             return response()->json([
                 'message' => 'Record Update Successfully'
             ]);
@@ -68,8 +93,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+        $languages = CatchCreateHelper::getLanguage(App::getLocale());
         return view('admin.category.edit', [
             'category' => $category,
+            'languages' => $languages,
         ]);
     }
 
@@ -85,7 +112,9 @@ class CategoryController extends Controller
     {
         if ($request->ajax()) {
             $category = DB::table('categories')
-                ->orderBy('id', 'desc');
+                ->leftJoin('category_translations', 'categories.id', 'category_translations.category_id')
+                ->where('category_translations.locale', App::getLocale())
+                ->orderBy('categories.id', 'desc');
 
             if (!empty($request->status) && $request->status !== 'all') {
                 $category->where('categories.status', $request->status);
@@ -99,7 +128,7 @@ class CategoryController extends Controller
 
                 }
             }
-            $category = $category->select('categories.*');
+            $category = $category->select('categories.*','category_translations.name');
             return Datatables::of($category)
                 ->addColumn('action', function ($category) {
 

@@ -17,16 +17,32 @@
                                 <input type="hidden" id="temp_time" name="temp_time" value="{{time()}}">
                                 <input type="hidden" id="form-method" value="add">
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="name">
-                                        Name
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="name"
-                                           id="name"
-                                           placeholder="Name"/>
+                                {{--                                <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+                                {{--                                    <label class="required fs-6 fw-bold mb-2" for="name">--}}
+                                {{--                                        Name--}}
+                                {{--                                    </label>--}}
+                                {{--                                    <input type="text" class="form-control form-control-solid"--}}
+                                {{--                                           name="name"--}}
+                                {{--                                           id="name"--}}
+                                {{--                                           placeholder="Name"/>--}}
+                                {{--                                </div>--}}
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_name"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Name
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_name"
+                                                       id="{{ $language['language_code'] }}_name"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -59,79 +75,204 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="model">
-                                                Model
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="model"
-                                                   id="model"
-                                                   placeholder="Model"/>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="year">
                                                 Year
                                             </label>
-                                            <input type="text" class="form-control form-control-solid integer"
+                                            <input type="text" class="form-control form-control-solid"
                                                    name="year"
                                                    id="year"
                                                    placeholder="Year"/>
                                         </div>
                                     </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="make">
+                                                Make
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="make"
+                                                   id="make"
+                                                   placeholder="Make"/>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="short_description">
-                                        Short Description
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="short_description"
-                                           id="short_description"
-                                           placeholder="Short Description"/>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="model">
+                                            Model
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="model"
+                                               id="model"
+                                               placeholder="Model"/>
+                                    </div>
                                 </div>
-
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="ckeditor form-control" name="description"
-                                              id="description"></textarea>
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="trim">
+                                            Trim
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="trim"
+                                               id="trim"
+                                               placeholder="Trim"/>
+                                    </div>
                                 </div>
-
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class=" fs-6 fw-bold mb-2"
-                                           for="image">Image
-                                    </label><br>
-                                    @include('admin.layouts2.components.image-selection',
-                                      [
-                                      'id'=>'image',
-                                      'description_string'=>'',
-                                      ])
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="required fs-6 fw-bold" for="image">Multiple Image
-                                        <span
-                                            class="error"></span></label><br>
-                                    <div id="fine-uploader"></div>
-                                </div>
-
                             </div>
 
-                            <div class="card-footer text-end p-3 btn-showcase">
-                                <button class="btn btn-primary" type="submit">
-                                    Submit
-                                </button>
-                                <a href="{{ route('admin.vehicle.index') }}">
-                                    <button class="btn btn-secondary" type="button">
-                                        Cancel
-                                    </button>
-                                </a>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="kms_driven">
+                                            KMs Driven
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="kms_driven"
+                                               id="kms_driven"
+                                               placeholder="KMs Driven"/>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="owners">
+                                            No Of Owners
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid integer"
+                                               name="owners"
+                                               id="owners"
+                                               placeholder="No Of Owners"/>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="transmission">
+                                            Transmission
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="transmission"
+                                               id="transmission"
+                                               placeholder="Transmission"/>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="fuel_type">
+                                            Fuel Type
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="fuel_type"
+                                               id="fuel_type"
+                                               placeholder="Fuel Type"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="body_type">
+                                            Body Type
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="body_type"
+                                               id="body_type"
+                                               placeholder="Body Type"/>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="registration">
+                                            Registration
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="registration"
+                                               id="registration"
+                                               placeholder="Registration"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="mileage">
+                                            Mileage
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="mileage"
+                                               id="mileage"
+                                               placeholder="Mileage"/>
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label class="required fs-6 fw-bold mb-2" for="price">
+                                            Price
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="price"
+                                               id="price"
+                                               placeholder="Price"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <label class="required fs-6 fw-bold mb-2" for="short_description">
+                                    Short Description
+                                </label>
+                                <input type="text" class="form-control form-control-solid"
+                                       name="short_description"
+                                       id="short_description"
+                                       placeholder="Short Description"/>
+                            </div>
+
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <label class="form-label">Description</label>
+                                <textarea class="ckeditor form-control" name="description"
+                                          id="description"></textarea>
+                            </div>
+
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <label class=" fs-6 fw-bold mb-2"
+                                       for="image">Image
+                                </label><br>
+                                @include('admin.layouts2.components.image-selection',
+                                  [
+                                  'id'=>'image',
+                                  'description_string'=>'',
+                                  ])
+                            </div>
+
+                            <div class="form-group">
+                                <label class="required fs-6 fw-bold" for="image">Multiple Image
+                                    <span
+                                        class="error"></span></label><br>
+                                <div id="fine-uploader"></div>
+                            </div>
+
                     </div>
+
+                    <div class="card-footer text-end p-3 btn-showcase">
+                        <button class="btn btn-primary" type="submit">
+                            Submit
+                        </button>
+                        <a href="{{ route('admin.vehicle.index') }}">
+                            <button class="btn btn-secondary" type="button">
+                                Cancel
+                            </button>
+                        </a>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 @include('admin.layouts2.components.fineUploader')

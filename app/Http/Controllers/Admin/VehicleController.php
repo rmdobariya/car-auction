@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Helpers\CatchCreateHelper;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
@@ -10,6 +11,7 @@ use App\Http\Requests\Admin\VehicleStoreRequest;
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\CityTranslation;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\TempImage;
@@ -18,8 +20,10 @@ use App\Models\Vehicle;
 use App\Models\VehicleCategory;
 use App\Models\VehicleDocument;
 use App\Models\VehicleImage;
+use App\Models\VehicleTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -41,16 +45,19 @@ class VehicleController extends Controller
 
     public function create()
     {
+        $languages = CatchCreateHelper::getLanguage(App::getLocale());
         $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         return view('admin.vehicle.create', [
             'vehicle_categories' => $vehicle_categories,
             'users' => $users,
+            'languages' => $languages,
         ]);
     }
 
     public function edit($id)
     {
+        $languages = CatchCreateHelper::getLanguage(App::getLocale());
         $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
@@ -60,6 +67,7 @@ class VehicleController extends Controller
             'users' => $users,
             'vehicle' => $vehicle,
             'vehicleImages' => $vehicleImages,
+            'languages' => $languages,
         ]);
     }
 
@@ -77,8 +85,10 @@ class VehicleController extends Controller
         if ($request->ajax()) {
             $vehicle = DB::table('vehicles')
                 ->leftJoin('users', 'vehicles.user_id', 'users.id')
+                ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
                 ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
                 ->leftjoin('roles', 'model_has_roles.role_id', 'roles.id')
+                ->where('vehicle_translations.locale', App::getLocale())
                 ->orderBy('id', 'desc');
 
             if (!empty($request->status) && $request->status !== 'all') {
@@ -90,10 +100,9 @@ class VehicleController extends Controller
                     $vehicle->whereNotNull('vehicles.deleted_at');
                 } else {
                     $vehicle->whereNull('vehicles.deleted_at');
-
                 }
             }
-            $vehicle = $vehicle->select('vehicles.*', 'users.name as user_name', 'roles.name as role_name');
+            $vehicle = $vehicle->select('vehicles.*', 'users.name as user_name', 'roles.name as role_name', 'vehicle_translations.name as name');
             return Datatables::of($vehicle)
                 ->addColumn('action', function ($vehicle) {
 
@@ -126,7 +135,7 @@ class VehicleController extends Controller
 
                     return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $vehicle->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $vehicle->id . ' id="single_select">
                     </div>
                 </td>';
                 })
@@ -223,10 +232,19 @@ class VehicleController extends Controller
             try {
                 $vehicle = new Vehicle();
                 $vehicle->user_id = $request->user_id;
-                $vehicle->name = $request->name;
                 $vehicle->vehicle_category_id = $request->vehicle_category_id;
-                $vehicle->model = $request->model;
                 $vehicle->year = $request->year;
+                $vehicle->make = $request->make;
+                $vehicle->model = $request->model;
+                $vehicle->trim = $request->trim;
+                $vehicle->kms_driven = $request->kms_driven;
+                $vehicle->owners = $request->owners;
+                $vehicle->transmission = $request->transmission;
+                $vehicle->fuel_type = $request->fuel_type;
+                $vehicle->body_type = $request->body_type;
+                $vehicle->registration = $request->registration;
+                $vehicle->mileage = $request->mileage;
+                $vehicle->price = $request->price;
                 $vehicle->short_description = $request->short_description;
                 $vehicle->description = $request->description;
                 if ($request->hasfile('image')) {
@@ -234,7 +252,14 @@ class VehicleController extends Controller
                     $vehicle->main_image = $image;
                 }
                 $vehicle->save();
-
+                $languages = CatchCreateHelper::getLanguage(App::getLocale());
+                foreach ($languages as $language) {
+                    VehicleTranslation::create([
+                        'name' => $request->input($language['language_code'] . '_name'),
+                        'vehicle_id' => $vehicle->id,
+                        'locale' => $language['language_code'],
+                    ]);
+                }
                 $m_images = TempImage::where('temp_time', $request->temp_time)->get();
                 ImageUploadHelper::UploadMultipleImage($m_images, $vehicle->id);
 
@@ -252,10 +277,19 @@ class VehicleController extends Controller
             try {
                 $vehicle = Vehicle::find($validated['edit_value']);
                 $vehicle->user_id = $request->user_id;
-                $vehicle->name = $request->name;
                 $vehicle->vehicle_category_id = $request->vehicle_category_id;
-                $vehicle->model = $request->model;
                 $vehicle->year = $request->year;
+                $vehicle->make = $request->make;
+                $vehicle->model = $request->model;
+                $vehicle->trim = $request->trim;
+                $vehicle->kms_driven = $request->kms_driven;
+                $vehicle->owners = $request->owners;
+                $vehicle->transmission = $request->transmission;
+                $vehicle->fuel_type = $request->fuel_type;
+                $vehicle->body_type = $request->body_type;
+                $vehicle->registration = $request->registration;
+                $vehicle->mileage = $request->mileage;
+                $vehicle->price = $request->price;
                 $vehicle->short_description = $request->short_description;
                 $vehicle->description = $request->description;
                 if ($request->hasfile('image')) {
@@ -263,7 +297,19 @@ class VehicleController extends Controller
                     $vehicle->main_image = $image;
                 }
                 $vehicle->save();
-
+                $languages = CatchCreateHelper::getLanguage(App::getLocale());
+                foreach ($languages as $language) {
+                    VehicleTranslation::updateOrCreate(
+                        [
+                            'vehicle_id' => $validated['edit_value'],
+                            'locale' => $language['language_code'],
+                        ],
+                        [
+                            'vehicle_id' => $validated['edit_value'],
+                            'locale' => $language['language_code'],
+                            'name' => $request->input($language['language_code'] . '_name'),
+                        ]);
+                }
                 $m_images = TempImage::where('temp_time', $request->temp_time)->get();
                 ImageUploadHelper::UploadMultipleImage($m_images, $vehicle->id);
                 TempImage::where('temp_time', $request->temp_time)->delete();

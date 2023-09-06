@@ -16,18 +16,25 @@
                                 <input type="hidden" id="edit_value" value="{{$vehicle->id}}" name="edit_value">
                                 <input type="hidden" id="temp_time" name="temp_time" value="{{time()}}">
                                 <input type="hidden" id="form-method" value="add">
-
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="name">
-                                        Name
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="name"
-                                           value="{{$vehicle->name}}"
-                                           id="name"
-                                           placeholder="Name"/>
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_name"
+                                                       class="required fs-6 fw-bold mb-2">
+                                                    {{ $language['name'] }} {{ trans('admin_string.common_name') }}
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_name"
+                                                       id="{{ $language['language_code'] }}_name"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->name }}"
+                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -62,6 +69,33 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="year">
+                                                Year
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="year"
+                                                   id="year"
+                                                   value="{{$vehicle->year}}"
+                                                   placeholder="Year"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="make">
+                                                Make
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="make"
+                                                   id="make"
+                                                   value="{{$vehicle->make}}"
+                                                   placeholder="Make"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="model">
                                                 Model
                                             </label>
@@ -74,14 +108,122 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="year">
-                                                Year
+                                            <label class="required fs-6 fw-bold mb-2" for="trim">
+                                                Trim
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="trim"
+                                                   id="trim"
+                                                   value="{{$vehicle->trim}}"
+                                                   placeholder="Trim"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="kms_driven">
+                                                KMs Driven
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="kms_driven"
+                                                   id="kms_driven"
+                                                   value="{{$vehicle->kms_driven}}"
+                                                   placeholder="KMs Driven"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="owners">
+                                                No Of Owners
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
-                                                   name="year"
-                                                   id="year"
-                                                   value="{{$vehicle->year}}"
-                                                   placeholder="Year"/>
+                                                   name="owners"
+                                                   id="owners"
+                                                   value="{{$vehicle->owners}}"
+                                                   placeholder="No Of Owners"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="transmission">
+                                                Transmission
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="transmission"
+                                                   id="transmission"
+                                                   value="{{$vehicle->transmission}}"
+                                                   placeholder="Transmission"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="fuel_type">
+                                                Fuel Type
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="fuel_type"
+                                                   id="fuel_type"
+                                                   value="{{$vehicle->fuel_type}}"
+                                                   placeholder="Fuel Type"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="body_type">
+                                                Body Type
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="body_type"
+                                                   id="body_type"
+                                                   value="{{$vehicle->body_type}}"
+                                                   placeholder="Body Type"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="registration">
+                                                Registration
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="registration"
+                                                   id="registration"
+                                                   value="{{$vehicle->registration}}"
+                                                   placeholder="Registration"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="mileage">
+                                                Mileage
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="mileage"
+                                                   id="mileage"
+                                                   value="{{$vehicle->mileage}}"
+                                                   placeholder="Mileage"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="price">
+                                                Price
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="price"
+                                                   id="price"
+                                                   value="{{$vehicle->price}}"
+                                                   placeholder="Price"/>
                                         </div>
                                     </div>
                                 </div>

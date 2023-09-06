@@ -33,7 +33,8 @@
                                                  data-kt-customer-table-filter="payment_type">
                                                 <label
                                                     class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                                    <input class="form-check-input" type="checkbox" name="deleted_at" id="deleted_at">
+                                                    <input class="form-check-input" type="checkbox" name="deleted_at"
+                                                           id="deleted_at">
                                                     <span class="form-check-label text-gray-600">Deleted Record </span>
                                                 </label>
                                             </div>
@@ -75,8 +76,7 @@
                                 <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" aria-label=""
                                     style="width: 29.8906px;">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                               data-kt-check-target="#basic-1 .form-check-input" value="1">
+                                        <input class="form-check-input" id="all_selected" type="checkbox" value="">
                                     </div>
                                 </th>
                                 <th>Id</th>
@@ -107,11 +107,14 @@
         const sweetalert_change_status = "Vehicle Status Change"
         const sweetalert_change_status_text = "Are You Sure Status Change This Record"
         const yes_change_it = "Yes"
+        const multiple_select_title = "Selected Category Delete ?"
+        const multiple_select_text = "Are You Sure Selected Record Delete"
         const form_url = '/vehicle'
         const datatable_url = '/get-vehicle-list'
         const restore_url = '/restore-vehicle'
         const hard_delete_url = '/hard-delete'
-
+        const multiple_delete_url = '/multiple-vehicle-delete'
+        var arr = [];
 
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
@@ -127,59 +130,6 @@
             order: [[0, 'DESC']],
         })
     </script>
-    <script>
-        var checkedValues = [];
-        $(document).on('change', 'tbody .form-check-input', function () {
-            var checkedCount = $('tbody .form-check-input:checked').length;
 
-            if ($(this).prop('checked')) {
-                checkedValues.push($(this).val());
-                $('#select_delete_btn').removeClass('d-none');
-                $('#selected_count').text(checkedCount)
-                console.log(checkedValues)
-            } else {
-                $('#select_delete_btn').addClass('d-none');
-                $('#selected_count').text()
-            }
-        })
-
-        $(document).on('click', '#multiple_record_delete', function () {
-            console.log(checkedValues)
-            Swal.fire({
-                title: 'Selected Category Delete ?',
-                text: 'Are You Sure Selected Record Delete',
-                icon: 'warning',
-                showCancelButton: !0,
-                buttonsStyling: !1,
-                confirmButtonText: delete_button_text,
-                cancelButtonText: cancel_button_text,
-                customClass: {
-                    confirmButton: 'btn fw-bold btn-danger',
-                    cancelButton: 'btn fw-bold btn-active-light-primary'
-                }
-            }).then((function (t) {
-                if (t.isConfirmed) {
-                    multipleDeleteRecord(checkedValues)
-                }
-            }))
-        })
-
-        function multipleDeleteRecord(checkedValues) {
-            loaderView()
-            axios
-                .post(APP_URL + '/multiple-vehicle-delete', {
-                    ids: checkedValues
-                })
-                .then(function (response) {
-                    notificationToast(response.data.message, 'success')
-                    loaderHide()
-                })
-                .catch(function (error) {
-                    notificationToast(error.response.data.message, 'warning')
-                    loaderHide()
-                })
-
-        }
-    </script>
     <script src="{{URL::asset('assets/admin/custom/datatable.js')}}?v={{ time() }}"></script>
 @endsection

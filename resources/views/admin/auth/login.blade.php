@@ -8,7 +8,7 @@
                 <div class="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
                     <div class="d-flex flex-row-fluid flex-column text-center p-10 pt-lg-20 justify-content-center">
                         <a class="py-9 mb-5">
-                            <img alt="Logo" src="{{ asset('assets/media/logos/default.svg') }}" class="h-100px"/>
+                            <img alt="Logo" src="{{ asset('assets/media/logos/logo.png') }}" class="h-100px"/>
                         </a>
                     </div>
                 </div>

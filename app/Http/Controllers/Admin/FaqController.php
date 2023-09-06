@@ -123,8 +123,8 @@ class FaqController extends Controller
                 ->addColumn('check', function ($faq) {
 
                     return '<td>
-                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $faq->id . '>
+                   <div class="form-check form-check-sm form-check-custom form-check-solid">
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $faq->id . ' id="single_select">
                     </div>
                 </td>';
 
@@ -158,6 +158,14 @@ class FaqController extends Controller
         DB::table('faqs')->where('id', $id)->delete();
         return response()->json([
             'message' => 'Faq Delete Successfully'
+        ]);
+    }
+
+    public function multipleFaqDelete(Request $request): JsonResponse
+    {
+        Faq::whereIn('id', $request->ids)->delete();
+        return response()->json([
+            'message' => 'Record Delete Successfully'
         ]);
     }
 }

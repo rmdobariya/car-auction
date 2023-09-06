@@ -12,7 +12,7 @@
                      style="background-color: white;"/>
             @else
                 <img alt="Logo"
-                     src="{{ asset('assets/media/logos/default.svg') }}"
+                     src="{{ asset('assets/media/logos/logo-1.png') }}"
                      class="h-40px logo"
                      style="background-color: white;"/>
             @endif
@@ -129,6 +129,18 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div class="menu-item">
+                            <a class="menu-link {{ (request()->segment(2) == 'banner') ? 'active' : '' }}"
+                               href="{{ route('admin.banner.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Banner</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} " >
@@ -155,17 +167,17 @@
                         </div>
                     </div>
 
-{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
-{{--                        <div class="menu-item">--}}
-{{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
-{{--                               href="{{ route('admin.permission.create') }}">--}}
-{{--                                <span class="menu-bullet">--}}
-{{--                                    <span class="bullet bullet-dot"></span>--}}
-{{--                                </span>--}}
-{{--                                <span class="menu-title">Permission</span>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                    {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+                    {{--                        <div class="menu-item">--}}
+                    {{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
+                    {{--                               href="{{ route('admin.permission.create') }}">--}}
+                    {{--                                <span class="menu-bullet">--}}
+                    {{--                                    <span class="bullet bullet-dot"></span>--}}
+                    {{--                                </span>--}}
+                    {{--                                <span class="menu-title">Permission</span>--}}
+                    {{--                            </a>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
 
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">

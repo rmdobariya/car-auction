@@ -136,7 +136,7 @@ class BlogController extends Controller
 
                     return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $blog->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $blog->id . ' id="single_select">
                     </div>
                 </td>';
                 })
@@ -172,6 +172,14 @@ class BlogController extends Controller
         DB::table('blogs')->where('id', $id)->delete();
         return response()->json([
             'message' => 'Blog Delete Successfully'
+        ]);
+    }
+
+    public function multipleBlogDelete(Request $request): JsonResponse
+    {
+        Blog::whereIn('id', $request->ids)->delete();
+        return response()->json([
+            'message' => 'Record Delete Successfully'
         ]);
     }
 }

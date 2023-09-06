@@ -18,55 +18,55 @@
                 <div class="row g-5 g-xl-8">
                     <div class="col-xl-3">
                         <a href="{{ route('admin.customer.index')}}"
-                           class="card bg-warning  hoverable card-xl-stretch mb-xl-8">
+                           class="card bg-warning card-dash hoverable card-xl-stretch mb-xl-8">
                             <div class="card-body">
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$seller_count}}</div>
+                                <div class="text-white fw-bolder fs-1">{{$seller_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-2 mb-2 mt-5">Sellers
+                                    class="text-white fw-bolder fs-3">Sellers
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-xl-3">
                         <a href="{{ route('admin.customer.index')}}"
-                           class="card bg-info  hoverable card-xl-stretch mb-xl-8">
+                           class="card bg-info card-dash hoverable card-xl-stretch mb-xl-8">
                             <div class="card-body">
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$buyer_count}}</div>
+                                <div class="text-white fw-bolder fs-1">{{$buyer_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-2 mb-2 mt-5">Buyers
+                                    class="text-white fw-bolder fs-3">Buyers
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-xl-3">
                         <a href="{{ route('admin.customer.index')}}"
-                           class="card bg-success  hoverable card-xl-stretch mb-xl-8">
+                           class="card bg-success card-dash hoverable card-xl-stretch mb-xl-8">
                             <div class="card-body">
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$user_count}}</div>
+                                <div class="text-white fw-bolder fs-1">{{$user_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-2 mb-2 mt-5">Users
+                                    class="text-white fw-bolder fs-3">Users
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-xl-3">
                         <a href="{{ route('admin.category.index')}}"
-                           class="card bg-primary  hoverable card-xl-stretch mb-xl-8">
+                           class="card bg-primary card-dash hoverable card-xl-stretch mb-xl-8">
                             <div class="card-body">
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$category_count}}</div>
+                                <div class="text-white fw-bolder fs-1">{{$category_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-2 mb-2 mt-5">Categories
+                                    class="text-white fw-bolder fs-3">Categories
                                 </div>
                             </div>
                         </a>
                     </div>
                     <div class="col-xl-3">
                         <a href="{{ route('admin.vehicle.index')}}"
-                           class="card bg-dark  hoverable card-xl-stretch mb-xl-8">
+                           class="card bg-dark card-dash hoverable card-xl-stretch mb-xl-8">
                             <div class="card-body">
-                                <div class="text-white fw-bolder fs-2 mb-2 mt-5">{{$vehicle_count}}</div>
+                                <div class="text-white fw-bolder fs-1">{{$vehicle_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-2 mb-2 mt-5">Vehicles
+                                    class="text-white fw-bolder fs-3">Vehicles
                                 </div>
                             </div>
                         </a>

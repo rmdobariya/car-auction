@@ -1,4 +1,4 @@
-a@extends('admin.layouts2.simple.master')
+@extends('admin.layouts2.simple.master')
 @section('content')
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
@@ -16,14 +16,22 @@ a@extends('admin.layouts2.simple.master')
                                 <input type="hidden" id="edit_value" value="0" name="edit_value">
                                 <input type="hidden" id="form-method" value="add">
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="title">
-                                        Name
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="name"
-                                           id="name"
-                                           placeholder="Name"/>
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_name"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Name
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_name"
+                                                       id="{{ $language['language_code'] }}_name"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">

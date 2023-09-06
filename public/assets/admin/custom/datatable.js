@@ -205,5 +205,82 @@ $(function () {
 
     }
 
+    $(document).on('click', '#all_selected', function () {
+        if ($(this).prop('checked')) {
+            $('.all_selected').prop('checked', true)
+            $(".all_selected:checked").each(function (e, i) {
+                arr.push(this.value);
+            });
+            $('#select_delete_btn').removeClass('d-none');
+            $('#selected_count').text($('.all_selected:checked').length)
+        } else {
+            arr.splice(0);
+            $('.all_selected').prop('checked', false)
+            $('#select_delete_btn').addClass('d-none');
+            $('#selected_count').text()
+        }
+    })
+    $(document).on('click', '#single_select', function () {
+        if ($(this).prop('checked')) {
+            arr = [];
+            $(".all_selected:checked").each(function (e, i) {
+                arr.push(this.value);
+            });
+            $('#select_delete_btn').removeClass('d-none');
+            $('#selected_count').text($('.all_selected:checked').length)
+        } else {
+            if ($('.all_selected:checked').length <= 0) {
+                $('#select_delete_btn').addClass('d-none');
+                $('#selected_count').text()
+            } else {
+                arr = [];
+                $(".all_selected:checked").each(function (e, i) {
+                    arr.push(this.value);
+                });
+                $('#select_delete_btn').removeClass('d-none');
+                $('#selected_count').text($('.all_selected:checked').length)
+            }
+
+        }
+    })
+
+    $(document).on('click', '#multiple_record_delete', function () {
+        Swal.fire({
+            title: multiple_select_title,
+            text: multiple_select_text,
+            icon: 'warning',
+            showCancelButton: !0,
+            buttonsStyling: !1,
+            confirmButtonText: delete_button_text,
+            cancelButtonText: cancel_button_text,
+            customClass: {
+                confirmButton: 'btn fw-bold btn-danger',
+                cancelButton: 'btn fw-bold btn-active-light-primary'
+            }
+        }).then((function (t) {
+            if (t.isConfirmed) {
+                multipleDeleteRecord(arr)
+            }
+        }))
+    })
+
+    function multipleDeleteRecord(arr) {
+        loaderView()
+        axios
+            .post(APP_URL + multiple_delete_url, {
+                ids: arr
+            })
+            .then(function (response) {
+                notificationToast(response.data.message, 'success')
+                loaderHide()
+                window.location.reload()
+            })
+            .catch(function (error) {
+                notificationToast(error.response.data.message, 'warning')
+                loaderHide()
+            })
+
+    }
+
     // integerOnly()
 })

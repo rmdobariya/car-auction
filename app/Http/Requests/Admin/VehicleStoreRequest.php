@@ -19,9 +19,18 @@ class VehicleStoreRequest extends FormRequest
     {
         return [
             'edit_value' => 'required',
-            'name' => 'required',
-            'model' => 'required',
             'year' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'trim' => 'required',
+            'kms_driven' => 'required',
+            'owners' => 'required',
+            'transmission' => 'required',
+            'fuel_type' => 'required',
+            'body_type' => 'required',
+            'registration' => 'required',
+            'mileage' => 'required',
+            'price' => 'required',
             'short_description' => 'required',
             'description' => 'required',
         ];

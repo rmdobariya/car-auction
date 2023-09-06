@@ -5288,7 +5288,7 @@ textarea.form-control-lg {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #FF5757;
+    background-color: #673aaa;
     border-color: transparent
 }
 
@@ -6884,11 +6884,14 @@ textarea.form-control-lg {
 }
 
 .link-primary {
-    color: #FF5757
+    color: #673aaa
 }
 
 .link-primary:focus, .link-primary:hover {
-    color: #33b1f9
+    color: #149b9e
+}
+body#kt_body .d-flex.flex-column.flex-lg-row-auto.w-xl-600px.positon-xl-relative {
+    background-image: linear-gradient(315deg, #000000 0%, #000838 74%)!important;
 }
 
 .link-secondary {
@@ -30999,7 +31002,7 @@ textarea.form-control-lg {
 
 :root {
     --bs-light-primary: #F1FAFF;
-    --bs-active-primary: #FF5757;
+    --bs-active-primary: #673aaa;
     --bs-light-success: #E8FFF3;
     --bs-active-success: #47BE7D;
     --bs-light-info: #F8F5FF;
@@ -32436,17 +32439,17 @@ textarea.form-control-lg {
 
 .text-active-primary.active {
     transition: color .2s ease, background-color .2s ease;
-    color: #FF5757 !important
+    color: #673aaa !important
 }
 
 .text-active-primary.active i {
     transition: color .2s ease, background-color .2s ease;
-    color: #FF5757 !important
+    color: #673aaa !important
 }
 
 .text-active-primary.active .svg-icon svg [fill]:not(.permanent):not(g) {
     transition: fill .3s ease;
-    fill: #FF5757
+    fill: #673aaa
 }
 
 .text-active-primary.active .svg-icon svg:hover [fill]:not(.permanent):not(g) {
@@ -34102,7 +34105,7 @@ a:hover {
 .nav-line-tabs .nav-item .nav-link.active, .nav-line-tabs .nav-item .nav-link:hover:not(.disabled), .nav-line-tabs .nav-item.show .nav-link {
     background-color: transparent;
     border: 0;
-    border-bottom: 1px solid #FF5757;
+    border-bottom: 1px solid #673aaa;
     transition: color .2s ease, background-color .2s ease
 }
 
@@ -37856,8 +37859,8 @@ a:hover {
 
 .menu-state-bg-light-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .menu-state-bg-light-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #f1faff;
-    color: #FF5757
+    background-color: #673aaa;
+    color: #fff
 }
 
 .menu-state-bg-light-primary .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .menu-state-bg-light-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
@@ -39026,8 +39029,8 @@ a:hover {
 
 .btn.btn-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757
+    border-color: #673aaa;
+    background-color: #673aaa
 }
 
 .btn.btn-primary i {
@@ -39049,8 +39052,8 @@ a:hover {
 
 .btn-check:active + .btn.btn-primary, .btn-check:checked + .btn.btn-primary, .btn.btn-primary.active, .btn.btn-primary.show, .btn.btn-primary:active:not(.btn-active), .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .show > .btn.btn-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757 !important
+    border-color: #673aaa;
+    background-color: #673aaa !important
 }
 
 .btn-check:active + .btn.btn-primary i, .btn-check:checked + .btn.btn-primary i, .btn.btn-primary.active i, .btn.btn-primary.show i, .btn.btn-primary:active:not(.btn-active) i, .btn.btn-primary:focus:not(.btn-active) i, .btn.btn-primary:hover:not(.btn-active) i, .show > .btn.btn-primary i {
@@ -39145,7 +39148,7 @@ a:hover {
 }
 
 .btn-check:active + .btn.btn-active-light-primary, .btn-check:checked + .btn.btn-active-light-primary, .btn.btn-active-light-primary.active, .btn.btn-active-light-primary.show, .btn.btn-active-light-primary:active:not(.btn-active), .btn.btn-active-light-primary:focus:not(.btn-active), .btn.btn-active-light-primary:hover:not(.btn-active), .show > .btn.btn-active-light-primary {
-    color: #FF5757;
+    color: #673aaa;
     border-color: #f1faff;
     background-color: #f1faff !important
 }
@@ -51850,18 +51853,18 @@ body {
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-bullet .bullet, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-bullet .bullet {
-    background-color: #FF5757
+    background-color: #673aaa
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-arrow:after, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-arrow:after {
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.06463 4.42111C1.96161 4.22088 1.9809 3.9637 2.12863 3.78597L5.12847 0.177181C5.31402 -0.046034 5.63049 -0.060261 5.83532 0.145404C6.04015 0.351069 6.05578 0.698744 5.87023 0.921959L3.19406 4.14137L5.84414 7.06417C6.03896 7.27904 6.03835 7.62686 5.84278 7.84105C5.64721 8.05524 5.33073 8.05469 5.13591 7.83982L2.14806 4.54449C2.1141 4.50704 2.08629 4.46541 2.06463 4.42111Z'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23673aaa'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M2.06463 4.42111C1.96161 4.22088 1.9809 3.9637 2.12863 3.78597L5.12847 0.177181C5.31402 -0.046034 5.63049 -0.060261 5.83532 0.145404C6.04015 0.351069 6.05578 0.698744 5.87023 0.921959L3.19406 4.14137L5.84414 7.06417C6.03896 7.27904 6.03835 7.62686 5.84278 7.84105C5.64721 8.05524 5.33073 8.05469 5.13591 7.83982L2.14806 4.54449C2.1141 4.50704 2.08629 4.46541 2.06463 4.42111Z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.93537 4.57889C6.03839 4.77912 6.0191 5.0363 5.87137 5.21403L2.87153 8.82282C2.68598 9.04603 2.36951 9.06026 2.16468 8.8546C1.95985 8.64893 1.94422 8.30126 2.12977 8.07804L4.80594 4.85863L2.15586 1.93583C1.96104 1.72096 1.96165 1.37314 2.15722 1.15895C2.35279 0.944757 2.66927 0.945311 2.86409 1.16018L5.85194 4.45551C5.8859 4.49296 5.91371 4.53459 5.93537 4.57889Z'/%3e%3c/svg%3e")
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 9' fill='%23673aaa'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.93537 4.57889C6.03839 4.77912 6.0191 5.0363 5.87137 5.21403L2.87153 8.82282C2.68598 9.04603 2.36951 9.06026 2.16468 8.8546C1.95985 8.64893 1.94422 8.30126 2.12977 8.07804L4.80594 4.85863L2.15586 1.93583C1.96104 1.72096 1.96165 1.37314 2.15722 1.15895C2.35279 0.944757 2.66927 0.945311 2.86409 1.16018L5.85194 4.45551C5.8859 4.49296 5.91371 4.53459 5.93537 4.57889Z'/%3e%3c/svg%3e")
 }
 
 .aside-dark .menu .menu-item.here > .menu-link {
@@ -51904,7 +51907,7 @@ body {
 
 .aside-dark .menu .menu-item.show > .menu-link {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #FF5757;
+    background-color: #673aaa;
     color: #fff
 }
 
@@ -51943,14 +51946,19 @@ body {
 .aside-dark .menu .menu-item .menu-link.active {
     transition: color .2s ease, background-color .2s ease;
     /*background-color: #FF5757;*/
-    color: #FF5757;
+    color: #673aaa;
     font-weight:bold;
 }
-
-.aside-dark .menu .menu-item .menu-link.active .menu-title {
-    color: #FF5757
+div#kt_aside_toggle {
+    margin-left: 20px;
+    margin-top: 12px;
 }
-
+.aside-dark .menu .menu-item .menu-link.active .menu-title {
+    color: #673aaa
+}
+.card-dash {
+    background: linear-gradient(154deg, #673aaa 65.12%, #149b9e 42.49%, #673aaa 103.38%);
+}
 .aside-dark .menu .menu-item .menu-link.active .menu-icon i {
     color: #FF5757
 }

@@ -19,7 +19,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'edit_value' => 'required',
-            'name' => 'required',
+            'name_*' => 'required',
             'image' => 'required_if:edit_value,==,0',
         ];
     }

@@ -100,7 +100,15 @@ class PageController extends Controller
                     $array['status'] = $pages->status;
                     return AdminDataTableButtonHelper::statusBadge($array);
                 })
-                ->rawColumns(['action', 'status'])
+                ->addColumn('check', function ($vehicle) {
+
+                    return '<td>
+                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $vehicle->id . ' id="single_select">
+                    </div>
+                </td>';
+                })
+                ->rawColumns(['action', 'status','check'])
                 ->make(true);
         }
     }
@@ -110,6 +118,14 @@ class PageController extends Controller
         Page::where('id', $id)->update(['status' => $status]);
         return response()->json([
             'message' => 'Status Change Successfully',
+        ]);
+    }
+
+    public function multiplePageDelete(Request $request): JsonResponse
+    {
+        Page::whereIn('id', $request->ids)->delete();
+        return response()->json([
+            'message' => 'Record Delete Successfully'
         ]);
     }
 }

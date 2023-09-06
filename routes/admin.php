@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactUsController;
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::resource('page', PageController::class);
     Route::get('get-page-list', [PageController::class, 'getPageList'])->name('get-page-list');
     Route::get('page/status/{id}/{status}', [PageController::class, 'changeStatus'])->name('page.status.change');
+    Route::post('multiple-page-delete', [PageController::class, 'multiplePageDelete'])->name('multiple-page-delete');
 
     Route::resource('customer', CustomerController::class);
     Route::get('get-customer-list', [CustomerController::class, 'getCustomerList'])->name('get-customer-list');
@@ -66,12 +68,14 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::get('faq/status/{id}/{status}', [FaqController::class, 'changeStatus'])->name('faq.status.change');
     Route::get('restore-faq/{id}', [FaqController::class, 'restore'])->name('restore-faq');
     Route::delete('hard-delete/{id}', [FaqController::class, 'hardDelete'])->name('hard-delete');
+    Route::post('multiple-faq-delete', [FaqController::class, 'multipleFaqDelete'])->name('multiple-faq-delete');
 
     Route::resource('blog', BLogController::class);
     Route::get('get-blog-list', [BLogController::class, 'getBlogList'])->name('get-blog-list');
     Route::get('blog/status/{id}/{status}', [BLogController::class, 'changeStatus'])->name('blog.status.change');
     Route::get('restore-blog/{id}', [BLogController::class, 'restore'])->name('restore-blog');
     Route::delete('hard-delete/{id}', [BLogController::class, 'hardDelete'])->name('hard-delete');
+    Route::post('multiple-blog-delete', [BLogController::class, 'multipleBlogDelete'])->name('multiple-blog-delete');
 
     Route::resource('role', RoleController::class);
     Route::get('get-role-list', [RoleController::class, 'getRoleList'])->name('get-role-list');
@@ -104,4 +108,10 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::post('getVehicleGallery', [VehicleController::class, 'getVehicleGallery'])->name('getVehicleGallery');
     Route::get('deleteVehicleImage/{id}', [VehicleController::class, 'deleteVehicleImage'])->name('deleteVehicleImage');
 
+    Route::resource('banner', BannerController::class);
+    Route::get('get-banner-list', [BannerController::class, 'getBannerList'])->name('get-banner-list');
+    Route::get('restore-banner/{id}', [BannerController::class, 'restore'])->name('restore-banner');
+    Route::delete('hard-delete-banner/{id}', [BannerController::class, 'hardDelete'])->name('hard-delete-banner');
+    Route::get('banner/status/{id}/{status}', [BannerController::class, 'changeStatus'])->name('banner.status.change');
+    Route::post('multiple-banner-delete', [BannerController::class, 'multipleBannerDelete'])->name('multiple-banner-delete');
 });

@@ -16,15 +16,24 @@
                                 <input type="hidden" id="edit_value" value="{{$category->id}}" name="edit_value">
                                 <input type="hidden" id="form-method" value="add">
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="name">
-                                        Name
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="name"
-                                           id="name"
-                                           value="{{$category->name}}"
-                                           placeholder="Name"/>
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_name"
+                                                       class="required fs-6 fw-bold mb-2">
+                                                    {{ $language['name'] }} Name
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_name"
+                                                       id="{{ $language['language_code'] }}_name"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $category->translateOrNew($language['language_code'])->name }}"
+                                                       placeholder="{{ $language['name'] }} Name"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
