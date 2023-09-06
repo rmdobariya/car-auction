@@ -93,7 +93,7 @@
             <div class="col-md-12">
                 <div class="filter">
                     <div class="logo-icon">
-                        <img src="images/icon.png">
+                        <img src="{{asset('web/assets/images/icon.png')}}">
                     </div>
                     <div class="search-box">
                         <div class="input-group">
@@ -326,7 +326,7 @@
                 </div>
                 <div class="details-box">
                     <div class="car-img">
-                        <img src="images/car.jpg" align="car">
+                        <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
                         <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
                         <a href="#" class="like"><i class="lar la-heart"></i></a>
                     </div>
@@ -722,7 +722,7 @@
                         </div>
                         <div class="car-dt">
                             <div class="icon">
-                                <img src="images/petrol.png" align="petrol">
+                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
                             </div>
                             <div class="detsl">
                                 Petrol
@@ -730,7 +730,7 @@
                         </div>
                         <div class="car-dt">
                             <div class="icon">
-                                <img src="images/auto.png" align="auto">
+                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
                             </div>
                             <div class="detsl">
                                 Auto
@@ -748,7 +748,7 @@
                 <div class="details-box">
                     <div class="car-img">
                         <img src="images/car.jpg" align="car">
-                        <span class="cat-tags"><img src="images/dymand.png"> Featured</span>
+                        <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
                         <a href="#" class="like"><i class="lar la-heart"></i></a>
                     </div>
                     <div class="car-name">
@@ -770,7 +770,7 @@
                         </div>
                         <div class="car-dt">
                             <div class="icon">
-                                <img src="images/km.png" align="km">
+                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
                             </div>
                             <div class="detsl">
                                 16.5 kmpl
@@ -778,7 +778,7 @@
                         </div>
                         <div class="car-dt">
                             <div class="icon">
-                                <img src="images/petrol.png" align="petrol">
+                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
                             </div>
                             <div class="detsl">
                                 Petrol
@@ -786,7 +786,7 @@
                         </div>
                         <div class="car-dt">
                             <div class="icon">
-                                <img src="images/auto.png" align="auto">
+                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
                             </div>
                             <div class="detsl">
                                 Auto
@@ -856,7 +856,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-icon">
-                                                    <img src="images/quotes.svg">
+                                                    <img src="{{asset('web/assets/images/quotes.svg')}}">
                                                 </div>
                                                 <div class="testimonial_box-text">
                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
@@ -880,7 +880,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-icon">
-                                                    <img src="images/quotes.svg">
+                                                    <img src="{{asset('web/assets/images/quotes.svg')}}">
                                                 </div>
                                                 <div class="testimonial_box-text">
                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
@@ -904,7 +904,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-icon">
-                                                    <img src="images/quotes.svg">
+                                                    <img src="{{asset('web/assets/images/quotes.svg')}}">
                                                 </div>
                                                 <div class="testimonial_box-text">
                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
@@ -928,7 +928,7 @@
                                         <div class="testimonial_box-inner">
                                             <div class="testimonial_box-top">
                                                 <div class="testimonial_box-icon">
-                                                    <img src="images/quotes.svg">
+                                                    <img src="{{asset('web/assets/images/quotes.svg')}}">
                                                 </div>
                                                 <div class="testimonial_box-text">
                                                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
@@ -1051,17 +1051,17 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="f-logo">
-                    <img src="images/logo.svg" alt="logo">
+                    <img src="{{asset('web/assets/images/logo.svg')}}" alt="logo">
                 </div>
             </div>
             <div class="col-md-10">
                 <div class="f-link">
                     <div class="link">
                         <p>Download Now</p>
-                        <img src="images/google-play.png" alt="google-play">
+                        <img src="{{asset('web/assets/images/google-play.png')}}" alt="google-play">
                     </div>
                     <div class="link">
-                        <img src="images/app-store.png" alt="app-store">
+                        <img src="{{asset('web/assets/images/app-store.png')}}" alt="app-store">
                     </div>
                     <div class="link">
                         <span>Inquiry: <a href="mailto:hello@zodha.com">hello@zodha.com</a></span>
@@ -1104,22 +1104,22 @@
                             <div class="swiper-container product-slider mb-3">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
-                                        <img src="images/car-view.jpg" alt="..."  class="img-fluid">
+                                        <img src="{{asset('web/assets/images/car-view.jpg')}}" alt="..."  class="img-fluid">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="images/car-view-1.jpg" alt="..." class="img-fluid">
+                                        <img src="{{asset('web/assets/images/car-view-1.jpg')}}" alt="..." class="img-fluid">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="images/car-view-2.jpg" alt="..."  class="img-fluid">
+                                        <img src="{{asset('web/assets/images/car-view-2.jpg')}}" alt="..."  class="img-fluid">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="images/car-view-3.jpg" alt="..."  class="img-fluid">
+                                        <img src="{{asset('web/assets/images/car-view-3.jpg')}}" alt="..."  class="img-fluid">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="images/car-view-4.jpg" alt="..."  class="img-fluid">
+                                        <img src="{{asset('web/assets/images/car-view-4.jpg')}}" alt="..."  class="img-fluid">
                                     </div>
                                     <div class="swiper-slide">
-                                        <img src="images/car-view-5.jpg" alt="..."  class="img-fluid">
+                                        <img src="{{asset('web/assets/images/car-view-5.jpg')}}" alt="..."  class="img-fluid">
                                     </div>
                                 </div>
                                 <div class="swiper-button-next"></div>
