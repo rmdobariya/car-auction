@@ -50,11 +50,10 @@
                                 <tr>
                                     <th class="fw-bold" scope="row">Description</th>
 
-                                    <td>{{ $vehicle->description }}</td>
+                                    <td>{!! $vehicle->description !!}</td>
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Status</th>
-
                                     <td>
                                         @if ((string)$vehicle->status === 'active')
                                             <div class="badge badge-light-success">Active</div>

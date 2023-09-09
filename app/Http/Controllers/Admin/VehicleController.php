@@ -176,11 +176,23 @@ class VehicleController extends Controller
 
     public function show($id)
     {
+//        $vehicle = DB::table('vehicles')
+//            ->leftJoin('users', 'vehicles.user_id', 'users.id')
+//            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+//            ->where('vehicles.id', $id)
+//            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name')
+//            ->first();
+
         $vehicle = DB::table('vehicles')
             ->leftJoin('users', 'vehicles.user_id', 'users.id')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
+            ->leftjoin('roles', 'model_has_roles.role_id', 'roles.id')
+            ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
-            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name')
+            ->orderBy('id', 'desc')
+            ->select('vehicles.*', 'users.name as user_name','vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.name as name')
             ->first();
         $vehicle_images = VehicleImage::where('vehicle_id', $id)->get();
         $vehicle_documents = VehicleDocument::where('vehicle_id', $id)->get();
