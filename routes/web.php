@@ -20,4 +20,5 @@ Route::post('resetPassword', [ResetPasswordController::class, 'resetPassword'])-
 //    return view('welcome');
 //});
 Route::get('/', [HomeController::class, 'index'])->name('/');
+Route::get('vehicle-details/{id}', [HomeController::class, 'vehicleDetail'])->name('vehicle-details');
 
