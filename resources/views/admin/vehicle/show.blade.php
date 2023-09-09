@@ -54,7 +54,6 @@
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Status</th>
-
                                     <td>
                                         @if ((string)$vehicle->status === 'active')
                                             <div class="badge badge-light-success">Active</div>
