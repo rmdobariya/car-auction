@@ -16,16 +16,33 @@
                                 <input type="hidden" id="edit_value" value="{{$user->id}}" name="edit_value">
 
                                 <input type="hidden" id="form-method" value="add">
-
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2">Roles</label>
-                                    <select class="form-select form-select-solid fw-bold" name="role_id" id="role_id">
-                                        <option value="">Select Option</option>
-                                        @foreach($roles as $role)
-                                            <option
-                                                value="{{$role->id}}" @if((int)$user->role_id === $role->id) selected @endif>{{$role->name}}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2">Roles</label>
+                                            <select class="form-select form-select-solid fw-bold" name="role_id"
+                                                    id="role_id">
+                                                <option value="">Select Option</option>
+                                                @foreach($roles as $role)
+                                                    <option
+                                                        value="{{$role->id}}"
+                                                        @if((int)$user->role_id === $role->id) selected @endif>{{$role->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="contact_no">
+                                                Contact No
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid integer"
+                                                   name="contact_no"
+                                                   id="contact_no"
+                                                   value="{{$user->contact_no}}"
+                                                   placeholder="Contact No"/>
+                                        </div>
+                                    </div>
                                 </div>
 
 

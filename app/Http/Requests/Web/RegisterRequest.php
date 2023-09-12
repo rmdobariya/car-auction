@@ -1,30 +1,27 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Web;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-
-class CustomerStoreRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
-            'edit_value' => 'required',
-            'role_id' => 'required',
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|max:255|unique:users,email,' . $this->edit_value,
-            'password' => 'required_if:edit_value,=,0',
-            'contact_no' => 'required|digits_between:1,10',
+            'name' => 'required',
+            'phone' => 'required|digits_between:1,10',
+            'email' => 'required|unique:users,email',
+            'user_type' => 'required',
+            'term' => 'required',
+            'password' => 'required|min:8',
         ];
     }
 

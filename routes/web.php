@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,8 @@ Route::post('resetPassword', [ResetPasswordController::class, 'resetPassword'])-
 //    return view('welcome');
 //});
 Route::get('/', [HomeController::class, 'index'])->name('/');
+Route::post('/login', [LoginController::class, 'loginCheck'])->name('/login');
+Route::post('/register', [LoginController::class, 'register'])->name('/register');
+Route::get('/logout', [LoginController::class, 'logout'])->name('/logout');
 Route::get('vehicle-details/{id}', [HomeController::class, 'vehicleDetail'])->name('vehicle-details');
 

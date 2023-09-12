@@ -47,6 +47,7 @@ class CustomerController extends Controller
             $user->is_sub_admin = 1;
             $user->name = $request->first_name;
             $user->last_name = $request->last_name;
+            $user->contact_no = $request->contact_no;
             $user->full_name = $request->first_name . ' ' . $request->last_name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
@@ -61,6 +62,7 @@ class CustomerController extends Controller
             $user->is_sub_admin = 1;
             $user->name = $request->first_name;
             $user->last_name = $request->last_name;
+            $user->contact_no = $request->contact_no;
             $user->full_name = $request->first_name . ' ' . $request->last_name;
             $user->email = $request->email;
             if (!empty($request->password)) {
