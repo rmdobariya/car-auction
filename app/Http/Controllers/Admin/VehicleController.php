@@ -192,7 +192,7 @@ class VehicleController extends Controller
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
             ->orderBy('id', 'desc')
-            ->select('vehicles.*', 'users.name as user_name','vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.name as name')
+            ->select('vehicles.*', 'users.name as user_name','vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.name as vehicle_name')
             ->first();
         $vehicle_images = VehicleImage::where('vehicle_id', $id)->get();
         $vehicle_documents = VehicleDocument::where('vehicle_id', $id)->get();

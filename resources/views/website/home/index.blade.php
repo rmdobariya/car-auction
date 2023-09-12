@@ -34,8 +34,8 @@
                 </div>
                 <div class="col-md-2 offset-6">
                     <div class="download-app text-center">
-                        <a href="#"><img src="{{asset('web/assets/images/app-store.png')}}"></a>
-                        <a href="#"><img src="{{asset('web/assets/images/google-play.png')}}"></a>
+                        <a href="#"><img src="web/assets/images/app-store.png"></a>
+                        <a href="#"><img src="web/assets/images/google-play.png"></a>
                         <p>Download Now</p>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="col-md-12">
                     <div class="filter">
                         <div class="logo-icon">
-                            <img src="{{asset('web/assets/images/icon.png')}}">
+                            <img src="web/assets/images/icon.png">
                         </div>
                         <div class="search-box">
                             <div class="input-group">
@@ -57,12 +57,22 @@
                             </button>
 
                         </div>
-                        <div class="login-btn">
-                            <button class="btn btn-login">Login</button>
-                        </div>
-                        <div class="reg-btn">
-                            <button class="btn btn-register">Registration</button>
-                        </div>
+                        @if(is_null(Auth::user()))
+                            <div class="login-btn">
+                                <button class="btn btn-login" data-bs-toggle="modal" data-bs-target="#login">Login
+                                </button>
+                            </div>
+                            <div class="reg-btn">
+                                <button class="btn btn-register" data-bs-toggle="modal" data-bs-target="#signup">
+                                    Registration
+                                </button>
+                            </div>
+                        @else
+                            <div class="login-btn">
+                                <a class="btn btn-login" href="{{route('/logout')}}" style="background: #673AAA 0% 0% no-repeat padding-box">Logout
+                                </a>
+                            </div>
+                        @endif
                         <div class="filter-pop">
                             <div class="f-head">
                                 <p>Filters</p>
@@ -222,9 +232,7 @@
                                 <img src="{{asset($vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
                                     <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like">
-                                    <i class="las la-heart"></i>
-                                </a>
+                                <a href="#" class="like"><i class="las la-heart"></i></a>
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -238,7 +246,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="web/assets/images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->kms_driven}}
@@ -246,7 +254,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="web/assets/images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->mileage}}
@@ -254,7 +262,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="web/assets/images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->fuel_type}}
@@ -262,7 +270,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="web/assets/images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->body_type}}
@@ -297,9 +305,7 @@
                                 <img src="{{asset($vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
                                     <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like">
-                                    <i class="las la-heart"></i>
-                                </a>
+                                <a href="#" class="like"><i class="las la-heart"></i></a>
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -313,7 +319,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="web/assets/images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->kms_driven}}
@@ -321,7 +327,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="web/assets/images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->mileage}}
@@ -329,7 +335,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="web/assets/images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->fuel_type}}
@@ -337,7 +343,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="web/assets/images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->body_type}}
@@ -372,9 +378,7 @@
                                 <img src="{{asset($vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
                                     <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like">
-                                    <i class="las la-heart"></i>
-                                </a>
+                                <a href="#" class="like"><i class="las la-heart"></i></a>
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -388,7 +392,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="web/assets/images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->kms_driven}}
@@ -396,7 +400,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="web/assets/images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->mileage}}
@@ -404,7 +408,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="web/assets/images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->fuel_type}}
@@ -412,7 +416,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="web/assets/images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->body_type}}
@@ -485,7 +489,7 @@
                                             <div class="testimonial_box-inner">
                                                 <div class="testimonial_box-top">
                                                     <div class="testimonial_box-icon">
-                                                        <img src="{{asset('web/assets/images/quotes.svg')}}">
+                                                        <img src="web/assets/images/quotes.svg">
                                                     </div>
                                                     <div class="testimonial_box-text">
                                                         <p>Lorem Ipsum is simply dummy text of the printing and
@@ -511,7 +515,7 @@
                                             <div class="testimonial_box-inner">
                                                 <div class="testimonial_box-top">
                                                     <div class="testimonial_box-icon">
-                                                        <img src="{{asset('web/assets/images/quotes.svg')}}">
+                                                        <img src="web/assets/images/quotes.svg">
                                                     </div>
                                                     <div class="testimonial_box-text">
                                                         <p>Lorem Ipsum is simply dummy text of the printing and
@@ -537,7 +541,7 @@
                                             <div class="testimonial_box-inner">
                                                 <div class="testimonial_box-top">
                                                     <div class="testimonial_box-icon">
-                                                        <img src="{{asset('web/assets/images/quotes.svg')}}">
+                                                        <img src="web/assets/images/quotes.svg">
                                                     </div>
                                                     <div class="testimonial_box-text">
                                                         <p>Lorem Ipsum is simply dummy text of the printing and
@@ -563,7 +567,7 @@
                                             <div class="testimonial_box-inner">
                                                 <div class="testimonial_box-top">
                                                     <div class="testimonial_box-icon">
-                                                        <img src="{{asset('web/assets/images/quotes.svg')}}">
+                                                        <img src="web/assets/images/quotes.svg">
                                                     </div>
                                                     <div class="testimonial_box-text">
                                                         <p>Lorem Ipsum is simply dummy text of the printing and
@@ -689,6 +693,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -708,10 +713,10 @@
                     $('#vehicle_detail_body').html(response.data.data)
 
                     $('#carderails').modal('show')
-                    var mySwiper = new Swiper ('.swiper-container', {
+                    var mySwiper = new Swiper('.swiper-container', {
                         speed: 400,
                         loop: true,
-                        slidesPerView:1,
+                        slidesPerView: 1,
                         calculateHeight: true,
                         spaceBetween: 50,
                         watchActiveIndex: true,
