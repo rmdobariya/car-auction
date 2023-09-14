@@ -1,0 +1,8 @@
+#contact_us {
+    /* background-image: url(../images/hero-banner.jpg); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    padding-top: 70px;
+    padding-bottom: 80px;
+}

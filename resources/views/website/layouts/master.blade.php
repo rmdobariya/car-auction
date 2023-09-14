@@ -86,10 +86,10 @@
                     <b>OR</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="#">Sign in with <span><i class="lab la-facebook-f"></i></span></a>
+                            <a href="{{route('socialLogin',['facebook'])}}">Sign in with <span><i class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="#">Sign in with <span><img src="web/assets/images/google.png" alt="google"></span></a>
+                            <a href="{{route('socialLogin',['google'])}}">Sign in with <span><img src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
                 </div>
@@ -147,10 +147,10 @@
                     <b>OR</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="javascript:void(0)">Sign in with <span><i class="lab la-facebook-f"></i></span></a>
+                            <a href="{{route('socialLogin',['facebook'])}}">Sign in with <span><i class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="#">Sign in with <span><img src="web/assets/images/google.png" alt="google"></span></a>
+                            <a href="{{route('socialLogin',['google'])}}">Sign in with <span><img src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
                 </div>
