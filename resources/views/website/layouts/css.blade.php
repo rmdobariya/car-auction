@@ -7,4 +7,5 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css'>
 <link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/bootstrap.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/custom.css')}}?v={{time()}}">
 <script src="https://unpkg.com/feather-icons"></script>
