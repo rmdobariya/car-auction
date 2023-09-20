@@ -18,7 +18,7 @@ class LoginController extends Controller
     public function loginCheck(LoginRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $user = User::where('email', $request->email)->where('user_type', 'user')
+        $user = User::where('email', $request->email)->whereIn('user_type', ['user','buyer'])
             ->first();
         if (empty($user)) {
             return response()->json([

@@ -15,7 +15,7 @@ $vehicleAddForm.on('submit', function (e) {
             loaderHide();
 
             setTimeout(function () {
-                window.location.href = APP_URL + '/user-profile';
+                window.location.href = APP_URL + '/';
             }, 1000);
             notificationToast(response.data.message, 'success');
         })
