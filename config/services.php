@@ -32,8 +32,8 @@ return [
     ],
 
     'facebook' => [
-    'client_id' => '264737989800475', //Facebook API
-    'client_secret' => 'fed25e72d585571e9389533e42fe5f12', //Facebook Secret
+    'client_id' => '1416154012575565', //Facebook API
+    'client_secret' => '5cf82c96715bdaed0b2846911ffe5619', //Facebook Secret
     'redirect' => 'http://127.0.0.1:8000/facebookCallback',
     ],
     'google' => [
