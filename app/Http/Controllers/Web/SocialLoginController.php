@@ -62,7 +62,7 @@ class SocialLoginController extends Controller
 
     public function facebookCallback(Request $request): \Illuminate\Http\RedirectResponse
     {
-        dd(123);
+//        dd(123);
         $userSocial = Socialite::driver('facebook')->stateless()->user();
         if (\Auth::check()) {
             $userLogin = \Auth::user();
