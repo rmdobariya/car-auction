@@ -34,12 +34,14 @@ return [
     'facebook' => [
     'client_id' => '1416154012575565', //Facebook API
     'client_secret' => '5cf82c96715bdaed0b2846911ffe5619', //Facebook Secret
-    'redirect' => 'http://127.0.0.1:8000/facebookCallback',
+    'redirect' => 'https://car-auction.projectdemo.click/facebookCallback',
+//    'redirect' => 'http://127.0.0.1:8000/facebookCallback',
     ],
     'google' => [
         'client_id' => '152652525397-ino1ja962ppmr80o6t4g6099lulhdk79.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'http://127.0.0.1:8000/googleCallback',
+        'redirect' => 'https://car-auction.projectdemo.click/googleCallback',
+//        'redirect' => 'http://127.0.0.1:8000/googleCallback',
     ],
 
 ];
