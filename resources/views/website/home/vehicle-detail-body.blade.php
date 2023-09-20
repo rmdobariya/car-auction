@@ -136,7 +136,9 @@
         </div>
         <div class="int-box">
             <p><i class="las la-user"></i> 42 people are interested</p>
-            <a href="#" class="place-bid-blue">Place Bid</a>
+
+            <a href="#" class="place-bid-blue @if($vehicle->auction_start_date < date('Y-m-d')) disabled-link @endif" data-id="{{$vehicle->id}}">Place Bid</a>
+
             <div class="current-high">
                 <p>Current Highest Bid</p>
                 <p><span>SAR 78,000</span></p>
@@ -148,14 +150,14 @@
                 <span><i class="las la-calendar"></i></span>
                 <div class="dates">
                     <p>Created on</p>
-                    <b>15/07/2023</b>
+                    <b>{{$vehicle->auction_start_date}}</b>
                 </div>
             </div>
             <div class="createdon">
                 <span><i class="las la-calendar"></i></span>
                 <div class="dates">
                     <p>Ends on</p>
-                    <b>15/08/2023</b>
+                    <b>{{$vehicle->auction_end_date}}</b>
                 </div>
             </div>
             <div class="time-temain">
@@ -171,3 +173,30 @@
     </div>
 </div>
 <script src="{{asset('web/assets/js/countdown.js')}}"></script>
+<script>
+    var start_date = '{{$vehicle->auction_start_date}}';
+    console.log(start_date)
+    $("#getting-started")
+        .countdown(start_date, function(event) {
+            $(this).html(
+                event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+            );
+        });
+    $('.place-bid-blue').on('click', function () {
+        const value_id = $(this).data('id')
+        loaderView()
+        axios
+            .get(APP_URL + '/vehicle-bid-modal' + '/' + value_id)
+            .then(function (response) {
+                $('#vehicle_bid_label').html(response.data.modal_title)
+                $('#vehicle_bid_body').html(response.data.data)
+
+                $('#vehicle_bid_modal').modal('show')
+                loaderHide()
+            })
+            .catch(function (error) {
+                loaderHide()
+            })
+
+    })
+</script>

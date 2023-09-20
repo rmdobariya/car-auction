@@ -228,6 +228,76 @@
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                Auction Start Date
+                                            </label>
+                                            <input type="date" class="form-control form-control-solid"
+                                                   name="auction_start_date"
+                                                   id="auction_start_date"
+                                                   value="{{$vehicle->auction_start_date}}"
+                                                   placeholder="Auction Start Date"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_time">
+                                                Auction Start Time
+                                            </label>
+                                            <input type="time" class="form-control form-control-solid"
+                                                   name="auction_start_time"
+                                                   id="auction_start_time"
+                                                   value="{{$vehicle->auction_start_time}}"
+                                                   placeholder="Auction Start Time"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_date">
+                                                Auction End Date
+                                            </label>
+                                            <input type="date" class="form-control form-control-solid"
+                                                   name="auction_end_date"
+                                                   id="auction_end_date"
+                                                   value="{{$vehicle->auction_end_date}}"
+                                                   placeholder="Auction End Date"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
+                                                Auction End Time
+                                            </label>
+                                            <input type="time" class="form-control form-control-solid"
+                                                   name="auction_end_time"
+                                                   id="auction_end_time"
+                                                   value="{{$vehicle->auction_end_time}}"
+                                                   placeholder="Auction End Time"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">
+                                                Minimum Bid Increment Price
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid integer"
+                                                   name="minimumBidIncrement"
+                                                   id="minimumBidIncrement"
+                                                   value="{{$vehicle->minimumBidIncrement}}"
+                                                   placeholder="Minimum Bid Increment Price"/>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2" for="short_description">
                                         Short Description

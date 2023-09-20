@@ -1,8 +1,8 @@
 *{
-    font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 .main-nav{
-    background-color: #149B9E33;
+	background-color: #149B9E33;
 }
 #hero {
     background-image: url(../images/hero-banner.jpg);
@@ -22,17 +22,17 @@
     position: relative;
 }
 .steps-box h4{
-    color: #fff;
-    font: normal normal bold 20px/42px Roboto;
-    margin: 0;
+	color: #fff;
+	font: normal normal bold 20px/42px Roboto;
+	margin: 0;
 }
 .steps-box p{
-    color: #fff;
-    font: normal normal normal 14px/17px Roboto;
-    margin: 0;
+	color: #fff;
+	font: normal normal normal 14px/17px Roboto;
+	margin: 0;
 }
 .steps-box span{
-    position: absolute;
+	position: absolute;
 }
 .steps-box span {
     position: absolute;
@@ -71,7 +71,7 @@
     letter-spacing: 0.5px;
 }
 .navbar-light .navbar-nav .nav-link span {
-    color: #C2C2C2;
+	color: #C2C2C2;
 }
 .navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
     color: #fff;
@@ -112,10 +112,10 @@
     width: 60%;
 }
 .search-box input.form-control{
-    color: #C2C2C2;
-    background: transparent;
-    box-shadow: none!important;
-    border-color: #414042;
+	color: #C2C2C2;
+	background: transparent;
+	box-shadow: none!important;
+	border-color: #414042;
     font-size: 14px;
     border-right: 0;
 }
@@ -130,7 +130,7 @@
     color: #fff;
 }
 .filter button{
-    box-shadow: none!important;
+	box-shadow: none!important;
 }
 .filter-btn .btn-filter {
     background: #414042;
@@ -158,28 +158,28 @@
     padding: 6px 24px;
 }
 .login-btn button:hover {
-    background: #673AAA;
-    color: #fff;
+	background: #673AAA;
+	color: #fff;
 }
 .reg-btn button {
-    font-weight: 500;
-    padding: 6px 24px;
+	font-weight: 500;
+    padding: 6px 24px;	
     background: #673AAA;
     color: #fff;
 }
 .reg-btn button:hover {
-    background: #fff;
-    color: #673AAA;
+	background: #fff;
+	color: #673AAA;
 }
 .search-box input::placeholder {
-    color: #C2C2C2;
-    opacity: 1;
+  color: #C2C2C2;
+  opacity: 1;
 }
 .search-box input:-ms-input-placeholder {
-    color: #C2C2C2;
+  color: #C2C2C2;
 }
 .search-box input::-ms-input-placeholder {
-    color: #C2C2C2;
+  color: #C2C2C2;
 }
 .filter-pop {
     background: #414042;
@@ -193,6 +193,7 @@
 }
 .filter.show-opt .filter-pop {
     visibility: visible;
+    z-index: 99;
 }
 .f-head {
     padding: 20px;
@@ -245,7 +246,7 @@
     transform: translate(-50%, -50%);
 }
 .checkbox-group label{
-    margin-bottom: 0;
+	margin-bottom: 0;
 }
 .checkbox-group input {
     height: 18px;
@@ -255,8 +256,8 @@
     border-color: #c2c2c2;
 }
 .checkbox-group input:checked {
-    border-color: #60D6D6;
-    background: transparent;
+	border-color: #60D6D6;
+	background: transparent;
 }
 .form-check-input:checked[type=checkbox] {
     background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%2360D6D6' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e")
@@ -288,7 +289,7 @@
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C2C2C2' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
 }
 .f-body .col-md-3{
-    margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 .price-range-slider {
     width: 100%;
@@ -306,11 +307,12 @@
     box-shadow: none;
     border: none;
     width: 150px;
-    text-align: right;
-    border: none;
-    outline: none;
-    box-shadow: none;
+	text-align: right;
+	border: none;
+	outline: none;
+	box-shadow: none;
     font-weight: 600;
+    max-width: 100%;
 }
 .price-range-slider .range-bar {
     border: none;
@@ -354,7 +356,7 @@ span.hr {
     position: relative;
 }
 .checkbox-group.color-check:after{
-    display: none;
+	display: none;
 }
 section#vehicles {
     background: #F7F7F7;
@@ -367,9 +369,9 @@ section#vehicles .heading {
     justify-content: space-between;
 }
 section#vehicles .heading h1{
-    font: normal normal bold 32px/42px Roboto;
-    color: #2C2C2C;
-    margin: 0;
+	font: normal normal bold 32px/42px Roboto;
+	color: #2C2C2C;
+	margin: 0;
 }
 section#vehicles .heading a {
     color: #585858;
@@ -391,7 +393,7 @@ section#vehicles .heading a {
     width: 22%;
 }
 .car-img img{
-    width: 100%;
+	width: 100%;
     border-radius: 6px
 }
 .details-box {
@@ -457,7 +459,7 @@ section#vehicles .heading a {
     padding: 9px 6px;
 }
 .car-price {
-    width: 29%;
+    width: 29%;	
     padding: 6px 10px 6px 20px;
 }
 span.cat-tags {
@@ -576,7 +578,7 @@ section#howworks {
 .work-box {
     background: transparent linear-gradient(90deg, #149B9E 0%, #673AAA 100%) 0% 0% no-repeat padding-box;
     border-radius: 16px;
-    padding: 60px 70px 30px 80px;
+    padding: 60px 70px 30px 70px;
     text-align: center;
     margin: 10px 20px;
     position: relative;
@@ -956,7 +958,7 @@ footer hr {
 .car-dtlist .dtl-box .value p {
     color: #2C2C2C;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 500;    
 }
 .bid-model {
     background: rgb(96 214 214 / 94%);
@@ -1102,7 +1104,7 @@ div#getting-started6{
     align-items: center;
     justify-content: space-around;
     gap: 10px;
-    padding-left: 32px;
+    padding-left: 32px;    
 }
 
 .time-temain>span {
@@ -1491,8 +1493,12 @@ li.nav-item.language .form-switch label:nth-of-type(2) {
     border: none;
     box-shadow: none;
 }
+li.nav-item.language .form-check.form-switch.chked label.form-check-label {
+    color: white;
+}
 .form-check.form-switch {
     position: relative;
+    width: 80px;
 }
 .form-check.form-switch.chked:after {
     background: #673aaa;
@@ -1858,14 +1864,14 @@ div#feedback .modal-header {
     padding-top: 60px;
     padding-bottom: 20px;
 }
-.profile-box .head,
+.profile-box .head, 
 .notification-setting .head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
-.profile-box .head .place-bid-blue,
+.profile-box .head .place-bid-blue, 
 .notification-setting .head .place-bid-blue{
     padding: 10px 40px;
 }
@@ -1992,6 +1998,7 @@ section#vehicles .heading a.create-auction{
     align-items: center;
     justify-content: space-between;
     padding: 30px;
+    gap: 10px;
 }
 .auctions-filter select.form-select {
     width: auto;
@@ -2171,7 +2178,7 @@ section#vehicles .heading.auction-detailss{
     width: 42%;
 }
 .auction-detailss .add-car .edate{
-    width: 42%;
+    width: 42%;    
 }
 .auction-detailss .add-car .action-btn {
     width: 152px;
@@ -2355,4 +2362,927 @@ section#vehicles .heading.auction-detailss form h1 {
 .auction-details-modl .modal-footer {
     background: #fff;
     border-top: 1px solid #F3F3F3;
+}
+#ask-question .modal-header p {
+    font: normal normal normal 16px/18px Roboto;
+    color: #585858;
+    margin-bottom: 0;
+}
+#ask-question textarea{
+    resize: none;
+}
+.navbar-light .navbar-toggler {
+    color: #fff;
+    border-color: #673aaa;
+    background: #673aaa;
+}
+.navbar-light .navbar-toggler-icon{
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.80%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+.lists table {
+    min-width: 900px;
+}
+
+.lists {
+    width: 100%;
+    overflow: auto;
+}
+.win-car-details {
+    display: flex;
+    align-items: flex-start;
+}
+.action-btn {
+    display: flex;
+    gap: 10px;
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .noti-details {
+        width: 100%;
+        margin-left: 0px;
+        top: 0;
+        transform: unset;
+    }
+    .noti-img {
+        display: inline-block;
+        position: unset; 
+        width: 100%;
+        text-align: center;
+    }
+    .notification-box {
+        height: auto;
+    }
+    .noti-heading {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    a.close-filter {
+        position: absolute;
+        background: #673aaa;
+        right: 0px;
+        top: -30px;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px 6px 0 0;
+        font-size: 22px;
+        text-align: center;
+        line-height: 32px;
+        color: #fff;
+        display: block;
+    }
+    .checkbox-group {
+        padding: 10px 10px;
+    }
+    .logo-icon {
+        padding: 6px;
+    }
+    .filter {
+        padding: 10px;
+        gap: 10px;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .filter .search-box, .filter .filter-btn, .filter .filter-btn button, .filter .login-btn, .filter .login-btn button, .filter .reg-btn, .filter .reg-btn button{
+        width: 100%;
+    }
+    .filter-btn .btn-filter {
+        justify-content: space-between;
+    }
+    .heading h1 {
+        font: normal normal bold 44px/52px Roboto;
+    }
+    .heading p {
+        font-size: 18px;
+        line-height: 26px;
+    }
+    .details-box {
+        height: auto;
+        padding-bottom: 10px;
+    }
+    .car-img {
+        width: 40%;
+        height: 70px;
+        margin-bottom: 20px;
+    }
+    .car-name {
+        width: 60%;
+        height: 70px;
+    }
+    .car-specifation {
+        width: 100%;
+        gap: 6px;
+        padding: 0 6px;
+    }
+    .car-price {
+        width: 100%;
+        padding: 6px;
+    }
+    section#vehicles .heading h1 {
+        font: normal normal bold 24px/42px Roboto;
+    }
+    section#vehicles .heading a {
+        padding: 10px 20px;
+        display: block;
+        margin-left: 0!important;
+        text-align: center;
+    }
+    .car-name .names h3 {
+        font: normal normal bold 18px/22px Roboto;
+    }
+    .car-name .names {
+        padding: 10px;
+    }
+    .car-name .names h3 {
+        font: normal normal bold 16px/22px Roboto;
+        margin-bottom: 4px;
+    }
+    .car-name .names p {
+        font: normal normal bold 12px/16px Roboto;
+    }
+    span.cat-tags img {
+        width: 14px;
+        margin-right: 4px;
+    }
+    span.cat-tags {
+        font-size: 10px;
+    }
+    a.like i.las.la-heart, a.like i.lar.la-heart {
+        font-size: 18px;
+    }
+    .initial-price-box p, .my-bid-box p, .current-highest-bid-box p {
+        font-size: 14px;
+    }
+    .initial-price-box h3, .my-bid-box h3, .current-highest-bid-box h3 {
+        font: normal normal bold 16px/18px Roboto;
+    }
+    .work-box {
+        padding: 60px 20px 30px 20px;
+    }
+    .title h1 {
+        font: normal normal bold 24px/28px Roboto;
+    }
+    #news .testimonial_box-text a {
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
+    }
+    .f-link {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: unset;
+        flex-direction: column;
+    }
+    .link p {
+        position: unset;
+        text-align: center;
+        margin-top: 40px;
+    }
+    .f-link .link:nth-of-type(3), .f-link .link:nth-of-type(4), .f-link .link:nth-of-type(5) {
+        width: 100%;
+    }
+    .copyright {
+        display: flex;
+        flex-direction: column-reverse;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+    }
+    .copy{
+        text-align: center;
+        margin-top: 20px;
+    }
+    .pagelink a {
+        margin: 6px 0px;
+        display: block;
+    }
+    footer {
+        padding: 20px 0;
+    }
+    .main-nav {
+        background: transparent linear-gradient(90deg, rgb(20 155 158 / 100%) 0%, rgb(103 58 170 / 100%) 100%) 0% 0% no-repeat padding-box;
+    }
+    .social-login {
+        flex-direction: column;
+    }
+    .select-opt {
+        width: 80%;
+        padding: 12px 10px;
+    }
+    .car-details {
+        flex-direction: column;
+    }
+    .car-images {
+        width: 100%;
+    }
+    .car-dtlist {
+        width: 100%;
+        margin: 0px 0% 30px 0%;
+    }
+    .car-opt {
+        width: 100%;
+    }
+    .auto-inc {
+        margin-bottom: 20px;
+    }
+    .auto-inc .form-check {
+        margin-bottom: 14px;
+    }
+    .bid-amoun input.form-control {
+        margin-bottom: 20px;
+    }
+    .createdon {
+        padding: 8px;
+        padding-left: 30px;
+    }
+    .createdon span {
+        left: -20px;
+        padding: 6px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        line-height: 30px;
+    }
+    .dates p {
+        font: normal normal normal 14px/20px Roboto;
+    }
+    .dates b {
+        font: normal normal bold 14px/12px Roboto;
+    }
+    div#getting-started span,
+    div#getting-started1 span,
+    div#getting-started2 span,
+    div#getting-started3 span,
+    div#getting-started4 span,
+    div#getting-started5 span,
+    div#getting-started6 span {
+        font-size: 10px;
+        padding: 8px 12px;
+    }
+    div#getting-started span strong,
+    div#getting-started1 span strong,
+    div#getting-started2 span strong,
+    div#getting-started3 span strong,
+    div#getting-started4 span strong,
+    div#getting-started5 span strong,
+    div#getting-started6 span strong {
+        font-size: 20px;
+    }
+    .time-temain>span {
+        height: 50px;
+        width: 50px;
+        font-size: 30px;
+        line-height: 50px;
+        margin-top: 4px;
+    }
+    .car-rating {
+        margin-bottom: 30px;
+    }
+    .upload-filess p {
+        line-height: 40px!important;
+    }
+    section#vehicles .heading.auction-detailss form a.place-bid-blue {
+        padding: 12px 30px;
+    }
+    .filter-pop {
+        top: 0;
+    }
+    .car-rating p{
+        line-height: 32px!important;
+    }
+    .rating_container .rating {
+        width: 40px;
+    }
+    .add-auction .auctions-filter div.sdate,
+    .add-auction .auctions-filter select.form-select {
+        width: 49%;
+    }
+    .auction-detailss .add-car {
+        flex-direction: column;
+    }
+    .auction-detailss .add-car .sdate,
+    .auction-detailss .add-car .edate {
+        width: 100%;
+    }
+    .win-car-details .car-images, .win-car-details .car-opt {
+        width: 100%;
+    }
+    .win-car-details {
+        flex-direction: column;
+    }
+    .bid-details-box .car-img {
+        width: 50%;
+        transform: unset;
+        top: 0;
+        height: 180px;
+    }
+    .bid-details-box .car-name {
+        width: 50%;
+        padding-left: 10px;
+        height: 180px;
+    }
+    .bid-details-box {
+        height: auto;
+    }
+    .bid-details-box .car-time-specification {
+        width: 90%;
+        display: inline-block;
+        margin: 0 5%;
+    }
+    .bid-details-box .car-price {
+        width: 100%;
+    }
+    .bid-details-box .car-img img {
+        height: 80%;
+    }
+    .auctions-filter {
+        flex-direction: column;
+    }
+    .auctions-filter select.form-select, .auctions-filter div.sdate, .auctions-filter div.edate, .auctions-filter div.apply-filter {
+        width: 90%;
+    }
+    .profile-pic {
+        width: 100%;
+    }
+    .profile-field {
+        width: calc(100% - 0px);
+        float: left;
+    }
+    .u-pro {
+        text-align: left;
+        margin-top: 20px;
+    }
+    .name input.form-control:nth-of-type(1) {
+        margin-right: 0%;
+        margin-bottom: 30px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .profile-pic {
+        width: 100%;
+    }
+    .profile-field {
+        width: calc(100% - 0px);
+        float: left;
+    }
+    .u-pro {
+        text-align: left;
+        margin-top: 20px;
+    }
+    .name input.form-control:nth-of-type(1) {
+        margin-right: 0%;
+        margin-bottom: 30px;
+    }
+    .auctions-filter {
+        flex-direction: column;
+    }
+    .auctions-filter select.form-select, .auctions-filter div.sdate, .auctions-filter div.edate, .auctions-filter div.apply-filter {
+        width: 90%;
+    }
+    .noti-details {
+        width: 100%;
+        margin-left: 0px;
+        top: 0;
+        transform: unset;
+    }
+    .noti-img {
+        display: inline-block;
+        position: unset; 
+        width: 100%;
+        text-align: center;
+    }
+    .notification-box {
+        height: auto;
+    }
+    .noti-heading {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .bid-details-box {
+        height: auto;
+    }
+    .auction-detailss .add-car .sdate, .auction-detailss .add-car .edate {
+        width: 32%;
+    }
+    .car-details {
+        flex-direction: column;
+    }
+    .car-images {
+        width: 100%;
+    }
+    .car-dtlist {
+        width: 100%;
+        margin: 0px 0% 30px 0%;
+    }
+    .car-opt {
+        width: 100%;
+    }
+    .auto-inc {
+        margin-bottom: 20px;
+    }
+    .auto-inc .form-check {
+        margin-bottom: 14px;
+    }
+    .bid-amoun input.form-control {
+        margin-bottom: 20px;
+    }
+    .createdon {
+        padding: 8px;
+        padding-left: 30px;
+    }
+    .createdon span {
+        left: -20px;
+        padding: 6px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+        line-height: 30px;
+    }
+    .dates p {
+        font: normal normal normal 14px/20px Roboto;
+    }
+    .dates b {
+        font: normal normal bold 14px/12px Roboto;
+    }
+    div#getting-started span,
+    div#getting-started1 span,
+    div#getting-started2 span,
+    div#getting-started3 span,
+    div#getting-started4 span,
+    div#getting-started5 span,
+    div#getting-started6 span {
+        font-size: 10px;
+        padding: 8px 12px;
+    }
+    div#getting-started span strong,
+    div#getting-started1 span strong,
+    div#getting-started2 span strong,
+    div#getting-started3 span strong,
+    div#getting-started4 span strong,
+    div#getting-started5 span strong,
+    div#getting-started6 span strong {
+        font-size: 20px;
+    }
+    .time-temain>span {
+        height: 50px;
+        width: 50px;
+        font-size: 30px;
+        line-height: 50px;
+        margin-top: 4px;
+    }
+    .title h1 {
+        font: normal normal bold 28px/34px Roboto;
+    }
+    .details-box {
+        height: auto;
+        padding-bottom: 10px;
+    }
+    .car-img {
+        width: 40%;
+        height: 120px;
+    }
+    .car-name {
+        width: 60%;
+        height: 120px;
+    }
+    .car-specifation {
+        width: 100%;
+    }
+    .car-price {
+        width: 100%;
+    }
+    a.close-filter {
+        position: absolute;
+        background: #673aaa;
+        right: 0px;
+        top: -30px;
+        width: 32px;
+        height: 32px;
+        border-radius: 6px 6px 0 0;
+        font-size: 22px;
+        text-align: center;
+        line-height: 32px;
+        color: #fff;
+        display: block;
+    }
+    .filter-pop {
+        background: #414042;
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, 0%);
+        border-radius: 6px;
+        width: 100%;
+    }
+    .checkbox-group {
+        padding: 10px 10px;
+    }
+    .logo-icon {
+        padding: 6px;
+    }
+    .filter {
+        display: flex;
+        align-items: center;
+        background: #2C2C2C;
+        padding: 5px;
+        box-shadow: 0px 4px 24px #0000001A;
+        border-radius: 6px;
+        justify-content: space-between;
+        gap: 15px;
+        position: relative;
+    }
+    .filter {
+        padding: 10px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .heading h1 {
+        font: normal normal bold 48px/58px Roboto;
+    }
+    .car-rating {
+        margin-bottom: 30px;
+    }
+    .upload-filess p {
+        line-height: 40px!important;
+    }
+    .win-car-details .car-images, .win-car-details .car-opt {
+        width: 100%;
+    }
+    .win-car-details {
+        flex-direction: column;
+    }
+    .bid-details-box .car-img {
+        width: 50%;
+        transform: unset;
+        top: 0;
+        height: 180px;
+    }
+    .bid-details-box .car-name {
+        width: 50%;
+        padding-left: 10px;
+        height: 180px;
+    }
+    .bid-details-box {
+        height: auto;
+    }
+    .bid-details-box .car-time-specification {
+        width: 90%;
+        display: inline-block;
+        margin: 0 5%;
+    }
+    .bid-details-box .car-price {
+        width: 100%;
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+    .profile-field .form-control {
+        width: 100%;
+    }
+    .notification-box {
+        height: auto;
+    }
+    .noti-details {
+        top: 0;
+        transform: translateY(0%);
+    }
+    .noti-heading {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .auction-detailss .add-car .sdate, .auction-detailss .add-car .edate {
+        width: 40%;
+    }
+    .car-rating {
+        margin-bottom: 30px;
+    }
+    .rating_container .rating {
+        width: 30px;
+    }
+    .car-rating p {
+        padding: 3px 8px;
+    }
+    .details-box {
+        height: 150px;
+        padding-bottom: 0px;
+    }
+    .bid-details-box {
+        height: auto;
+    }
+    .car-img {
+        width: 25%;
+        height: auto;
+    }
+    .car-name {
+        width: 22%;
+        height: 150px;
+    }
+    .car-specifation {
+        width: 27%;
+    }
+    .car-price {
+        width: 26%;
+    }
+    .filter {
+        gap: 15px;
+        flex-wrap: nowrap;
+    }
+    .work-box {
+        padding: 60px 20px 30px 20px;
+        margin: 10px 0px;
+    }
+    .filter-pop {
+        background: #414042;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        right: unset;
+        transform: translate(-50%, -50%);
+        border-radius: 6px;
+        width: 90%;
+    }
+    .logo-icon {
+        padding: 20px 7px;
+    }
+    .heading h1 {
+        font: normal normal bold 58px/58px Roboto;
+    }
+    .car-img {
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+    }
+    .car-name .names h3 {
+        font: normal normal bold 18px/27px Roboto;
+    }
+    .car-name .names p {
+        font: normal normal bold 14px/19px Roboto;
+    }
+    .car-dt {
+        margin-right: 6px;
+    }
+    .initial-price-box p {
+        font-size: 13px;
+    }
+    .initial-price-box h3 {
+        font: normal normal bold 14px/17px Roboto;
+    }
+    .car-price a.place-bid-blue {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    .car-name .names {
+        padding: 10px;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .auctions-filter {
+        flex-direction: unset;
+    }
+    .auctions-filter select.form-select, .auctions-filter div.sdate, .auctions-filter div.edate, .auctions-filter div.apply-filter {
+        width: 24%;
+    }
+    .noti-details {
+        width: calc(100% - 260px);
+        margin-left: 0px;
+        top: 0;
+        transform: unset;
+    }
+    .noti-img {
+        display: inline-block;
+        position: unset; 
+        width: 260px;
+        text-align: center;
+    }
+    .notification-box {
+        height: auto;
+    }
+    .noti-heading {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .feedback a {
+        padding: 10px 20px;
+    }
+    .auction-detailss .add-car .sdate, .auction-detailss .add-car .edate {
+        width: 42%;
+    }
+    .rating_container .rating {
+        width: 40px;
+    }
+    .car-name .names {
+        padding: 10px 20px;
+    }
+    .car-price a.place-bid-blue {
+        padding: 10px;
+        font-size: 16px;
+    }
+    .initial-price-box p, .my-bid-box p, .current-highest-bid-box p {
+        font-size: 16px;
+    }
+    .initial-price-box h3, .my-bid-box h3, .current-highest-bid-box h3 {
+        font-size: 20px;
+    }
+    .car-dt {
+        margin-right: 0px;
+    }
+    .car-name .names h3 {
+        font: normal normal bold 22px/27px Roboto;
+    }
+    .car-name .names p {
+        font: normal normal bold 16px/19px Roboto;
+    }
+    .logo-icon {
+        padding: 15px;
+    }
+    .work-box {
+        padding: 60px 20px 30px 20px;
+        margin: 10px 20px;
+    }
+    .checkbox-group {
+        padding: 10px 30px;
+    }
+    .filter-pop {
+        background: #414042;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        border-radius: 6px;
+        visibility: hidden;
+        width: auto;
+        transform: unset;
+    }
+    .car-img {
+        top: 50%;
+        transform: translateY(-50%);
+        left: 10px;
+    }
+    .car-dt {
+        width: 50px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .profile-pic {
+        width: 230px;
+    }
+    .profile-field {
+        width: calc(100% - 230px);
+        float: left;
+    }
+    .u-pro {
+        text-align: right;
+        margin-top: 0px;
+    }
+    .profile-field .form-control {
+        width: 48%;
+    }
+    .name input.form-control:nth-of-type(1) {
+        margin-right: 2%;
+        margin-bottom: 0px;
+    }
+    .notification-box {
+        height: auto;
+    }
+    .noti-details {
+        top: 0%;
+        transform: translateY(0%);
+    }
+    .noti-heading {
+        display: flex;
+        align-items: center;
+        flex-direction: unset;
+    }
+    .bid-details-box .car-img {
+        width: 25%;
+        transform: translateY(-50%);
+        top: 50%;
+    }
+    .bid-details-box .car-name {
+        width: 22%;
+        height: 250px;
+        padding-left: 6px;
+    }
+    .bid-details-box {
+        height: 250px;
+    }
+    .bid-details-box .car-time-specification {
+        margin: 0;
+        width: 27%;
+        display: inline-block;
+        float: left;
+    }
+    .bid-details-box .car-price {
+        width: 26%;
+    }
+    .feedback a {
+        padding: 10px 30px;
+    }
+    .win-car-details {
+        flex-direction: unset;
+    }
+    .win-car-details .car-images{
+        width: 32%;
+    }
+    .win-car-details .car-opt {
+        width: 32%;
+    }
+    .createdon {
+        padding: 10px;
+        padding-left: 32px;
+    }
+    .createdon span {
+        left: -32px;
+        padding: 6px;
+        width: 50px;
+        height: 50px;
+        font-size: 28px;
+        line-height: 39px;
+    }
+    .dates p {
+        font: normal normal normal 16px/22px Roboto;
+    }
+    .dates b {
+        font: normal normal bold 16px/14px Roboto;
+    }
+    div#getting-started span,
+    div#getting-started1 span,
+    div#getting-started2 span,
+    div#getting-started3 span,
+    div#getting-started4 span,
+    div#getting-started5 span,
+    div#getting-started6 span {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+    div#getting-started span strong,
+    div#getting-started1 span strong,
+    div#getting-started2 span strong,
+    div#getting-started3 span strong,
+    div#getting-started4 span strong,
+    div#getting-started5 span strong,
+    div#getting-started6 span strong {
+        font-size: 24px;
+    }
+    .time-temain>span {
+        height: 64px;
+        width: 64px;
+        font-size: 34px;
+        line-height: 64px;
+        margin-top: 0px;
+    }
+    .work-box {
+        padding: 60px 20px 30px 20px;
+    }
+    .car-dt {
+        width: 78px;
+    }
+    .car-details {
+        flex-direction: unset;
+    }
+    .car-opt {
+        width: 33%;
+    }
+    .car-dtlist {
+        width: 30%;
+        margin: 0 2%;
+    }
+    .car-images {
+        width: 34%;
+    }
+    .rating_container .rating {
+        width: 50px;
+    }
+}
+@media only screen and (min-width: 1366px) {
+    .work-box {
+        padding: 60px 30px 30px 30px;
+    }
+    .rating_container .rating {
+        width: 50px;
+    }
+    .feedback a {
+        padding: 10px 40px;
+    }
+}
+@media only screen and (min-width: 1440px) {
+    .rating_container .rating {
+        width: 60px;
+    }
+    .work-box {
+        padding: 60px 60px 30px 60px;
+    }
+    .car-img {
+        left: 0px;
+    }
 }

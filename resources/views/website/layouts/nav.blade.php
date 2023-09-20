@@ -17,7 +17,7 @@
                     <a class="nav-link" href="#"><span>Email:</span> {{$email}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact Us</a>
+                    <a class="nav-link" href="{{route('contact-us')}}">Contact Us</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -39,7 +39,8 @@
                 <li class="nav-item language">
                     <div class="form-check form-switch chked">
                         <label class="form-check-label" for="flexSwitchCheckDefault">AR</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                               checked>
                         <label class="form-check-label" for="flexSwitchCheckDefault">EN</label>
                     </div>
                 </li>
@@ -57,7 +58,7 @@
                     <p>Featuring thousands of Used and Salvage Cars, Trucks & SUVs for Sale</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
                     <h4>Register</h4>
                     <p>Sign up for a Copart Middle East Standard or Premier Membership</p>
@@ -65,7 +66,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
                     <h4>Find</h4>
                     <p>Search our large inventory of used & damaged vehicles</p>
@@ -73,17 +74,17 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div class="col-md-4">
+            <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
                     <h4>Bid</h4>
                     <p>Bid in our online auctions across the Middle East</p>
                     <span>3</span>
                 </div>
             </div>
-            <div class="col-md-2 offset-6">
+            <div class="col-lg-2 col-md-3 offset-md-3 offset-lg-6">
                 <div class="download-app text-center">
-                    <a href="javascript:void(0)"><img src="{{asset('web/assets/images/app-store.png')}}"></a>
-                    <a href="javascript:void(0)"><img src="{{asset('web/assets/images/google-play.png')}}"></a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#commingsoon"><img src="{{asset('web/assets/images/app-store.png')}}"></a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#commingsoon"><img src="{{asset('web/assets/images/google-play.png')}}"></a>
                     <p>Download Now</p>
                 </div>
             </div>
@@ -121,12 +122,14 @@
                                 <p>Welcome <span>{{Auth::user()->full_name}}</span></p>
                             </div>
                             <div class="user-profile">
-                                <img src="{{asset('web/assets/images/profile-pic.jpg')}}" alt="profile">
+                                <a href="{{route('user-profile')}}"> <img
+                                        src="{{asset('web/assets/images/profile-pic.jpg')}}" alt="profile"></a>
                             </div>
                         </div>
 
                         <div class="login-btn">
-                            <a class="btn btn-login" href="{{route('/logout')}}" style="background: #673AAA 0% 0% no-repeat padding-box">Logout
+                            <a class="btn btn-login" href="{{route('/logout')}}"
+                               style="background: #673AAA 0% 0% no-repeat padding-box">Logout
                             </a>
                         </div>
                     @endif
@@ -139,7 +142,8 @@
                     <div class="filter-pop">
                         <div class="f-head">
                             <p>Filters</p>
-                            <a href="javascript:void(0)">Reset All</a>
+                            <a href="#">Reset All</a>
+                            <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
                         </div>
                         <div class="f-body">
                             <div class="row">
