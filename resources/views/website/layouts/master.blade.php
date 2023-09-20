@@ -62,6 +62,25 @@
     </div>
 </div>
 
+
+<div class="modal fade bid-model" id="vehicle_bid_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="vehicleBidLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="vehicle_bid_label">Bid Place Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="vehicle_bid_body">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Login Modal -->
 <div class="modal fade login-model" id="login" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel"
      aria-hidden="true">
@@ -157,6 +176,53 @@
             </div>
             <div class="modal-footer">
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ask a Question Modal -->
+<div class="modal fade login-model" id="ask-question" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="loginLabel">Ask a Question</h5>
+                <p>Please contact us for specific reasons</p>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <form action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" name="fname" class="form-control" placeholder="First Name *">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" name="lname" class="form-control" placeholder="Last Name *">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="email" name="email" class="form-control" placeholder="Email *">
+                            </div>
+                            <div class="col-md-12">
+                                <textarea name="questions" class="form-control" rows="4" placeholder="Comments and Questions *"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="place-bid-blue" name="submit" value="Submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade login-model" id="commingsoon" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="loginLabel">Coming Soon...</h5>
+                <p>We are launching soon. We are working hard. We are almost ready to launch. Something awesome is coming soon.</p>
             </div>
         </div>
     </div>

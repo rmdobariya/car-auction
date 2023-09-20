@@ -259,6 +259,11 @@ class VehicleController extends Controller
                 $vehicle->price = $request->price;
                 $vehicle->short_description = $request->short_description;
                 $vehicle->description = $request->description;
+                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
+                $vehicle->auction_start_date = $request->auction_start_date;
+                $vehicle->auction_end_date = $request->auction_end_date;
+                $vehicle->auction_start_time = $request->auction_start_time;
+                $vehicle->auction_end_time = $request->auction_end_time;
                 if ($request->hasfile('image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -304,6 +309,11 @@ class VehicleController extends Controller
                 $vehicle->price = $request->price;
                 $vehicle->short_description = $request->short_description;
                 $vehicle->description = $request->description;
+                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
+                $vehicle->auction_start_date = $request->auction_start_date;
+                $vehicle->auction_end_date = $request->auction_end_date;
+                $vehicle->auction_start_time = $request->auction_start_time;
+                $vehicle->auction_end_time = $request->auction_end_time;
                 if ($request->hasfile('image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('image'), 'vehicle');
                     $vehicle->main_image = $image;

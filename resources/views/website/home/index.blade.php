@@ -250,12 +250,9 @@
                                 </div>
                             </div>
                             <div class="car-specifation">
-                                <div class="drive">
-                                    <div class="icon"></div>
-                                </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="web/assets/images/road.png" align="road">
+                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->kms_driven}}
@@ -263,7 +260,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="web/assets/images/km.png" align="km">
+                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->mileage}}
@@ -271,7 +268,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="web/assets/images/petrol.png" align="petrol">
+                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->fuel_type}}
@@ -279,7 +276,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="web/assets/images/auto.png" align="auto">
+                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
                                     </div>
                                     <div class="detsl">
                                         {{$vehicle->body_type}}
@@ -287,7 +284,7 @@
                                 </div>
                             </div>
                             <div class="car-price">
-                                <span>Bid Start on <b>15th Sep 2023</b></span>
+                                <span>Bid Start on <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>

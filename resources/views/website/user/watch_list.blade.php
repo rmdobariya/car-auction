@@ -5,8 +5,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>My Auctions</h1>
-                        <a class="add_auction" data-id="@if(!is_null(Auth::user())){{Auth::user()->id}} @else 0 @endif" href="#">Add Auction</a>
+                        <h1>Watchlist</h1>
                         <a href="javascript:void(0)">View All</a>
                     </div>
                 </div>
@@ -14,8 +13,8 @@
                 <div class="col-md-12">
                     <div class="details-box bid-details-box">
                         <div class="car-img">
-                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                            <img src="images/car.jpg" align="car">
+                            <span class="cat-tags"><img src="images/dymand.png"> Featured</span>
                             <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
                         </div>
                         <div class="car-name">
@@ -36,7 +35,7 @@
                             <div class="car-specifation">
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         20,500 km
@@ -44,7 +43,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         16.5 kmpl
@@ -52,7 +51,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         Petrol
@@ -60,7 +59,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         Auto
@@ -74,21 +73,20 @@
                                 <h3>SAR 50,000</h3>
                             </div>
                             <div class="my-bid-box">
-                                <p>Total Bids</p>
-                                <h3>20</h3>
+                                <p>My Bid</p>
+                                <h3>SAR 55,000</h3>
                             </div>
                             <div class="current-highest-bid-box">
                                 <p>Current Highest Bid</p>
                                 <h3>SAR 78,000</h3>
                             </div>
-                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"
-                               data-bs-target="#carderails">View Auction</a>
+                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal" data-bs-target="#carderails">View Auction</a>
                         </div>
                     </div>
                     <div class="details-box bid-details-box">
                         <div class="car-img">
-                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                            <img src="images/car.jpg" align="car">
+                            <span class="cat-tags"><img src="images/dymand.png"> Featured</span>
                             <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
                         </div>
                         <div class="car-name">
@@ -109,7 +107,7 @@
                             <div class="car-specifation">
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         20,500 km
@@ -117,7 +115,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         16.5 kmpl
@@ -125,7 +123,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         Petrol
@@ -133,7 +131,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         Auto
@@ -147,21 +145,20 @@
                                 <h3>SAR 50,000</h3>
                             </div>
                             <div class="my-bid-box">
-                                <p>Total Bids</p>
-                                <h3>20</h3>
+                                <p>My Bid</p>
+                                <h3>SAR 55,000</h3>
                             </div>
                             <div class="current-highest-bid-box">
                                 <p>Current Highest Bid</p>
                                 <h3>SAR 78,000</h3>
                             </div>
-                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"
-                               data-bs-target="#carderails">View Auction</a>
+                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal" data-bs-target="#carderails">View Auction</a>
                         </div>
                     </div>
                     <div class="details-box bid-details-box">
                         <div class="car-img">
-                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                            <img src="images/car.jpg" align="car">
+                            <span class="cat-tags"><img src="images/dymand.png"> Featured</span>
                             <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
                         </div>
                         <div class="car-name">
@@ -182,7 +179,7 @@
                             <div class="car-specifation">
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         20,500 km
@@ -190,7 +187,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         16.5 kmpl
@@ -198,7 +195,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         Petrol
@@ -206,7 +203,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         Auto
@@ -220,21 +217,20 @@
                                 <h3>SAR 50,000</h3>
                             </div>
                             <div class="my-bid-box">
-                                <p>Total Bids</p>
-                                <h3>20</h3>
+                                <p>My Bid</p>
+                                <h3>SAR 55,000</h3>
                             </div>
                             <div class="current-highest-bid-box">
                                 <p>Current Highest Bid</p>
                                 <h3>SAR 78,000</h3>
                             </div>
-                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"
-                               data-bs-target="#carderails">View Auction</a>
+                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal" data-bs-target="#carderails">View Auction</a>
                         </div>
                     </div>
                     <div class="details-box bid-details-box">
                         <div class="car-img">
-                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                            <img src="images/car.jpg" align="car">
+                            <span class="cat-tags"><img src="images/dymand.png"> Featured</span>
                             <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
                         </div>
                         <div class="car-name">
@@ -255,7 +251,7 @@
                             <div class="car-specifation">
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         20,500 km
@@ -263,7 +259,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         16.5 kmpl
@@ -271,7 +267,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         Petrol
@@ -279,7 +275,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         Auto
@@ -292,22 +288,21 @@
                                 <p>Initial Price</p>
                                 <h3>SAR 50,000</h3>
                             </div>
-                            <div class="current-highest-bid-box">
-                                <p>Total Bids</p>
-                                <h3>20</h3>
-                            </div>
                             <div class="my-bid-box">
+                                <p>My Bid</p>
+                                <h3>SAR 55,000</h3>
+                            </div>
+                            <div class="current-highest-bid-box">
                                 <p>Winning Bid</p>
                                 <h3>SAR 78,000</h3>
                             </div>
-                            <a href="javascript:void(0)" class="place-bid-blue update-bid comtrans">Complete
-                                Transaction</a>
+                            <a href="javascript:void(0)" class="place-bid-blue update-bid">Auction Closed</a>
                         </div>
                     </div>
                     <div class="details-box bid-details-box">
                         <div class="car-img">
-                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                            <img src="images/car.jpg" align="car">
+                            <span class="cat-tags"><img src="images/dymand.png"> Featured</span>
                             <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
                         </div>
                         <div class="car-name">
@@ -328,7 +323,7 @@
                             <div class="car-specifation">
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        <img src="images/road.png" align="road">
                                     </div>
                                     <div class="detsl">
                                         20,500 km
@@ -336,7 +331,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        <img src="images/km.png" align="km">
                                     </div>
                                     <div class="detsl">
                                         16.5 kmpl
@@ -344,7 +339,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        <img src="images/petrol.png" align="petrol">
                                     </div>
                                     <div class="detsl">
                                         Petrol
@@ -352,7 +347,7 @@
                                 </div>
                                 <div class="car-dt">
                                     <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        <img src="images/auto.png" align="auto">
                                     </div>
                                     <div class="detsl">
                                         Auto
@@ -365,88 +360,15 @@
                                 <p>Initial Price</p>
                                 <h3>SAR 50,000</h3>
                             </div>
-                            <div class="current-highest-bid-box">
-                                <p>Total Bids</p>
-                                <h3>20</h3>
-                            </div>
                             <div class="my-bid-box">
+                                <p>My Bid</p>
+                                <h3>SAR 55,000</h3>
+                            </div>
+                            <div class="current-highest-bid-box">
                                 <p>Winning Bid</p>
                                 <h3>SAR 78,000</h3>
                             </div>
-                            <a href="javascript:void(0)" class="place-bid-blue update-bid comtrans">Complete
-                                Transaction</a>
-                        </div>
-                    </div>
-                    <div class="details-box bid-details-box">
-                        <div class="car-img">
-                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                            <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
-                        </div>
-                        <div class="car-name">
-                            <div class="names">
-                                <h3>2019 Infiniti QX80</h3>
-                                <p>Luxe Sensory 7ST</p>
-                                <div class="feedback">
-                                    <i class="las la-comments"></i>
-                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="car-time-specification">
-                            <div class="time-temain time-close">
-                                <span><i class="las la-clock"></i></span>
-                                <div id="getting-started6"></div>
-                            </div>
-                            <div class="car-specifation">
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
-                                    </div>
-                                    <div class="detsl">
-                                        20,500 km
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
-                                    </div>
-                                    <div class="detsl">
-                                        16.5 kmpl
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                    </div>
-                                    <div class="detsl">
-                                        Petrol
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                    </div>
-                                    <div class="detsl">
-                                        Auto
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="car-price my-bids-price time-close">
-                            <div class="initial-price-box">
-                                <p>Initial Price</p>
-                                <h3>SAR 50,000</h3>
-                            </div>
-                            <div class="current-highest-bid-box">
-                                <p>Total Bids</p>
-                                <h3>20</h3>
-                            </div>
-                            <div class="my-bid-box">
-                                <p>Winning Bid</p>
-                                <h3>SAR 78,000</h3>
-                            </div>
-                            <a href="javascript:void(0)" class="place-bid-blue update-bid">Transaction Complete</a>
+                            <a href="javascript:void(0)" class="place-bid-blue update-bid">Auction Closed</a>
                         </div>
                     </div>
                 </div>
@@ -454,17 +376,4 @@
         </div>
     </section>
     <div class="clearfix"></div>
-@endsection
-@section('custom-script')
-<script>
-    $('.add_auction').on('click',function (){
-        let id = $(this).data('id')
-        console.log(id)
-        if(id == 0){
-            notificationToast('Please First Login Or Sign Up', 'warning')
-        }else{
-            window.location.href=APP_URL + '/add-auction'
-        }
-    })
-</script>
 @endsection
