@@ -39,7 +39,7 @@ return [
     'google' => [
         'client_id' => '152652525397-ino1ja962ppmr80o6t4g6099lulhdk79.apps.googleusercontent.com',
         'client_secret' => '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',
-        'redirect' => 'https://car-auction.projectdemo.click/googleCallback',
+        'redirect' => 'http://127.0.0.1:8000/googleCallback',
     ],
 
 ];
