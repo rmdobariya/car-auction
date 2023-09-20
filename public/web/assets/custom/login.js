@@ -15,7 +15,7 @@ $loginForm.on('submit', function (e) {
             loaderHide();
 
             setTimeout(function () {
-                window.location.href = APP_URL + '/';
+                window.location.reload();
             }, 1000);
             notificationToast(response.data.message, 'success');
             $('#login').modal('hide');

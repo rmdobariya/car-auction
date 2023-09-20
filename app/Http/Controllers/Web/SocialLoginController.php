@@ -20,7 +20,6 @@ class SocialLoginController extends Controller
 
     public function googleCallback(Request $request)
     {
-
         $userSocial = Socialite::driver('google')->stateless()->user();
         $user = User::where('email', $userSocial->getEmail())->first();
         if (\Auth::check()) {
@@ -40,6 +39,7 @@ class SocialLoginController extends Controller
             $user->full_name = $userSocial->getName();
             $user->name = $first_name;
             $user->last_name = $last_name;
+            $user->user_type = 'buyer';
             $user->google_id = $userSocial->getId();
             $user->save();
         } else {
@@ -47,6 +47,7 @@ class SocialLoginController extends Controller
                 'full_name' => $userSocial->getName(),
                 'email' => $userSocial->getEmail(),
                 'name' => $first_name,
+                'user_type' => 'buyer',
                 'last_name' => $last_name,
                 'google_id' => $userSocial->getId(),
             ]);
@@ -61,8 +62,8 @@ class SocialLoginController extends Controller
 
     public function facebookCallback(Request $request): \Illuminate\Http\RedirectResponse
     {
+        dd(123);
         $userSocial = Socialite::driver('facebook')->stateless()->user();
-        dd($userSocial);
         if (\Auth::check()) {
             $userLogin = \Auth::user();
             $check = User::where('facebook_id', $userSocial->getId())
@@ -81,13 +82,16 @@ class SocialLoginController extends Controller
         if ($user) {
             $user->first_name = $first_name;
             $user->last_name = $last_name;
+            $user->user_type = 'buyer';
             $user->facebook_id = $userSocial->getId();
+
             $user->save();
         } else {
             $user = User::create([
                 'name' => $userSocial->getName(),
                 'first_name' => $first_name,
                 'last_name' => $last_name,
+                'user_type' => 'buyer',
                 'email' => $userSocial->getEmail(),
                 'facebook_id' => $userSocial->getId(),
             ]);
