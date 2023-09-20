@@ -22,7 +22,8 @@
                                         <input type="text" name="year" class="form-control" placeholder="Year *">
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="description" class="form-control" placeholder="Description *">
+                                        <input type="text" name="description" class="form-control"
+                                               placeholder="Description *">
                                     </div>
                                     <div class="col-md-4">
                                         <input type="text" name="milage" class="form-control" placeholder="Milage">
@@ -31,7 +32,8 @@
                                         <input type="text" name="bodType" class="form-control" placeholder="Body Type">
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="exterioColor" class="form-control" placeholder="Exterior Color">
+                                        <input type="text" name="exterioColor" class="form-control"
+                                               placeholder="Exterior Color">
                                     </div>
                                     <div class="col-md-4">
                                         <input type="text" name="carType" class="form-control" placeholder="Car Type">
@@ -45,7 +47,7 @@
                                                 <span class="rating">3</span>
                                                 <span class="rating">4</span>
                                                 <span class="rating">5</span>
-                                                <input value="0" type="number" name="ratingvalue" class="ratingvalue" />
+                                                <input value="0" type="number" name="ratingvalue" class="ratingvalue"/>
                                             </div>
 
                                         </div>
@@ -56,7 +58,8 @@
                                             <div class="upload-filess">
                                                 <p>Upload Photos *</p>
                                                 <span><i class="las la-plus"></i></span>
-                                                <input type="file" name="vehicleImage[]" id="file" multiple onchange="javascript:updateList()" />
+                                                <input type="file" name="vehicleImage[]" id="file" multiple
+                                                       onchange="javascript:updateList()"/>
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +72,8 @@
                                             <div class="upload-filess">
                                                 <p>Upload Document *</p>
                                                 <span><i class="las la-plus"></i></span>
-                                                <input type="file" name="vehicleDocument[]" id="file1" multiple onchange="javascript:updateList1()" />
+                                                <input type="file" name="vehicleDocument[]" id="file1" multiple
+                                                       onchange="javascript:updateList1()"/>
                                             </div>
                                         </div>
                                     </div>
@@ -77,28 +81,38 @@
                                 <h1>Car Auction Details</h1>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" name="initialPrice" class="form-control" placeholder="Initial Price *">
+                                        <input type="text" name="initialPrice" class="form-control"
+                                               placeholder="Initial Price *">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="minimumBidIncrement" class="form-control" placeholder="Minimum Bid Increment *">
+                                        <input type="text" name="minimumBidIncrement" class="form-control"
+                                               placeholder="Minimum Bid Increment *">
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label>Start Date</label>
                                     <div class="col-md-3">
-                                        <input type="date" name="auction_start_date" class="form-control" placeholder="Auction Start Date">
+                                        <label>Start Date</label>
+
+                                        <input type="date" name="auction_start_date" class="form-control"
+                                               placeholder="Auction Start Date">
                                     </div>
+                                    <div class="col-md-3">
                                     <label>Start Time</label>
-                                    <div class="col-md-3">
-                                        <input type="time" name="auction_start_time" class="form-control" placeholder="Auction Start Time">
+
+                                        <input type="time" name="auction_start_time" class="form-control"
+                                               placeholder="Auction Start Time">
                                     </div>
+                                    <div class="col-md-3">
                                     <label>End Date</label>
-                                    <div class="col-md-3">
-                                        <input type="date" name="auction_end_date" class="form-control" placeholder="Auction End Date">
+
+                                        <input type="date" name="auction_end_date" class="form-control"
+                                               placeholder="Auction End Date">
                                     </div>
-                                    <label>End Time</label>
                                     <div class="col-md-3">
-                                        <input type="time" name="auction_end_time" class="form-control" placeholder="Auction End Time">
+                                    <label>End Time</label>
+
+                                        <input type="time" name="auction_end_time" class="form-control"
+                                               placeholder="Auction End Time">
                                     </div>
                                 </div>
                                 <hr>
