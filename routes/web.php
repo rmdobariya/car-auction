@@ -41,6 +41,7 @@ Route::get('contact-us', [PageController::class,'contactUs'])->name('contact-us'
 Route::get('auction', [PageController::class,'auction'])->name('auction');
 Route::get('user-profile', [ProfileController::class,'index'])->name('user-profile');
 Route::post('update-profile', [ProfileController::class,'updateProfile'])->name('update-profile');
+Route::post('change-image', [ProfileController::class,'changeImage'])->name('change-image');
 Route::get('add-auction', [AuctionController::class,'index'])->name('add-auction');
 Route::get('add-car', [VehicleController::class,'create'])->name('add-car');
 Route::post('add-vehicle-store', [VehicleController::class,'store'])->name('add-vehicle-store');

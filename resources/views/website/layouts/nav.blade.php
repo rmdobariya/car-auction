@@ -7,6 +7,8 @@
         @php
             $email = DB::table('site_settings')->where('setting_key','FROM_EMAIL')->first()->setting_value;
            $contact_no = DB::table('site_settings')->where('setting_key','WHATSAPP_NUMBER')->first()->setting_value;
+              $app_store_link = DB::table('site_settings')->where('setting_key','APP_STORE_LINK')->first()->setting_value;
+               $play_store_link = DB::table('site_settings')->where('setting_key','PLAY_STORE_LINK')->first()->setting_value;
         @endphp
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -80,8 +82,14 @@
             </div>
             <div class="col-lg-2 col-md-3 offset-md-3 offset-lg-6">
                 <div class="download-app text-center">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#commingsoon"><img src="{{asset('web/assets/images/app-store.png')}}"></a>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#commingsoon"><img src="{{asset('web/assets/images/google-play.png')}}"></a>
+                    <a href="{{$app_store_link}}" target="_blank"
+{{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                    >
+                        <img src="{{asset('web/assets/images/app-store.png')}}"></a>
+                    <a href="{{$play_store_link}}" target="_blank"
+{{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                    >
+                        <img src="{{asset('web/assets/images/google-play.png')}}"></a>
                     <p>Download Now</p>
                 </div>
             </div>
