@@ -9,15 +9,23 @@
             @php
                 $email = DB::table('site_settings')->where('setting_key','FROM_EMAIL')->first()->setting_value;
                $contact_no = DB::table('site_settings')->where('setting_key','WHATSAPP_NUMBER')->first()->setting_value;
+               $app_store_link = DB::table('site_settings')->where('setting_key','APP_STORE_LINK')->first()->setting_value;
+               $play_store_link = DB::table('site_settings')->where('setting_key','PLAY_STORE_LINK')->first()->setting_value;
             @endphp
             <div class="col-md-10">
                 <div class="f-link">
                     <div class="link">
                         <p>Download Now</p>
-                        <img src="{{asset('web/assets/images/google-play.png')}}" alt="google-play">
+                        <a href="{{$play_store_link}}" target="_blank"
+                            {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                        >
+                            <img src="{{asset('web/assets/images/google-play.png')}}" alt="google-play"></a>
                     </div>
                     <div class="link">
-                        <img src="{{asset('web/assets/images/app-store.png')}}" alt="app-store">
+                        <a href="{{$app_store_link}}" target="_blank"
+                            {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                        >
+                            <img src="{{asset('web/assets/images/app-store.png')}}" alt="app-store"></a>
                     </div>
                     <div class="link">
                         <span>Inquiry: <a href="mailto:{{$email}}">{{$email}}</a></span>
@@ -35,9 +43,9 @@
                         <p>Copyright © {{date('Y')}} Zodha. All rights reserved.</p>
                     </div>
                     <div class="pagelink">
-                        <a href="#">Terms and conditions</a>
-                        <a href="#">Privacy policy</a>
-                        <a href="#">Cookies policy</a>
+                        <a href="{{route('page',['terms-conditions'])}}">Terms and conditions</a>
+                        <a href="{{route('page',['privacy-policy'])}}">Privacy policy</a>
+                        <a href="{{route('page',['cookie-policy'])}}">Cookies policy</a>
                     </div>
                 </div>
             </div>

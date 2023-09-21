@@ -179,7 +179,7 @@
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
-                                        @if((string)$setting->setting_key === 'ANDROID_VERSION' || (string)$setting->setting_key === 'IOS_VERSION')
+                                        @if((string)$setting->setting_key === 'ANDROID_VERSION' || (string)$setting->setting_key === 'IOS_VERSION' || (string)$setting->setting_key === 'APP_STORE_LINK' || (string)$setting->setting_key === 'PLAY_STORE_LINK')
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">

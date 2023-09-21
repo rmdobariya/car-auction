@@ -11,13 +11,16 @@
                                 <button type="submit" class="place-bid-blue">Update</button>
                             </div>
                             <div class="profile-pic">
-                                <img src="{{asset($user->image)}}" alt="profile">
-                                <a href="javascript:void(0)" class="edit-profile">
+                                <img src="{{asset($user->image)}}" id="displayedImage" alt="profile">
+                                <input type="file" id="imgupload" name="image" accept="image/*" onchange="loadFile(event)" style="display:none"/>
+                                <a href="javascript:void(0)" onClick="openSelect('#imgupload')" class="edit-profile">
+
                                     <i class="las la-pen"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="delete-profile">
-                                    <i class="las la-ban"></i>
-                                </a>
+{{--                                <input type="file" id="profile_image">--}}
+{{--                                <a href="javascript:void(0)" class="delete-profile">--}}
+{{--                                    <i class="las la-ban"></i>--}}
+{{--                                </a>--}}
                             </div>
                             <div class="profile-field">
                                 <div class="u-pro">
