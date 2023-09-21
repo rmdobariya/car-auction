@@ -106,17 +106,17 @@
                         </div>
                     </div>
 
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'faq') ? 'active' : '' }}"
-                               href="{{ route('admin.faq.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Faq</span>
-                            </a>
-                        </div>
-                    </div>
+{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                        <div class="menu-item">--}}
+{{--                            <a class="menu-link {{ (request()->segment(2) == 'faq') ? 'active' : '' }}"--}}
+{{--                               href="{{ route('admin.faq.index') }}">--}}
+{{--                                <span class="menu-bullet">--}}
+{{--                                    <span class="bullet bullet-dot"></span>--}}
+{{--                                </span>--}}
+{{--                                <span class="menu-title">Faq</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
@@ -167,17 +167,17 @@
                     <span class="menu-title">Administrator</span>
                     <span class="menu-arrow"></span>
                 </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"
-                               href="{{ route('admin.role.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Role</span>
-                            </a>
-                        </div>
-                    </div>
+{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                        <div class="menu-item">--}}
+{{--                            <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"--}}
+{{--                               href="{{ route('admin.role.index') }}">--}}
+{{--                                <span class="menu-bullet">--}}
+{{--                                    <span class="bullet bullet-dot"></span>--}}
+{{--                                </span>--}}
+{{--                                <span class="menu-title">Role</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
                     {{--                        <div class="menu-item">--}}
