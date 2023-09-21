@@ -80,17 +80,18 @@ class SocialLoginController extends Controller
         $first_name = $name[0];
         $last_name = $name[1];
         if ($user) {
-            $user->first_name = $first_name;
+            $user->name = $first_name;
             $user->last_name = $last_name;
+            $user->full_name = $first_name . ' ' . $last_name;
             $user->user_type = 'buyer';
             $user->facebook_id = $userSocial->getId();
-
             $user->save();
         } else {
             $user = User::create([
-                'name' => $userSocial->getName(),
-                'first_name' => $first_name,
+//                'name' => $userSocial->getName(),
+                'name' => $first_name,
                 'last_name' => $last_name,
+                'full_name' => $first_name . ' ' . $last_name,
                 'user_type' => 'buyer',
                 'email' => $userSocial->getEmail(),
                 'facebook_id' => $userSocial->getId(),
