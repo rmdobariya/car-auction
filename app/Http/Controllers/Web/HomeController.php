@@ -22,8 +22,25 @@ class HomeController extends Controller
             ->where('vehicle_translations.locale', App::getLocale())
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
+        $testimonials = DB::table('testimonials')
+            ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
+            ->where('testimonial_translations.locale', App::getLocale())
+            ->whereNull('testimonials.deleted_at')
+            ->orderBy('testimonials.id', 'desc')
+            ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.description')
+            ->get();
+        $news = DB::table('blogs')
+            ->leftJoin('blog_translations', 'blogs.id', 'blog_translations.blog_id')
+            ->where('blog_translations.locale', App::getLocale())
+            ->whereNull('blogs.deleted_at')
+            ->orderBy('blogs.id', 'desc')
+            ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
+            ->get();
+
         return view('website.home.index', [
             'vehicles' => $vehicles,
+            'news' => $news,
+            'testimonials' => $testimonials,
         ]);
     }
 

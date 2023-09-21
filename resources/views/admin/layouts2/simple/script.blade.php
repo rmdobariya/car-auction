@@ -19,6 +19,7 @@
   <script src="{{ asset('assets/plugins/parsley-js/en.js') }}"></script>
 <script src="{{ asset('assets/plugins/blockUI/blockUI.js') }}"></script>
 <script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>

@@ -39,7 +39,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="form-label">Description</label>
-                                    <textarea class="ckeditor form-control" name="description" id="description"></textarea>
+                                    <textarea class="summernote form-control" name="description" id="description"></textarea>
                                 </div>
                             </div>
 
@@ -65,13 +65,7 @@
         var form_url = '/page'
         var redirect_url = '/page'
     </script>
-    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.ckeditor').ckeditor();
-        });
-
-        CKEDITOR.replace('editer');
 
         $("#name").keyup(function () {
             var Text = $(this).val();
@@ -82,5 +76,5 @@
         });
     </script>
 
-    <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
+    <script src="{{URL::asset('assets/admin/custom/page/page.js')}}?v={{ time() }}"></script>
 @endsection

@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Blog'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Edit Testimonial'])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -13,7 +13,7 @@
                         <form method="POST" data-parsley-validate="" id="addEditForm" role="form">
                             @csrf
                             <div class="card-body">
-                                <input type="hidden" id="edit_value" value="0" name="edit_value">
+                                <input type="hidden" id="edit_value" value="{{$testimonial->id}}" name="edit_value">
                                 <input type="hidden" id="form-method" value="add">
 
                                 <div class="row">
@@ -21,12 +21,14 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_title"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Title
+                                                       class="required fs-6 fw-bold mb-2">
+                                                    {{ $language['name'] }} Title
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_title"
                                                        id="{{ $language['language_code'] }}_title"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $testimonial->translateOrNew($language['language_code'])->title }}"
                                                        placeholder="{{ $language['name'] }} Title"
                                                        required/>
                                             </div>
@@ -42,28 +44,28 @@
                                       [
                                       'id'=>'image',
                                       'description_string'=>'',
+                                      'image' => asset($testimonial->image)
                                       ])
                                 </div>
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label for="{{ $language['language_code'] }}_title"
+                                        <label for="{{ $language['language_code'] }}_description"
                                                class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
                                         </label>
                                         <textarea class="form-control"
                                                   name="{{ $language['language_code'] }}_description"
                                                   id="{{ $language['language_code'] }}_description"
                                                   @if($language['is_rtl']==1) dir="rtl" @endif
-                                                  placeholder="{{ $language['name'] }} Description"></textarea>
+                                                  placeholder="{{ $language['name'] }} Description">{{ $testimonial->translateOrNew($language['language_code'])->description }}</textarea>
                                     </div>
                                 @endforeach
-
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
                                     Submit
                                 </button>
-                                <a href="{{ route('admin.news.index') }}">
+                                <a href="{{ route('admin.testimonial.index') }}">
                                     <button class="btn btn-secondary" type="button">
                                         Cancel
                                     </button>
@@ -78,8 +80,8 @@
 @endsection
 @section('custom-script')
     <script>
-        var form_url = '/news'
-        var redirect_url = '/news'
+        var form_url = '/testimonial'
+        var redirect_url = '/testimonial'
     </script>
 
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>

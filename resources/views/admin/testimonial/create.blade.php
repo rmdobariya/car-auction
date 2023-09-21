@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Blog'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Testimonial'])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -63,7 +63,7 @@
                                 <button class="btn btn-primary" type="submit">
                                     Submit
                                 </button>
-                                <a href="{{ route('admin.news.index') }}">
+                                <a href="{{ route('admin.testimonial.index') }}">
                                     <button class="btn btn-secondary" type="button">
                                         Cancel
                                     </button>
@@ -78,8 +78,8 @@
 @endsection
 @section('custom-script')
     <script>
-        var form_url = '/news'
-        var redirect_url = '/news'
+        var form_url = '/testimonial'
+        var redirect_url = '/testimonial'
     </script>
 
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>

@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogStoreRequest;
 use App\Models\Blog;
 use App\Models\BlogTranslation;
+use App\Models\Testimonial;
+use App\Models\TestimonialTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -16,24 +18,25 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
 
-class BlogController extends Controller
+class TestimonialController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:blog-read|blog-create|blog-update|blog-delete', ['only' => ['index']]);
-        $this->middleware('permission:blog-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:blog-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:blog-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:testimonial-read|testimonial-create|testimonial-update|testimonial-delete', ['only' => ['index']]);
+        $this->middleware('permission:testimonial-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:testimonial-update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:testimonial-delete', ['only' => ['destroy']]);
     }
+
     public function index()
     {
-        return view('admin.blog.index');
+        return view('admin.testimonial.index');
     }
 
     public function create()
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        return view('admin.blog.create',[
+        return view('admin.testimonial.create', [
             'languages' => $languages
         ]);
     }
@@ -42,111 +45,111 @@ class BlogController extends Controller
     {
         $validated = $request->validated();
         if ((int)$validated['edit_value'] === 0) {
-            $blog = new Blog();
+            $testimonial = new Testimonial();
             if ($request->hasfile('image')) {
-                $image = ImageUploadHelper::imageUpload($request->file('image'), 'blog');
-                $blog->image = $image;
+                $image = ImageUploadHelper::imageUpload($request->file('image'), 'testimonial');
+                $testimonial->image = $image;
             }
-            $blog->save();
+            $testimonial->save();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
             foreach ($languages as $language) {
-                BlogTranslation::create([
+                TestimonialTranslation::create([
                     'title' => $request->input($language['language_code'] . '_title'),
                     'description' => $request->input($language['language_code'] . '_description'),
-                    'blog_id' => $blog->id,
+                    'testimonial_id' => $testimonial->id,
                     'locale' => $language['language_code'],
                 ]);
             }
             return response()->json([
-                'message' => 'Blog Add Successfully'
+                'message' => 'Testimonial Add Successfully'
             ]);
 
         } else {
             if ($request->hasfile('image')) {
-                $image = ImageUploadHelper::imageUpload($request->file('image'));
-                Blog::where('id', $validated['edit_value'])->update([
+                $image = ImageUploadHelper::imageUpload($request->file('image'), 'testimonial');
+                Testimonial::where('id', $validated['edit_value'])->update([
                     'image' => $image
                 ]);
             }
-            $blog = Blog::find($validated['edit_value']);
-            $blog->save();
+            $testimonial = Testimonial::find($validated['edit_value']);
+            $testimonial->save();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
             foreach ($languages as $language) {
-                BlogTranslation::updateOrCreate(
+                TestimonialTranslation::updateOrCreate(
                     [
-                        'blog_id' => $validated['edit_value'],
+                        'testimonial_id' => $validated['edit_value'],
                         'locale' => $language['language_code'],
                     ],
                     [
-                        'blog_id' => $validated['edit_value'],
+                        'testimonial_id' => $validated['edit_value'],
                         'locale' => $language['language_code'],
                         'title' => $request->input($language['language_code'] . '_title'),
                         'description' => $request->input($language['language_code'] . '_description'),
                     ]);
             }
             return response()->json([
-                'message' => 'Blog Update Successfully'
+                'message' => 'Testimonial Update Successfully'
             ]);
         }
     }
 
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
+        $testimonial = Testimonial::findOrFail($id);
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        return view('admin.blog.edit', [
-            'blog' => $blog,
+        return view('admin.testimonial.edit', [
+            'testimonial' => $testimonial,
             'languages' => $languages,
         ]);
     }
 
     public function destroy($id): JsonResponse
     {
-        Blog::where('id', $id)->delete();
+        Testimonial::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Blog Delete Successfully'
+            'message' => 'Testimonial Delete Successfully'
         ]);
     }
 
-    public function getBlogList(Request $request)
+    public function getTestimonialList(Request $request)
     {
         if ($request->ajax()) {
-            $blog = DB::table('blogs')
-                ->leftJoin('blog_translations', 'blogs.id', 'blog_translations.blog_id')
-                ->where('blog_translations.locale', App::getLocale())
-                ->orderBy('blogs.id', 'desc');
+            $testimonial = DB::table('testimonials')
+                ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
+                ->where('testimonial_translations.locale', App::getLocale())
+                ->orderBy('testimonials.id', 'desc');
 
             if (!empty($request->status) && $request->status !== 'all') {
-                $blog->where('blogs.status', $request->status);
+                $testimonial->where('testimonials.status', $request->status);
             }
 
             if (!empty($request->deleted)) {
                 if ((int)$request->deleted === 1) {
-                    $blog->whereNotNull('blogs.deleted_at');
+                    $testimonial->whereNotNull('testimonials.deleted_at');
                 } else {
-                    $blog->whereNull('blogs.deleted_at');
+                    $testimonial->whereNull('testimonials.deleted_at');
 
                 }
             }
-            $blog = $blog->select('blogs.*','blog_translations.title','blog_translations.description');
-            return Datatables::of($blog)
-                ->addColumn('action', function ($blog) {
+            $testimonial = $testimonial->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.description');
+            return Datatables::of($testimonial)
+                ->addColumn('action', function ($testimonial) {
 
-                    if (is_null($blog->deleted_at)) {
+                    if (is_null($testimonial->deleted_at)) {
                         $array = [
-                            'id' => $blog->id,
+                            'id' => $testimonial->id,
                             'actions' => [
-                                'edit' => route('admin.news.edit', [$blog->id]),
-                                'delete' => $blog->id,
-                                'status' => $blog->status,
+                                'edit' => route('admin.testimonial.edit', [$testimonial->id]),
+                                'delete' => $testimonial->id,
+                                'status' => $testimonial->status,
                             ]
                         ];
                     } else {
                         $array = [
-                            'id' => $blog->id,
+                            'id' => $testimonial->id,
                             'actions' => [
-                                'hard-delete' => $blog->id,
-                                'restore' => $blog->id,
+                                'hard-delete' => $testimonial->id,
+                                'restore' => $testimonial->id,
                             ]
                         ];
 
@@ -154,21 +157,21 @@ class BlogController extends Controller
 
                     return AdminDataTableButtonHelper::actionButtonDropdown($array);
                 })
-                ->addColumn('status', function ($blog) {
-                    $array['status'] = $blog->status;
+                ->addColumn('status', function ($testimonial) {
+                    $array['status'] = $testimonial->status;
                     return AdminDataTableButtonHelper::statusBadge($array);
                 })
-                ->addColumn('check', function ($blog) {
+                ->addColumn('check', function ($testimonial) {
 
                     return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input all_selected" type="checkbox" value=' . $blog->id . ' id="single_select">
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $testimonial->id . ' id="single_select">
                     </div>
                 </td>';
                 })
-                ->addColumn('image', function ($blog) {
+                ->addColumn('image', function ($testimonial) {
 
-                    return '<img src="' . asset($blog->image) . '" style="width:50px">';
+                    return '<img src="' . asset($testimonial->image) . '" style="width:50px">';
                 })
                 ->rawColumns(['action', 'status', 'check', 'image'])
                 ->make(true);
@@ -177,7 +180,7 @@ class BlogController extends Controller
 
     public function changeStatus($id, $status): JsonResponse
     {
-        Blog::where('id', $id)->update(['status' => $status]);
+        Testimonial::where('id', $id)->update(['status' => $status]);
         return response()->json([
             'message' => 'Status Change Successfully',
         ]);
@@ -185,25 +188,25 @@ class BlogController extends Controller
 
     public function restore($id): JsonResponse
     {
-        DB::table('blogs')->where('id', $id)->update([
+        DB::table('testimonials')->where('id', $id)->update([
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Blog Restore Successfully'
+            'message' => 'Testimonial Restore Successfully'
         ]);
     }
 
     public function hardDelete($id): JsonResponse
     {
-        DB::table('blogs')->where('id', $id)->delete();
+        DB::table('testimonials')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Blog Delete Successfully'
+            'message' => 'Testimonial Delete Successfully'
         ]);
     }
 
-    public function multipleBlogDelete(Request $request): JsonResponse
+    public function multipleTestimonialDelete(Request $request): JsonResponse
     {
-        Blog::whereIn('id', $request->ids)->delete();
+        Testimonial::whereIn('id', $request->ids)->delete();
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);

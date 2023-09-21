@@ -3,8 +3,8 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'News'])
-                @include('admin.layouts2.components.create-button',['url'=>route('admin.news.create')])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Testimonial'])
+                @include('admin.layouts2.components.create-button',['url'=>route('admin.testimonial.create')])
 
             </div>
         </div>
@@ -12,7 +12,7 @@
             <div id="kt_content_container" class="container-fluid">
                 <div class="card">
                     <div class="card-header border-0 pt-6">
-                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search News'])
+                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search Testimonial'])
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                                 <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
@@ -95,32 +95,32 @@
 @endsection
 @section('custom-script')
     <script>
-        const sweetalert_delete_title = "News Delete?"
-        const sweetalert_delete_text = "Are You Sure Delete This News"
-        const sweetalert_restore_title = "News Restore?"
-        const sweetalert_restore_text = "Are You Sure Restore This News"
+        const sweetalert_delete_title = "Testimonial Delete?"
+        const sweetalert_delete_text = "Are You Sure Delete This Testimonial"
+        const sweetalert_restore_title = "Testimonial Restore?"
+        const sweetalert_restore_text = "Are You Sure Restore This Testimonial"
         const cancel_button_text = "Cancel"
         const delete_button_text = "Delete"
-        const sweetalert_change_status = "News Status Change"
+        const sweetalert_change_status = "Testimonial Status Change"
         const sweetalert_change_status_text = "Are You Sure Status Change This Record"
         const yes_change_it = "Yes"
-        const form_url = '/news'
-        const datatable_url = '/get-news-list'
-        const restore_url = '/restore-news'
+        const form_url = '/testimonial'
+        const datatable_url = '/get-testimonial-list'
+        const restore_url = '/restore-testimonial'
         const hard_delete_url = '/hard-delete'
         var arr = [];
-        const multiple_select_title = "Selected News Delete ?"
+        const multiple_select_title = "Selected Testimonial Delete ?"
         const multiple_select_text = "Are You Sure Selected Record Delete"
-        const multiple_delete_url = '/multiple-news-delete'
+        const multiple_delete_url = '/multiple-testimonial-delete'
 
 
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
-                {data: 'id', name: 'blogs.id'},
-                {data: 'title', name: 'blog_translations.title'},
+                {data: 'id', name: 'testimonials.id'},
+                {data: 'title', name: 'testimonial_translations.title'},
                 {data: 'image', name: 'image'},
-                {data: 'status', name: 'blogs.status'},
+                {data: 'status', name: 'testimonials.status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],

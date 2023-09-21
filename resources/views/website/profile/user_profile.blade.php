@@ -11,7 +11,7 @@
                                 <button type="submit" class="place-bid-blue">Update</button>
                             </div>
                             <div class="profile-pic">
-                                <img src="{{asset('web/assets/images/profile.jpg')}}" alt="profile">
+                                <img src="{{asset($user->image)}}" alt="profile">
                                 <a href="javascript:void(0)" class="edit-profile">
                                     <i class="las la-pen"></i>
                                 </a>

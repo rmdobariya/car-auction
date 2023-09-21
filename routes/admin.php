@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,12 +71,19 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::delete('hard-delete/{id}', [FaqController::class, 'hardDelete'])->name('hard-delete');
     Route::post('multiple-faq-delete', [FaqController::class, 'multipleFaqDelete'])->name('multiple-faq-delete');
 
-    Route::resource('blog', BLogController::class);
-    Route::get('get-blog-list', [BLogController::class, 'getBlogList'])->name('get-blog-list');
-    Route::get('blog/status/{id}/{status}', [BLogController::class, 'changeStatus'])->name('blog.status.change');
-    Route::get('restore-blog/{id}', [BLogController::class, 'restore'])->name('restore-blog');
+    Route::resource('news', BLogController::class);
+    Route::get('get-news-list', [BLogController::class, 'getBlogList'])->name('get-news-list');
+    Route::get('news/status/{id}/{status}', [BLogController::class, 'changeStatus'])->name('news.status.change');
+    Route::get('restore-news/{id}', [BLogController::class, 'restore'])->name('restore-news');
     Route::delete('hard-delete/{id}', [BLogController::class, 'hardDelete'])->name('hard-delete');
-    Route::post('multiple-blog-delete', [BLogController::class, 'multipleBlogDelete'])->name('multiple-blog-delete');
+    Route::post('multiple-news-delete', [BLogController::class, 'multipleBlogDelete'])->name('multiple-news-delete');
+
+    Route::resource('testimonial', TestimonialController::class);
+    Route::get('get-testimonial-list', [TestimonialController::class, 'getTestimonialList'])->name('get-testimonial-list');
+    Route::get('testimonial/status/{id}/{status}', [TestimonialController::class, 'changeStatus'])->name('testimonial.status.change');
+    Route::get('restore-testimonial/{id}', [TestimonialController::class, 'restore'])->name('restore-testimonial');
+    Route::delete('hard-delete/{id}', [TestimonialController::class, 'hardDelete'])->name('hard-delete');
+    Route::post('multiple-testimonial-delete', [TestimonialController::class, 'multipleTestimonialDelete'])->name('multiple-testimonial-delete');
 
     Route::resource('role', RoleController::class);
     Route::get('get-role-list', [RoleController::class, 'getRoleList'])->name('get-role-list');
