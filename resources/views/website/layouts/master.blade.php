@@ -132,9 +132,10 @@
             <div class="modal-body">
                 <div class="login-form">
                     <form action="" id="registerForm" method="POST">
-                        <input type="text" name="name" class="form-control" placeholder="Name">
-                        <input type="text" name="phone" class="form-control" placeholder="Mobile No.">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="text" name="first_name" class="form-control" placeholder="First Name">
+                        <input type="text" name="last_name" class="form-control" placeholder="Last Name">
+                        <input type="text" name="phone" class="form-control integer" placeholder="Mobile No.">
+                        <input type="text" name="email" class="form-control" placeholder="Email">
 {{--                        <input type="text" name="email" class="form-control" placeholder="Username">--}}
                         <input type="password" name="password" class="form-control" placeholder="Password">
                         <div class="select-opt">
@@ -155,7 +156,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="term" name="term" id="term">
                                 <label class="form-check-label" for="term">
-                                    I have read the <a href="#">Term & Conditions</a>
+                                    I have read the <a href="{{route('page',['terms-conditions'])}}" target="_blank">Term & Conditions</a>
                                 </label>
                             </div>
                         </div>

@@ -2,7 +2,7 @@ function funTooltip() {
     $('[data-toggle="tooltip"]').tooltip()
 }
 
-function notificationToast (message, type) {
+function notificationToast(message, type) {
     if (type === 'success') {
         toastr.success(message)
     } else if (type === 'warning') {
@@ -26,6 +26,7 @@ function integerOnly() {
         }
     });
 }
+
 $('.integer').keypress(function (event) {
     if (event.which !== 8 && event.which !== 0 && (event.which < 48 || event.which > 57)) {
         event.preventDefault();
@@ -136,3 +137,26 @@ if ($date_picker.length > 0) {
         dateFormat: 'Y-m-d'
     })
 }
+
+$(document).ready(function () {
+    if ($('.summernote').length > 0) {
+        $('.summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                // ['height', ['height']],
+                ['table', ['table']],
+                // ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']],
+                ['custom', ['customImage']]
+            ],
+
+            minHeight: '200px',
+
+        });
+    }
+});

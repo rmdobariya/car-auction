@@ -16,9 +16,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#"><span>Email:</span> {{$email}}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('contact-us')}}">Contact Us</a>
-                </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -122,8 +119,9 @@
                                 <p>Welcome <span>{{Auth::user()->full_name}}</span></p>
                             </div>
                             <div class="user-profile">
-                                <a href="{{route('user-profile')}}"> <img
-                                        src="{{asset('web/assets/images/profile-pic.jpg')}}" alt="profile"></a>
+                                <a href="{{route('user-profile')}}">
+                                    <img src="{{asset(Auth::user()->image)}}" alt="profile">
+                                </a>
                             </div>
                         </div>
 

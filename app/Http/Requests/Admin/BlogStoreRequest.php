@@ -19,9 +19,9 @@ class BlogStoreRequest extends FormRequest
     {
         return [
             'edit_value' => 'required',
-            'title' => 'required',
+            'title_*' => 'required',
             'image' => 'required_if:edit_value,==,0',
-            'description' => 'required',
+            'description_*' => 'required',
         ];
     }
 

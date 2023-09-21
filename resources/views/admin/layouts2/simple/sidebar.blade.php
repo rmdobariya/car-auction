@@ -121,11 +121,23 @@
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
                             <a class="menu-link {{ (request()->segment(2) == 'blog') ? 'active' : '' }}"
-                               href="{{ route('admin.blog.index') }}">
+                               href="{{ route('admin.news.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title"> Blog</span>
+                                <span class="menu-title"> News</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="menu-sub menu-sub-accordion menu-active-bg">
+                        <div class="menu-item">
+                            <a class="menu-link {{ (request()->segment(2) == 'testimonial') ? 'active' : '' }}"
+                               href="{{ route('admin.testimonial.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title"> Testimonial</span>
                             </a>
                         </div>
                     </div>

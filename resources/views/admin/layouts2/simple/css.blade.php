@@ -21,6 +21,7 @@
     <link href="{{ asset('assets/css/style.dark.bundle.rtl.css') }}" rel="stylesheet" type="text/css"/>
 @endif
 <script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css"/>
 @yield('css')
 
 <script type="text/javascript">

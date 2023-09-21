@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\LoginRequest;
 use App\Http\Requests\Web\RegisterRequest;
 use App\Models\User;
+use App\Rules\ValidEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class LoginController extends Controller
     public function loginCheck(LoginRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $user = User::where('email', $request->email)->whereIn('user_type', ['user','buyer'])
+        $user = User::where('email', $request->email)->whereIn('user_type', ['user', 'buyer','seller'])
             ->first();
         if (empty($user)) {
             return response()->json([
@@ -38,10 +39,11 @@ class LoginController extends Controller
 
     public function register(RegisterRequest $request)
     {
+
         $user = new User();
-        $user->name = $request->name;
-        $user->last_name = $request->name;
-        $user->full_name = $request->name;
+        $user->name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->full_name = $request->first_name . ' ' . $request->last_name;
         $user->email = $request->email;
         $user->contact_no = $request->phone;
         $user->password = Hash::make($request->password);

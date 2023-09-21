@@ -16,15 +16,24 @@
                                 <input type="hidden" id="edit_value" value="{{$blog->id}}" name="edit_value">
                                 <input type="hidden" id="form-method" value="add">
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="title">
-                                        Title
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="title"
-                                           id="title"
-                                           value="{{$blog->title}}"
-                                           placeholder="Title"/>
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_title"
+                                                       class="required fs-6 fw-bold mb-2">
+                                                    {{ $language['name'] }} Title
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_title"
+                                                       id="{{ $language['language_code'] }}_title"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $blog->translateOrNew($language['language_code'])->title }}"
+                                                       placeholder="{{ $language['name'] }} Title"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -38,18 +47,25 @@
                                       'image' => asset($blog->image)
                                       ])
                                 </div>
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="ckeditor form-control" name="description" id="description">{!! $blog->description !!}</textarea>
-                                </div>
-
+                                @foreach($languages as $language)
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label for="{{ $language['language_code'] }}_description"
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
+                                        </label>
+                                        <textarea class="form-control"
+                                                  name="{{ $language['language_code'] }}_description"
+                                                  id="{{ $language['language_code'] }}_description"
+                                                  @if($language['is_rtl']==1) dir="rtl" @endif
+                                                  placeholder="{{ $language['name'] }} Description">{{ $blog->translateOrNew($language['language_code'])->description }}</textarea>
+                                    </div>
+                                @endforeach
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
                                     Submit
                                 </button>
-                                <a href="{{ route('admin.blog.index') }}">
+                                <a href="{{ route('admin.news.index') }}">
                                     <button class="btn btn-secondary" type="button">
                                         Cancel
                                     </button>
@@ -64,14 +80,9 @@
 @endsection
 @section('custom-script')
     <script>
-        var form_url = '/blog'
-        var redirect_url = '/blog'
+        var form_url = '/news'
+        var redirect_url = '/news'
     </script>
-    <script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.ckeditor').ckeditor();
-        });
-    </script>
+
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
 @endsection
