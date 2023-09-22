@@ -56,6 +56,7 @@ class TestimonialController extends Controller
                 TestimonialTranslation::create([
                     'title' => $request->input($language['language_code'] . '_title'),
                     'description' => $request->input($language['language_code'] . '_description'),
+                    'role' => $request->input($language['language_code'] . '_role'),
                     'testimonial_id' => $testimonial->id,
                     'locale' => $language['language_code'],
                 ]);
@@ -85,6 +86,7 @@ class TestimonialController extends Controller
                         'locale' => $language['language_code'],
                         'title' => $request->input($language['language_code'] . '_title'),
                         'description' => $request->input($language['language_code'] . '_description'),
+                        'role' => $request->input($language['language_code'] . '_role'),
                     ]);
             }
             return response()->json([

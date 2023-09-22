@@ -272,7 +272,7 @@
                                             <div class="testimonial_box-inner">
                                                 <div class="testimonial_box-top">
                                                     <div class="testimonial_box-icon">
-                                                        <img src="web/assets/images/quotes.svg">
+                                                        <img src="{{asset('web/assets/images/quotes.svg')}}">
                                                     </div>
                                                     <div class="testimonial_box-text">
                                                         <p>{!! $testimonial->description !!}</p>
@@ -281,7 +281,7 @@
                                                         <h4>{{$testimonial->title}}</h4>
                                                     </div>
                                                     <div class="testimonial_box-job">
-                                                        <p>Oman</p>
+                                                        <p>{{$testimonial->role}}</p>
                                                     </div>
                                                     <div class="testimonial_box-img">
                                                         <img src="{{asset($testimonial->image)}}" alt="profile">

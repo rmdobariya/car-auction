@@ -7,8 +7,11 @@ use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\VehicleStoreRequest;
 use App\Models\Page;
+use App\Models\TempDocument;
+use App\Models\TempImage;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Models\VehicleCategory;
 use App\Models\VehicleDocument;
 use App\Models\VehicleImage;
 use App\Models\VehicleTranslation;
@@ -25,8 +28,14 @@ class VehicleController extends Controller
     {
         $user_id = Auth::user()->id;
         $user = User::where('id', $user_id)->where('user_type','seller')->first();
+        $languages = CatchCreateHelper::getLanguage(App::getLocale());
+        $vehicle_categories = VehicleCategory::where('status','active')->whereNull('deleted_at')->get();
         if ($user) {
-            return view('website.vehicle.add-car', ['user' => $user]);
+            return view('website.vehicle.add-car', [
+                'user' => $user,
+                'languages' => $languages,
+                'vehicle_categories' => $vehicle_categories,
+            ]);
         }
         abort(404);
     }
@@ -38,62 +47,51 @@ class VehicleController extends Controller
             try {
                 $vehicle = new Vehicle();
                 $vehicle->user_id = Auth::user()->id;
-//                $vehicle->vehicle_category_id = $request->vehicle_category_id;
+                $vehicle->vehicle_category_id = $request->vehicle_category_id;
                 $vehicle->year = $request->year;
                 $vehicle->make = $request->make;
                 $vehicle->model = $request->model;
-                $vehicle->mileage = $request->milage;
-                $vehicle->description = $request->description;
-                $vehicle->body_type = $request->bodType;
-                $vehicle->color = $request->exterioColor;
-                $vehicle->type = $request->carType;
-                $vehicle->ratting = $request->ratingvalue;
-                $vehicle->price = $request->initialPrice;
+                $vehicle->trim = $request->trim;
+                $vehicle->kms_driven = $request->kms_driven;
+                $vehicle->owners = $request->owners;
+                $vehicle->transmission = $request->transmission;
+                $vehicle->fuel_type = $request->fuel_type;
+                $vehicle->body_type = $request->body_type;
+                $vehicle->registration = $request->registration;
+                $vehicle->mileage = $request->mileage;
+                $vehicle->price = $request->price;
+                $vehicle->color = $request->color;
+                $vehicle->type = $request->car_type;
                 $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
                 $vehicle->auction_start_time = $request->auction_start_time;
                 $vehicle->auction_end_time = $request->auction_end_time;
-//                $vehicle->transmission = $request->transmission;
-//                $vehicle->trim = $request->trim;
-//                $vehicle->kms_driven = $request->kms_driven;
-//                $vehicle->owners = $request->owners;
-//                $vehicle->fuel_type = $request->fuel_type;
-//                $vehicle->registration = $request->registration;
-//                $vehicle->price = $request->price;
-//                $vehicle->short_description = $request->short_description;
-//                if ($request->hasfile('vehicleImage')) {
-//                    $image = ImageUploadHelper::imageUpload($request->file('vehicleImage'[0]), 'vehicle');
-//                    $vehicle->main_image = $image;
-//                }
+                if ($request->hasfile('main_image')) {
+                    $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
+                    $vehicle->main_image = $image;
+                }
+                $vehicle->save();
                 $vehicle->save();
                 $languages = CatchCreateHelper::getLanguage(App::getLocale());
                 foreach ($languages as $language) {
                     VehicleTranslation::create([
-                        'name' => $request->input('carname'),
+                        'name' => $request->input($language['language_code'] . '_name'),
+                        'short_description' => $request->input($language['language_code'] . '_short_description'),
+                        'description' => $request->input($language['language_code'] . '_description'),
                         'vehicle_id' => $vehicle->id,
                         'locale' => $language['language_code'],
                     ]);
                 }
-                if (!is_null($request['vehicleImage'])){
-                    foreach ($request['vehicleImage'] as $image){
-                        $val = ImageUploadHelper::imageUpload($image, 'vehicle');
-                        $image = new VehicleImage();
-                        $image->vehicle_id = $vehicle->id;
-                        $image->image = $val;
-                        $image->save();
-                    }
-                }
+                $m_images = TempImage::where('temp_time', $request->temp_time)->get();
+                ImageUploadHelper::UploadMultipleImage($m_images, $vehicle->id);
 
-                if (!is_null($request['vehicleDocument'])){
-                    foreach ($request['vehicleDocument'] as $document){
-                        $val = ImageUploadHelper::imageUpload($document, 'vehicle-document');
-                        $image = new VehicleDocument();
-                        $image->vehicle_id = $vehicle->id;
-                        $image->document = $val;
-                        $image->save();
-                    }
-                }
+                TempImage::where('temp_time', $request->temp_time)->delete();
+
+                $documents = TempDocument::where('temp_time', $request->temp_time)->get();
+                ImageUploadHelper::UploadMultipleDocument($documents, $vehicle->id);
+
+                TempDocument::where('temp_time', $request->temp_time)->delete();
 
                 DB::commit();
                 return response()->json(['message' => "Vehicle Added Successfully"]);
@@ -105,4 +103,55 @@ class VehicleController extends Controller
                 ], 522);
             }
     }
+
+    public function imageUpload(Request $request): \Illuminate\Http\JsonResponse
+    {
+
+        $files = $request->qqfile;
+        $image_path = 'vehicle';
+        $extension = $files->getClientOriginalExtension();
+        $image_name = $image_path . '/' . uniqid() . '.' . $extension;
+        $files->move($image_path, $image_name);
+        $tmpImage = new TempImage();
+        $tmpImage->name = $image_name;
+        $tmpImage->temp_id = $request->qquuid;
+        $tmpImage->temp_time = $request->temp_time;
+        $tmpImage->save();
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    function imageDelete($id)
+    {
+        $image = TempImage::where('temp_id', $id)->first()->name;
+        ImageUploadHelper::deleteImage($image);
+        TempImage::where('temp_id', $id)->delete();
+    }
+
+    public function documentUpload(Request $request): \Illuminate\Http\JsonResponse
+    {
+
+        $files = $request->qqfile;
+        $image_path = 'vehicle-document';
+        $extension = $files->getClientOriginalExtension();
+        $image_name = $image_path . '/' . uniqid() . '.' . $extension;
+        $files->move($image_path, $image_name);
+        $tmpImage = new TempDocument();
+        $tmpImage->name = $image_name;
+        $tmpImage->temp_id = $request->qquuid;
+        $tmpImage->temp_time = $request->temp_time;
+        $tmpImage->save();
+        return response()->json([
+            'success' => true,
+        ]);
+    }
+
+    function documentDelete($id)
+    {
+        $image = TempDocument::where('temp_id', $id)->first()->name;
+        ImageUploadHelper::deleteImage($image);
+        TempImage::where('temp_id', $id)->delete();
+    }
+
 }

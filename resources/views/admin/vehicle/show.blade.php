@@ -43,6 +43,58 @@
                                     <td>{{ $vehicle->year }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="fw-bold" scope="row">Make</th>
+                                    <td>{{ $vehicle->make }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Trim</th>
+                                    <td>{{ $vehicle->trim }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">KMS Driven</th>
+                                    <td>{{ $vehicle->kms_driven }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Owners</th>
+                                    <td>{{ $vehicle->owners }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Transmission</th>
+                                    <td>{{ $vehicle->transmission }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Fuel Type</th>
+                                    <td>{{ $vehicle->fuel_type }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Body Type</th>
+                                    <td>{{ $vehicle->body_type }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Registration</th>
+                                    <td>{{ $vehicle->registration }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Color</th>
+                                    <td>{{ $vehicle->color }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Price</th>
+                                    <td>{{ number_format($vehicle->price) }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Minimum Bid Increment Price</th>
+                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Mileage</th>
+                                    <td>{{ $vehicle->mileage }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">Vehicle Type</th>
+                                    <td>{{ $vehicle->type }}</td>
+                                </tr>
+                                <tr>
                                     <th class="fw-bold" scope="row">Short Description</th>
 
                                     <td>{{ $vehicle->t_short_description }}</td>

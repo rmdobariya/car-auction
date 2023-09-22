@@ -13,5 +13,5 @@ class Testimonial extends Model
 
     protected $guarded = [];
 
-    public $translatedAttributes = ['title','description'];
+    public $translatedAttributes = ['title','description','role'];
 }
