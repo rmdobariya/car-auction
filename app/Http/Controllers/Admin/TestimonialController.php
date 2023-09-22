@@ -198,6 +198,10 @@ class TestimonialController extends Controller
 
     public function hardDelete($id): JsonResponse
     {
+        $testimonial =  DB::table('testimonials')->where('id', $id)->first();
+        if (file_exists(public_path() . "/testimonial/" . $testimonial->image)) {
+            @unlink(public_path() . "/testimonial/" . $testimonial->image);
+        }
         DB::table('testimonials')->where('id', $id)->delete();
         return response()->json([
             'message' => 'Testimonial Delete Successfully'
@@ -206,7 +210,17 @@ class TestimonialController extends Controller
 
     public function multipleTestimonialDelete(Request $request): JsonResponse
     {
-        Testimonial::whereIn('id', $request->ids)->delete();
+        $testimonials = DB::table('testimonials')->whereIn('id', $request->ids)->get();
+        foreach ($testimonials as $testimonial) {
+            if (!is_null($testimonial->deleted_at)) {
+                if (file_exists(public_path() . "/testimonial/" . $testimonial->image)) {
+                    @unlink(public_path() . "/testimonial/" . $testimonial->image);
+                }
+                DB::table('testimonials')->where('id', $testimonial->id)->delete();
+            } else {
+                Testimonial::where('id', $testimonial->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);

@@ -106,7 +106,7 @@
         const form_url = '/faq'
         const datatable_url = '/get-faq-list'
         const restore_url = '/restore-faq'
-        const hard_delete_url = '/hard-delete'
+        const hard_delete_url = '/faq-hard-delete'
         var arr = [];
         const multiple_select_title = "Selected Faq Delete ?"
         const multiple_select_text = "Are You Sure Selected Record Delete"

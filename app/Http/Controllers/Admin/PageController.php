@@ -89,8 +89,8 @@ class PageController extends Controller
                         'id' => $pages->id,
                         'actions' => [
                             'edit' => route('admin.page.edit', [$pages->id]),
-                            'delete' => $pages->id,
-                            'status' => $pages->status,
+//                            'delete' => $pages->id,
+//                            'status' => $pages->status,
                         ]
                     ];
                     return AdminDataTableButtonHelper::actionButtonDropdown($array);
@@ -123,7 +123,14 @@ class PageController extends Controller
 
     public function multiplePageDelete(Request $request): JsonResponse
     {
-        Page::whereIn('id', $request->ids)->delete();
+        $pages = DB::table('pages')->whereIn('id', $request->ids)->get();
+        foreach ($pages as $page) {
+            if (!is_null($page->deleted_at)) {
+                DB::table('pages')->where('id', $page->id)->delete();
+            } else {
+                Page::where('id', $page->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);

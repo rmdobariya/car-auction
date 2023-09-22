@@ -103,7 +103,7 @@
         const form_url = '/contact-us'
         const datatable_url = '/get-contact-us-list'
         const restore_url = '/restore-contact-us'
-        const hard_delete_url = '/hard-delete'
+        const hard_delete_url = '/contact-us-hard-delete'
 
 
         $.extend(true, $.fn.dataTable.defaults, {

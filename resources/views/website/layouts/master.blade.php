@@ -17,7 +17,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="carderailsLabel vehicle_detail_title">Luxe Sensory 7ST</h5>
+                <h5 class="modal-title" id="vehicle_detail_title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="vehicle_detail_body">

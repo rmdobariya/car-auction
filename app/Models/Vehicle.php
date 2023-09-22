@@ -12,5 +12,5 @@ class Vehicle extends Model
     use Translatable;
 
     protected $guarded = [];
-    public $translatedAttributes = ['name'];
+    public $translatedAttributes = ['name','short_description','description'];
 }

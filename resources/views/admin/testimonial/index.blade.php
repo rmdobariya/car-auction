@@ -107,7 +107,7 @@
         const form_url = '/testimonial'
         const datatable_url = '/get-testimonial-list'
         const restore_url = '/restore-testimonial'
-        const hard_delete_url = '/hard-delete'
+        const hard_delete_url = '/testimonial-hard-delete'
         var arr = [];
         const multiple_select_title = "Selected Testimonial Delete ?"
         const multiple_select_text = "Are You Sure Selected Record Delete"

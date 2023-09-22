@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
 
-class BannerController extends Controller
+class  BannerController extends Controller
 {
     function __construct()
     {
@@ -50,7 +50,7 @@ class BannerController extends Controller
 
         } else {
             if ($request->hasfile('image')) {
-                $image = ImageUploadHelper::imageUpload($request->file('image'),'banner');
+                $image = ImageUploadHelper::imageUpload($request->file('image'), 'banner');
                 Banner::where('id', $validated['edit_value'])->update([
                     'image' => $image
                 ]);
@@ -165,8 +165,8 @@ class BannerController extends Controller
     public function hardDelete($id): JsonResponse
     {
         $banner = DB::table('banners')->where('id', $id)->first();
-        if (file_exists(public_path() . "/" . $banner->image)) {
-            @unlink(public_path() . "/" . $banner->image);
+        if (file_exists(public_path() . "/banner/" . $banner->image)) {
+            @unlink(public_path() . "/banner/" . $banner->image);
         }
         DB::table('banners')->where('id', $id)->delete();
         return response()->json([
@@ -176,7 +176,17 @@ class BannerController extends Controller
 
     public function multipleBannerDelete(Request $request): JsonResponse
     {
-        Banner::whereIn('id', $request->ids)->delete();
+        $banners = DB::table('banners')->whereIn('id', $request->ids)->get();
+        foreach ($banners as $banner) {
+            if (!is_null($banner->deleted_at)) {
+                if (file_exists(public_path() . "/banner/" . $banner->image)) {
+                    @unlink(public_path() . "/banner/" . $banner->image);
+                }
+                DB::table('banners')->where('id', $banner->id)->delete();
+            } else {
+                Banner::where('id', $banner->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);

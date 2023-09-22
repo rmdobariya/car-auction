@@ -24,10 +24,9 @@ class VehicleController extends Controller
     public function create()
     {
         $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->first();
+        $user = User::where('id', $user_id)->where('user_type','seller')->first();
         if ($user) {
             return view('website.vehicle.add-car', ['user' => $user]);
-
         }
         abort(404);
     }

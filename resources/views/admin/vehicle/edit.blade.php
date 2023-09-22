@@ -298,22 +298,33 @@
                                     </div>
                                 </div>
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="required fs-6 fw-bold mb-2" for="short_description">
-                                        Short Description
-                                    </label>
-                                    <input type="text" class="form-control form-control-solid"
-                                           name="short_description"
-                                           id="short_description"
-                                           value="{{$vehicle->short_description}}"
-                                           placeholder="Short Description"/>
-                                </div>
+                                @foreach($languages as $language)
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label for="{{ $language['language_code'] }}_short_description"
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Short Description
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="{{ $language['language_code'] }}_short_description"
+                                               id="{{ $language['language_code'] }}_short_description"
+                                               @if($language['is_rtl']==1) dir="rtl" @endif
+                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"
+                                               placeholder="{{ $language['name'] }} Short Description"
+                                               required/>
+                                    </div>
+                                @endforeach
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">Description</label>
-                                    <textarea class="ckeditor form-control" name="description"
-                                              id="description">{{$vehicle->description}}</textarea>
-                                </div>
+                                @foreach($languages as $language)
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label for="{{ $language['language_code'] }}_description"
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
+                                        </label>
+                                        <textarea class="form-control"
+                                                  name="{{ $language['language_code'] }}_description"
+                                                  id="{{ $language['language_code'] }}_description"
+                                                  @if($language['is_rtl']==1) dir="rtl" @endif>{{ $vehicle->translateOrNew($language['language_code'])->description }}</textarea>
+                                    </div>
+                                @endforeach
+
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2"

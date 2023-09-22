@@ -126,7 +126,7 @@
         const form_url = '/customer'
         const datatable_url = '/get-customer-list'
         const restore_url = '/restore-customer'
-        const hard_delete_url = '/hard-delete'
+        const hard_delete_url = '/customer-hard-delete'
 
 
         $.extend(true, $.fn.dataTable.defaults, {

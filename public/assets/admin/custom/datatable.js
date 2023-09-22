@@ -265,6 +265,7 @@ $(function () {
     })
 
     function multipleDeleteRecord(arr) {
+        console.log(arr)
         loaderView()
         axios
             .post(APP_URL + multiple_delete_url, {

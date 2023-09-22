@@ -163,7 +163,7 @@
 }
 .reg-btn button {
 	font-weight: 500;
-    padding: 6px 24px;	
+    padding: 6px 24px;
     background: #673AAA;
     color: #fff;
 }
@@ -459,7 +459,7 @@ section#vehicles .heading a {
     padding: 9px 6px;
 }
 .car-price {
-    width: 29%;	
+    width: 29%;
     padding: 6px 10px 6px 20px;
 }
 span.cat-tags {
@@ -958,7 +958,7 @@ footer hr {
 .car-dtlist .dtl-box .value p {
     color: #2C2C2C;
     font-size: 16px;
-    font-weight: 500;    
+    font-weight: 500;
 }
 .bid-model {
     background: rgb(96 214 214 / 94%);
@@ -1104,7 +1104,7 @@ div#getting-started6{
     align-items: center;
     justify-content: space-around;
     gap: 10px;
-    padding-left: 32px;    
+    padding-left: 32px;
 }
 
 .time-temain>span {
@@ -1243,7 +1243,7 @@ div#slider-incamount span:nth-of-type(2) {
     background: #E41F11;
     border-radius: 6px;
     padding: 10px 16px;
-    display: none;
+    /*display: none;*/
 }
 .current-high p {
     color: #fff;
@@ -1864,14 +1864,14 @@ div#feedback .modal-header {
     padding-top: 60px;
     padding-bottom: 20px;
 }
-.profile-box .head, 
+.profile-box .head,
 .notification-setting .head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
-.profile-box .head .place-bid-blue, 
+.profile-box .head .place-bid-blue,
 .notification-setting .head .place-bid-blue{
     padding: 10px 40px;
 }
@@ -2178,7 +2178,7 @@ section#vehicles .heading.auction-detailss{
     width: 42%;
 }
 .auction-detailss .add-car .edate{
-    width: 42%;    
+    width: 42%;
 }
 .auction-detailss .add-car .action-btn {
     width: 152px;
@@ -2408,7 +2408,7 @@ section#vehicles .heading.auction-detailss form h1 {
     }
     .noti-img {
         display: inline-block;
-        position: unset; 
+        position: unset;
         width: 100%;
         text-align: center;
     }
@@ -2751,7 +2751,7 @@ section#vehicles .heading.auction-detailss form h1 {
     }
     .noti-img {
         display: inline-block;
-        position: unset; 
+        position: unset;
         width: 100%;
         text-align: center;
     }
@@ -3058,7 +3058,7 @@ section#vehicles .heading.auction-detailss form h1 {
     }
     .noti-img {
         display: inline-block;
-        position: unset; 
+        position: unset;
         width: 260px;
         text-align: center;
     }

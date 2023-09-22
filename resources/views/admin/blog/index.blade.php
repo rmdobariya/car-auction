@@ -107,7 +107,7 @@
         const form_url = '/news'
         const datatable_url = '/get-news-list'
         const restore_url = '/restore-news'
-        const hard_delete_url = '/hard-delete'
+        const hard_delete_url = '/new-hard-delete'
         var arr = [];
         const multiple_select_title = "Selected News Delete ?"
         const multiple_select_text = "Are You Sure Selected Record Delete"

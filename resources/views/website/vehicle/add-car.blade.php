@@ -64,6 +64,9 @@
                                         </div>
                                     </div>
                                 </div>
+{{--                                <div class="row">--}}
+{{--                                    @include('admin.layouts2.components.fineUploader')--}}
+{{--                                </div>--}}
                                 <h1>Car Documents</h1>
                                 <div class="row">
                                     <div class="col-md-12">

@@ -7,7 +7,7 @@
                     <div class="swiper-slide">
                         <img src="{{asset($vehicle->main_image)}}" alt="..." class="img-fluid">
                     </div>
-{{--                    @endforeach--}}
+                    {{--                    @endforeach--}}
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -27,7 +27,7 @@
     <div class="car-dtlist">
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Registration Year</p>
             </div>
             <div class="value">
@@ -36,7 +36,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Make</p>
             </div>
             <div class="value">
@@ -45,7 +45,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Model</p>
             </div>
             <div class="value">
@@ -54,7 +54,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Trim</p>
             </div>
             <div class="value">
@@ -63,7 +63,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>KMs Driven</p>
             </div>
             <div class="value">
@@ -72,7 +72,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>No. of Owners</p>
             </div>
             <div class="value">
@@ -81,7 +81,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Transmission</p>
             </div>
             <div class="value">
@@ -90,7 +90,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Fuel Type</p>
             </div>
             <div class="value">
@@ -99,7 +99,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Body Type</p>
             </div>
             <div class="value">
@@ -108,7 +108,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Registration</p>
             </div>
             <div class="value">
@@ -117,7 +117,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="web/assets/images/road.png" align="road">
+                <img src="{{asset('web/assets/images/road.png')}}" align="road">
                 <p>Mileage</p>
             </div>
             <div class="value">
@@ -136,12 +136,19 @@
         </div>
         <div class="int-box">
             <p><i class="las la-user"></i> 42 people are interested</p>
-
-            <a href="#" class="place-bid-blue @if($vehicle->auction_start_date < date('Y-m-d')) disabled-link @endif" data-id="{{$vehicle->id}}">Place Bid</a>
-
-            <div class="current-high">
+            <a href="#" class="place-bid
+            @if($vehicle->auction_start_date > date('Y-m-d') && $vehicle->auction_end_date < date('Y-m-d')) disabled-link @endif"
+               data-id="{{$vehicle->id}}">Place Bid</a>
+            @php
+            if(!is_null(Auth::user())){
+                $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->where('user_id',Auth::user()->id)->max('amount');
+            }else{
+                $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
+            }
+            @endphp
+            <div class="current-high mt-1">
                 <p>Current Highest Bid</p>
-                <p><span>SAR 78,000</span></p>
+                <p><span> @if($height_bid == 0) {{'Bid Not Found'}} @else SAR {{ number_format($height_bid) }}@endif</span></p>
             </div>
         </div>
         <div class="auction-details">
@@ -182,7 +189,7 @@
                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
             );
         });
-    $('.place-bid-blue').on('click', function () {
+    $('.place-bid').on('click', function () {
         const value_id = $(this).data('id')
         loaderView()
         axios

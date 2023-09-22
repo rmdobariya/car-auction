@@ -21,6 +21,7 @@ class FaqController extends Controller
         $this->middleware('permission:faq-update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:faq-delete', ['only' => ['destroy']]);
     }
+
     public function index()
     {
         return view('admin.faq.index');
@@ -90,7 +91,7 @@ class FaqController extends Controller
 
                 }
             }
-             $faq =$faq->select('faqs.*');
+            $faq = $faq->select('faqs.*');
             return Datatables::of($faq)
                 ->addColumn('action', function ($faq) {
 
@@ -163,7 +164,14 @@ class FaqController extends Controller
 
     public function multipleFaqDelete(Request $request): JsonResponse
     {
-        Faq::whereIn('id', $request->ids)->delete();
+        $faqs = DB::table('faqs')->whereIn('id', $request->ids)->get();
+        foreach ($faqs as $faq) {
+            if (!is_null($faq->deleted_at)) {
+                DB::table('faqs')->where('id', $faq->id)->delete();
+            } else {
+                Faq::where('id', $faq->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);
