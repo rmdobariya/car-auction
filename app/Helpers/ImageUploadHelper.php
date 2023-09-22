@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\VehicleDocument;
 use App\Models\VehicleImage;
 use Illuminate\Support\Facades\File;
 
@@ -36,6 +37,15 @@ class ImageUploadHelper
             $image = new VehicleImage();
             $image->vehicle_id = $id;
             $image->image = $val->name;
+            $image->save();
+        }
+    }
+    public static function UploadMultipleDocument($images, $id)
+    {
+        foreach ($images as $val) {
+            $image = new VehicleDocument();
+            $image->vehicle_id = $id;
+            $image->document = $val->name;
             $image->save();
         }
     }

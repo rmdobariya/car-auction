@@ -1,5 +1,5 @@
 <div class="login-form">
-    <form action="" id="bidForm" method="POST">
+    <form id="bidForm" method="POST">
         <input type="hidden" name="vehicle_id" class="form-control" value="{{$vehicle->id}}">
         <div class="row mb-3">
             <div class="col-md-12">
@@ -14,7 +14,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input type="submit" class="place-bid-blue" name="submit" value="Sign In">
+                <input type="submit" class="place-bid-blue" name="submit" value="Submit">
             </div>
         </div>
     </form>
@@ -33,6 +33,7 @@
                 loaderHide();
                 if (response.data.success == true) {
                     $('#vehicle_bid_modal').modal('hide')
+                    $('#carderails').modal('hide')
                     notificationToast(response.data.message, 'success');
                 } else {
                     notificationToast(response.data.message, 'warning')

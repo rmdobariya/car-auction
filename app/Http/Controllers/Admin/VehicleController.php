@@ -46,7 +46,7 @@ class VehicleController extends Controller
     public function create()
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
+        $vehicle_categories = VehicleCategory::where('status','active')->whereNull('deleted_at')->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         return view('admin.vehicle.create', [
             'vehicle_categories' => $vehicle_categories,
@@ -264,8 +264,8 @@ class VehicleController extends Controller
                 $vehicle->registration = $request->registration;
                 $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-//                $vehicle->short_description = $request->short_description;
-//                $vehicle->description = $request->description;
+                $vehicle->color = $request->color;
+                $vehicle->type = $request->car_type;
                 $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
@@ -316,8 +316,8 @@ class VehicleController extends Controller
                 $vehicle->registration = $request->registration;
                 $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-//                $vehicle->short_description = $request->short_description;
-//                $vehicle->description = $request->description;
+                $vehicle->color = $request->color;
+                $vehicle->type = $request->car_type;
                 $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;

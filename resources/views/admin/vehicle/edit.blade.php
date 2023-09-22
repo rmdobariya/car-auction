@@ -204,6 +204,33 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="color">
+                                                Exterior Color
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="color"
+                                                   value="{{$vehicle->color}}"
+                                                   id="color"
+                                                   placeholder="Exterior Color"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="car_type">
+                                                Car Type
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="car_type"
+                                                   value="{{$vehicle->type}}"
+                                                   id="car_type"
+                                                   placeholder="Car Type"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="mileage">
                                                 Mileage
                                             </label>
@@ -292,7 +319,7 @@
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="minimumBidIncrement"
                                                    id="minimumBidIncrement"
-                                                   value="{{$vehicle->minimumBidIncrement}}"
+                                                   value="{{$vehicle->minimum_bid_increment_price}}"
                                                    placeholder="Minimum Bid Increment Price"/>
                                         </div>
                                     </div>

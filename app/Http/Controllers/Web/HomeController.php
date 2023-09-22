@@ -20,6 +20,7 @@ class HomeController extends Controller
             ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->orderBy('vehicles.id','desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
         $testimonials = DB::table('testimonials')
@@ -28,7 +29,7 @@ class HomeController extends Controller
             ->where('testimonials.status', 'active')
             ->whereNull('testimonials.deleted_at')
             ->orderBy('testimonials.id', 'desc')
-            ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.description')
+            ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.role', 'testimonial_translations.description')
             ->get();
         $news = DB::table('blogs')
             ->leftJoin('blog_translations', 'blogs.id', 'blog_translations.blog_id')
@@ -80,7 +81,7 @@ class HomeController extends Controller
             ->where('vehicles.id', $id)
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->first();
-        $last_bid_amount = $vehicle->minimum_bid_increment_price;
+        $last_bid_amount = $vehicle->price;
         $bid = DB::table('vehicle_bids')->where('vehicle_id', $id)->orderBy('id', 'desc')->first();
         if (!is_null($bid)) {
             $last_bid_amount = $bid->amount;

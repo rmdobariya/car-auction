@@ -45,4 +45,8 @@ Route::post('change-image', [ProfileController::class,'changeImage'])->name('cha
 Route::get('add-auction', [AuctionController::class,'index'])->name('add-auction');
 Route::get('add-car', [VehicleController::class,'create'])->name('add-car');
 Route::post('add-vehicle-store', [VehicleController::class,'store'])->name('add-vehicle-store');
+Route::post('vehicle-image-upload', [VehicleController::class,'imageUpload'])->name('vehicle-image-upload');
+Route::post('vehicle-document-upload', [VehicleController::class,'documentUpload'])->name('vehicle-document-upload');
+Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class,'imageDelete'])->name('vehicle-image-delete');
+Route::delete('vehicle-document-delete/{temp_time}', [VehicleController::class,'documentDelete'])->name('vehicle-document-delete');
 Route::post('vehicle-bid-store', [BidController::class,'addBid'])->name('vehicle-bid-store');

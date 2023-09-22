@@ -34,6 +34,24 @@
                                     @endforeach
                                 </div>
 
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_role"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Role
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_role"
+                                                       id="{{ $language['language_code'] }}_role"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       placeholder="{{ $language['name'] }} Role"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2"
                                            for="image">Image
