@@ -103,7 +103,14 @@ class ContactUsController extends Controller
 
     public function multipleContactUsDelete(Request $request): JsonResponse
     {
-        ContactUs::whereIn('id', $request->ids)->delete();
+        $contact_us = DB::table('contact_us')->whereIn('id', $request->ids)->get();
+        foreach ($contact_us as $contact) {
+            if (!is_null($contact->deleted_at)) {
+                DB::table('contact_us')->where('id', $contact->id)->delete();
+            } else {
+                ContactUs::where('id', $contact->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Contact Us Delete Successfully'
         ]);

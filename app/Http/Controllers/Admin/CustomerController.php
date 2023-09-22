@@ -100,7 +100,14 @@ class CustomerController extends Controller
 
     public function multipleUserDelete(Request $request): JsonResponse
     {
-        User::whereIn('id', $request->ids)->delete();
+        $users = DB::table('users')->whereIn('id', $request->ids)->get();
+        foreach ($users as $user) {
+            if (!is_null($user->deleted_at)) {
+                DB::table('users')->where('id', $user->id)->delete();
+            } else {
+                User::where('id', $user->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Customer Delete Successfully'
         ]);

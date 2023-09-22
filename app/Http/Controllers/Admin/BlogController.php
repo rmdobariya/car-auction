@@ -25,6 +25,7 @@ class BlogController extends Controller
         $this->middleware('permission:blog-update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:blog-delete', ['only' => ['destroy']]);
     }
+
     public function index()
     {
         return view('admin.blog.index');
@@ -33,7 +34,7 @@ class BlogController extends Controller
     public function create()
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        return view('admin.blog.create',[
+        return view('admin.blog.create', [
             'languages' => $languages
         ]);
     }
@@ -63,7 +64,7 @@ class BlogController extends Controller
 
         } else {
             if ($request->hasfile('image')) {
-                $image = ImageUploadHelper::imageUpload($request->file('image'));
+                $image = ImageUploadHelper::imageUpload($request->file('image'),'blog');
                 Blog::where('id', $validated['edit_value'])->update([
                     'image' => $image
                 ]);
@@ -128,7 +129,7 @@ class BlogController extends Controller
 
                 }
             }
-            $blog = $blog->select('blogs.*','blog_translations.title','blog_translations.description');
+            $blog = $blog->select('blogs.*', 'blog_translations.title', 'blog_translations.description');
             return Datatables::of($blog)
                 ->addColumn('action', function ($blog) {
 
@@ -195,6 +196,10 @@ class BlogController extends Controller
 
     public function hardDelete($id): JsonResponse
     {
+        $blog = DB::table('blogs')->where('id', $id)->first();
+        if (file_exists(public_path() . "/blog/" . $blog->image)) {
+            @unlink(public_path() . "/blog/" . $blog->image);
+        }
         DB::table('blogs')->where('id', $id)->delete();
         return response()->json([
             'message' => 'Blog Delete Successfully'
@@ -203,7 +208,17 @@ class BlogController extends Controller
 
     public function multipleBlogDelete(Request $request): JsonResponse
     {
-        Blog::whereIn('id', $request->ids)->delete();
+        $blogs = DB::table('blogs')->whereIn('id', $request->ids)->get();
+        foreach ($blogs as $blog) {
+            if (!is_null($blog->deleted_at)) {
+                if (file_exists(public_path() . "/blog/" . $blog->image)) {
+                    @unlink(public_path() . "/blog/" . $blog->image);
+                }
+                DB::table('blogs')->where('id', $blog->id)->delete();
+            } else {
+                Blog::where('id', $blog->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);

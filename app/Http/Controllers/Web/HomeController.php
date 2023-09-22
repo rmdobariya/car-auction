@@ -25,6 +25,7 @@ class HomeController extends Controller
         $testimonials = DB::table('testimonials')
             ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
             ->where('testimonial_translations.locale', App::getLocale())
+            ->where('testimonials.status', 'active')
             ->whereNull('testimonials.deleted_at')
             ->orderBy('testimonials.id', 'desc')
             ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.description')
@@ -32,6 +33,7 @@ class HomeController extends Controller
         $news = DB::table('blogs')
             ->leftJoin('blog_translations', 'blogs.id', 'blog_translations.blog_id')
             ->where('blog_translations.locale', App::getLocale())
+            ->where('blogs.status', 'active')
             ->whereNull('blogs.deleted_at')
             ->orderBy('blogs.id', 'desc')
             ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
@@ -52,7 +54,7 @@ class HomeController extends Controller
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_translations.short_description', 'vehicle_translations.description', 'vehicle_categories.name as category_name')
             ->first();
 
         $vehicle_images = DB::table('vehicle_images')->where('vehicle_id', $id)->get();

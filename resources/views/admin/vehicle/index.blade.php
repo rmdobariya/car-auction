@@ -112,7 +112,7 @@
         const form_url = '/vehicle'
         const datatable_url = '/get-vehicle-list'
         const restore_url = '/restore-vehicle'
-        const hard_delete_url = '/hard-delete'
+        const hard_delete_url = '/vehicle-hard-delete'
         const multiple_delete_url = '/multiple-vehicle-delete'
         var arr = [];
 
@@ -121,7 +121,7 @@
                 {data: 'check', name: 'check', orderable: false, searchable: false},
                 {data: 'id', name: 'vehicles.id'},
                 {data: 'user_name', name: 'users.name'},
-                {data: 'role_name', name: 'roles.name'},
+                {data: 'user_type', name: 'users.user_type'},
                 {data: 'name', name: 'vehicles.name'},
                 {data: 'image', name: 'image'},
                 {data: 'status', name: 'vehicles.status'},

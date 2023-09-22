@@ -6,7 +6,13 @@
                 <div class="col-md-12">
                     <div class="heading">
                         <h1>My Auctions</h1>
-                        <a class="add_auction" data-id="@if(!is_null(Auth::user())){{Auth::user()->id}} @else 0 @endif" href="#">Add Auction</a>
+                        @if(!is_null(Auth::user()))
+                            @if(Auth::user()->user_type == 'seller')
+                                <a class="add_auction" data-id="{{Auth::user()->id}}" href="#">Add Auction</a>
+                            @endif
+                        @else
+                            <a class="add_auction" data-id="0" href="#">Add Auction</a>
+                        @endif
                         <a href="javascript:void(0)">View All</a>
                     </div>
                 </div>
@@ -456,15 +462,15 @@
     <div class="clearfix"></div>
 @endsection
 @section('custom-script')
-<script>
-    $('.add_auction').on('click',function (){
-        let id = $(this).data('id')
-        console.log(id)
-        if(id == 0){
-            notificationToast('Please First Login Or Sign Up', 'warning')
-        }else{
-            window.location.href=APP_URL + '/add-auction'
-        }
-    })
-</script>
+    <script>
+        $('.add_auction').on('click', function () {
+            let id = $(this).data('id')
+            console.log(id)
+            if (id == 0) {
+                notificationToast('Please First Login Or Sign Up', 'warning')
+            } else {
+                window.location.href = APP_URL + '/add-auction'
+            }
+        })
+    </script>
 @endsection

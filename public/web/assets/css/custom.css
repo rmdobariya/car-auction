@@ -9,3 +9,18 @@
 .disabled-link {
     pointer-events: none;
 }
+
+.place-bid {
+    background: #673AAA 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+a.place-bid:hover {
+    color: #fff;
+}

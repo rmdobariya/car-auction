@@ -62,27 +62,27 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::get('customer/status/{id}/{status}', [CustomerController::class, 'changeStatus'])->name('customer.status.change');
     Route::post('multiple-user-delete', [CustomerController::class, 'multipleUserDelete'])->name('multiple-user-delete');
     Route::get('restore-customer/{id}', [CustomerController::class, 'restoreCustomer'])->name('restore-customer');
-    Route::delete('hard-delete/{id}', [CustomerController::class, 'hardDelete'])->name('hard-delete');
+    Route::delete('customer-hard-delete/{id}', [CustomerController::class, 'hardDelete'])->name('customer-hard-delete');
 
     Route::resource('faq', FaqController::class);
     Route::get('get-faq-list', [FaqController::class, 'getFaqList'])->name('get-faq-list');
     Route::get('faq/status/{id}/{status}', [FaqController::class, 'changeStatus'])->name('faq.status.change');
     Route::get('restore-faq/{id}', [FaqController::class, 'restore'])->name('restore-faq');
-    Route::delete('hard-delete/{id}', [FaqController::class, 'hardDelete'])->name('hard-delete');
+    Route::delete('faq-hard-delete/{id}', [FaqController::class, 'hardDelete'])->name('faq-hard-delete');
     Route::post('multiple-faq-delete', [FaqController::class, 'multipleFaqDelete'])->name('multiple-faq-delete');
 
     Route::resource('news', BLogController::class);
     Route::get('get-news-list', [BLogController::class, 'getBlogList'])->name('get-news-list');
     Route::get('news/status/{id}/{status}', [BLogController::class, 'changeStatus'])->name('news.status.change');
     Route::get('restore-news/{id}', [BLogController::class, 'restore'])->name('restore-news');
-    Route::delete('hard-delete/{id}', [BLogController::class, 'hardDelete'])->name('hard-delete');
+    Route::delete('new-hard-delete/{id}', [BLogController::class, 'hardDelete'])->name('new-hard-delete');
     Route::post('multiple-news-delete', [BLogController::class, 'multipleBlogDelete'])->name('multiple-news-delete');
 
     Route::resource('testimonial', TestimonialController::class);
     Route::get('get-testimonial-list', [TestimonialController::class, 'getTestimonialList'])->name('get-testimonial-list');
     Route::get('testimonial/status/{id}/{status}', [TestimonialController::class, 'changeStatus'])->name('testimonial.status.change');
     Route::get('restore-testimonial/{id}', [TestimonialController::class, 'restore'])->name('restore-testimonial');
-    Route::delete('hard-delete/{id}', [TestimonialController::class, 'hardDelete'])->name('hard-delete');
+    Route::delete('testimonial-hard-delete/{id}', [TestimonialController::class, 'hardDelete'])->name('testimonial-hard-delete');
     Route::post('multiple-testimonial-delete', [TestimonialController::class, 'multipleTestimonialDelete'])->name('multiple-testimonial-delete');
 
     Route::resource('role', RoleController::class);
@@ -95,7 +95,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::resource('contact-us', ContactUsController::class);
     Route::get('get-contact-us-list', [ContactUsController::class, 'getContactUsList'])->name('get-contact-us-list');
     Route::get('restore-contact-us/{id}', [ContactUsController::class, 'restore'])->name('restore-contact-us');
-    Route::delete('hard-delete/{id}', [ContactUsController::class, 'hardDelete'])->name('hard-delete');
+    Route::delete('contact-us-hard-delete/{id}', [ContactUsController::class, 'hardDelete'])->name('contact-us-hard-delete');
     Route::post('multiple-contact-us-delete', [ContactUsController::class, 'multipleContactUsDelete'])->name('multiple-contact-us-delete');
 
     Route::resource('category', CategoryController::class);
@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::resource('vehicle', VehicleController::class);
     Route::get('get-vehicle-list', [VehicleController::class, 'getVehicleList'])->name('get-vehicle-list');
     Route::get('restore-vehicle/{id}', [VehicleController::class, 'restore'])->name('restore-vehicle');
-    Route::delete('hard-delete/{id}', [VehicleController::class, 'hardDelete'])->name('hard-delete');
+    Route::delete('vehicle-hard-delete/{id}', [VehicleController::class, 'hardDelete'])->name('vehicle-hard-delete');
     Route::post('multiple-vehicle-delete', [VehicleController::class, 'multipleVehicleDelete'])->name('multiple-vehicle-delete');
     Route::get('vehicle/status/{id}/{status}', [VehicleController::class, 'changeStatus'])->name('vehicle.status.change');
     Route::post('vehicle-image-upload', [VehicleController::class,'imageUpload'])->name('vehicle-image-upload');

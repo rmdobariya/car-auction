@@ -102,7 +102,7 @@ class VehicleController extends Controller
                     $vehicle->whereNull('vehicles.deleted_at');
                 }
             }
-            $vehicle = $vehicle->select('vehicles.*', 'users.name as user_name', 'roles.name as role_name', 'vehicle_translations.name as name');
+            $vehicle = $vehicle->select('vehicles.*', 'users.name as user_name', 'users.user_type as user_type', 'roles.name as role_name', 'vehicle_translations.name as name');
             return Datatables::of($vehicle)
                 ->addColumn('action', function ($vehicle) {
 
@@ -168,6 +168,10 @@ class VehicleController extends Controller
 
     public function hardDelete($id): JsonResponse
     {
+        $vehicle = DB::table('vehicles')->where('id', $id)->first();
+        if (file_exists(public_path() . "/vehicle/" . $vehicle->main_image)) {
+            @unlink(public_path() . "/vehicle/" . $vehicle->main_image);
+        }
         DB::table('vehicles')->where('id', $id)->delete();
         return response()->json([
             'message' => 'Vehicle Delete Successfully'
@@ -176,13 +180,6 @@ class VehicleController extends Controller
 
     public function show($id)
     {
-//        $vehicle = DB::table('vehicles')
-//            ->leftJoin('users', 'vehicles.user_id', 'users.id')
-//            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
-//            ->where('vehicles.id', $id)
-//            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name')
-//            ->first();
-
         $vehicle = DB::table('vehicles')
             ->leftJoin('users', 'vehicles.user_id', 'users.id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -192,7 +189,7 @@ class VehicleController extends Controller
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
             ->orderBy('id', 'desc')
-            ->select('vehicles.*', 'users.name as user_name','vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.name as vehicle_name')
+            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.name as vehicle_name','vehicle_translations.short_description as t_short_description','vehicle_translations.description as t_description')
             ->first();
         $vehicle_images = VehicleImage::where('vehicle_id', $id)->get();
         $vehicle_documents = VehicleDocument::where('vehicle_id', $id)->get();
@@ -205,7 +202,17 @@ class VehicleController extends Controller
 
     public function multipleVehicleDelete(Request $request): JsonResponse
     {
-        Vehicle::whereIn('id', $request->ids)->delete();
+        $vehicles = DB::table('vehicles')->whereIn('id', $request->ids)->get();
+        foreach ($vehicles as $vehicle) {
+            if (!is_null($vehicle->deleted_at)) {
+                if (file_exists(public_path() . "/vehicle/" . $vehicle->main_image)) {
+                    @unlink(public_path() . "/vehicle/" . $vehicle->main_image);
+                }
+                DB::table('vehicles')->where('id', $vehicle->id)->delete();
+            } else {
+                Vehicle::where('id', $vehicle->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);
@@ -257,8 +264,8 @@ class VehicleController extends Controller
                 $vehicle->registration = $request->registration;
                 $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-                $vehicle->short_description = $request->short_description;
-                $vehicle->description = $request->description;
+//                $vehicle->short_description = $request->short_description;
+//                $vehicle->description = $request->description;
                 $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
@@ -273,6 +280,8 @@ class VehicleController extends Controller
                 foreach ($languages as $language) {
                     VehicleTranslation::create([
                         'name' => $request->input($language['language_code'] . '_name'),
+                        'short_description' => $request->input($language['language_code'] . '_short_description'),
+                        'description' => $request->input($language['language_code'] . '_description'),
                         'vehicle_id' => $vehicle->id,
                         'locale' => $language['language_code'],
                     ]);
@@ -307,8 +316,8 @@ class VehicleController extends Controller
                 $vehicle->registration = $request->registration;
                 $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-                $vehicle->short_description = $request->short_description;
-                $vehicle->description = $request->description;
+//                $vehicle->short_description = $request->short_description;
+//                $vehicle->description = $request->description;
                 $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
@@ -330,6 +339,8 @@ class VehicleController extends Controller
                             'vehicle_id' => $validated['edit_value'],
                             'locale' => $language['language_code'],
                             'name' => $request->input($language['language_code'] . '_name'),
+                            'description' => $request->input($language['language_code'] . '_description'),
+                            'short_description' => $request->input($language['language_code'] . '_short_description'),
                         ]);
                 }
                 $m_images = TempImage::where('temp_time', $request->temp_time)->get();

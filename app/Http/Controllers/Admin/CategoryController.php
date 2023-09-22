@@ -194,8 +194,8 @@ class CategoryController extends Controller
     public function hardDelete($id): JsonResponse
     {
         $category = DB::table('categories')->where('id', $id)->first();
-        if (file_exists(public_path() . "/" . $category->image)) {
-            @unlink(public_path() . "/" . $category->image);
+        if (file_exists(public_path() . "/category/" . $category->image)) {
+            @unlink(public_path() . "/category/" . $category->image);
         }
         DB::table('categories')->where('id', $id)->delete();
         return response()->json([
@@ -205,7 +205,17 @@ class CategoryController extends Controller
 
     public function multipleCategoryDelete(Request $request): JsonResponse
     {
-        Category::whereIn('id', $request->ids)->delete();
+        $categories = DB::table('categories')->whereIn('id', $request->ids)->get();
+        foreach ($categories as $category) {
+            if (!is_null($category->deleted_at)) {
+                if (file_exists(public_path() . "/category/" . $category->image)) {
+                    @unlink(public_path() . "/category/" . $category->image);
+                }
+                DB::table('categories')->where('id', $category->id)->delete();
+            } else {
+                Category::where('id', $category->id)->delete();
+            }
+        }
         return response()->json([
             'message' => 'Record Delete Successfully'
         ]);

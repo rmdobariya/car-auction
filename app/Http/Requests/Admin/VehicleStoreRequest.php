@@ -31,8 +31,9 @@ class VehicleStoreRequest extends FormRequest
             'registration' => 'required',
             'mileage' => 'required',
             'price' => 'required',
-            'short_description' => 'required',
-            'description' => 'required',
+            'short_description_*' => 'required',
+            'description_*' => 'required',
+            'name_*' => 'required',
         ];
     }
 

@@ -14,10 +14,9 @@ class AuctionController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->first();
+        $user = User::where('id', $user_id)->where('user_type','seller')->first();
         if ($user) {
             return view('website.auction.add-auction', ['user' => $user]);
-
         }
         abort(404);
     }

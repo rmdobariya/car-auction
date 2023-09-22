@@ -36,7 +36,7 @@ class AdminDataTableButtonHelper
                 $action_button_dropdown .= '</div>';
             } else if ((string)$key === 'restore') {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
-                $action_button_dropdown .= '<a href="javascript:void(0)"   data-id="' . $array['id'] . '" class="menu-link px-3 restore">Resore</a>';
+                $action_button_dropdown .= '<a href="javascript:void(0)"   data-id="' . $array['id'] . '" class="menu-link px-3 restore">Restore</a>';
                 $action_button_dropdown .= '</div>';
             } else if ((string)$key === 'status' && (string)$value === 'active') {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
