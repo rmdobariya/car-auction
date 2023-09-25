@@ -105,12 +105,12 @@
     }
 });
 
-$("#getting-started1")
-    .countdown("2023/10/10", function (event) {
-        $(this).html(
-            event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-        );
-    });
+// $("#getting-started1")
+//     .countdown("2023/10/10", function (event) {
+//         $(this).html(
+//             event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+//         );
+//     });
 $("#getting-started2")
     .countdown("2023/10/09", function (event) {
         $(this).html(

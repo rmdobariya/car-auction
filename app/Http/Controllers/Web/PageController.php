@@ -40,6 +40,7 @@ class PageController extends Controller
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
                 ->get();
+
             return view('website.auction.auction', [
                 'vehicles' => $vehicles
             ]);
