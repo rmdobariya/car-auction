@@ -19,6 +19,10 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($vehicles as $vehicle)
+                        @php
+                        $total_bids = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->count();
+                        $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
+                        @endphp
                         <div class="details-box bid-details-box">
                             <div class="car-img">
                                 <img src="{{asset($vehicle->main_image)}}" align="car">
@@ -39,9 +43,11 @@
                             <div class="car-time-specification">
                                 <div class="time-temain">
                                     <span><i class="las la-clock"></i></span>
-                                    <div class="my-auction-counter" >
-                                        <input type="hidden" data-vehicle-id="{{$vehicle->id}}"
-                                               data-start-date="{{$vehicle->auction_start_date}}">
+                                    <input type="hidden" id="vehicle_id" value="{{$vehicle->id}}" class="vehicle_id">
+                                    <input type="hidden" id="start_date_{{$vehicle->id}}"
+                                           value="{{$vehicle->auction_start_date}}">
+                                    <div class="my-auction-counter" id="my-auction-counter_{{$vehicle->id}}">
+
                                     </div>
                                 </div>
                                 <div class="car-specifation">
@@ -86,14 +92,29 @@
                                 </div>
                                 <div class="my-bid-box">
                                     <p>Total Bids</p>
-                                    <h3>20</h3>
+                                    <h3>{{$total_bids}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
                                     <p>Current Highest Bid</p>
-                                    <h3>SAR {{$vehicle->kms_driven}}</h3>
+                                    <h3>SAR {{$total_bids == 0 ? number_format($vehicle->price) : number_format($height_bid)}}</h3>
                                 </div>
+                                @php
+                                    $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
+                                    $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
+                                    $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                @endphp
+                                @if($dateToCheck->between($startDate, $endDate))
                                 <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"
                                    data-bs-target="#carderails">View Auction</a>
+                                @else
+                                    @if($vehicle->auction_start_date > date('Y-m-d'))
+                                        <a href="#" class="place-bid-blue">Auction Not Started</a>
+                                    @else
+                                                                    <a href="javascript:void(0)"
+                                                                       class="place-bid-blue update-bid comtrans">Complete
+                                                                        Transaction</a>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -470,19 +491,19 @@
 @section('custom-script')
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
-        // var my_auction_counter =  $(".my-auction-counter");
-        // for(var i = 0; i < my_auction_counter.length; i++)
-        // {
-        //    console.log(my_auction_counter[i])
-        // }
-        // $(".my-auction-counter")
-        // var id = $(this).data('vehicle-id')
-        // console.log(id)
-        //     .countdown($(this).data('start-date'), function (event) {
-        //         $(this).html(
-        //             event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-        //         );
-        //     });
+        var $j_object = $(".vehicle_id");
+        $j_object.each(function (i) {
+            var id = $(this).val();
+            var start_date = $('#start_date_' + id).val()
+
+            $("#my-auction-counter_" + id)
+                .countdown(start_date, function (event) {
+                    $("#my-auction-counter_" + id).html(
+                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+                    );
+                });
+        });
+
         $('.add_auction').on('click', function () {
             let id = $(this).data('id')
             console.log(id)

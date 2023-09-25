@@ -24,3 +24,48 @@
 a.place-bid:hover {
     color: #fff;
 }
+
+div.my-auction-counter{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    padding-left: 32px;
+}
+div.my-auction-counter span {
+    background: white;
+    text-align: center;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font: normal normal medium 14px/13px Roboto;
+    color: #673AAA;
+}
+div.my-auction-counter span strong{
+    display: block;
+    font: normal normal bold 24px/28px Roboto;
+    color: #2C2C2C;
+}
+
+div.my-auction-counter span{
+    font-size: 10px;
+    padding: 8px 12px;
+}
+div.my-auction-counter span strong{
+    font-size: 20px;
+}
+
+
+div.my-auction-counter span{
+    font-size: 10px;
+    padding: 8px 12px;
+}
+div.my-auction-counter span strong {
+    font-size: 20px;
+}
+div.my-auction-counter span {
+    padding: 8px 20px;
+    font-size: 14px;
+}
+div.my-auction-counter span strong {
+    font-size: 24px;
+}

@@ -23,9 +23,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('/')}}">Home</a>
                 </li>
+                @if(!is_null(Auth::user()))
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('auction')}}">Auctions</a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('page',['how-it-work'])}}">How it works?</a>
                 </li>
