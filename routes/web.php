@@ -50,3 +50,6 @@ Route::post('vehicle-document-upload', [VehicleController::class,'documentUpload
 Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class,'imageDelete'])->name('vehicle-image-delete');
 Route::delete('vehicle-document-delete/{temp_time}', [VehicleController::class,'documentDelete'])->name('vehicle-document-delete');
 Route::post('vehicle-bid-store', [BidController::class,'addBid'])->name('vehicle-bid-store');
+
+Route::get('vehicle-bid-listing/{id}', [AuctionController::class, 'vehicleBidListing'])->name('vehicle-bid-listing');
+

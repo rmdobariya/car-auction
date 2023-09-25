@@ -7,6 +7,8 @@ let $form = $('#addEditForm')
 $form.on('submit', function (e) {
     e.preventDefault()
     loaderView();
+    var description = $('#description').summernote('code');
+    $('#description').val(description);
     let formData = new FormData($form[0])
     axios
         .post(APP_URL + form_url, formData)
