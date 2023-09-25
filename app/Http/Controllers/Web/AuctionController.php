@@ -36,4 +36,25 @@ class AuctionController extends Controller
 
         abort(404);
     }
+
+    public function vehicleBidListing($id)
+    {
+        $user_id = Auth::user()->id;
+        $bids = DB::table('vehicle_bids')
+            ->leftJoin('vehicles','vehicle_bids.vehicle_id','vehicles.id')
+            ->leftJoin('vehicle_translations','vehicle_bids.vehicle_id','vehicle_translations.vehicle_id')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('vehicle_bids.user_id', $user_id)
+            ->where('vehicle_bids.vehicle_id', $id)
+            ->select('vehicle_bids.*','vehicle_translations.name as vehicle_name','vehicles.auction_start_date','vehicles.minimum_bid_increment_price')
+            ->get();
+        $view = view('website.auction.bid_listing_model_body', [
+            'bids' => $bids,
+        ])->render();
+
+        return response()->json([
+            'data' => $view,
+//            'modal_title' => $vehicle->vehicle_name,
+        ]);
+    }
 }
