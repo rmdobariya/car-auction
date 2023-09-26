@@ -77,4 +77,26 @@ $('#forgot_password_submit').on('click', function () {
         })
 })
 
+let $form = $('#addEditForm')
+$form.on('submit', function (e) {
+    e.preventDefault()
+    let formData = new FormData($form[0])
+    axios
+        .post(APP_URL + '/reset-password-submit', formData)
+        .then(function (response) {
+            $form[0].reset();
+            loaderHide();
+
+            window.location.href = APP_URL + redirect_url
+
+
+            notificationToast(response.data.message, 'success');
+        })
+        .catch(function (error) {
+            console.log(error)
+            notificationToast(error.response.data.message, 'warning')
+            loaderHide();
+        });
+})
+
 

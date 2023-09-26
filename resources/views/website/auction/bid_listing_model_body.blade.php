@@ -1,13 +1,15 @@
 <div class="auction-details-model">
+    <input type="hidden" id="vehicle_id" value="{{$vehicle->id}}">
+    <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
     <h3>Auction Details</h3>
     <div class="auction-times">
         <div class="start-date">
             <p>Start Date</p>
-            <span>25-08-2023</span>
+            <span>{{$vehicle->auction_start_date}}</span>
         </div>
         <div class="end-date">
             <p>End Date</p>
-            <span>25-09-2023</span>
+            <span>{{$vehicle->auction_end_date}}</span>
         </div>
         <div class="auction-status">
             <p>Auction Status</p>
@@ -54,27 +56,47 @@
                 <th>Highest Bidder</th>
                 <th>Bid Amount</th>
                 <th>Bid On</th>
-                <th>Action</th>
+{{--                <th>Action</th>--}}
             </tr>
             </thead>
-            <tbody>
+            <tbody id="bid_listing">
             @foreach($bids as $bid)
             <tr>
                 <td>{{$bid->vehicle_name}}</td>
                 <td>SAR {{number_format($bid->minimum_bid_increment_price)}}</td>
-                <td>SAR 1000</td>
-                <td>John Doe</td>
-                <td>SAR {{number_format($bids->amount)}}</td>
+                <td>SAR {{number_format($bid->bid_increment)}}</td>
+                <td>{{$bid->user_name}}</td>
+                <td>SAR {{number_format($bid->amount)}}</td>
                 <td>{{$bid->auction_start_date}}</td>
-                <td>
-                    <a href="#" class="view" data-bs-toggle="modal" data-bs-target="#auctiondetails"><i class="las la-eye"></i></a>
-                    <a href="#" class="edit" data-bs-toggle="modal" data-bs-target="#auction-details"><i class="las la-pencil-alt"></i></a>
-                    <a href="#" class="delete"><i class="las la-trash-alt"></i></a>
-                    <a href="#" class="download"><i class="las la-download"></i></a>
-                </td>
+{{--                <td>--}}
+{{--                    <a href="#" class="view" data-bs-toggle="modal" data-bs-target="#auctiondetails"><i class="las la-eye"></i></a>--}}
+{{--                    <a href="#" class="edit" data-bs-toggle="modal" data-bs-target="#auction-details"><i class="las la-pencil-alt"></i></a>--}}
+{{--                    <a href="#" class="delete"><i class="las la-trash-alt"></i></a>--}}
+{{--                    <a href="#" class="download"><i class="las la-download"></i></a>--}}
+{{--                </td>--}}
             </tr>
             @endforeach
             </tbody>
         </table>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        let vehicle_id = $('#vehicle_id').val();
+        setInterval(function(){
+            // loaderView()
+            axios
+                .get(APP_URL + '/updated-bid' + '/' + vehicle_id)
+                .then(function (response) {
+                    $('#bid_listing').html(response.data.data)
+                    // notificationToast(response.data.message, 'success')
+                    // loaderHide()
+                })
+                .catch(function (error) {
+                    notificationToast(error.response.data.message, 'warning')
+                    // loaderHide()
+                })
+
+        },5000);
+    });
+</script>

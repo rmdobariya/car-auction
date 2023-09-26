@@ -310,32 +310,83 @@
                                                    placeholder="Minimum Bid Increment Price"/>
                                         </div>
                                     </div>
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input
+                                                class="form-check-input h-20px w-20px"
+                                                value="1" name="is_product"
+                                                id="is_product"
+                                                type="radio" data-bs-original-title=""
+                                                title="">
+                                            <label class="form-check-label fw-bold"
+                                                   for="is-quantity-1">Is Featured</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input
+                                                class="form-check-input h-20px w-20px"
+                                                value="1" name="is_product"
+                                                id="is_product"
+                                                type="radio" data-bs-original-title=""
+                                                title="">
+                                            <label class="form-check-label fw-bold"
+                                                   for="is-quantity-1">Is Popular</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input
+                                                class="form-check-input h-20px w-20px"
+                                                value="1" name="is_product"
+                                                id="is_product"
+                                                type="radio" data-bs-original-title=""
+                                                title="">
+                                            <label class="form-check-label fw-bold"
+                                                   for="is-quantity-1">Hot Deal</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="bid_increment">
+                                                Bid Increment Price
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid integer"
+                                                   name="bid_increment"
+                                                   id="bid_increment"
+                                                   placeholder="Bid Increment Price"/>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 @foreach($languages as $language)
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label for="{{ $language['language_code'] }}_short_description"
-                                                   class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Short Description
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="{{ $language['language_code'] }}_short_description"
-                                                   id="{{ $language['language_code'] }}_short_description"
-                                                   @if($language['is_rtl']==1) dir="rtl" @endif
-                                                   placeholder="{{ $language['name'] }} Short Description"
-                                                   required/>
-                                        </div>
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label for="{{ $language['language_code'] }}_short_description"
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Short
+                                            Description
+                                        </label>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="{{ $language['language_code'] }}_short_description"
+                                               id="{{ $language['language_code'] }}_short_description"
+                                               @if($language['is_rtl']==1) dir="rtl" @endif
+                                               placeholder="{{ $language['name'] }} Short Description"
+                                               required/>
+                                    </div>
                                 @endforeach
 
                                 @foreach($languages as $language)
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label for="{{ $language['language_code'] }}_description"
-                                                   class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
-                                            </label>
-                                            <textarea class="form-control"
-                                                      name="{{ $language['language_code'] }}_description"
-                                                      id="{{ $language['language_code'] }}_description"
-                                                      @if($language['is_rtl']==1) dir="rtl" @endif></textarea>
-                                        </div>
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <label for="{{ $language['language_code'] }}_description"
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
+                                        </label>
+                                        <textarea class="form-control"
+                                                  name="{{ $language['language_code'] }}_description"
+                                                  id="{{ $language['language_code'] }}_description"
+                                                  @if($language['is_rtl']==1) dir="rtl" @endif></textarea>
+                                    </div>
                                 @endforeach
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">

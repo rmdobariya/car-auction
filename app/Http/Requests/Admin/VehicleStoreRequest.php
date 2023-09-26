@@ -33,6 +33,8 @@ class VehicleStoreRequest extends FormRequest
             'price' => 'required',
             'car_type' => 'required',
             'color' => 'required',
+            'is_product' => 'required',
+            'bid_increment' => 'required',
             'short_description_*' => 'required',
             'description_*' => 'required',
             'name_*' => 'required',

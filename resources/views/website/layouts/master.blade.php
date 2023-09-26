@@ -97,7 +97,7 @@
                         <input type="email" name="email" class="form-control" placeholder="Email">
                         <input type="password" name="password" class="form-control" placeholder="Password">
                         <div class="forgotlink text-end">
-                            <a href="#">Forgot User ID/Password</a>
+                            <a href="#" id="forgot_password">Forgot User ID/Password</a>
                         </div>
                         <input type="submit" class="place-bid-blue" name="submit" value="Sign In">
                     </form>
@@ -225,6 +225,36 @@
             <div class="modal-header text-center">
                 <h5 class="modal-title" id="loginLabel">Coming Soon...</h5>
                 <p>We are launching soon. We are working hard. We are almost ready to launch. Something awesome is coming soon.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="forgot_password_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Forgot Password</h4>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="fv-row mb-10">
+                    <div class="d-flex flex-stack mb-2">
+                        <label class="form-label fw-bolder text-dark fs-6 mb-0" for="password">
+                            Enter Your Email
+                        </label>
+                    </div>
+                    <div class="position-relative mb-3" data-kt-password-meter="true">
+                        <input class="form-control form-control-lg form-control-solid"
+                               type="email" id="forgot_email"
+                               placeholder="Email"
+                               name="forgot_email"/>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="button" id="forgot_password_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                        <span class="indicator-label">Submit</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

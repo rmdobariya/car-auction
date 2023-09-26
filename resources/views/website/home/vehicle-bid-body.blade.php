@@ -9,7 +9,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-12">
-                <input type="text" name="amount" class="form-control integer" placeholder="Amount">
+                <input type="text" name="amount" class="form-control integer" value="{{$bid_amount}}" placeholder="Amount">
             </div>
         </div>
         <div class="row">

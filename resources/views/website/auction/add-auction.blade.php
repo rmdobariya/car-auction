@@ -76,13 +76,13 @@
                                     <td>{{$vehicle->make}}</td>
                                     <td>{{$vehicle->model}}</td>
                                     <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>
-                                    <td>SAR 1000</td>
+                                    <td>SAR {{$vehicle->bid_increment}}</td>
                                     <td>
                                         <a href="#" class="view_bid" data-id="{{$vehicle->id}}" data-bs-toggle="modal" ><i class="las la-eye"></i></a>
-                                        <a href="#" class="edit" data-bs-toggle="modal"
-                                           data-bs-target="#auction-details"><i class="las la-pencil-alt"></i></a>
-                                        <a href="#" class="delete"><i class="las la-trash-alt"></i></a>
-                                        <a href="#" class="download"><i class="las la-download"></i></a>
+{{--                                        <a href="#" class="edit" data-bs-toggle="modal"--}}
+{{--                                           data-bs-target="#auction-details"><i class="las la-pencil-alt"></i></a>--}}
+{{--                                        <a href="#" class="delete"><i class="las la-trash-alt"></i></a>--}}
+{{--                                        <a href="#" class="download"><i class="las la-download"></i></a>--}}
                                     </td>
                                 </tr>
                                 @endforeach

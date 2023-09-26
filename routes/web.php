@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])->name('reset-password');
-Route::post('resetPassword', [ResetPasswordController::class, 'resetPassword'])->name('resetPassword');
+//Route::get('reset-password/{token}', [ResetPasswordController::class, 'index'])->name('reset-password');
+//Route::post('resetPassword', [ResetPasswordController::class, 'resetPassword'])->name('resetPassword');
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -52,4 +52,9 @@ Route::delete('vehicle-document-delete/{temp_time}', [VehicleController::class,'
 Route::post('vehicle-bid-store', [BidController::class,'addBid'])->name('vehicle-bid-store');
 
 Route::get('vehicle-bid-listing/{id}', [AuctionController::class, 'vehicleBidListing'])->name('vehicle-bid-listing');
+Route::get('updated-bid/{id}', [AuctionController::class, 'updatedBid'])->name('updated-bid');
+
+Route::post('send-mail', [LoginController::class, 'sendMail'])->name('send-mail');
+Route::get('reset-password/{token}', [LoginController::class, 'resetPassword'])->name('reset-password');
+Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
 
