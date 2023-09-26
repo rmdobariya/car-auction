@@ -15,7 +15,7 @@ $vehicleAddForm.on('submit', function (e) {
             loaderHide();
 
             setTimeout(function () {
-                window.location.href = APP_URL + '/';
+                window.location.href = APP_URL + '/add-auction';
             }, 1000);
             notificationToast(response.data.message, 'success');
         })

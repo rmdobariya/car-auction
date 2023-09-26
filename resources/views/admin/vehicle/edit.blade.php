@@ -323,6 +323,60 @@
                                                    placeholder="Minimum Bid Increment Price"/>
                                         </div>
                                     </div>
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <input
+                                                    class="form-check-input h-20px w-20px"
+                                                    value="is_featured" name="is_product"
+                                                    id="is_product"
+                                                    @if($vehicle->is_product=='is_featured') checked @endif
+                                                    type="radio" data-bs-original-title=""
+                                                    title="">
+                                                <label class="form-check-label fw-bold"
+                                                       for="is-quantity-1">Is Featured</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input
+                                                class="form-check-input h-20px w-20px"
+                                                value="is_popular" name="is_product"
+                                                id="is_product"
+                                                @if($vehicle->is_product=='is_popular') checked @endif
+                                                type="radio" data-bs-original-title=""
+                                                title="">
+                                            <label class="form-check-label fw-bold"
+                                                   for="is-quantity-1">Is Popular</label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input
+                                                class="form-check-input h-20px w-20px"
+                                                value="is_hot_deal" name="is_product"
+                                                id="is_product"
+                                                @if($vehicle->is_product=='is_hot_deal') checked @endif
+                                                type="radio" data-bs-original-title=""
+                                                title="">
+                                            <label class="form-check-label fw-bold"
+                                                   for="is-quantity-1">Hot Deal</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="bid_increment">
+                                                Bid Increment Price
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid integer"
+                                                   name="bid_increment"
+                                                   value="{{$vehicle->bid_increment}}"
+                                                   id="bid_increment"
+                                                   placeholder="Bid Increment Price"/>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 @foreach($languages as $language)

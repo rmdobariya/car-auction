@@ -184,6 +184,17 @@
                                                    placeholder="Car Type"/>
                                         </div>
                                     </div>
+                                        <div class="mb-1 col-md-4">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="car_type">
+                                                Bid Increment
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid integer"
+                                                   name="bid_increment"
+                                                   id="bid_increment"
+                                                   placeholder="Bid Increment"/>
+                                        </div>
+                                    </div>
 
                                     @foreach($languages as $language)
                                         <div class="fv-row mb-7 fv-plugins-icon-container">

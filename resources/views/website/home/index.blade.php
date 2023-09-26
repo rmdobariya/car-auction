@@ -11,18 +11,18 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12">
-                    @foreach($vehicles as $vehicle)
+                    @foreach($featured_vehicles as $featured_vehicle)
                         <div class="details-box">
                             <div class="car-img">
-                                <img src="{{asset($vehicle->main_image)}}" align="car">
+                                <img src="{{asset($featured_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
                                     <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
                                 <a href="#" class="like"><i class="las la-heart"></i></a>
                             </div>
                             <div class="car-name">
                                 <div class="names">
-                                    <h3>{{$vehicle->vehicle_name}}</h3>
-                                    <p>{{$vehicle->category_name}}</p>
+                                    <h3>{{$featured_vehicle->vehicle_name}}</h3>
+                                    <p>{{$featured_vehicle->category_name}}</p>
                                 </div>
                             </div>
                             <div class="car-specifation">
@@ -31,7 +31,7 @@
                                         <img src="{{asset('web/assets/images/road.png')}}" align="road">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->kms_driven}}
+                                        {{$featured_vehicle->kms_driven}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -39,7 +39,7 @@
                                         <img src="{{asset('web/assets/images/km.png')}}" align="km">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->mileage}}
+                                        {{$featured_vehicle->mileage}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -47,7 +47,7 @@
                                         <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->fuel_type}}
+                                        {{$featured_vehicle->fuel_type}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -55,17 +55,17 @@
                                         <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->body_type}}
+                                        {{$featured_vehicle->body_type}}
                                     </div>
                                 </div>
                             </div>
                             <div class="car-price">
-                                <span>Bid Start on <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>Bid Start on <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
-                                    <h3>SAR {{number_format($vehicle->price)}}</h3>
+                                    <h3>SAR {{number_format($featured_vehicle->price)}}</h3>
                                 </div>
-                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">Place
+                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$featured_vehicle->id}}">Place
                                     Bid</a>
                             </div>
                         </div>
@@ -81,18 +81,18 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12">
-                    @foreach($vehicles as $vehicle)
+                    @foreach($popular_vehicles as $popular_vehicle)
                         <div class="details-box">
                             <div class="car-img">
-                                <img src="{{asset($vehicle->main_image)}}" align="car">
+                                <img src="{{asset($popular_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
                                     <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
                                 <a href="#" class="like"><i class="las la-heart"></i></a>
                             </div>
                             <div class="car-name">
                                 <div class="names">
-                                    <h3>{{$vehicle->vehicle_name}}</h3>
-                                    <p>{{$vehicle->category_name}}</p>
+                                    <h3>{{$popular_vehicle->vehicle_name}}</h3>
+                                    <p>{{$popular_vehicle->category_name}}</p>
                                 </div>
                             </div>
                             <div class="car-specifation">
@@ -104,7 +104,7 @@
                                         <img src="{{asset('web/assets/images/road.png')}}" align="road">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->kms_driven}}
+                                        {{$popular_vehicle->kms_driven}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -112,7 +112,7 @@
                                         <img src="{{asset('web/assets/images/km.png')}}" align="km">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->mileage}}
+                                        {{$popular_vehicle->mileage}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -120,7 +120,7 @@
                                         <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->fuel_type}}
+                                        {{$popular_vehicle->fuel_type}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -128,17 +128,17 @@
                                         <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->body_type}}
+                                        {{$popular_vehicle->body_type}}
                                     </div>
                                 </div>
                             </div>
                             <div class="car-price">
-                                <span>Bid Start on <b>15th Sep 2023</b></span>
+                                <span>Bid Start on <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
-                                    <h3>SAR {{number_format($vehicle->price)}}</h3>
+                                    <h3>SAR {{number_format($popular_vehicle->price)}}</h3>
                                 </div>
-                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">Place
+                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$popular_vehicle->id}}">Place
                                     Bid</a>
                             </div>
                         </div>
@@ -154,18 +154,18 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-12">
-                    @foreach($vehicles as $vehicle)
+                    @foreach($hot_deal_vehicles as $hot_deal_vehicle)
                         <div class="details-box">
                             <div class="car-img">
-                                <img src="{{asset($vehicle->main_image)}}" align="car">
+                                <img src="{{asset($hot_deal_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
                                     <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
                                 <a href="#" class="like"><i class="las la-heart"></i></a>
                             </div>
                             <div class="car-name">
                                 <div class="names">
-                                    <h3>{{$vehicle->vehicle_name}}</h3>
-                                    <p>{{$vehicle->category_name}}</p>
+                                    <h3>{{$hot_deal_vehicle->vehicle_name}}</h3>
+                                    <p>{{$hot_deal_vehicle->category_name}}</p>
                                 </div>
                             </div>
                             <div class="car-specifation">
@@ -177,7 +177,7 @@
                                         <img src="{{asset('web/assets/images/road.png')}}" align="road">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->kms_driven}}
+                                        {{$hot_deal_vehicle->kms_driven}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -185,7 +185,7 @@
                                         <img src="{{asset('web/assets/images/km.png')}}" align="km">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->mileage}}
+                                        {{$hot_deal_vehicle->mileage}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -193,7 +193,7 @@
                                         <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->fuel_type}}
+                                        {{$hot_deal_vehicle->fuel_type}}
                                     </div>
                                 </div>
                                 <div class="car-dt">
@@ -201,17 +201,17 @@
                                         <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
                                     </div>
                                     <div class="detsl">
-                                        {{$vehicle->body_type}}
+                                        {{$hot_deal_vehicle->body_type}}
                                     </div>
                                 </div>
                             </div>
                             <div class="car-price">
-                                <span>Bid Start on <b>15th Sep 2023</b></span>
+                                <span>Bid Start on <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
-                                    <h3>SAR {{number_format($vehicle->price)}}</h3>
+                                    <h3>SAR {{number_format($hot_deal_vehicle->price)}}</h3>
                                 </div>
-                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">Place
+                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$hot_deal_vehicle->id}}">Place
                                     Bid</a>
                             </div>
                         </div>
@@ -373,5 +373,8 @@
                     loaderHide()
                 })
         })
+
+
     </script>
+
 @endsection

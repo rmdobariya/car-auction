@@ -27,7 +27,7 @@
     <div class="car-dtlist">
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
                 <p>Registration Year</p>
             </div>
             <div class="value">
@@ -36,7 +36,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/make.svg')}}" align="road">
                 <p>Make</p>
             </div>
             <div class="value">
@@ -45,7 +45,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/model.svg')}}" align="road">
                 <p>Model</p>
             </div>
             <div class="value">
@@ -54,7 +54,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/trim.svg')}}" align="road">
                 <p>Trim</p>
             </div>
             <div class="value">
@@ -63,7 +63,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/kms-driven.svg')}}" align="road">
                 <p>KMs Driven</p>
             </div>
             <div class="value">
@@ -72,7 +72,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/no-of-owners.svg')}}" align="road">
                 <p>No. of Owners</p>
             </div>
             <div class="value">
@@ -81,7 +81,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/transmission.svg')}}" align="road">
                 <p>Transmission</p>
             </div>
             <div class="value">
@@ -90,7 +90,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/fuel-type.svg')}}" align="petrol">
                 <p>Fuel Type</p>
             </div>
             <div class="value">
@@ -99,7 +99,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/body-type.svg')}}" align="auto">
                 <p>Body Type</p>
             </div>
             <div class="value">
@@ -108,7 +108,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
                 <p>Registration</p>
             </div>
             <div class="value">
@@ -117,7 +117,7 @@
         </div>
         <div class="dtl-box">
             <div class="tit">
-                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                <img src="{{asset('web/assets/images/mileage.svg')}}" align="km">
                 <p>Mileage</p>
             </div>
             <div class="value">
@@ -136,7 +136,7 @@
         </div>
         <div class="int-box">
             {{--            @dd('2023-09-22' > '2023-09-26' && '2023-09-22' < '2023-10-06');--}}
-            <p><i class="las la-user"></i> 42 people are interested</p>
+            <p><i class="las la-user"></i> {{$bid_count}} people are interested</p>
             @php
                 $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
                 $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
@@ -147,7 +147,7 @@
                    data-id="{{$vehicle->id}}">Place Bid</a>
             @else
                 @if($vehicle->auction_start_date > date('Y-m-d'))
-                    <a href="#" class="place-bid-blue">Auction Not Started</a>
+                    <a href="#" class="place-bid-blue">Pending</a>
                 @else
                     <a href="#" class="place-bid-blue">Auction Closed</a>
                 @endif
@@ -192,8 +192,7 @@
             </div>
             <div class="notes">
                 <h3>Seller Notes</h3>
-                <p>It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum</p>
+                <p>{{$vehicle->description}}</p>
             </div>
         </div>
     </div>
