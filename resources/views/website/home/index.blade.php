@@ -5,6 +5,74 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
+                        <h1>Cars for Sell</h1>
+                        <a href="#">View All</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12">
+                    @foreach($sell_vehicles as $sell_vehicle)
+                    <div class="details-box">
+                        <div class="car-img">
+                            <img src="{{asset($sell_vehicle->main_image)}}" align="car">
+                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                            <a href="#" class="like"><i class="las la-heart"></i></a>
+                        </div>
+                        <div class="car-name">
+                            <div class="names">
+                                <h3>{{$sell_vehicle->vehicle_name}}</h3>
+                                <p>{{$sell_vehicle->category_name}}</p>
+                            </div>
+                        </div>
+                        <div class="car-specifation">
+                            <div class="car-dt">
+                                <div class="icon">
+                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                </div>
+                                <div class="detsl">
+                                    {{$sell_vehicle->kms_driven}}
+                                </div>
+                            </div>
+                            <div class="car-dt">
+                                <div class="icon">
+                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                </div>
+                                <div class="detsl">
+                                    {{$sell_vehicle->mileage}}
+                                </div>
+                            </div>
+                            <div class="car-dt">
+                                <div class="icon">
+                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                </div>
+                                <div class="detsl">
+                                    {{$sell_vehicle->fuel_type}}
+                                </div>
+                            </div>
+                            <div class="car-dt">
+                                <div class="icon">
+                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                </div>
+                                <div class="detsl">
+                                    {{$sell_vehicle->body_type}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="car-price">
+{{--                            <span>Bid Start on <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>--}}
+                            <div class="initial-price-box">
+                                <p>Initial Price</p>
+                                <h3>SAR  {{number_format($sell_vehicle->price)}}</h3>
+                            </div>
+                            <a href="#" class="place-bid-blue car_inquiry" data-id="{{$sell_vehicle->id}}">Contact Seller</a>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading">
                         <h1>Featured Vehicles</h1>
                         <a href="#">View All</a>
                     </div>
@@ -356,6 +424,34 @@
                     $('#vehicle_detail_body').html(response.data.data)
 
                     $('#carderails').modal('show')
+                    var mySwiper = new Swiper('.swiper-container', {
+                        speed: 400,
+                        loop: true,
+                        slidesPerView: 1,
+                        calculateHeight: true,
+                        spaceBetween: 50,
+                        watchActiveIndex: true,
+                        prevButton: '.swiper-button-prev',
+                        nextButton: '.swiper-button-next'
+                    })
+
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
+        })
+
+        $('.car_inquiry').on('click', function () {
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/car-inquiry' + '/' + value_id)
+                .then(function (response) {
+                    $('#car_inquiry_title').html(response.data.modal_title)
+                    $('#car_inquiry_body').html(response.data.data)
+
+                    $('#car_inquiry').modal('show')
                     var mySwiper = new Swiper('.swiper-container', {
                         speed: 400,
                         loop: true,

@@ -259,6 +259,22 @@
         </div>
     </div>
 </div>
+<div class="modal fade login-model" id="car_inquiry" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Vehicle Inquiry</h4>
+            </div>
+            <div class="modal-body">
+                <div class="login-form" id="car_inquiry_body">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @include('website.layouts.script')
 @yield('custom-script')
 <script src="{{URL::asset('web/assets/custom/login.js')}}?v={{ time() }}"></script>

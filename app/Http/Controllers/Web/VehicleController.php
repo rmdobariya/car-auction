@@ -64,6 +64,7 @@ class VehicleController extends Controller
                 $vehicle->type = $request->car_type;
                 $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->bid_increment = $request->bid_increment;
+                $vehicle->is_vehicle_type = $request['is_vehicle_type'];
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
                 $vehicle->auction_start_time = $request->auction_start_time;

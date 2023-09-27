@@ -37,6 +37,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('contact-us')}}">Contact us</a>
                 </li>
+                @if(!is_null(Auth::user()))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('notification')}}">Notifications</a>
+                    </li>
+                @endif
                 <li class="nav-item language">
                     <div class="form-check form-switch chked">
                         <label class="form-check-label" for="flexSwitchCheckDefault">AR</label>
