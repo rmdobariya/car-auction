@@ -25,3 +25,16 @@ $vehicleAddForm.on('submit', function (e) {
             loaderHide();
         });
 })
+
+$('.is_vehicle_type').on('click',function (){
+    var val = $(this).val();
+    if (val == 'car_for_sell'){
+        $('#auction_date_time_part').addClass('d-none')
+        $('#minimumBidIncrement').addClass('d-none')
+        $('#bid_increment').addClass('d-none')
+    }else{
+        $('#auction_date_time_part').removeClass('d-none')
+        $('#minimumBidIncrement').removeClass('d-none')
+        $('#bid_increment').removeClass('d-none')
+    }
+})

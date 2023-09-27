@@ -29,11 +29,11 @@ class VehicleStoreRequest extends FormRequest
             'registration' => 'required',
             'mileage' => 'required',
             'price' => 'required',
-            'minimumBidIncrement' => 'required',
-            'auction_start_date' => 'required',
-            'auction_start_time' => 'required',
-            'auction_end_date' => 'required',
-            'auction_end_time' => 'required',
+//            'minimumBidIncrement' => 'required',
+//            'auction_start_date' => 'required',
+//            'auction_start_time' => 'required',
+//            'auction_end_date' => 'required',
+//            'auction_end_time' => 'required',
             'main_image' => 'required',
             'color' => 'required',
             'car_type' => 'required',
@@ -41,6 +41,7 @@ class VehicleStoreRequest extends FormRequest
             'short_description_*' => 'required',
             'description_*' => 'required',
             'name_*' => 'required',
+            'is_vehicle_type' => 'required',
         ];
     }
 

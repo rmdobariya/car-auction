@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\AuctionController;
 use App\Http\Controllers\Web\BidController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LoginController;
+use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PageController;
 use App\Http\Controllers\Web\ProfileController;
 use App\Http\Controllers\Web\ResetPasswordController;
@@ -31,6 +32,7 @@ Route::post('/login', [LoginController::class, 'loginCheck'])->name('/login');
 Route::post('/register', [LoginController::class, 'register'])->name('/register');
 Route::get('/logout', [LoginController::class, 'logout'])->name('/logout');
 Route::get('vehicle-details/{id}', [HomeController::class, 'vehicleDetail'])->name('vehicle-details');
+Route::get('car-inquiry/{id}', [HomeController::class, 'vehicleInquiry'])->name('car-inquiry');
 Route::get('vehicle-bid-modal/{id}', [HomeController::class, 'vehicleBid'])->name('vehicle-bid-modal');
 //Route::get('socialAccount', [SocialLoginController::class,'socialAccount'])->name('socialAccount');
 Route::get('googleCallback', [SocialLoginCOntroller::class,'googleCallback'])->name('googleCallback');
@@ -50,9 +52,11 @@ Route::post('vehicle-document-upload', [VehicleController::class,'documentUpload
 Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class,'imageDelete'])->name('vehicle-image-delete');
 Route::delete('vehicle-document-delete/{temp_time}', [VehicleController::class,'documentDelete'])->name('vehicle-document-delete');
 Route::post('vehicle-bid-store', [BidController::class,'addBid'])->name('vehicle-bid-store');
+Route::post('vehicle-inquiry-store', [HomeController::class,'carInquirySubmit'])->name('vehicle-inquiry-store');
 
 Route::get('vehicle-bid-listing/{id}', [AuctionController::class, 'vehicleBidListing'])->name('vehicle-bid-listing');
-Route::get('updated-bid/{id}', [AuctionController::class, 'updatedBid'])->name('updated-bid');
+Route::get('updated-bid/{id}', [BidController::class, 'updatedBid'])->name('updated-bid');
+Route::get('notification', [NotificationController::class, 'index'])->name('notification');
 
 Route::post('send-mail', [LoginController::class, 'sendMail'])->name('send-mail');
 Route::get('reset-password/{token}', [LoginController::class, 'resetPassword'])->name('reset-password');
