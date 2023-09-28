@@ -128,7 +128,6 @@ class HomeController extends Controller
                 'message' => 'Please First Login Or Sign up',
             ]);
         }
-
     }
 
     public function vehicleBid($id)
