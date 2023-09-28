@@ -33,7 +33,7 @@ class CustomerController extends Controller
 
     public function create()
     {
-        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('id', '!=', 1)->get();
+        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
         return view('admin.customer.create',[
             'roles' => $roles
         ]);
@@ -69,6 +69,7 @@ class CustomerController extends Controller
                 $user->password = Hash::make($request->password);
             }
             $user->save();
+            DB::table('model_has_roles')->where('model_id', $validated['edit_value'])->delete();
             $user->assignRole($validated['role_id']);
             return response()->json([
                 'message' => 'Customer Update Successfully'
@@ -83,7 +84,8 @@ class CustomerController extends Controller
             ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
             ->select('users.*', 'model_has_roles.role_id')
             ->first();
-        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('id', '!=', 1)->get();
+
+        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
         return view('admin.customer.edit', [
             'user' => $user,
             'roles' => $roles,
@@ -194,7 +196,10 @@ class CustomerController extends Controller
                     return AdminDataTableButtonHelper::statusBadge($array);
                 })
                 ->addColumn('role', function ($user) {
-                    return $user->role_name;
+                    return $user->user_type;
+                })
+                ->addColumn('full_name', function ($user) {
+                    return $user->name . ' ' . $user->last_name;
                 })
                 ->addColumn('check', function ($user) {
                     if ((int)$user->id === 1) {

@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="heading">
                         <h1>Notifications</h1>
-                        <a href="javascript:void(0)">Load more</a>
+{{--                        <a href="javascript:void(0)">Load more</a>--}}
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -21,7 +21,7 @@
                                 <h2>Car Inquiry</h2>
                                 <span>{{Carbon\Carbon::parse($notification->created_at)->format('h:i A | l  d F Y')}}</span>
                             </div>
-                            <p>{{$notification->message}}</p>
+                            <p>{!! $notification->message !!}</p>
                         </div>
                     </div>
                     @endforeach

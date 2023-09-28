@@ -155,18 +155,29 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} " >
-                <span class="menu-link">
-                    <span class="menu-icon">
-						<span class="menu-icon">
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'customer') ? 'active' : '' }}"
+                           href="{{ route('admin.customer.index') }}">
+                               <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
-                                <span data-feather="settings"></span>
+                                <span data-feather="user"></span>
                              </span>
                         </span>
-					</span>
-                    <span class="menu-title">Administrator</span>
-                    <span class="menu-arrow"></span>
-                </span>
+                            <span class="menu-title"> Customer</span>
+                        </a>
+                    </div>
+{{--                <div data-kt-menu-trigger="click" class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} " >--}}
+{{--                <span class="menu-link">--}}
+{{--                    <span class="menu-icon">--}}
+{{--						<span class="menu-icon">--}}
+{{--                            <span class="svg-icon svg-icon-2">--}}
+{{--                                <span data-feather="settings"></span>--}}
+{{--                             </span>--}}
+{{--                        </span>--}}
+{{--					</span>--}}
+{{--                    <span class="menu-title">Administrator</span>--}}
+{{--                    <span class="menu-arrow"></span>--}}
+{{--                </span>--}}
 {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
 {{--                        <div class="menu-item">--}}
 {{--                            <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"--}}
@@ -179,30 +190,30 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
 
-                    {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
-                    {{--                        <div class="menu-item">--}}
-                    {{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
-                    {{--                               href="{{ route('admin.permission.create') }}">--}}
-                    {{--                                <span class="menu-bullet">--}}
-                    {{--                                    <span class="bullet bullet-dot"></span>--}}
-                    {{--                                </span>--}}
-                    {{--                                <span class="menu-title">Permission</span>--}}
-                    {{--                            </a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+{{--                    --}}{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                    --}}{{--                        <div class="menu-item">--}}
+{{--                    --}}{{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
+{{--                    --}}{{--                               href="{{ route('admin.permission.create') }}">--}}
+{{--                    --}}{{--                                <span class="menu-bullet">--}}
+{{--                    --}}{{--                                    <span class="bullet bullet-dot"></span>--}}
+{{--                    --}}{{--                                </span>--}}
+{{--                    --}}{{--                                <span class="menu-title">Permission</span>--}}
+{{--                    --}}{{--                            </a>--}}
+{{--                    --}}{{--                        </div>--}}
+{{--                    --}}{{--                    </div>--}}
 
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'customer') ? 'active' : '' }}"
-                               href="{{ route('admin.customer.index') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title"> Customer</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                        <div class="menu-item">--}}
+{{--                            <a class="menu-link {{ (request()->segment(2) == 'customer') ? 'active' : '' }}"--}}
+{{--                               href="{{ route('admin.customer.index') }}">--}}
+{{--                                <span class="menu-bullet">--}}
+{{--                                    <span class="bullet bullet-dot"></span>--}}
+{{--                                </span>--}}
+{{--                                <span class="menu-title"> Customer</span>--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
                 <div class="menu-item">
                     <a class="menu-link {{ (request()->segment(2) == 'contact-us') ? 'active' : '' }}"

@@ -26,7 +26,7 @@
                                                 @foreach($roles as $role)
                                                     <option
                                                         value="{{$role->id}}"
-                                                        @if((int)$user->role_id === $role->id) selected @endif>{{$role->name}}</option>
+                                                        @if($user->user_type == strtolower($role->name)) selected @endif>{{$role->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

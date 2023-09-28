@@ -136,7 +136,9 @@
         </div>
         <div class="int-box">
             {{--            @dd('2023-09-22' > '2023-09-26' && '2023-09-22' < '2023-10-06');--}}
-            <p><i class="las la-user"></i> {{$bid_count}} people are interested</p>
+            @if($bid_count > 0)
+                <p><i class="las la-user"></i> {{$bid_count}} people are interested</p>
+            @endif
             @php
                 $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
                 $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);

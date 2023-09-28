@@ -34,6 +34,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('/logout');
 Route::get('vehicle-details/{id}', [HomeController::class, 'vehicleDetail'])->name('vehicle-details');
 Route::get('car-inquiry/{id}', [HomeController::class, 'vehicleInquiry'])->name('car-inquiry');
 Route::get('vehicle-bid-modal/{id}', [HomeController::class, 'vehicleBid'])->name('vehicle-bid-modal');
+Route::get('type-wise-car/{flag}', [HomeController::class, 'typeWiseCar'])->name('type-wise-car');
+Route::get('car-for-sell/{flag}', [HomeController::class, 'carForSell'])->name('car-for-sell');
 //Route::get('socialAccount', [SocialLoginController::class,'socialAccount'])->name('socialAccount');
 Route::get('googleCallback', [SocialLoginCOntroller::class,'googleCallback'])->name('googleCallback');
 Route::get('facebookCallback', [SocialLoginController::class,'facebookCallback'])->name('facebookCallback');
