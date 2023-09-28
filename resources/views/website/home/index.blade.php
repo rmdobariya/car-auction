@@ -12,61 +12,63 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($sell_vehicles as $sell_vehicle)
-                    <div class="details-box">
-                        <div class="car-img">
-                            <img src="{{asset($sell_vehicle->main_image)}}" align="car">
-                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                            <a href="#" class="like"><i class="las la-heart"></i></a>
-                        </div>
-                        <div class="car-name">
-                            <div class="names">
-                                <h3>{{$sell_vehicle->vehicle_name}}</h3>
-                                <p>{{$sell_vehicle->category_name}}</p>
+                        <div class="details-box">
+                            <div class="car-img">
+                                <img src="{{asset($sell_vehicle->main_image)}}" align="car">
+                                <span class="cat-tags"><img
+                                        src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                                <a href="#" class="like"><i class="las la-heart"></i></a>
+                            </div>
+                            <div class="car-name">
+                                <div class="names">
+                                    <h3>{{$sell_vehicle->vehicle_name}}</h3>
+                                    <p>{{$sell_vehicle->category_name}}</p>
+                                </div>
+                            </div>
+                            <div class="car-specifation">
+                                <div class="car-dt">
+                                    <div class="icon">
+                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                    </div>
+                                    <div class="detsl">
+                                        {{$sell_vehicle->kms_driven}}
+                                    </div>
+                                </div>
+                                <div class="car-dt">
+                                    <div class="icon">
+                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                    </div>
+                                    <div class="detsl">
+                                        {{$sell_vehicle->mileage}}
+                                    </div>
+                                </div>
+                                <div class="car-dt">
+                                    <div class="icon">
+                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                    </div>
+                                    <div class="detsl">
+                                        {{$sell_vehicle->fuel_type}}
+                                    </div>
+                                </div>
+                                <div class="car-dt">
+                                    <div class="icon">
+                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                    </div>
+                                    <div class="detsl">
+                                        {{$sell_vehicle->body_type}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="car-price">
+                                {{--                            <span>Bid Start on <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>--}}
+                                <div class="initial-price-box">
+                                    <p>Initial Price</p>
+                                    <h3>SAR {{number_format($sell_vehicle->price)}}</h3>
+                                </div>
+                                <a href="#" class="place-bid-blue car_inquiry" data-id="{{$sell_vehicle->id}}">Contact
+                                    Seller</a>
                             </div>
                         </div>
-                        <div class="car-specifation">
-                            <div class="car-dt">
-                                <div class="icon">
-                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
-                                </div>
-                                <div class="detsl">
-                                    {{$sell_vehicle->kms_driven}}
-                                </div>
-                            </div>
-                            <div class="car-dt">
-                                <div class="icon">
-                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
-                                </div>
-                                <div class="detsl">
-                                    {{$sell_vehicle->mileage}}
-                                </div>
-                            </div>
-                            <div class="car-dt">
-                                <div class="icon">
-                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                </div>
-                                <div class="detsl">
-                                    {{$sell_vehicle->fuel_type}}
-                                </div>
-                            </div>
-                            <div class="car-dt">
-                                <div class="icon">
-                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                </div>
-                                <div class="detsl">
-                                    {{$sell_vehicle->body_type}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="car-price">
-{{--                            <span>Bid Start on <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>--}}
-                            <div class="initial-price-box">
-                                <p>Initial Price</p>
-                                <h3>SAR  {{number_format($sell_vehicle->price)}}</h3>
-                            </div>
-                            <a href="#" class="place-bid-blue car_inquiry" data-id="{{$sell_vehicle->id}}">Contact Seller</a>
-                        </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -335,29 +337,29 @@
                             <div class="testimonial__inner">
                                 <div class="testimonial-slider">
                                     @foreach($testimonials as $testimonial)
-                                    <div class="testimonial-slide">
-                                        <div class="testimonial_box">
-                                            <div class="testimonial_box-inner">
-                                                <div class="testimonial_box-top">
-                                                    <div class="testimonial_box-icon">
-                                                        <img src="{{asset('web/assets/images/quotes.svg')}}">
-                                                    </div>
-                                                    <div class="testimonial_box-text">
-                                                        <p>{!! $testimonial->description !!}</p>
-                                                    </div>
-                                                    <div class="testimonial_box-name">
-                                                        <h4>{{$testimonial->title}}</h4>
-                                                    </div>
-                                                    <div class="testimonial_box-job">
-                                                        <p>{{$testimonial->role}}</p>
-                                                    </div>
-                                                    <div class="testimonial_box-img">
-                                                        <img src="{{asset($testimonial->image)}}" alt="profile">
+                                        <div class="testimonial-slide">
+                                            <div class="testimonial_box">
+                                                <div class="testimonial_box-inner">
+                                                    <div class="testimonial_box-top">
+                                                        <div class="testimonial_box-icon">
+                                                            <img src="{{asset('web/assets/images/quotes.svg')}}">
+                                                        </div>
+                                                        <div class="testimonial_box-text">
+                                                            <p>{!! $testimonial->description !!}</p>
+                                                        </div>
+                                                        <div class="testimonial_box-name">
+                                                            <h4>{{$testimonial->title}}</h4>
+                                                        </div>
+                                                        <div class="testimonial_box-job">
+                                                            <p>{{$testimonial->role}}</p>
+                                                        </div>
+                                                        <div class="testimonial_box-img">
+                                                            <img src="{{asset($testimonial->image)}}" alt="profile">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -383,22 +385,22 @@
                             <div class="testimonial__inner">
                                 <div class="testimonial-slider">
                                     @foreach($news as $new)
-                                    <div class="testimonial-slide">
-                                        <div class="testimonial_box">
-                                            <div class="testimonial_box-inner">
-                                                <div class="testimonial_box-top">
-                                                    <div class="testimonial_box-text">
-                                                        <div class="date">
-                                                            <span>{{Carbon\Carbon::parse($new->created_at)->format('M d ,Y')}}</span>
+                                        <div class="testimonial-slide">
+                                            <div class="testimonial_box">
+                                                <div class="testimonial_box-inner">
+                                                    <div class="testimonial_box-top">
+                                                        <div class="testimonial_box-text">
+                                                            <div class="date">
+                                                                <span>{{Carbon\Carbon::parse($new->created_at)->format('M d ,Y')}}</span>
+                                                            </div>
+                                                            <h1>{{$new->title}}</h1>
+                                                            <p>{{$new->description}}</p>
+                                                            <a href="#">Read Now</a>
                                                         </div>
-                                                        <h1>{{$new->title}}</h1>
-                                                        <p>{{$new->description}}</p>
-                                                        <a href="#">Read Now</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -448,7 +450,8 @@
             axios
                 .get(APP_URL + '/car-inquiry' + '/' + value_id)
                 .then(function (response) {
-                    if(response.data.success == 'true'){
+                    console.log(response.data.success)
+                    if (response.data.success == true) {
                         $('#car_inquiry_title').html(response.data.modal_title)
                         $('#car_inquiry_body').html(response.data.data)
 
@@ -463,10 +466,9 @@
                             prevButton: '.swiper-button-prev',
                             nextButton: '.swiper-button-next'
                         })
-                    }else{
+                    } else {
                         notificationToast(response.data.message, 'warning')
                     }
-
 
                     loaderHide()
                 })

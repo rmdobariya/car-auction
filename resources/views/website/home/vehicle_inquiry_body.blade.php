@@ -20,7 +20,7 @@
     </div>
 </form>
 <script>
-    let $inquiryForm = $('#vehicleInquiryForm')
+    var $inquiryForm = $('#vehicleInquiryForm')
     $inquiryForm.on('submit', function (e) {
         e.preventDefault()
         loaderView();
