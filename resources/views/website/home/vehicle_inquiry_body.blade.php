@@ -8,8 +8,12 @@
         <div class="col-md-6">
             <input type="text" name="last_name" class="form-control" value="{{$user->last_name}}" placeholder="Last Name *">
         </div>
+
         <div class="col-md-12">
             <input type="email" name="email" class="form-control" value="{{$user->email}}" placeholder="Email *">
+        </div>
+        <div class="col-md-6">
+            <input type="text" name="mobile_no" class="form-control integer" value="{{$user->contact_no}}" placeholder="Mobile No">
         </div>
         <div class="col-md-12">
             <textarea name="message" class="form-control" rows="4" placeholder="Comments and Questions *"></textarea>
@@ -32,7 +36,9 @@
                 loaderHide();
                 if (response.data.success == true) {
                     $('#car_inquiry').modal('hide')
+
                     notificationToast(response.data.message, 'success');
+                    window.location.reload()
                 } else {
                     notificationToast(response.data.message, 'warning')
                 }
@@ -44,4 +50,17 @@
                 loaderHide();
             });
     })
+
+    function integerOnly() {
+        $('.integer').keypress(function (event) {
+            if (event.which !== 8 && event.which !== 0 && (event.which < 48 || event.which > 57)) {
+                event.preventDefault();
+            }
+        });
+    }
+    $('.integer').keypress(function (event) {
+        if (event.which !== 8 && event.which !== 0 && (event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
 </script>

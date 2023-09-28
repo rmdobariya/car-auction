@@ -65,7 +65,8 @@
                                                     id="user_id">
                                                 <option value="">Select Option</option>
                                                 @foreach($users as $user)
-                                                    <option value="{{$user->id}}">{{$user->full_name}}</option>
+                                                    <option
+                                                        value="{{$user->id}}">{{$user->name .' ' . $user->last_name}} </option>
                                                 @endforeach
                                             </select>
                                         </div>

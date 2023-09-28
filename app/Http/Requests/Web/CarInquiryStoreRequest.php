@@ -20,6 +20,7 @@ class CarInquiryStoreRequest extends FormRequest
             'last_name' => 'required',
             'email' => 'required|email:rfc,dns',
             'message' => 'required',
+            'mobile_no' => 'required|digits_between:1,10',
         ];
     }
 

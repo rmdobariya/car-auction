@@ -13,10 +13,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><span>Toll Free:</span> {{$contact_no}}</a>
+                    <a class="nav-link" href="tel:{{$contact_no}}"><span>Toll Free:</span> {{$contact_no}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><span>Email:</span> {{$email}}</a>
+                    <a class="nav-link" href="mailto:{{$email}}"><span>Email:</span> {{$email}}</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -24,9 +24,9 @@
                     <a class="nav-link" href="{{route('/')}}">Home</a>
                 </li>
                 @if(!is_null(Auth::user()))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('auction')}}">Auctions</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('auction')}}">Auctions</a>
+                    </li>
                 @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('page',['how-it-work'])}}">How it works?</a>
@@ -38,8 +38,14 @@
                     <a class="nav-link" href="{{route('contact-us')}}">Contact us</a>
                 </li>
                 @if(!is_null(Auth::user()))
+                    @php
+                        $count = DB::table('notifications')->where('user_id', Auth::user()->id)->where('is_read',0)->count();
+                    @endphp
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('notification')}}">Notifications</a>
+                        <a class="nav-link" href="{{route('notification')}}">Notifications
+                            <span class="badge" style="background-color: white">{{$count}}</span>
+                        </a>
+
                     </li>
                 @endif
                 <li class="nav-item language">
@@ -90,11 +96,11 @@
             <div class="col-lg-2 col-md-3 offset-md-3 offset-lg-6">
                 <div class="download-app text-center">
                     <a href="{{$app_store_link}}" target="_blank"
-{{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                        {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                     >
                         <img src="{{asset('web/assets/images/app-store.png')}}"></a>
                     <a href="{{$play_store_link}}" target="_blank"
-{{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                        {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                     >
                         <img src="{{asset('web/assets/images/google-play.png')}}"></a>
                     <p>Download Now</p>

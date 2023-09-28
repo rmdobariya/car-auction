@@ -12,7 +12,7 @@
             <div id="kt_content_container" class="container-fluid">
                 <div class="card">
                     <div class="card-header border-0 pt-6">
-                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search Page'])
+                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search Customer'])
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                                 <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
@@ -36,8 +36,7 @@
                                                     data-dropdown-parent="#kt-toolbar-filter">
                                                 <option></option>
                                                 <option value="all">All</option>
-                                                <option value="admin">Super Admin</option>
-                                                <option value="user">User</option>
+{{--                                                <option value="admin">Super Admin</option>--}}
                                                 <option value="buyer">Buyer</option>
                                                 <option value="seller">Seller</option>
                                             </select>
