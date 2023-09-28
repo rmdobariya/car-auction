@@ -111,16 +111,24 @@ class HomeController extends Controller
     public function vehicleInquiry($vehicle_id)
     {
         $user = Auth::user();
+        if (!is_null($user)) {
+            $view = view('website.home.vehicle_inquiry_body', [
+                'user' => $user,
+                'vehicle_id' => $vehicle_id,
+            ])->render();
 
-        $view = view('website.home.vehicle_inquiry_body', [
-            'user' => $user,
-            'vehicle_id' => $vehicle_id,
-        ])->render();
+            return response()->json([
+                'success' => true,
+                'data' => $view,
+                'modal_title' => 'Vehicle Inquiry',
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please First Login Or Sign up',
+            ]);
+        }
 
-        return response()->json([
-            'data' => $view,
-            'modal_title' => 'Vehicle Inquiry',
-        ]);
     }
 
     public function vehicleBid($id)
