@@ -448,20 +448,25 @@
             axios
                 .get(APP_URL + '/car-inquiry' + '/' + value_id)
                 .then(function (response) {
-                    $('#car_inquiry_title').html(response.data.modal_title)
-                    $('#car_inquiry_body').html(response.data.data)
+                    if(response.data.success == 'true'){
+                        $('#car_inquiry_title').html(response.data.modal_title)
+                        $('#car_inquiry_body').html(response.data.data)
 
-                    $('#car_inquiry').modal('show')
-                    var mySwiper = new Swiper('.swiper-container', {
-                        speed: 400,
-                        loop: true,
-                        slidesPerView: 1,
-                        calculateHeight: true,
-                        spaceBetween: 50,
-                        watchActiveIndex: true,
-                        prevButton: '.swiper-button-prev',
-                        nextButton: '.swiper-button-next'
-                    })
+                        $('#car_inquiry').modal('show')
+                        var mySwiper = new Swiper('.swiper-container', {
+                            speed: 400,
+                            loop: true,
+                            slidesPerView: 1,
+                            calculateHeight: true,
+                            spaceBetween: 50,
+                            watchActiveIndex: true,
+                            prevButton: '.swiper-button-prev',
+                            nextButton: '.swiper-button-next'
+                        })
+                    }else{
+                        notificationToast(response.data.message, 'warning')
+                    }
+
 
                     loaderHide()
                 })
