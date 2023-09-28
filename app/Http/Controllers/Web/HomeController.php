@@ -262,8 +262,14 @@ class HomeController extends Controller
                 'message' => "Car Inquiry Is Already Added",
             ]);
         }
+        $vehicle = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->where('vehicles.id', $request->vehicle_id)
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->select('vehicles.user_id as user_id','vehicle_translations.name as vehicle_name')
+            ->first();
         $car_inquiry = new CarInquiry();
-        $car_inquiry->user_id = $request->user_id;
+        $car_inquiry->user_id = $vehicle->user_id;
         $car_inquiry->first_name = $request->first_name;
         $car_inquiry->last_name = $request->last_name;
         $car_inquiry->email = $request->email;
@@ -272,17 +278,10 @@ class HomeController extends Controller
         $car_inquiry->vehicle_id = $request->vehicle_id;
         $car_inquiry->save();
 
-
-        $vehicle = DB::table('vehicles')
-            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-            ->where('vehicles.id', $request->vehicle_id)
-            ->where('vehicle_translations.locale', App::getLocale())
-            ->select('vehicle_translations.name as vehicle_name')
-            ->first();
-        $user = DB::table('users')->where('id', $request->user_id)->first();
+        $user = DB::table('users')->where('id', $vehicle->user_id)->first();
 
         $notification = new Notification();
-        $notification->user_id = $request->user_id;
+        $notification->user_id = $user->id;
         $notification->vehicle_id = $request->vehicle_id;
         $notification->type = 'car_inquiry';
         $notification->message = 'You have received new Inquiry for your car' . ' ' . $vehicle->vehicle_name . '<br><br>' . 'Name : ' . $request->first_name . ' ' . $request->last_name . '<br>' . 'Email : ' . $request->email . '<br>' . 'Mobile : ' . $request->mobile_no . '<br>' . 'Message : ' . $request->message;
@@ -298,7 +297,7 @@ class HomeController extends Controller
             'message' => 'You have received new Inquiry for your car' . ' ' . $vehicle->vehicle_name . ' ' . 'as follows.',
             'subject' => 'Car Inquiry',
         ];
-        Mail::to($request->input('email'))->send(new CarInquiryMail($array));
+        Mail::to($user->email)->send(new CarInquiryMail($array));
         return response()->json([
             'success' => true,
             'message' => "Add Car Inquiry Successfully",
