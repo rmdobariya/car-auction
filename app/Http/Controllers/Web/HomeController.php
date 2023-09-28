@@ -161,24 +161,6 @@ class HomeController extends Controller
 
     public function carInquirySubmit(CarInquiryStoreRequest $request)
     {
-        $vehicle = DB::table('vehicles')
-            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-            ->where('vehicles.id', $request->vehicle_id)
-            ->where('vehicle_translations.locale', App::getLocale())
-            ->select('vehicle_translations.name as vehicle_name')
-            ->first();
-        $user = DB::table('users')->where('id', $request->user_id)->first();
-        $array = [
-            'full_name' => $user->name . ' ' . $user->last_name,
-            'first_name' => $user->name,
-            'last_name' => $user->last_name,
-            'email' => $user->email,
-            'mail_title' => 'Car Inquiry',
-            'message' => 'You have received new Inquiry for your car' . ' ' . $vehicle->vehicle_name . ' ' . 'as follows.',
-            'subject' => 'Car Inquiry',
-        ];
-        Mail::to($request->input('email'))->send(new CarInquiryMail($array));
-        dd(12);
         $inquiry_count = DB::table('car_inquiries')->where('user_id', $request->user_id)->where('vehicle_id', $request->vehicle_id)->count();
         if ($inquiry_count > 0) {
             return response()->json([
