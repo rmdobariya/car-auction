@@ -197,6 +197,7 @@ class HomeController extends Controller
             'first_name' => $user->name,
             'last_name' => $user->last_name,
             'email' => $user->email,
+            'request_msg' => $user->message,
             'mail_title' => 'Car Inquiry',
             'message' => 'You have received new Inquiry for your car' . ' ' . $vehicle->vehicle_name . ' ' . 'as follows.',
             'subject' => 'Car Inquiry',
