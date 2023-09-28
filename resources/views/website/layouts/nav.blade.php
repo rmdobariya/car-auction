@@ -131,7 +131,7 @@
                     @else
                         <div class="user-login-info">
                             <div class="user-name">
-                                <p>Welcome <span>{{Auth::user()->full_name}}</span></p>
+                                <p>Hi <span>{{Auth::user()->name}}</span></p>
                             </div>
                             <div class="user-profile">
                                 <a href="{{route('user-profile')}}">
