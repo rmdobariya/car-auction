@@ -37,6 +37,7 @@ class LoginController extends Controller
         } else {
             Auth::login($user);
             return response()->json([
+                'user_type' =>$user->user_type,
                 'message' => 'Login Successfully',
             ]);
         }

@@ -13,10 +13,16 @@ $loginForm.on('submit', function (e) {
         .then(function (response) {
             $loginForm[0].reset();
             loaderHide();
+            if (response.data.user_type == 'seller') {
+                setTimeout(function () {
+                    window.location.href = 'add-auction';
+                }, 1000);
+            } else {
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000);
+            }
 
-            setTimeout(function () {
-                window.location.reload();
-            }, 1000);
             notificationToast(response.data.message, 'success');
             $('#login').modal('hide');
         })
