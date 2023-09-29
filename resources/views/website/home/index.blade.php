@@ -14,12 +14,39 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($sell_vehicles as $sell_vehicle)
+
+                        @if(Auth::user())
+                            @php
+                                $count = DB::table('wish_lists')->where('vehicle_id', $sell_vehicle->id)->where('user_id', Auth::user()->id)->count()
+                            @endphp
+                        @else
+                            @php
+                                $count = 0;
+                            @endphp
+                        @endif
+
                         <div class="details-box">
                             <div class="car-img">
                                 <img src="{{asset($sell_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags"><img
-                                        src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like"><i class="las la-heart"></i></a>
+                                        src="{{asset('web/assets/images/dymand.png')}}"> Car For Sell</span>
+                                @if(!is_null(Auth::user()))
+                                    @if($sell_vehicle->user_id != Auth::user()->id)
+                                        <a class="like" data-id="{{$sell_vehicle->id}}"
+                                           data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                            @if($count == 0)
+                                                <i class="lar la-heart"></i>
+                                            @else
+                                                <i class="las la-heart"></i>
+                                            @endif
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="like" data-id="{{$sell_vehicle->id}}"
+                                       data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                        <i class="lar la-heart"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -86,12 +113,37 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($featured_vehicles as $featured_vehicle)
+                        @if(Auth::user())
+                            @php
+                                $count = DB::table('wish_lists')->where('vehicle_id', $featured_vehicle->id)->where('user_id', Auth::user()->id)->count()
+                            @endphp
+                        @else
+                            @php
+                                $count = 0;
+                            @endphp
+                        @endif
                         <div class="details-box">
                             <div class="car-img">
                                 <img src="{{asset($featured_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
-                                    <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like"><i class="las la-heart"></i></a>
+                                   <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
+                                @if(!is_null(Auth::user()))
+                                    @if($featured_vehicle->user_id != Auth::user()->id)
+                                        <a class="like" data-id="{{$featured_vehicle->id}}"
+                                           data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                            @if($count == 0)
+                                                <i class="lar la-heart"></i>
+                                            @else
+                                                <i class="las la-heart"></i>
+                                            @endif
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="like" data-id="{{$featured_vehicle->id}}"
+                                       data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                        <i class="lar la-heart"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -150,7 +202,7 @@
                 <div class="col-md-12">
                     <div class="heading">
                         <h1>Popular Vehicles</h1>
-                        @if($featured_vehicle_count > 3)
+                        @if($popular_vehicle_count > 3)
                             <a href="{{route('type-wise-car','is_popular')}}">View All</a>
                         @endif
                     </div>
@@ -158,12 +210,37 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($popular_vehicles as $popular_vehicle)
+                        @if(Auth::user())
+                            @php
+                                $count = DB::table('wish_lists')->where('vehicle_id', $popular_vehicle->id)->where('user_id', Auth::user()->id)->count()
+                            @endphp
+                        @else
+                            @php
+                                $count = 0;
+                            @endphp
+                        @endif
                         <div class="details-box">
                             <div class="car-img">
                                 <img src="{{asset($popular_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
-                                    <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like"><i class="las la-heart"></i></a>
+                                   <img src="{{asset('web/assets/images/dymand.png')}}"> Popular</span>
+                                @if(!is_null(Auth::user()))
+                                    @if($popular_vehicle->user_id != Auth::user()->id)
+                                        <a class="like" data-id="{{$popular_vehicle->id}}"
+                                           data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                            @if($count == 0)
+                                                <i class="lar la-heart"></i>
+                                            @else
+                                                <i class="las la-heart"></i>
+                                            @endif
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="like" data-id="{{$popular_vehicle->id}}"
+                                       data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                        <i class="lar la-heart"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -233,12 +310,37 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($hot_deal_vehicles as $hot_deal_vehicle)
+                        @if(Auth::user())
+                            @php
+                                $count = DB::table('wish_lists')->where('vehicle_id', $hot_deal_vehicle->id)->where('user_id', Auth::user()->id)->count()
+                            @endphp
+                        @else
+                            @php
+                                $count = 0;
+                            @endphp
+                        @endif
                         <div class="details-box">
                             <div class="car-img">
                                 <img src="{{asset($hot_deal_vehicle->main_image)}}" align="car">
                                 <span class="cat-tags">
-                                    <img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="#" class="like"><i class="las la-heart"></i></a>
+                                   <img src="{{asset('web/assets/images/dymand.png')}}"> Hot Deal</span>
+                                @if(!is_null(Auth::user()))
+                                    @if($hot_deal_vehicle->user_id != Auth::user()->id)
+                                        <a class="like" data-id="{{$hot_deal_vehicle->id}}"
+                                           data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                            @if($count == 0)
+                                                <i class="lar la-heart"></i>
+                                            @else
+                                                <i class="las la-heart"></i>
+                                            @endif
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="like" data-id="{{$hot_deal_vehicle->id}}"
+                                       data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                        <i class="lar la-heart"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -487,5 +589,5 @@
 
 
     </script>
-
+    <script src="{{asset('web/assets/custom/home/home.js')}}?v={{time()}}"></script>
 @endsection

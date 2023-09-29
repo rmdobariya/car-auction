@@ -27,15 +27,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('auction')}}">Auctions</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('wishlist')}}">Wishlist</a>
+                    </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('page',['how-it-work'])}}">How it works?</a>
+                    <a class="nav-link" href="{{route('page',['how-it-work'])}}#contact_us">How it works?</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('page',['about-us'])}}">About us</a>
+                    <a class="nav-link" href="{{route('page',['about-us'])}}#contact_us">About us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('contact-us')}}">Contact us</a>
+                    <a class="nav-link" href="{{route('contact-us')}}#contact_us">Contact us</a>
                 </li>
                 @if(!is_null(Auth::user()))
                     @php

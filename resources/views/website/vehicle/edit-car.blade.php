@@ -9,7 +9,7 @@
                         <h1>Car Details</h1>
                         <div class="add-car-form">
                             <form id="vehicleAddForm">
-                                <input type="hidden" id="edit_value" value="0" name="edit_value">
+                                <input type="hidden" id="edit_value" value="{{$vehicle->id}}" name="edit_value">
                                 <input type="hidden" id="temp_time" name="temp_time" value="{{time()}}">
                                 @csrf
                                 <div class="row">
@@ -23,6 +23,7 @@
                                                        name="{{ $language['language_code'] }}_name"
                                                        id="{{ $language['language_code'] }}_name"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->name }}"
                                                        placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
                                                        required/>
                                             </div>
@@ -37,7 +38,8 @@
                                                 <option value="">Select Option</option>
                                                 @foreach($vehicle_categories as $vehicle_category)
                                                     <option
-                                                        value="{{$vehicle_category->id}}">{{$vehicle_category->name}}</option>
+                                                        value="{{$vehicle_category->id}}"
+                                                        @if((int)$vehicle->vehicle_category_id === $vehicle_category->id) selected @endif>{{$vehicle_category->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -50,6 +52,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="year"
                                                    id="year"
+                                                   value="{{$vehicle->year}}"
                                                    placeholder="Year"/>
                                         </div>
                                     </div>
@@ -61,6 +64,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="make"
                                                    id="make"
+                                                   value="{{$vehicle->make}}"
                                                    placeholder="Make"/>
                                         </div>
                                     </div>
@@ -72,6 +76,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="model"
                                                    id="model"
+                                                   value="{{$vehicle->model}}"
                                                    placeholder="Model"/>
                                         </div>
                                     </div>
@@ -83,6 +88,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="trim"
                                                    id="trim"
+                                                   value="{{$vehicle->trim}}"
                                                    placeholder="Trim"/>
                                         </div>
                                     </div>
@@ -93,6 +99,7 @@
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="kms_driven"
+                                                   value="{{$vehicle->kms_driven}}"
                                                    id="kms_driven"
                                                    placeholder="KMs Driven"/>
                                         </div>
@@ -105,6 +112,7 @@
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="owners"
                                                    id="owners"
+                                                   value="{{$vehicle->owners}}"
                                                    placeholder="No Of Owners"/>
                                         </div>
                                     </div>
@@ -115,6 +123,7 @@
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="transmission"
+                                                   value="{{$vehicle->transmission}}"
                                                    id="transmission"
                                                    placeholder="Transmission"/>
                                         </div>
@@ -127,6 +136,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="fuel_type"
                                                    id="fuel_type"
+                                                   value="{{$vehicle->fuel_type}}"
                                                    placeholder="Fuel Type"/>
                                         </div>
                                     </div>
@@ -138,6 +148,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="body_type"
                                                    id="body_type"
+                                                   value="{{$vehicle->body_type}}"
                                                    placeholder="Body Type"/>
                                         </div>
                                     </div>
@@ -149,6 +160,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="registration"
                                                    id="registration"
+                                                   value="{{$vehicle->registration}}"
                                                    placeholder="Registration"/>
                                         </div>
                                     </div>
@@ -160,6 +172,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="mileage"
                                                    id="mileage"
+                                                   value="{{$vehicle->mileage}}"
                                                    placeholder="Mileage"/>
                                         </div>
                                     </div>
@@ -171,6 +184,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="color"
                                                    id="color"
+                                                   value="{{$vehicle->color}}"
                                                    placeholder="Exterior Color"/>
                                         </div>
                                     </div>
@@ -182,16 +196,20 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="car_type"
                                                    id="car_type"
+                                                   value="{{$vehicle->type}}"
                                                    placeholder="Car Type"/>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-4" id="bid_increment">
+                                    <div
+                                        class="mb-1 col-md-4 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"
+                                        id="bid_increment">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="car_type">
                                                 Bid Increment
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="bid_increment"
+                                                   value="{{$vehicle->bid_increment}}"
                                                    placeholder="Bid Increment"/>
                                         </div>
                                     </div>
@@ -202,6 +220,7 @@
                                             class="form-check-input h-20px w-20px is_vehicle_type"
                                             value="car_for_auction" name="is_vehicle_type"
                                             id="is_vehicle_type"
+                                            @if($vehicle->is_vehicle_type == 'car_for_auction') checked @endif
                                             type="radio" data-bs-original-title=""
                                             title="">
                                         <label class="form-check-label fw-bold"
@@ -214,6 +233,7 @@
                                         <input
                                             class="form-check-input h-20px w-20px is_vehicle_type"
                                             value="car_for_sell" name="is_vehicle_type"
+                                            @if($vehicle->is_vehicle_type == 'car_for_sell') checked @endif
                                             id="is_vehicle_type"
                                             type="radio" data-bs-original-title=""
                                             title="">
@@ -231,6 +251,7 @@
                                                name="{{ $language['language_code'] }}_short_description"
                                                id="{{ $language['language_code'] }}_short_description"
                                                @if($language['is_rtl']==1) dir="rtl" @endif
+                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"
                                                placeholder="{{ $language['name'] }} Short Description"
                                                required/>
                                     </div>
@@ -245,20 +266,24 @@
                                         <textarea class="form-control"
                                                   name="{{ $language['language_code'] }}_description"
                                                   id="{{ $language['language_code'] }}_description"
-                                                  @if($language['is_rtl']==1) dir="rtl" @endif></textarea>
+                                                  @if($language['is_rtl']==1) dir="rtl" @endif>{{ $vehicle->translateOrNew($language['language_code'])->description }}</textarea>
                                     </div>
                                 @endforeach
                                 <div class="row">
                                     <div class="col-md-4">
+                                        <label class="required fs-6 fw-bold mb-2" for="ratting">
+                                            Ratting
+                                        </label>
                                         <div class="car-rating">
                                             <p>Rating</p>
                                             <div class="rating_container secondary">
-                                                <span class="rating">1</span>
-                                                <span class="rating">2</span>
-                                                <span class="rating">3</span>
-                                                <span class="rating">4</span>
-                                                <span class="rating">5</span>
-                                                <input value="0" type="number" name="ratingvalue" class="ratingvalue"/>
+                                                <span class="rating @if($vehicle->ratting >= 1) active @endif">1</span>
+                                                <span class="rating @if($vehicle->ratting >= 2) active @endif">2</span>
+                                                <span class="rating @if($vehicle->ratting >= 3) active @endif">3</span>
+                                                <span class="rating @if($vehicle->ratting >= 4) active @endif">4</span>
+                                                <span class="rating @if($vehicle->ratting >= 5) active @endif">5</span>
+                                                <input value="{{$vehicle->ratting}}" type="number" name="ratingvalue"
+                                                       class="ratingvalue"/>
                                             </div>
 
                                         </div>
@@ -267,84 +292,106 @@
                                         <label class="required fs-6 fw-bold mb-2" for="main_image">
                                             Main Image
                                         </label>
-                                        <input type="file" name="main_image" id="file" class="dropify">
+                                        <input type="file" name="main_image" id="file" class="dropify"
+                                               data-default-file="{{asset($vehicle->main_image)}}"
+                                               value="{{$vehicle->main_image}}">
                                     </div>
-                                </div>
-                                <h1>Car Images</h1>
-                                <div class="row">
-                                    <div id="fine-uploader"></div>
-                                </div>
-                                <h1>Car Documents</h1>
-                                <div class="row">
+                                    <h1>Car Images</h1>
                                     <div class="row">
-                                        <div id="fine-uploader-document"></div>
+                                        <div id="car_gallery">
+                                            @include('website.vehicle.car_gallery')
+                                        </div>
+                                        <div id="fine-uploader"></div>
                                     </div>
-                                </div>
-                                <h1>Car Auction Details</h1>
-                                <div class="row">
-                                    <div class="mb-1 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="price">
-                                                Initial Price
-                                            </label>
-                                            <input type="text" name="price" class="form-control"
-                                                   placeholder="Initial Price *">
+                                    <h1>Car Documents</h1>
+                                    <div class="row">
+                                        <div id="car_document">
+                                            @include('website.vehicle.car_document')
+                                        </div>
+                                        <div class="row">
+                                            <div id="fine-uploader-document"></div>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-6" id="minimumBidIncrement">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">
-                                                Minimum Bid Increment
-                                            </label>
-                                            <input type="text" name="minimumBidIncrement" class="form-control"
-                                                   placeholder="Minimum Bid Increment *">
+                                    <h1>Car Auction Details</h1>
+                                    <div class="row">
+                                        <div class="mb-1 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="price">
+                                                    Initial Price
+                                                </label>
+                                                <input type="text" name="price"
+                                                       value="{{$vehicle->price}}"
+                                                       class="form-control"
+                                                       placeholder="Initial Price *">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="mb-1 col-md-6 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"
+                                            id="minimumBidIncrement">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">
+                                                    Minimum Bid Increment
+                                                </label>
+                                                <input type="text" name="minimumBidIncrement"
+                                                       value="{{$vehicle->minimum_bid_increment_price}}"
+                                                       class="form-control"
+                                                       placeholder="Minimum Bid Increment *">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row" id="auction_date_time_part">
-                                    <div class="mb-1 col-md-3">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                Start Date
-                                            </label>
-                                            <input type="date" name="auction_start_date" class="form-control"
-                                                   placeholder="Auction Start Date">
+                                    <div class="row @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"
+                                         id="auction_date_time_part">
+                                        <div class="mb-1 col-md-3">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                    Start Date
+                                                </label>
+                                                <input type="date" name="auction_start_date"
+                                                       value="{{$vehicle->auction_start_date}}"
+                                                       class="form-control"
+                                                       placeholder="Auction Start Date">
+                                            </div>
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                    Start Time
+                                                </label>
+                                                <input type="time" name="auction_start_time"
+                                                       value="{{$vehicle->auction_start_time}}"
+                                                       class="form-control"
+                                                       placeholder="Auction Start Time">
+                                            </div>
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                    End Date
+                                                </label>
+                                                <input type="date" name="auction_end_date"
+                                                       value="{{$vehicle->auction_end_date}}"
+                                                       class="form-control"
+                                                       placeholder="Auction End Date">
+                                            </div>
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                    End Time
+                                                </label>
+                                                <input type="time" name="auction_end_time"
+                                                       value="{{$vehicle->auction_end_time}}"
+                                                       class="form-control"
+                                                       placeholder="Auction End Time">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-3">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                Start Time
-                                            </label>
-                                            <input type="time" name="auction_start_time" class="form-control"
-                                                   placeholder="Auction Start Time">
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="place-bid-blue">Update</button>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-3">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                End Date
-                                            </label>
-                                            <input type="date" name="auction_end_date" class="form-control"
-                                                   placeholder="Auction End Date">
-                                        </div>
-                                    </div>
-                                    <div class="mb-1 col-md-3">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                End Time
-                                            </label>
-                                            <input type="time" name="auction_end_time" class="form-control"
-                                                   placeholder="Auction End Time">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <button type="submit" class="place-bid-blue">Add Car to Auction</button>
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -357,7 +404,6 @@
 @endsection
 @section('custom-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
-
     <script>
         var IMAGE_UPLOAD_URL = '/vehicle-image-upload'
         var IMAGE_DELETE_URL = '/vehicle-image-delete'
@@ -365,6 +411,6 @@
         var DOCUMENT_DELETE_URL = '/vehicle-document-delete'
         $('.dropify').dropify();
     </script>
-    <script src="{{asset('web/assets/custom/vehicle/vehicle.js')}}?v={{time()}}"></script>
     <script src="{{URL::asset('web/assets/custom/vehicle/imageUploader.js')}}?v={{ time() }}"></script>
+    <script src="{{asset('web/assets/custom/vehicle/vehicle.js')}}?v={{time()}}"></script>
 @endsection

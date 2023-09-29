@@ -19,6 +19,15 @@
                 <div class="clearfix"></div>
                 <div class="col-md-12">
                     @foreach($vehicles as $vehicle)
+                        @if(Auth::user())
+                            @php
+                                $count = DB::table('wish_lists')->where('vehicle_id', $vehicle->id)->where('user_id', Auth::user()->id)->count()
+                            @endphp
+                        @else
+                            @php
+                                $count = 0;
+                            @endphp
+                        @endif
                         @php
                         $total_bids = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->count();
                         $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
@@ -27,8 +36,24 @@
                             <div class="car-img">
                                 <img src="{{asset($vehicle->main_image)}}" align="car">
                                 <span class="cat-tags"><img
-                                        src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>
-                                <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>
+                                        src="{{asset('web/assets/images/dymand.png')}}"> @if($vehicle->is_product == 'is_featured') Featured @elseif($vehicle->is_product == 'is_popular') Popular @else Hot Deal @endif</span>
+                                @if(!is_null(Auth::user()))
+                                    @if($vehicle->user_id != Auth::user()->id)
+                                        <a class="like" data-id="{{$vehicle->id}}"
+                                           data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                            @if($count == 0)
+                                                <i class="lar la-heart"></i>
+                                            @else
+                                                <i class="las la-heart"></i>
+                                            @endif
+                                        </a>
+                                    @endif
+                                @else
+                                    <a class="like" data-id="{{$vehicle->id}}"
+                                       data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
+                                        <i class="lar la-heart"></i>
+                                    </a>
+                                @endif
                             </div>
                             <div class="car-name">
                                 <div class="names">
@@ -108,11 +133,10 @@
                                    data-bs-target="#carderails">View Auction</a>
                                 @else
                                     @if($vehicle->auction_start_date > date('Y-m-d'))
-                                        <a href="#" class="place-bid-blue">Auction Not Started</a>
+                                        <a href="#" class="place-bid-blue">Pending</a>
                                     @else
                                                                     <a href="javascript:void(0)"
-                                                                       class="place-bid-blue update-bid comtrans">Complete
-                                                                        Transaction</a>
+                                                                       class="place-bid-blue update-bid comtrans">Auction Close</a>
                                     @endif
                                 @endif
                             </div>
@@ -495,7 +519,6 @@
         $j_object.each(function (i) {
             var id = $(this).val();
             var start_date = $('#start_date_' + id).val()
-
             $("#my-auction-counter_" + id)
                 .countdown(start_date, function (event) {
                     $("#my-auction-counter_" + id).html(
@@ -514,4 +537,5 @@
             }
         })
     </script>
+    <script src="{{asset('web/assets/custom/home/home.js')}}?v={{time()}}"></script>
 @endsection

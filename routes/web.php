@@ -48,11 +48,17 @@ Route::post('update-profile', [ProfileController::class,'updateProfile'])->name(
 Route::post('change-image', [ProfileController::class,'changeImage'])->name('change-image');
 Route::get('add-auction', [AuctionController::class,'index'])->name('add-auction');
 Route::get('add-car', [VehicleController::class,'create'])->name('add-car');
+Route::get('edit-car/{id}', [VehicleController::class,'edit'])->name('edit-car');
 Route::post('add-vehicle-store', [VehicleController::class,'store'])->name('add-vehicle-store');
 Route::post('vehicle-image-upload', [VehicleController::class,'imageUpload'])->name('vehicle-image-upload');
 Route::post('vehicle-document-upload', [VehicleController::class,'documentUpload'])->name('vehicle-document-upload');
 Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class,'imageDelete'])->name('vehicle-image-delete');
 Route::delete('vehicle-document-delete/{temp_time}', [VehicleController::class,'documentDelete'])->name('vehicle-document-delete');
+Route::post('getVehicleGallery', [VehicleController::class, 'getVehicleGallery'])->name('getVehicleGallery');
+Route::post('getVehicleDocument', [VehicleController::class, 'getVehicleDocument'])->name('getVehicleDocument');
+Route::get('deleteVehicleImage/{id}', [VehicleController::class, 'deleteVehicleImage'])->name('deleteVehicleImage');
+Route::get('deleteVehicleDocument/{id}', [VehicleController::class, 'deleteVehicleDocument'])->name('deleteVehicleDocument');
+Route::get('deleteCar/{id}', [VehicleController::class, 'destroy'])->name('deleteCar');
 Route::post('vehicle-bid-store', [BidController::class,'addBid'])->name('vehicle-bid-store');
 Route::post('vehicle-inquiry-store', [HomeController::class,'carInquirySubmit'])->name('vehicle-inquiry-store');
 
@@ -63,4 +69,6 @@ Route::get('notification', [NotificationController::class, 'index'])->name('noti
 Route::post('send-mail', [LoginController::class, 'sendMail'])->name('send-mail');
 Route::get('reset-password/{token}', [LoginController::class, 'resetPassword'])->name('reset-password');
 Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
+Route::post('wish-list', [HomeController::class, 'wishList'])->name('wish-list');
+Route::get('wishlist', [PageController::class, 'wishListPage'])->name('wishlist');
 

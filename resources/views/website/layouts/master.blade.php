@@ -137,7 +137,7 @@
                         <input type="text" name="last_name" class="form-control" placeholder="Last Name">
                         <input type="text" name="phone" class="form-control integer" placeholder="Mobile No.">
                         <input type="text" name="email" class="form-control" placeholder="Email">
-{{--                        <input type="text" name="email" class="form-control" placeholder="Username">--}}
+                        {{--                        <input type="text" name="email" class="form-control" placeholder="Username">--}}
                         <input type="password" name="password" class="form-control" placeholder="Password">
                         <div class="select-opt">
                             <div class="form-check">
@@ -244,14 +244,14 @@
                         </label>
                     </div>
                     <div class="position-relative mb-3" data-kt-password-meter="true">
-                        <input class="form-control form-control-lg form-control-solid"
+                        <input class="form-control"
                                type="email" id="forgot_email"
                                placeholder="Email"
                                name="forgot_email"/>
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" id="forgot_password_submit" class="btn btn-lg btn-primary w-100 mb-5">
+                    <button type="button" id="forgot_password_submit" class="btn btn-lg btn-primary w-100 mb-5 place-bid-blue">
                         <span class="indicator-label">Submit</span>
                     </button>
                 </div>
