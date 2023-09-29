@@ -37,6 +37,7 @@ class PageController extends Controller
                 ->whereNull('vehicles.deleted_at')
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicles.user_id', $user->id)
+                ->where('vehicles.is_vehicle_type', 'car_for_auction')
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
                 ->get();
@@ -44,7 +45,31 @@ class PageController extends Controller
             return view('website.auction.auction', [
                 'vehicles' => $vehicles
             ]);
-        }else{
+        } else {
+            abort(404);
+        }
+    }
+
+    public function wishListPage()
+    {
+        $user = Auth::user();
+        if (!is_null($user)) {
+            $vehicles = DB::table('wish_lists')
+                ->leftJoin('vehicles', 'vehicles.id', 'wish_lists.vehicle_id')
+                ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+                ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+                ->whereNull('vehicles.deleted_at')
+                ->where('vehicle_translations.locale', App::getLocale())
+                ->where('wish_lists.user_id', $user->id)
+                ->where('vehicles.is_vehicle_type', 'car_for_auction')
+                ->orderBy('vehicles.id', 'desc')
+                ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+                ->get();
+
+            return view('website.user.wish_list', [
+                'vehicles' => $vehicles
+            ]);
+        } else {
             abort(404);
         }
 

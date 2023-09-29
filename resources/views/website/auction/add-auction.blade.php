@@ -71,20 +71,29 @@
                                 </thead>
                                 <tbody>
                                 @foreach($vehicles as $vehicle)
-                                <tr>
-                                    <td>{{$vehicle->vehicle_name}}</td>
-                                    <td>{{$vehicle->make}}</td>
-                                    <td>{{$vehicle->model}}</td>
-                                    <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>
-                                    <td>SAR {{$vehicle->bid_increment}}</td>
-                                    <td>
-                                        <a href="#" class="view_bid" data-id="{{$vehicle->id}}" data-bs-toggle="modal" ><i class="las la-eye"></i></a>
-{{--                                        <a href="#" class="edit" data-bs-toggle="modal"--}}
-{{--                                           data-bs-target="#auction-details"><i class="las la-pencil-alt"></i></a>--}}
-{{--                                        <a href="#" class="delete"><i class="las la-trash-alt"></i></a>--}}
-{{--                                        <a href="#" class="download"><i class="las la-download"></i></a>--}}
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{$vehicle->vehicle_name}}</td>
+                                        <td>{{$vehicle->make}}</td>
+                                        <td>{{$vehicle->model}}</td>
+                                        @if(!is_null($vehicle->minimum_bid_increment_price))
+                                            <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        @if(!is_null($vehicle->bid_increment))
+                                            <td>SAR {{$vehicle->bid_increment}}</td>
+                                        @else
+                                            <td></td>
+                                        @endif
+                                        <td>
+                                            <a href="#" class="view_bid" data-id="{{$vehicle->id}}"
+                                               data-bs-toggle="modal"><i class="las la-eye"></i></a>
+                                            <a href="{{route('edit-car',$vehicle->id)}}" class="edit"><i
+                                                    class="las la-pencil-alt"></i></a>
+                                            <a href="#" class="delete-single" data-id="{{$vehicle->id}}"><i class="las la-trash-alt"></i></a>
+                                            {{--                                        <a href="#" class="download"><i class="las la-download"></i></a>--}}
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -94,12 +103,13 @@
             </div>
         </div>
     </section>
-{{--    @include('website.layouts.component.howworks')--}}
-{{--    @include('website.layouts.component.testimonial')--}}
-{{--    @include('website.layouts.component.news')--}}
+    {{--    @include('website.layouts.component.howworks')--}}
+    {{--    @include('website.layouts.component.testimonial')--}}
+    {{--    @include('website.layouts.component.news')--}}
     <div class="clearfix"></div>
     <!-- Auction Details Modal -->
-    <div class="modal fade bid-model" id="auctiondetails" data-bs-keyboard="false" tabindex="-1" aria-labelledby="auctiondetailsLabel" aria-hidden="true">
+    <div class="modal fade bid-model" id="auctiondetails" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="auctiondetailsLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body" id="bid_listing_model">
@@ -110,7 +120,9 @@
     </div>
 @endsection
 @section('custom-script')
+    <script src="{{asset('web/assets/custom/vehicle/vehicle.js')}}?v={{time()}}"></script>
     <script>
+
         $('.view_bid').on('click', function () {
             const value_id = $(this).data('id')
             loaderView()

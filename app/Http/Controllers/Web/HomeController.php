@@ -7,6 +7,8 @@ use App\Http\Requests\Web\CarInquiryStoreRequest;
 use App\Mail\Web\CarInquiryMail;
 use App\Models\CarInquiry;
 use App\Models\Notification;
+use App\Models\WishList;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -266,7 +268,7 @@ class HomeController extends Controller
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->where('vehicles.id', $request->vehicle_id)
             ->where('vehicle_translations.locale', App::getLocale())
-            ->select('vehicles.user_id as user_id','vehicle_translations.name as vehicle_name')
+            ->select('vehicles.user_id as user_id', 'vehicle_translations.name as vehicle_name')
             ->first();
         $car_inquiry = new CarInquiry();
         $car_inquiry->user_id = $vehicle->user_id;
@@ -302,5 +304,28 @@ class HomeController extends Controller
             'success' => true,
             'message' => "Add Car Inquiry Successfully",
         ]);
+    }
+
+    public function wishList(Request $request)
+    {
+        $count = DB::table('wish_lists')->where('vehicle_id', $request->vehicle_id)->where('user_id', $request->user_id)->count();
+        if ($count > 0) {
+            DB::table('wish_lists')->where('vehicle_id', $request->vehicle_id)->where('user_id', $request->user_id)->delete();
+            return response()->json([
+                'success' => true,
+                'is_wishlist' => 0,
+                'message' => "Remove In Wishlist Successfully",
+            ]);
+        } else {
+            $wish_list = new WishList();
+            $wish_list->user_id = $request->user_id;
+            $wish_list->vehicle_id = $request->vehicle_id;
+            $wish_list->save();
+            return response()->json([
+                'success' => true,
+                'is_wishlist' => 1,
+                'message' => "Add In Wishlist Successfully",
+            ]);
+        }
     }
 }

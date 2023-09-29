@@ -484,6 +484,7 @@ a.like {
     top: 10px;
     right: 10px;
     align-items: center;
+    cursor: pointer;
 }
 a.like i.las.la-heart {
     font-size: 24px;

@@ -57,12 +57,25 @@ $registerform.on('submit', function (e) {
         });
 })
 
-$('#forgot_password').on('click', function () {
-    $('#forgot_password_form').modal('show')
-})
+$(document).ready(function () {
+    $('#forgot_password').on('click', function () {
+        $('#login').modal('hide');
+        setTimeout(function () {
+            $('#forgot_password_form').modal('show')
+        }, 1000);
+    });
+
+    $("#forgot_password_form").on('hide.bs.modal', function () {
+        setTimeout(function () {
+            $('body').css('overflow', 'auto');
+            $('body').css('padding-right', '0px');
+            $('.modal-backdrop').remove();
+        }, 500);
+    });
+});
+
 $('#forgot_password_submit').on('click', function () {
     let email = $('#forgot_email').val()
-    console.log(email)
     if (email === '') {
         notificationToast('Please Enter Email', 'warning')
         return false
@@ -104,5 +117,3 @@ $form.on('submit', function (e) {
             loaderHide();
         });
 })
-
-
