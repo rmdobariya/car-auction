@@ -3,11 +3,15 @@
         <div class="product-left mb-5">
             <div class="swiper-container product-slider mb-3">
                 <div class="swiper-wrapper">
-                    {{--                    @foreach($vehicle_images as $vehicle_image)--}}
                     <div class="swiper-slide">
                         <img src="{{asset($vehicle->main_image)}}" alt="..." class="img-fluid">
                     </div>
-                    {{--                    @endforeach--}}
+
+                    @foreach($vehicle_images as $vehicle_image)
+                    <div class="swiper-slide">
+                        <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
+                    </div>
+                    @endforeach
                 </div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -15,10 +19,13 @@
 
             <div class="swiper-container product-thumbs">
                 <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="{{asset($vehicle->main_image)}}" alt="..." class="img-fluid">
+                    </div>
                     @foreach($vehicle_images as $vehicle_image)
-                        <div class="swiper-slide">
-                            <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
-                        </div>
+                    <div class="swiper-slide">
+                        <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
+                    </div>
                     @endforeach
                 </div>
             </div>
@@ -135,41 +142,40 @@
             <p><span>SAR {{number_format($vehicle->price)}}</span></p>
         </div>
         <div class="int-box">
-            {{--            @dd('2023-09-22' > '2023-09-26' && '2023-09-22' < '2023-10-06');--}}
+            {{-- @dd('2023-09-22' > '2023-09-26' && '2023-09-22' < '2023-10-06');--}}
             @if($bid_count > 0)
-                <p><i class="las la-user"></i> {{$bid_count}} people are interested</p>
+            <p><i class="las la-user"></i> {{$bid_count}} people are interested</p>
             @endif
             @php
-                $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
-                $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
-                $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+            $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
+            $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
+            $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
             @endphp
             @if($dateToCheck->between($startDate, $endDate))
-                <a href="#" class="place-bid"
-                   data-id="{{$vehicle->id}}">Place Bid</a>
+            <a href="#" class="place-bid" data-id="{{$vehicle->id}}">Place Bid</a>
             @else
-                @if($vehicle->auction_start_date > date('Y-m-d'))
-                    <a href="#" class="place-bid-blue">Pending</a>
-                @else
-                    <a href="#" class="place-bid-blue">Auction Closed</a>
-                @endif
+            @if($vehicle->auction_start_date > date('Y-m-d'))
+            <a href="#" class="place-bid-blue">Pending</a>
+            @else
+            <a href="#" class="place-bid-blue">Auction Closed</a>
+            @endif
             @endif
             @php
-                if(!is_null(Auth::user())){
-                    $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->where('user_id',Auth::user()->id)->max('amount');
-                }else{
-                    $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
-                }
+            if(!is_null(Auth::user())){
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->where('user_id',Auth::user()->id)->max('amount');
+            }else{
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
+            }
             @endphp
             <div class="current-high @if($vehicle->auction_start_date > date('Y-m-d')) d-none @endif mt-1">
                 @if($height_bid == 0)
-                    {{'Bid Not Found'}}
+                {{'Bid Not Found'}}
                 @else
-                    <p>Current Highest Bid</p>
-                    <p><span>SAR {{ number_format($height_bid) }}
-                            @endif
+                <p>Current Highest Bid</p>
+                <p><span>SAR {{ number_format($height_bid) }}
+                        @endif
                     </span>
-                    </p>
+                </p>
             </div>
         </div>
         <div class="auction-details">
@@ -204,24 +210,24 @@
     var start_date = '{{$vehicle->auction_start_date}}';
     console.log(start_date)
     $("#getting-started")
-        .countdown(start_date, function (event) {
+        .countdown(start_date, function(event) {
             $(this).html(
                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
             );
         });
-    $('.place-bid').on('click', function () {
+    $('.place-bid').on('click', function() {
         const value_id = $(this).data('id')
         loaderView()
         axios
             .get(APP_URL + '/vehicle-bid-modal' + '/' + value_id)
-            .then(function (response) {
+            .then(function(response) {
                 $('#vehicle_bid_label').html(response.data.modal_title)
                 $('#vehicle_bid_body').html(response.data.data)
 
                 $('#vehicle_bid_modal').modal('show')
                 loaderHide()
             })
-            .catch(function (error) {
+            .catch(function(error) {
                 loaderHide()
             })
 

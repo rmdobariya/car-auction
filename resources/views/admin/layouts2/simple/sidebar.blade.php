@@ -228,6 +228,18 @@
                 </div>
 
                 <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'question') ? 'active' : '' }}"
+                       href="{{ route('admin.question.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="help-circle"></span>
+                             </span>
+                        </span>
+                        <span class="menu-title">Question</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
                     <a class="menu-link {{ (request()->segment(2) == 'category') ? 'active' : '' }}"
                        href="{{ route('admin.category.index') }}">
                         <span class="menu-icon">

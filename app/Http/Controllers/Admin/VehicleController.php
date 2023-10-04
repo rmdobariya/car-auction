@@ -113,7 +113,7 @@ class VehicleController extends Controller
                                 'edit' => route('admin.vehicle.edit', [$vehicle->id]),
                                 'detail-page' => route('admin.vehicle.show', [$vehicle->id]),
                                 'delete' => $vehicle->id,
-                                'status' => $vehicle->status,
+                                'vehicle-status' => $vehicle->status,
                             ]
                         ];
                     } else {
@@ -129,7 +129,7 @@ class VehicleController extends Controller
                 })
                 ->addColumn('status', function ($vehicle) {
                     $array['status'] = $vehicle->status;
-                    return AdminDataTableButtonHelper::statusBadge($array);
+                    return AdminDataTableButtonHelper::vehicleStatusBadge($array);
                 })
                 ->addColumn('check', function ($vehicle) {
 

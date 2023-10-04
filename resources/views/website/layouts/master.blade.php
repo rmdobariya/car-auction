@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zodha</title>
     @include('website.layouts.css')
@@ -64,7 +64,8 @@
 </div>
 
 
-<div class="modal fade bid-model" id="vehicle_bid_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade bid-model" id="vehicle_bid_modal" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1"
      aria-labelledby="vehicleBidLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -106,10 +107,12 @@
                     <b>OR</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="{{route('socialLogin',['facebook'])}}">Sign in with <span><i class="lab la-facebook-f"></i></span></a>
+                            <a href="#" data-social-type="facebook" class="socialSignIn">Sign in with <span><i
+                                        class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="{{route('socialLogin',['google'])}}">Sign in with <span><img src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
+                            <a href="#" data-social-type="google" class="socialSignIn">Sign in with <span><img
+                                        src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
                 </div>
@@ -147,7 +150,8 @@
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="user_type" id="seller" value="seller">
+                                <input class="form-check-input" type="radio" name="user_type" id="seller"
+                                       value="seller">
                                 <label class="form-check-label" for="seller">
                                     Seller
                                 </label>
@@ -157,7 +161,8 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="term" name="term" id="term">
                                 <label class="form-check-label" for="term">
-                                    I have read the <a href="{{route('page',['terms-conditions'])}}" target="_blank">Term & Conditions</a>
+                                    I have read the <a href="{{route('page',['terms-conditions'])}}" target="_blank">Term
+                                        & Conditions</a>
                                 </label>
                             </div>
                         </div>
@@ -168,10 +173,12 @@
                     <b>OR</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="{{route('socialLogin',['facebook'])}}">Sign in with <span><i class="lab la-facebook-f"></i></span></a>
+                            <a href="#" data-social-type="facebook" class="socialSignIn">Sign in with <span><i
+                                        class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="{{route('socialLogin',['google'])}}">Sign in with <span><img src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
+                            <a href="#" data-social-type="google" class="socialSignIn">Sign in with <span><img
+                                        src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
                 </div>
@@ -183,8 +190,47 @@
     </div>
 </div>
 
+<div class="modal fade login-model" id="userTypeModal" data-bs-keyboard="true" tabindex="-1"
+     aria-labelledby="loginLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="loginLabel">Select User Role</h5>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <div class="select-opt">
+                        <div class="form-check">
+                            <input type="hidden" name="social_type" id="social_type">
+                            <input class="form-check-input" type="radio" name="user_type" id="buyer" value="buyer"
+                                   required>
+                            <label class="form-check-label" for="buyer">
+                                Buyer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="user_type" id="seller" value="seller"
+                                   required>
+                            <label class="form-check-label" for="seller">
+                                Seller
+                            </label>
+                        </div>
+                    </div>
+
+                    <a href="#" class="place-bid-blue" id="continue">Continue</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Ask a Question Modal -->
-<div class="modal fade login-model" id="ask-question" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+<div class="modal fade login-model" id="ask-question" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -193,19 +239,24 @@
             </div>
             <div class="modal-body">
                 <div class="login-form">
-                    <form action="" method="POST">
+                    <form id="askQuestionForm" method="POST">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" name="fname" class="form-control" placeholder="First Name *">
+                                <input type="text" name="first_name" class="form-control" placeholder="First Name *">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="lname" class="form-control" placeholder="Last Name *">
+                                <input type="text" name="last_name" class="form-control" placeholder="Last Name *">
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <input type="email" name="email" class="form-control" placeholder="Email *">
                             </div>
+                            <div class="col-md-6">
+                                <input type="text" name="mobile_no" class="form-control integer"
+                                       placeholder="Mobile No">
+                            </div>
                             <div class="col-md-12">
-                                <textarea name="questions" class="form-control" rows="4" placeholder="Comments and Questions *"></textarea>
+                                <textarea name="question" class="form-control" rows="4"
+                                          placeholder="Comments and Questions *"></textarea>
                             </div>
                             <div class="col-md-12">
                                 <input type="submit" class="place-bid-blue" name="submit" value="Submit">
@@ -219,12 +270,14 @@
 </div>
 
 
-<div class="modal fade login-model" id="commingsoon" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel" aria-hidden="true">
+<div class="modal fade login-model" id="commingsoon" data-bs-keyboard="true" tabindex="-1" aria-labelledby="loginLabel"
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h5 class="modal-title" id="loginLabel">Coming Soon...</h5>
-                <p>We are launching soon. We are working hard. We are almost ready to launch. Something awesome is coming soon.</p>
+                <p>We are launching soon. We are working hard. We are almost ready to launch. Something awesome is
+                    coming soon.</p>
             </div>
         </div>
     </div>
@@ -251,7 +304,8 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" id="forgot_password_submit" class="btn btn-lg btn-primary w-100 mb-5 place-bid-blue">
+                    <button type="button" id="forgot_password_submit"
+                            class="btn btn-lg btn-primary w-100 mb-5 place-bid-blue">
                         <span class="indicator-label">Submit</span>
                     </button>
                 </div>
@@ -277,6 +331,22 @@
 </div>
 @include('website.layouts.script')
 @yield('custom-script')
+<script>
+    $(document).on('click', '.socialSignIn', function () {
+        console.log(1213)
+        $('#userTypeModal').modal('show')
+        var social_type = $(this).data('social-type');
+        $('#social_type').val(social_type)
+    })
+    $(document).on('click', '#continue', function () {
+        if ($('input[name="user_type"]:checked')) {
+            window.location.href = 'socialLogin/' + [$('#social_type').val()] + '/?user_type=' + [$('input[name="user_type"]:checked').val()];
+        }else{
+            notificationToast('User Type Is Required', 'warning')
+        }
+    })
+
+</script>
 <script src="{{URL::asset('web/assets/custom/login.js')}}?v={{ time() }}"></script>
 </body>
 </html>

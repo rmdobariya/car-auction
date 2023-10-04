@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 Route::get('/', [HomeController::class, 'index'])->name('/');
+Route::post('home', [HomeController::class, 'index'])->name('home');
 Route::post('/login', [LoginController::class, 'loginCheck'])->name('/login');
 Route::post('/register', [LoginController::class, 'register'])->name('/register');
 Route::get('/logout', [LoginController::class, 'logout'])->name('/logout');
@@ -61,6 +62,7 @@ Route::get('deleteVehicleDocument/{id}', [VehicleController::class, 'deleteVehic
 Route::get('deleteCar/{id}', [VehicleController::class, 'destroy'])->name('deleteCar');
 Route::post('vehicle-bid-store', [BidController::class,'addBid'])->name('vehicle-bid-store');
 Route::post('vehicle-inquiry-store', [HomeController::class,'carInquirySubmit'])->name('vehicle-inquiry-store');
+Route::post('contact-us-store', [HomeController::class,'contactUsSubmit'])->name('contact-us-store');
 
 Route::get('vehicle-bid-listing/{id}', [AuctionController::class, 'vehicleBidListing'])->name('vehicle-bid-listing');
 Route::get('updated-bid/{id}', [BidController::class, 'updatedBid'])->name('updated-bid');
@@ -70,5 +72,7 @@ Route::post('send-mail', [LoginController::class, 'sendMail'])->name('send-mail'
 Route::get('reset-password/{token}', [LoginController::class, 'resetPassword'])->name('reset-password');
 Route::post('reset-password-submit', [LoginController::class, 'resetPasswordSubmit'])->name('reset-password-submit');
 Route::post('wish-list', [HomeController::class, 'wishList'])->name('wish-list');
+Route::get('filter', [HomeController::class, 'filter'])->name('filter');
+Route::post('add-question-store', [HomeController::class, 'addQuestionStore'])->name('add-question-store');
 Route::get('wishlist', [PageController::class, 'wishListPage'])->name('wishlist');
 

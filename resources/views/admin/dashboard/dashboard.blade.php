@@ -64,9 +64,31 @@
                         <a href="{{ route('admin.vehicle.index')}}"
                            class="card bg-dark card-dash hoverable card-xl-stretch mb-xl-8">
                             <div class="card-body">
-                                <div class="text-white fw-bolder fs-1">{{$vehicle_count}}</div>
+                                <div class="text-white fw-bolder fs-1">{{$pending_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Vehicles
+                                    class="text-white fw-bolder fs-3">Pending Vehicles
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3">
+                        <a href="{{ route('admin.vehicle.index')}}"
+                           class="card bg-dark card-dash hoverable card-xl-stretch mb-xl-8">
+                            <div class="card-body">
+                                <div class="text-white fw-bolder fs-1">{{$approve_count}}</div>
+                                <div
+                                    class="text-white fw-bolder fs-3">Approved Vehicles
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3">
+                        <a href="{{ route('admin.vehicle.index')}}"
+                           class="card bg-dark card-dash hoverable card-xl-stretch mb-xl-8">
+                            <div class="card-body">
+                                <div class="text-white fw-bolder fs-1">{{$reject_count}}</div>
+                                <div
+                                    class="text-white fw-bolder fs-3">Reject Vehicles
                                 </div>
                             </div>
                         </a>

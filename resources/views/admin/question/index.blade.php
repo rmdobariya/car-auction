@@ -3,8 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Vehicles'])
-                @include('admin.layouts2.components.create-button',['url'=>route('admin.vehicle.create')])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Questions'])
 
             </div>
         </div>
@@ -12,7 +11,7 @@
             <div id="kt_content_container" class="container-fluid">
                 <div class="card">
                     <div class="card-header border-0 pt-6">
-                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search Vehicle'])
+                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search Question'])
                         <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                                 <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
@@ -67,7 +66,7 @@
                                 Delete Selected
                             </button>
                         </div>
-                        @include('admin.layouts2.components.vehicle-status')
+                        @include('admin.layouts2.components.status-active-inactive')
                     </div>
                     <div class="card-body pt-0">
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="basic-1">
@@ -79,12 +78,8 @@
                                         <input class="form-check-input" id="all_selected" type="checkbox" value="">
                                     </div>
                                 </th>
-                                <th>Id</th>
                                 <th>User</th>
-                                <th>Role</th>
                                 <th>Name</th>
-                                <th>Image</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -98,33 +93,27 @@
 @endsection
 @section('custom-script')
     <script>
-        const sweetalert_delete_title = "Vehicle Delete?"
-        const sweetalert_delete_text = "Are You Sure Delete This Vehicle"
-        const sweetalert_restore_title = "Vehicle Restore?"
-        const sweetalert_restore_text = "Are You Sure Restore This Vehicle"
+        const sweetalert_delete_title = "Question Delete?"
+        const sweetalert_delete_text = "Are You Sure Delete This Question"
+        const sweetalert_restore_title = "Question Restore?"
+        const sweetalert_restore_text = "Are You Sure Restore This Question"
         const cancel_button_text = "Cancel"
         const delete_button_text = "Delete"
-        const sweetalert_change_status = "Vehicle Status Change"
-        const sweetalert_change_status_text = "Are You Sure Status Change This Record"
         const yes_change_it = "Yes"
-        const multiple_select_title = "Selected Category Delete ?"
+        const multiple_select_title = "Selected Question Delete ?"
         const multiple_select_text = "Are You Sure Selected Record Delete"
-        const form_url = '/vehicle'
-        const datatable_url = '/get-vehicle-list'
-        const restore_url = '/restore-vehicle'
-        const hard_delete_url = '/vehicle-hard-delete'
-        const multiple_delete_url = '/multiple-vehicle-delete'
+        const form_url = '/question'
+        const datatable_url = '/get-question-list'
+        const restore_url = '/restore-question'
+        const hard_delete_url = '/question-hard-delete'
+        const multiple_delete_url = '/multiple-question-delete'
         var arr = [];
 
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
-                {data: 'id', name: 'vehicles.id'},
-                {data: 'user_name', name: 'users.name'},
-                {data: 'user_type', name: 'users.user_type'},
-                {data: 'name', name: 'vehicles.name'},
-                {data: 'image', name: 'image'},
-                {data: 'status', name: 'vehicles.status'},
+                {data: 'user', name: 'users.full_name'},
+                {data: 'name', name: 'contact_us.name'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],

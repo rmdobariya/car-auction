@@ -1,7 +1,7 @@
 @extends('website.layouts.master')
 @section('content')
-    <section id="vehicles" class="featured-vehicles">
-        <div class="container">
+    <section id="vehicles" class="featured-vehicles" >
+        <div class="container" id="filter-part">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
@@ -536,16 +536,40 @@
                     $('#vehicle_detail_body').html(response.data.data)
 
                     $('#carderails').modal('show')
-                    var mySwiper = new Swiper('.swiper-container', {
-                        speed: 400,
-                        loop: true,
-                        slidesPerView: 1,
-                        calculateHeight: true,
-                        spaceBetween: 50,
-                        watchActiveIndex: true,
-                        prevButton: '.swiper-button-prev',
-                        nextButton: '.swiper-button-next'
-                    })
+                    // var mySwiper = new Swiper('.swiper-container', {
+                    //     speed: 400,
+                    //     loop: true,
+                    //     slidesPerView: 1,
+                    //     calculateHeight: true,
+                    //     spaceBetween: 50,
+                    //     watchActiveIndex: true,
+                    //     prevButton: '.swiper-button-prev',
+                    //     nextButton: '.swiper-button-next'
+                    // })
+
+                    		var productSlider = new Swiper('.product-slider', {
+                    				spaceBetween: 0,
+                    				centeredSlides: false,
+                    				loop:true,
+                    				direction: 'horizontal',
+                    				loopedSlides: 3,
+                    				navigation: {
+                    						nextEl: ".swiper-button-next",
+                    						prevEl: ".swiper-button-prev",
+                    				},
+                    				resizeObserver:true,
+                    		});
+                    		var productThumbs = new Swiper('.product-thumbs', {
+                    				spaceBetween: 0,
+                    				centeredSlides: true,
+                    				loop: true,
+                    				slideToClickedSlide: true,
+                    				direction: 'horizontal',
+                    				slidesPerView: 3,
+                    				loopedSlides: 3,
+                    		});
+                    		productSlider.controller.control = productThumbs;
+                    		productThumbs.controller.control = productSlider;
 
                     loaderHide()
                 })
