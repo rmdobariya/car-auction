@@ -19,7 +19,7 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required|digits_between:1,10',
-            'email' => 'required|email:rfc,dns|unique:users,email,',
+            'email' => 'required_if:user_type,=,seller,email:rfc,dns|unique:users,email,',
             'user_type' => 'required',
             'term' => 'required',
             'password' => 'required|min:8',

@@ -46,7 +46,7 @@
             <input type="submit" name="filter" value="Apply" class="place-bid-blue">
         </div>
     </div>
-    <div class="lists">
+    <div class="lists" id="bid_listing">
         <table>
             <thead>
             <tr>
@@ -59,7 +59,7 @@
 {{--                <th>Action</th>--}}
             </tr>
             </thead>
-            <tbody id="bid_listing">
+            <tbody>
             @foreach($bids as $bid)
             <tr>
                 <td>{{$bid->vehicle_name}}</td>
@@ -92,6 +92,7 @@
                     // notificationToast(response.data.message, 'success')
                     // loaderHide()
                 })
+
                 .catch(function (error) {
                     notificationToast(error.response.data.message, 'warning')
                     // loaderHide()

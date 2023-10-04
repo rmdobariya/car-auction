@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\CarInquiryStoreRequest;
+use App\Http\Requests\Web\ContactUsStoreRequest;
+use App\Http\Requests\Web\QuestionStoreRequest;
 use App\Mail\Web\CarInquiryMail;
 use App\Models\CarInquiry;
+use App\Models\ContactUs;
 use App\Models\Notification;
+use App\Models\Question;
 use App\Models\WishList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -16,26 +20,27 @@ use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $featured_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
             ->whereNull('vehicles.deleted_at')
-            ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_product', 'is_featured')
+            ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->where('vehicle_translations.locale', App::getLocale())
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->limit(3)
             ->get();
-
         $popular_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_product', 'is_popular')
+            ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
@@ -47,6 +52,7 @@ class HomeController extends Controller
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
@@ -58,6 +64,7 @@ class HomeController extends Controller
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_product', 'is_featured')
+            ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_sell')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
@@ -80,10 +87,22 @@ class HomeController extends Controller
             ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
             ->get();
 
-        $featured_vehicle_count = DB::table('vehicles')->where('is_product', 'is_featured')->count();
-        $popular_vehicle_count = DB::table('vehicles')->where('is_product', 'is_popular')->count();
-        $hot_deal_count = DB::table('vehicles')->where('is_product', 'is_hot_deal')->count();
-        $car_for_sell_count = DB::table('vehicles')->where('is_vehicle_type', 'car_for_sell')->count();
+        $featured_vehicle_count = DB::table('vehicles')
+            ->where('is_product', 'is_featured')
+            ->where('vehicles.status', 'approve')
+            ->count();
+        $popular_vehicle_count = DB::table('vehicles')
+            ->where('is_product', 'is_popular')
+            ->where('vehicles.status', 'approve')
+            ->count();
+        $hot_deal_count = DB::table('vehicles')
+            ->where('is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
+            ->count();
+        $car_for_sell_count = DB::table('vehicles')
+            ->where('is_vehicle_type', 'car_for_sell')
+            ->where('vehicles.status', 'approve')
+            ->count();
 
         return view('website.home.index', [
             'featured_vehicles' => $featured_vehicles,
@@ -101,7 +120,6 @@ class HomeController extends Controller
 
     public function typeWiseCar($flag)
     {
-        $title = 'Featured Vehicle';
         if ($flag == 'is_popular') {
             $title = 'Popular Vehicle';
         } elseif ($flag == 'is_hot_deal') {
@@ -116,6 +134,7 @@ class HomeController extends Controller
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_product', $flag)
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->where('vehicles.status', 'approve')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
@@ -152,6 +171,7 @@ class HomeController extends Controller
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_vehicle_type', $flag)
+            ->where('vehicles.status', 'approve')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
@@ -327,5 +347,215 @@ class HomeController extends Controller
                 'message' => "Add In Wishlist Successfully",
             ]);
         }
+    }
+
+    public function contactUsSubmit(ContactUsStoreRequest $request)
+    {
+        $contact_us = new ContactUs();
+        $contact_us->user_id = Auth::user()->id;
+        $contact_us->first_name = $request->first_name;
+        $contact_us->last_name = $request->last_name;
+        $contact_us->name = $request->first_name . ' ' . $request->last_name;
+        $contact_us->email = $request->email;
+        $contact_us->contact_number = $request->mobile_no;
+        $contact_us->message = $request->message;
+        $contact_us->subject = 'contact_us';
+        $contact_us->save();
+
+        return response()->json([
+            'message' => 'Contact Us Save Successfully'
+        ]);
+    }
+
+    public function addQuestionStore(QuestionStoreRequest $request)
+    {
+        $question = new Question();
+        $question->user_id = Auth::user()->id;
+        $question->first_name = $request->first_name;
+        $question->last_name = $request->last_name;
+        $question->name = $request->first_name . ' ' . $request->last_name;
+        $question->email = $request->email;
+        $question->contact_number = $request->mobile_no;
+        $question->question = $request->question;
+        $question->save();
+
+        return response()->json([
+            'message' => 'Question Save Successfully'
+        ]);
+    }
+
+    public function filter(Request $request)
+    {
+        $featured_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicles.is_product', 'is_featured')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction');
+//        if (!is_null($request->condition)){
+//
+//        }
+        if (!is_null($request->category)) {
+            $featured_vehicles->where('vehicles.vehicle_category_id', $request->category);
+        }
+        if (!is_null($request->price_range)) {
+            $featured_vehicles->where('vehicles.price', '>=', $request->min_amount)
+                ->where('vehicles.price', '<=', $request->max_amount);
+        }
+        if (!is_null($request->model)) {
+            $featured_vehicles->where('vehicles.model', $request->model);
+        }
+        if (!is_null($request->body_type)) {
+            $featured_vehicles->where('vehicles.body_type', $request->body_type);
+        }
+        if (!is_null($request->exterior)) {
+            $featured_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+        }
+        if (!is_null($request->ratting)) {
+            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $featured_vehicles->where('vehicles.ratting', '>=', $rat[0])
+                ->where('vehicles.ratting', '<=', $rat[1]);
+        }
+        $featured_vehicles = $featured_vehicles->where('vehicle_translations.locale', App::getLocale())
+            ->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->get();
+        $popular_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_popular')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->where('vehicles.status', 'approve');
+        //        if (!is_null($request->condition)){
+//
+//        }
+        if (!is_null($request->category)) {
+            $popular_vehicles->where('vehicles.vehicle_category_id', $request->category);
+        }
+        if (!is_null($request->price_range)) {
+            $popular_vehicles->where('vehicles.price', '>=', $request->min_amount)
+                ->where('vehicles.price', '<=', $request->max_amount);;
+        }
+        if (!is_null($request->model)) {
+            $popular_vehicles->where('vehicles.model', $request->model);
+        }
+        if (!is_null($request->body_type)) {
+            $popular_vehicles->where('vehicles.body_type', $request->body_type);
+        }
+        if (!is_null($request->exterior)) {
+            $popular_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+        }
+        if (!is_null($request->ratting)) {
+            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $popular_vehicles->where('vehicles.ratting', '>=', $rat[0])
+                ->where('vehicles.ratting', '<=', $rat[1]);
+        }
+        $popular_vehicles = $popular_vehicles->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->get();
+        $hot_deal_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction');
+        //        if (!is_null($request->condition)){
+//
+//        }
+        if (!is_null($request->category)) {
+            $hot_deal_vehicles->where('vehicles.vehicle_category_id', $request->category);
+        }
+        if (!is_null($request->price_range)) {
+            $hot_deal_vehicles->where('vehicles.price', '>=', $request->min_amount)
+                ->where('vehicles.price', '<=', $request->max_amount);
+        }
+        if (!is_null($request->model)) {
+            $hot_deal_vehicles->where('vehicles.model', $request->model);
+        }
+        if (!is_null($request->body_type)) {
+            $hot_deal_vehicles->where('vehicles.body_type', $request->body_type);
+        }
+        if (!is_null($request->exterior)) {
+            $hot_deal_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+        }
+        if (!is_null($request->ratting)) {
+            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $hot_deal_vehicles->where('vehicles.ratting', '>=', $rat[0])
+                ->where('vehicles.ratting', '<=', $rat[1]);
+        }
+        $hot_deal_vehicles = $hot_deal_vehicles->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->get();
+        $sell_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_featured')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_sell');
+        if (!is_null($request->category)) {
+            $sell_vehicles->where('vehicles.vehicle_category_id', $request->category);
+        }
+        if (!is_null($request->price_range)) {
+            $sell_vehicles->where('vehicles.price', '>=', $request->min_amount)
+                ->where('vehicles.price', '<=', $request->max_amount);;
+        }
+        if (!is_null($request->model)) {
+            $sell_vehicles->where('vehicles.model', $request->model);
+        }
+        if (!is_null($request->body_type)) {
+            $sell_vehicles->where('vehicles.body_type', $request->body_type);
+        }
+        if (!is_null($request->exterior)) {
+            $sell_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+        }
+        if (!is_null($request->ratting)) {
+            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $sell_vehicles->where('vehicles.ratting', '>=', $rat[0])
+                ->where('vehicles.ratting', '<=', $rat[1]);
+        }
+        $sell_vehicles = $sell_vehicles->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->get();
+        $featured_vehicle_count = DB::table('vehicles')->where('is_product', 'is_featured')->count();
+        $popular_vehicle_count = DB::table('vehicles')->where('is_product', 'is_popular')->count();
+        $hot_deal_count = DB::table('vehicles')->where('is_product', 'is_hot_deal')->count();
+        $car_for_sell_count = DB::table('vehicles')->where('is_vehicle_type', 'car_for_sell')->count();
+        $testimonials = DB::table('testimonials')
+            ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
+            ->where('testimonial_translations.locale', App::getLocale())
+            ->where('testimonials.status', 'active')
+            ->whereNull('testimonials.deleted_at')
+            ->orderBy('testimonials.id', 'desc')
+            ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.role', 'testimonial_translations.description')
+            ->get();
+        $news = DB::table('blogs')
+            ->leftJoin('blog_translations', 'blogs.id', 'blog_translations.blog_id')
+            ->where('blog_translations.locale', App::getLocale())
+            ->where('blogs.status', 'active')
+            ->whereNull('blogs.deleted_at')
+            ->orderBy('blogs.id', 'desc')
+            ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
+            ->get();
+
+
+        return view('website.home.index', [
+            'featured_vehicles' => $featured_vehicles,
+            'popular_vehicles' => $popular_vehicles,
+            'hot_deal_vehicles' => $hot_deal_vehicles,
+            'news' => $news,
+            'testimonials' => $testimonials,
+            'sell_vehicles' => $sell_vehicles,
+            'featured_vehicle_count' => $featured_vehicle_count,
+            'popular_vehicle_count' => $popular_vehicle_count,
+            'hot_deal_count' => $hot_deal_count,
+            'car_for_sell_count' => $car_for_sell_count,
+        ]);
     }
 }

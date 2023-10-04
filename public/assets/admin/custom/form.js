@@ -7,13 +7,13 @@ let $form = $('#addEditForm')
 $form.on('submit', function (e) {
     e.preventDefault()
     loaderView();
-    if($form[0]['description'] != undefined){
-        CKEDITOR.replace( 'description' );
+    if ($form[0]['description'] != undefined) {
+        CKEDITOR.replace('description');
         CKEDITOR.instances['description'].updateElement();
         CKEDITOR.instances['description'].getData();
     }
-    if($form[0]['answer'] != undefined){
-        CKEDITOR.replace( 'answer' );
+    if ($form[0]['answer'] != undefined) {
+        CKEDITOR.replace('answer');
         CKEDITOR.instances['answer'].updateElement();
         CKEDITOR.instances['answer'].getData();
     }
@@ -41,6 +41,9 @@ $form.on('submit', function (e) {
             loaderHide();
         });
 })
+
+
+
 
 $('#forgot_password').on('click', function () {
     $('#forgot_password_form').modal('show')

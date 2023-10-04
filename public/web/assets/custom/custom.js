@@ -2,7 +2,7 @@ function funTooltip() {
     $('[data-toggle="tooltip"]').tooltip()
 }
 
-function notificationToast (message, type) {
+function notificationToast(message, type) {
     if (type === 'success') {
         toastr.success(message)
     } else if (type === 'warning') {
@@ -26,6 +26,7 @@ function integerOnly() {
         }
     });
 }
+
 $('.integer').keypress(function (event) {
     if (event.which !== 8 && event.which !== 0 && (event.which < 48 || event.which > 57)) {
         event.preventDefault();
@@ -136,3 +137,46 @@ if ($date_picker.length > 0) {
         dateFormat: 'Y-m-d'
     })
 }
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+})
+$('#filterData').on('click',function (){
+   // var condition = $("input[type='radio'][name='condition']:checked").val();
+    var category = $('#category').val();
+   var min_amount = $('#min_amount').val();
+   var max_amount = $('#max_amount').val();
+   var price_range = $('#amount').val();
+   var model = $('#model').val();
+    var body_type = $('#body_type').val();
+   var ratting = $('#ratings').val();
+    var exterior = $.map($('input[name="exterior"]:checked'), function(c){return c.value; })
+    window.location.href = '/filter?category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
+    '&model=' + model + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting;
+
+})
+let $askQuestionForm = $('#askQuestionForm')
+$askQuestionForm.on('submit', function (e) {
+    e.preventDefault()
+    loaderView();
+    let formData = new FormData($askQuestionForm[0]);
+    axios
+        .post(APP_URL + '/add-question-store', formData)
+        .then(function (response) {
+            $askQuestionForm[0].reset();
+            loaderHide();
+            $('#ask-question').modal('hide')
+            window.location.reload()
+            notificationToast(response.data.message, 'success');
+        })
+        .catch(function (error) {
+            console.log(error);
+            notificationToast(error.response.data.message, 'warning')
+            loaderHide();
+        });
+})
+
+
+

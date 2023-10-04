@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
@@ -97,6 +98,12 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::get('restore-contact-us/{id}', [ContactUsController::class, 'restore'])->name('restore-contact-us');
     Route::delete('contact-us-hard-delete/{id}', [ContactUsController::class, 'hardDelete'])->name('contact-us-hard-delete');
     Route::post('multiple-contact-us-delete', [ContactUsController::class, 'multipleContactUsDelete'])->name('multiple-contact-us-delete');
+
+    Route::resource('question', QuestionController::class);
+    Route::get('get-question-list', [QuestionController::class, 'getQuestionList'])->name('get-question-list');
+    Route::get('restore-question/{id}', [QuestionController::class, 'restore'])->name('restore-question');
+    Route::delete('question-hard-delete/{id}', [QuestionController::class, 'hardDelete'])->name('question-hard-delete');
+    Route::post('multiple-question-delete', [QuestionController::class, 'multipleQuestionDelete'])->name('multiple-question-delete');
 
     Route::resource('category', CategoryController::class);
     Route::get('get-category-list', [CategoryController::class, 'getCategoryList'])->name('get-category-list');

@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top main-nav">
     <div class="container">
         <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         @php
@@ -49,6 +50,15 @@
                             <span class="badge" style="background-color: white">{{$count}}</span>
                         </a>
 
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question">
+                            <span class="fa-stack">
+        <i class="fas fa-circle fa-stack-2x"></i>
+        <i class="fas fa-question-circle fa-stack-1x fa-inverse"></i>
+    </span>
+
+                        </a>
                     </li>
                 @endif
                 <li class="nav-item language">
@@ -161,146 +171,207 @@
                     <div class="reg-btn">
                         <button class="btn btn-register" data-bs-toggle="modal" data-bs-target="#signup">Registration</button>
                     </div> -->
-                    <div class="filter-pop">
-                        <div class="f-head">
-                            <p>Filters</p>
-                            <a href="#">Reset All</a>
-                            <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
-                        </div>
-                        <div class="f-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label>Vehicle Condition</label>
-                                    <div class="checkbox-group">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="used">
-                                            <label class="form-check-label" for="used">
-                                                Used
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="new">
-                                            <label class="form-check-label" for="new">
-                                                New
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Category</label>
-                                    <div class="category">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Select Category</option>
-                                            <option value="1">Category 1</option>
-                                            <option value="2">Category 2</option>
-                                            <option value="3">Category 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price-range-slider">
-                                        <p class="range-value">
-                                            Price Range
-                                            <input type="text" id="amount" readonly>
-                                        </p>
-                                        <div id="slider-range" class="range-bar"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price-range-slider">
-                                        <p class="range-value">
-                                            Price Range
-                                            <input type="text" id="year" readonly>
-                                        </p>
-                                        <div id="year-range" class="range-bar"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Select Model</label>
-                                    <div class="category">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Make and Model</option>
-                                            <option value="1">Model 1</option>
-                                            <option value="2">Model 2</option>
-                                            <option value="3">Model 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Body Type</label>
-                                    <div class="category">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Select Body Type</option>
-                                            <option value="1">Body Type 1</option>
-                                            <option value="2">Body Type 2</option>
-                                            <option value="3">Body Type 3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Exterior Type</label>
-                                    <div class="checkbox-group color-check">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="white">
-                                            <label class="form-check-label" for="white">
-                                                White
-                                            </label>
-                                        </div>
-                                        <span class="hr"></span>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="black">
-                                            <label class="form-check-label" for="black">
-                                                Black
-                                            </label>
-                                        </div>
-                                        <span class="hr"></span>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="grey">
-                                            <label class="form-check-label" for="grey">
-                                                Grey
-                                            </label>
-                                        </div>
-                                        <span class="hr"></span>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="silver">
-                                            <label class="form-check-label" for="silver">
-                                                Silver
-                                            </label>
+                    <form id="filterForm">
+                        <div class="filter-pop">
+                            <div class="f-head">
+                                <p>Filters</p>
+                                <a href="{{route('/')}}">Reset All</a>
+                                <button type="button" id="filterData">Submit</button>
+                                <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
+                            </div>
+                            <div class="f-body">
+                                <div class="row">
+{{--                                    <div class="col-md-3">--}}
+                                        {{--                                        <label>Vehicle Condition</label>--}}
+                                        {{--                                        <div class="checkbox-group">--}}
+                                        {{--                                            <div class="form-check">--}}
+                                        {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
+                                        {{--                                                       name="condition" id="used">--}}
+                                        {{--                                                <label class="form-check-label" for="used">--}}
+                                        {{--                                                    Used--}}
+                                        {{--                                                </label>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                            <div class="form-check">--}}
+                                        {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
+                                        {{--                                                       name="condition" id="new">--}}
+                                        {{--                                                <label class="form-check-label" for="new">--}}
+                                        {{--                                                    New--}}
+                                        {{--                                                </label>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </div>--}}
+{{--                                    </div>--}}
+                                    @php
+                                        $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                        if(request()->get('min_amount')){
+                                           $min = request()->get('min_amount');
+                                        }else{
+                                        $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
+                                        }
+                                         if(request()->get('max_amount')){
+                                           $max = request()->get('max_amount');
+                                         }else{
+                                        $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                         }
+                                        $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
+                                        $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
+                                    @endphp
+                                    <div class="col-md-3">
+                                        <label>Category</label>
+                                        <div class="category">
+                                            <select class="form-select" name="category" id="category"
+                                                    aria-label="Default select example">
+                                                <option value="">Select Category</option>
+                                                @foreach($v_categories as $v_category) @endforeach
+                                                <option value="{{$v_category->id}}"
+                                                        @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Exterior Type</label>
-                                    <div class="checkbox-group color-check">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="warranty">
-                                            <label class="form-check-label" for="warranty">
-                                                Warranty Available
-                                            </label>
-                                        </div>
-                                        <span class="hr"></span>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="history">
-                                            <label class="form-check-label" for="history">
-                                                History Available
-                                            </label>
+
+{{--                                    <div class="col-md-3">--}}
+{{--                                        <div class="price-range-slider">--}}
+                                            {{--                                            <p class="range-value">--}}
+                                            {{--                                                Price Range--}}
+                                            {{--                                                <input type="text" id="year" readonly>--}}
+                                            {{--                                            </p>--}}
+                                            {{--                                            <div id="year-range" class="range-bar"></div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                    <div class="col-md-3">
+                                        <label>Select Model</label>
+                                        <div class="model">
+                                            <select class="form-select" name="model" id="model"
+                                                    aria-label="Default select example">
+                                                <option value="">Make and Model</option>
+                                                <option value="Luxe"
+                                                        @if(request()->get('model') == 'Luxe') selected @endif>Luxe
+                                                </option>
+                                                <option value="Elantra"
+                                                        @if(request()->get('model') == 'Elantra') selected @endif>
+                                                    Elantra
+                                                </option>
+                                                <option value="Top"
+                                                        @if(request()->get('model') == 'Top') selected @endif>Top
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="price-range-slider">
-                                        <p class="range-value">
-                                            Seller Ratings
-                                            <input type="text" id="ratings" readonly>
-                                        </p>
-                                        <div id="ratings-range" class="range-bar"></div>
+                                    <div class="col-md-3">
+                                        <label>Body Type</label>
+                                        <div class="category">
+                                            <select class="form-select" name="body_type" id="body_type"
+                                                    aria-label="Default select example">
+                                                <option value="">Select Body Type</option>
+                                                <option value="sedan"
+                                                        @if(request()->get('body_type') == 'sedan') selected @endif>
+                                                    Sedan
+                                                </option>
+                                                <option value="SUV"
+                                                        @if(request()->get('body_type') == 'SUV') selected @endif>SUV
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="price-range-slider">
+                                            <p class="range-value">
+                                                Price Range
+                                                <input type="text" id="amount" name="price_range" readonly>
+                                                <input type="hidden" id="min_amount" name="min_amount"
+                                                       value="{{request()->get('min_amount')}}" readonly>
+                                                <input type="hidden" id="max_amount" name="max_amount"
+                                                       value="{{request()->get('max_amount')}}" readonly>
+                                            </p>
+                                            <div id="slider-range-price" class="range-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Exterior Type</label>
+                                        <div class="checkbox-group color-check">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="exterior"
+                                                       value="white" id="white"
+                                                       @if(in_array('white',explode(',',request()->get('exterior')))) checked @endif>
+                                                <label class="form-check-label" for="white">
+                                                    White
+                                                </label>
+                                            </div>
+                                            <span class="hr"></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="exterior"
+                                                       value="black" id="black"
+                                                       @if(in_array('black',explode(',',request()->get('exterior')))) checked @endif>
+                                                <label class="form-check-label" for="black">
+                                                    Black
+                                                </label>
+                                            </div>
+                                            <span class="hr"></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="exterior"
+                                                       value="grey" id="grey"
+                                                       @if(in_array('grey',explode(',',request()->get('exterior')))) checked @endif>
+                                                <label class="form-check-label" for="grey">
+                                                    Grey
+                                                </label>
+                                            </div>
+                                            <span class="hr"></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="exterior"
+                                                       value="silver" id="silver"
+                                                       @if(in_array('silver',explode(',',request()->get('exterior')))) checked @endif>
+                                                <label class="form-check-label" for="silver">
+                                                    Silver
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Exterior Type</label>
+                                        <div class="checkbox-group color-check">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="exterior"
+                                                       value="warranty"
+                                                       id="warranty"
+                                                       @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                <label class="form-check-label" for="warranty">
+                                                    Warranty Available
+                                                </label>
+                                            </div>
+                                            <span class="hr"></span>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="exterior"
+                                                       value="warranty"
+                                                       id="history"
+                                                       @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                <label class="form-check-label" for="history">
+                                                    History Available
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="price-range-slider">
+                                            <p class="range-value">
+                                                Seller Ratings
+                                                <input type="text" id="ratings" name="ratting" readonly>
+                                                <input type="hidden" id="min_ratting" name="min_ratting" readonly>
+                                                <input type="hidden" id="max_ratting" name="max_ratting" readonly>
+                                            </p>
+                                            <div id="ratings-range" class="range-bar"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script>
+    var min = '{{$min}}';
+    var max = '{{$max}}';
+    var min_ratting = '{{$min_ratting}}';
+    var max_ratting = '{{$max_ratting}}';
+</script>

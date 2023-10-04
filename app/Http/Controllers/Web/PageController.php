@@ -24,7 +24,18 @@ class PageController extends Controller
 
     public function contactUs()
     {
-        return view('website.page.contact_us');
+        $mobile_no = DB::table('site_settings')->where('setting_key', 'CONTACT_NUMBER_1')->first()->setting_value;
+        $whatsapp_mobile_no = DB::table('site_settings')->where('setting_key', 'WHATSAPP_NUMBER')->first()->setting_value;
+        $address_1 = DB::table('site_settings')->where('setting_key', 'ADDRESS_1')->first()->setting_value;
+        $address_2 = DB::table('site_settings')->where('setting_key', 'ADDRESS_2')->first()->setting_value;
+        $email = DB::table('site_settings')->where('setting_key', 'FROM_EMAIL')->first()->setting_value;
+        return view('website.page.contact_us', [
+            'mobile_no' => $mobile_no,
+            'whatsapp_mobile_no' => $whatsapp_mobile_no,
+            'address_1' => $address_1,
+            'address_2' => $address_2,
+            'email' => $email,
+        ]);
     }
 
     public function auction()

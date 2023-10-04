@@ -46,6 +46,17 @@ class AdminDataTableButtonHelper
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="active" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Active</a>';
                 $action_button_dropdown .= '</div>';
+            }else if ((string)$key === 'vehicle-status' && (string)$value === 'pending') {
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="approve" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Approve</a>';
+                $action_button_dropdown .= '</div>';
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Reject</a>';
+                $action_button_dropdown .= '</div>';
+            }else if ((string)$key === 'vehicle-status' && (string)$value === 'approve') {
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Reject</a>';
+                $action_button_dropdown .= '</div>';
             }
         }
         $action_button_dropdown .= ' </div>';
@@ -59,6 +70,16 @@ class AdminDataTableButtonHelper
             return '<div class="badge badge-light-success">Active</div>';
         } else {
             return '<div class="badge badge-light-danger">Inactive</div>';
+        }
+    }
+    public static function vehicleStatusBadge($array): string
+    {
+        if ((string)$array['status'] === 'pending') {
+            return '<div class="badge badge-light-warning">Pending</div>';
+        } elseif((string)$array['status'] === 'approve') {
+            return '<div class="badge badge-light-success">Approve</div>';
+        } elseif((string)$array['status'] === 'reject') {
+            return '<div class="badge badge-light-danger">Reject</div>';
         }
     }
 }
