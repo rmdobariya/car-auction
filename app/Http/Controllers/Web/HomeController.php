@@ -404,16 +404,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);
         }
         if (!is_null($request->model)) {
-            $featured_vehicles->where('vehicles.model', $request->model);
+            $featured_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->body_type)) {
-            $featured_vehicles->where('vehicles.body_type', $request->body_type);
+            $featured_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
             $featured_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
-            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $rat = explode('-', str_replace(' ', '', $request->ratting));
             $featured_vehicles->where('vehicles.ratting', '>=', $rat[0])
                 ->where('vehicles.ratting', '<=', $rat[1]);
         }
@@ -440,16 +440,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);;
         }
         if (!is_null($request->model)) {
-            $popular_vehicles->where('vehicles.model', $request->model);
+            $popular_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->body_type)) {
-            $popular_vehicles->where('vehicles.body_type', $request->body_type);
+            $popular_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
             $popular_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
-            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $rat = explode('-', str_replace(' ', '', $request->ratting));
             $popular_vehicles->where('vehicles.ratting', '>=', $rat[0])
                 ->where('vehicles.ratting', '<=', $rat[1]);
         }
@@ -475,16 +475,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);
         }
         if (!is_null($request->model)) {
-            $hot_deal_vehicles->where('vehicles.model', $request->model);
+            $hot_deal_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->body_type)) {
-            $hot_deal_vehicles->where('vehicles.body_type', $request->body_type);
+            $hot_deal_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
             $hot_deal_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
-            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $rat = explode('-', str_replace(' ', '', $request->ratting));
             $hot_deal_vehicles->where('vehicles.ratting', '>=', $rat[0])
                 ->where('vehicles.ratting', '<=', $rat[1]);
         }
@@ -507,16 +507,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);;
         }
         if (!is_null($request->model)) {
-            $sell_vehicles->where('vehicles.model', $request->model);
+            $sell_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->body_type)) {
-            $sell_vehicles->where('vehicles.body_type', $request->body_type);
+            $sell_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
             $sell_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
-            $rat = explode('-', str_replace(' ','',$request->ratting));
+            $rat = explode('-', str_replace(' ', '', $request->ratting));
             $sell_vehicles->where('vehicles.ratting', '>=', $rat[0])
                 ->where('vehicles.ratting', '<=', $rat[1]);
         }
