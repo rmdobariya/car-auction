@@ -10,6 +10,7 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                @if(count($notifications) > 0)
                 <div class="col-md-12">
                     @foreach($notifications as $notification)
                     <div class="notification-box">
@@ -62,6 +63,9 @@
 {{--                        </div>--}}
 {{--                    </div>--}}
                 </div>
+                @else
+                    <h3>Notification Not Found</h3>
+                @endif
             </div>
         </div>
     </section>

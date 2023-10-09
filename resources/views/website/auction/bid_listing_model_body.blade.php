@@ -19,6 +19,7 @@
 </div>
 <div class="auctions-list bid-list">
     <h3>Auction Cars</h3>
+    @if(count($bids) > 0)
     <div class="auctions-filter">
         <div class="sdate">
             <div class="input-group">
@@ -79,6 +80,9 @@
             </tbody>
         </table>
     </div>
+    @else
+        <h2>Bid Not Found</h2>
+    @endif
 </div>
 <script>
     $(document).ready(function(){

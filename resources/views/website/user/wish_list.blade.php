@@ -10,6 +10,7 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                @if(count($vehicles) > 0)
                 <div class="col-md-12">
                     @foreach($vehicles as $vehicle)
                         @if(Auth::user())
@@ -135,6 +136,9 @@
                         </div>
                     @endforeach
                 </div>
+                @else
+                    <h3>Wishlist Not Found</h3>
+                @endif
             </div>
         </div>
     </section>
