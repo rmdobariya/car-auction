@@ -40,66 +40,73 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-md-12">
-                    <div class="auctions-list add-auction">
-                        <div class="auctions-filter">
-                            <div class="sdate">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search car name">
-                                    <span class="input-group-text" id="basic-addon2">
+                @if(count($vehicles))
+                    <div class="col-md-12">
+                        <div class="auctions-list add-auction">
+                            <div class="auctions-filter">
+                                <div class="sdate">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search car name">
+                                        <span class="input-group-text" id="basic-addon2">
 										<i class="las la-search"></i>
 									</span>
+                                    </div>
                                 </div>
+                                <select class="form-select">
+                                    <option>Search car by</option>
+                                    <option>New</option>
+                                    <option>Old</option>
+                                </select>
                             </div>
-                            <select class="form-select">
-                                <option>Search car by</option>
-                                <option>New</option>
-                                <option>Old</option>
-                            </select>
-                        </div>
-                        <div class="lists">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Car Name</th>
-                                    <th>Make</th>
-                                    <th>Model</th>
-                                    <th>Minimum Bid Amount</th>
-                                    <th>Bid Increment</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($vehicles as $vehicle)
+
+                            <div class="lists">
+                                <table>
+
+                                    <thead>
                                     <tr>
-                                        <td>{{$vehicle->vehicle_name}}</td>
-                                        <td>{{$vehicle->make}}</td>
-                                        <td>{{$vehicle->model}}</td>
-                                        @if(!is_null($vehicle->minimum_bid_increment_price))
-                                            <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>
-                                        @else
-                                            <td></td>
-                                        @endif
-                                        @if(!is_null($vehicle->bid_increment))
-                                            <td>SAR {{$vehicle->bid_increment}}</td>
-                                        @else
-                                            <td></td>
-                                        @endif
-                                        <td>
-                                            <a href="#" class="view_bid" data-id="{{$vehicle->id}}"
-                                               data-bs-toggle="modal"><i class="las la-eye"></i></a>
-                                            <a href="{{route('edit-car',$vehicle->id)}}" class="edit"><i
-                                                    class="las la-pencil-alt"></i></a>
-                                            <a href="#" class="delete-single" data-id="{{$vehicle->id}}"><i class="las la-trash-alt"></i></a>
-                                            {{--                                        <a href="#" class="download"><i class="las la-download"></i></a>--}}
-                                        </td>
+                                        <th>Car Name</th>
+                                        <th>Make</th>
+                                        <th>Model</th>
+                                        <th>Minimum Bid Amount</th>
+                                        <th>Bid Increment</th>
+                                        <th>Action</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($vehicles as $vehicle)
+                                        <tr>
+                                            <td>{{$vehicle->vehicle_name}}</td>
+                                            <td>{{$vehicle->make}}</td>
+                                            <td>{{$vehicle->model}}</td>
+                                            @if(!is_null($vehicle->minimum_bid_increment_price))
+                                                <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            @if(!is_null($vehicle->bid_increment))
+                                                <td>SAR {{$vehicle->bid_increment}}</td>
+                                            @else
+                                                <td></td>
+                                            @endif
+                                            <td>
+                                                <a href="#" class="view_bid" data-id="{{$vehicle->id}}"
+                                                   data-bs-toggle="modal"><i class="las la-eye"></i></a>
+                                                <a href="{{route('edit-car',$vehicle->id)}}" class="edit"><i
+                                                        class="las la-pencil-alt"></i></a>
+                                                <a href="#" class="delete-single" data-id="{{$vehicle->id}}"><i
+                                                        class="las la-trash-alt"></i></a>
+                                                {{--                                        <a href="#" class="download"><i class="las la-download"></i></a>--}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else
+                    <h2>Car Not Found</h2>
+                @endif
             </div>
         </div>
     </section>
