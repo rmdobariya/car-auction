@@ -355,16 +355,16 @@
                                                            value="{{$setting->setting_value}}"/>
 
                                                     <br>
-                                                    <div id="map-container">
-                                                        <iframe
-                                                            width="600"
-                                                            height="450"
-                                                            frameborder="0"
-                                                            style="border:0"
-                                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118147.68688962182!2d70.73889383315678!3d22.273625028792733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959c98ac71cdf0f%3A0x76dd15cfbe93ad3b!2sRajkot%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1692618714097!5m2!1sen!2sin"
-                                                            allowfullscreen
-                                                        ></iframe>
-                                                    </div>
+{{--                                                    <div id="map-container">--}}
+{{--                                                        <iframe--}}
+{{--                                                            width="600"--}}
+{{--                                                            height="450"--}}
+{{--                                                            frameborder="0"--}}
+{{--                                                            style="border:0"--}}
+{{--                                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118147.68688962182!2d70.73889383315678!3d22.273625028792733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959c98ac71cdf0f%3A0x76dd15cfbe93ad3b!2sRajkot%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1692618714097!5m2!1sen!2sin"--}}
+{{--                                                            allowfullscreen--}}
+{{--                                                        ></iframe>--}}
+{{--                                                    </div>--}}
                                                 </div>
                                             </div>
 
@@ -443,7 +443,7 @@
     </script>
     <script>
 
-        $('#ADDRESS_GOOGLE_MAP').on('keyup', function () {
+        $(document).on('keyup','#ADDRESS_GOOGLE_MAP', function () {
             var address = $('#ADDRESS_GOOGLE_MAP').val();
             var embedUrl = 'https://www.google.com/maps/embed?';
             if (address) {

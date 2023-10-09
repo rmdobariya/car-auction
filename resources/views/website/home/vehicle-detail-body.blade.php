@@ -207,7 +207,7 @@
 </div>
 <script src="{{asset('web/assets/js/countdown.js')}}"></script>
 <script>
-    var start_date = '{{$vehicle->auction_start_date}}';
+    var start_date = '{{$vehicle->auction_end_date}}';
     console.log(start_date)
     $("#getting-started")
         .countdown(start_date, function(event) {
