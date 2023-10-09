@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\LanguageStringController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -129,4 +130,8 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::delete('hard-delete-banner/{id}', [BannerController::class, 'hardDelete'])->name('hard-delete-banner');
     Route::get('banner/status/{id}/{status}', [BannerController::class, 'changeStatus'])->name('banner.status.change');
     Route::post('multiple-banner-delete', [BannerController::class, 'multipleBannerDelete'])->name('multiple-banner-delete');
+
+    Route::resource('language-string', LanguageStringController::class);
+    Route::get('get-language-string-list', [LanguageStringController::class, 'getLanguageStringList'])->name('get-language-string-list');
+    Route::get('create-language-string-file', [LanguageStringController::class, 'createLanguageStringFile'])->name('create-language-string-file');
 });

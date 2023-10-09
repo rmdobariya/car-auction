@@ -263,6 +263,18 @@
                     </a>
                 </div>
 
+                <div class="menu-item">
+                    <a class="menu-link {{ (request()->segment(2) == 'language-string') ? 'active' : '' }}"
+                       href="{{ route('admin.language-string.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                               <span data-feather="globe"></span>
+                            </span>
+                        </span>
+                        <span class="menu-title">Language String</span>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
