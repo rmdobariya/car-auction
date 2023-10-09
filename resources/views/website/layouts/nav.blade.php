@@ -240,37 +240,12 @@
                                     <div class="col-md-3">
                                         <label>Make & Model</label>
                                         <div class="model">
-{{--                                            <select class="form-select" name="model" id="model"--}}
-{{--                                                    aria-label="Default select example">--}}
-{{--                                                <option value="">Make and Model</option>--}}
-{{--                                                <option value="Luxe"--}}
-{{--                                                        @if(request()->get('model') == 'Luxe') selected @endif>Luxe--}}
-{{--                                                </option>--}}
-{{--                                                <option value="Elantra"--}}
-{{--                                                        @if(request()->get('model') == 'Elantra') selected @endif>--}}
-{{--                                                    Elantra--}}
-{{--                                                </option>--}}
-{{--                                                <option value="Top"--}}
-{{--                                                        @if(request()->get('model') == 'Top') selected @endif>Top--}}
-{{--                                                </option>--}}
-{{--                                            </select>--}}
                                             <input type="text" class="form-control" name="model" id="model" value="{{request()->get('model')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Body Type</label>
                                         <div class="category">
-{{--                                            <select class="form-select" name="body_type" id="body_type"--}}
-{{--                                                    aria-label="Default select example">--}}
-{{--                                                <option value="">Select Body Type</option>--}}
-{{--                                                <option value="sedan"--}}
-{{--                                                        @if(request()->get('body_type') == 'sedan') selected @endif>--}}
-{{--                                                    Sedan--}}
-{{--                                                </option>--}}
-{{--                                                <option value="SUV"--}}
-{{--                                                        @if(request()->get('body_type') == 'SUV') selected @endif>SUV--}}
-{{--                                                </option>--}}
-{{--                                            </select>--}}
                                             <input type="text" class="form-control" name="body_type" id="body_type" value="{{request()->get('body_type')}}">
                                         </div>
                                     </div>

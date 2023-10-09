@@ -34,7 +34,7 @@
                     </div>
                     <div class="heading">
                         <h1>Auction Cars</h1>
-                        <div class="action-btn">
+                        <div class="action-btn" style="visibility: hidden">
                             <a href="#" class="create-auction">Start Auction</a>
                         </div>
                     </div>

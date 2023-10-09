@@ -5,8 +5,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>Watchlist</h1>
-                        <a href="javascript:void(0)">View All</a>
+                        <h1>My Wishlist</h1>
+
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -52,18 +52,18 @@
                                 <div class="names">
                                     <h3>{{$vehicle->vehicle_name}}</h3>
                                     <p>{{$vehicle->category_name}}</p>
-                                    <div class="feedback">
+                                    <div class="feedback" style="visibility: hidden">
                                         <i class="las la-comments"></i>
                                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="car-time-specification">
-                                <div class="time-temain">
+                                <div class="time-temain" @if($vehicle->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
                                     <span><i class="las la-clock"></i></span>
                                     <input type="hidden" id="vehicle_id" value="{{$vehicle->id}}" class="vehicle_id">
                                     <input type="hidden" id="start_date_{{$vehicle->id}}"
-                                           value="{{$vehicle->auction_start_date}}">
+                                           value="{{$vehicle->auction_end_date}}">
                                     <div class="my-auction-counter" id="my-auction-counter_{{$vehicle->id}}">
 
                                     </div>
@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="car-price my-bids-price">
+                            <div class="car-price my-bids-price @if($vehicle->auction_end_date < date('Y-m-d')) time-close @endif">
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>
@@ -122,14 +122,13 @@
                                     $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
-                                    <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"
-                                       data-bs-target="#carderails">View Auction</a>
+                                    <a href="javascript:void(0)" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">View Auction</a>
                                 @else
                                     @if($vehicle->auction_start_date > date('Y-m-d'))
                                         <a href="#" class="place-bid-blue">Pending</a>
                                     @else
                                         <a href="javascript:void(0)"
-                                           class="place-bid-blue update-bid comtrans">Auction CLose</a>
+                                           class="place-bid-blue update-bid comtrans">Auction Close</a>
                                     @endif
                                 @endif
                             </div>
@@ -156,16 +155,92 @@
                 });
         });
 
-        $('.add_auction').on('click', function () {
-            let id = $(this).data('id')
-            console.log(id)
-            if (id == 0) {
-                notificationToast('Please First Login Or Sign Up', 'warning')
-            } else {
-                window.location.href = APP_URL + '/add-auction'
-            }
+        $('.vehicle_detail').on('click', function () {
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/vehicle-details' + '/' + value_id)
+                .then(function (response) {
+                    $('#vehicle_detail_title').html(response.data.modal_title)
+                    $('#vehicle_detail_body').html(response.data.data)
+
+                    $('#carderails').modal('show')
+                    // var mySwiper = new Swiper('.swiper-container', {
+                    //     speed: 400,
+                    //     loop: true,
+                    //     slidesPerView: 1,
+                    //     calculateHeight: true,
+                    //     spaceBetween: 50,
+                    //     watchActiveIndex: true,
+                    //     prevButton: '.swiper-button-prev',
+                    //     nextButton: '.swiper-button-next'
+                    // })
+
+                    var productSlider = new Swiper('.product-slider', {
+                        spaceBetween: 0,
+                        centeredSlides: false,
+                        loop:true,
+                        direction: 'horizontal',
+                        loopedSlides: 3,
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                        resizeObserver:true,
+                    });
+                    var productThumbs = new Swiper('.product-thumbs', {
+                        spaceBetween: 0,
+                        centeredSlides: true,
+                        loop: true,
+                        slideToClickedSlide: true,
+                        direction: 'horizontal',
+                        slidesPerView: 3,
+                        loopedSlides: 3,
+                    });
+                    productSlider.controller.control = productThumbs;
+                    productThumbs.controller.control = productSlider;
+
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
         })
+
+        $('.car_inquiry').on('click', function () {
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/car-inquiry' + '/' + value_id)
+                .then(function (response) {
+                    console.log(response.data.success)
+                    if (response.data.success == true) {
+                        $('#car_inquiry_title').html(response.data.modal_title)
+                        $('#car_inquiry_body').html(response.data.data)
+
+                        $('#car_inquiry').modal('show')
+                        var mySwiper = new Swiper('.swiper-container', {
+                            speed: 400,
+                            loop: true,
+                            slidesPerView: 1,
+                            calculateHeight: true,
+                            spaceBetween: 50,
+                            watchActiveIndex: true,
+                            prevButton: '.swiper-button-prev',
+                            nextButton: '.swiper-button-next'
+                        })
+                    } else {
+                        notificationToast(response.data.message, 'warning')
+                    }
+
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
+        })
+
+
     </script>
     <script src="{{asset('web/assets/custom/home/home.js')}}?v={{time()}}"></script>
 @endsection
-

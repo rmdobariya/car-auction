@@ -59,7 +59,11 @@ class LoginController extends Controller
     public function register(RegisterStoreRequest $request)
     {
         $user = new User();
-        $user->name = $request->name;
+        $user->name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->full_name = $request->first_name . ' ' . $request->last_name;
+        $user->contact_no = $request->contact_no;
+        $user->user_type = $request->user_type;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();

@@ -26,16 +26,15 @@ $profileForm.on('submit', function (e) {
         });
 })
 
-function openSelect(file)
-{
+function openSelect(file) {
     $(file).trigger('click');
 }
 
-var loadFile = function(event) {
+var loadFile = function (event) {
     console.log(event)
     var output = document.getElementById('displayedImage');
     output.src = URL.createObjectURL(event.target.files[0]);
-    output.onload = function() {
+    output.onload = function () {
         URL.revokeObjectURL(output.src) // free memory
     }
     let $changeImageForm = $('#updateProfileForm');
@@ -58,3 +57,15 @@ var loadFile = function(event) {
             loaderHide();
         });
 };
+
+var $j_object = $(".vehicle_id");
+$j_object.each(function (i) {
+    var id = $(this).val();
+    var start_date = $('#start_date_' + id).val()
+    $("#my-auction-counter_" + id)
+        .countdown(start_date, function (event) {
+            $("#my-auction-counter_" + id).html(
+                event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+            );
+        });
+});

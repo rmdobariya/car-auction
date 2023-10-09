@@ -13,8 +13,13 @@ $contactUsForm.on('submit', function (e) {
         .then(function (response) {
             $contactUsForm[0].reset();
             loaderHide();
-            notificationToast(response.data.message, 'success');
-            window.location.reload();
+            if (response.data.success == true){
+                notificationToast(response.data.message, 'success');
+                window.location.reload();
+            }else {
+                notificationToast(response.data.message, 'warning');
+            }
+
         })
         .catch(function (error) {
             console.log(error);
@@ -32,14 +37,3 @@ $contactUsForm.on('submit', function (e) {
     //     var iframeCode = '<iframe width="600" height="450" frameborder="0" style="border:0" src="' + embedUrl + '" allowfullscreen></iframe>';
     //     $('#map-container').html(iframeCode);
     // }
-
-function initialize() {
-    var mapCanvas = document.getElementById('map-container');
-    var mapOptions = {
-        center: new google.maps.LatLng(42.635507, -71.328928),
-        zoom: 8,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    var map = new google.maps.Map(mapCanvas, mapOptions)
-}
-google.maps.event.addDomListener(window, 'load', initialize);

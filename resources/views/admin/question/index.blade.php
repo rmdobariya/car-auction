@@ -113,7 +113,7 @@
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
                 {data: 'user', name: 'users.full_name'},
-                {data: 'name', name: 'contact_us.name'},
+                {data: 'name', name: 'questions.name'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],

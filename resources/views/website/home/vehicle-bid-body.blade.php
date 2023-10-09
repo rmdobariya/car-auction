@@ -21,7 +21,7 @@
 </div>
 
 <script>
-    let $bidForm = $('#bidForm')
+    var $bidForm = $('#bidForm')
     $bidForm.on('submit', function (e) {
         e.preventDefault()
         loaderView();

@@ -13,7 +13,7 @@
                         @else
                             <a class="add_auction" data-id="0" href="#">Add Auction</a>
                         @endif
-                        <a href="javascript:void(0)">View All</a>
+{{--                        <a href="javascript:void(0)">View All</a>--}}
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -59,18 +59,18 @@
                                 <div class="names">
                                     <h3>{{$vehicle->vehicle_name}}</h3>
                                     <p>{{$vehicle->category_name}}</p>
-                                    <div class="feedback">
+                                    <div class="feedback" style="visibility: hidden">
                                         <i class="las la-comments"></i>
                                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="car-time-specification">
-                                <div class="time-temain">
+                                <div class="time-temain" @if($vehicle->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
                                     <span><i class="las la-clock"></i></span>
                                     <input type="hidden" id="vehicle_id" value="{{$vehicle->id}}" class="vehicle_id">
                                     <input type="hidden" id="start_date_{{$vehicle->id}}"
-                                           value="{{$vehicle->auction_start_date}}">
+                                           value="{{$vehicle->auction_end_date}}">
                                     <div class="my-auction-counter" id="my-auction-counter_{{$vehicle->id}}">
 
                                     </div>
@@ -110,7 +110,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="car-price my-bids-price">
+                            <div class="car-price my-bids-price @if($vehicle->auction_end_date < date('Y-m-d')) time-close @endif">
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>
@@ -129,8 +129,7 @@
                                     $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
-                                <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"
-                                   data-bs-target="#carderails">View Auction</a>
+                                <a href="javascript:void(0)" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">View Auction</a>
                                 @else
                                     @if($vehicle->auction_start_date > date('Y-m-d'))
                                         <a href="#" class="place-bid-blue">Pending</a>
@@ -142,370 +141,6 @@
                             </div>
                         </div>
                     @endforeach
-                    {{--                    <div class="details-box bid-details-box">--}}
-                    {{--                        <div class="car-img">--}}
-                    {{--                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">--}}
-                    {{--                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>--}}
-                    {{--                            <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-name">--}}
-                    {{--                            <div class="names">--}}
-                    {{--                                <h3>2019 Infiniti QX80</h3>--}}
-                    {{--                                <p>Luxe Sensory 7ST</p>--}}
-                    {{--                                <div class="feedback">--}}
-                    {{--                                    <i class="las la-comments"></i>--}}
-                    {{--                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-time-specification">--}}
-                    {{--                            <div class="time-temain">--}}
-                    {{--                                <span><i class="las la-clock"></i></span>--}}
-                    {{--                                <div id="getting-started2"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="car-specifation">--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        20,500 km--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        16.5 kmpl--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Petrol--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Auto--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-price my-bids-price">--}}
-                    {{--                            <div class="initial-price-box">--}}
-                    {{--                                <p>Initial Price</p>--}}
-                    {{--                                <h3>SAR 50,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="my-bid-box">--}}
-                    {{--                                <p>Total Bids</p>--}}
-                    {{--                                <h3>20</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="current-highest-bid-box">--}}
-                    {{--                                <p>Current Highest Bid</p>--}}
-                    {{--                                <h3>SAR 78,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"--}}
-                    {{--                               data-bs-target="#carderails">View Auction</a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-                    {{--                    <div class="details-box bid-details-box">--}}
-                    {{--                        <div class="car-img">--}}
-                    {{--                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">--}}
-                    {{--                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>--}}
-                    {{--                            <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-name">--}}
-                    {{--                            <div class="names">--}}
-                    {{--                                <h3>2019 Infiniti QX80</h3>--}}
-                    {{--                                <p>Luxe Sensory 7ST</p>--}}
-                    {{--                                <div class="feedback">--}}
-                    {{--                                    <i class="las la-comments"></i>--}}
-                    {{--                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-time-specification">--}}
-                    {{--                            <div class="time-temain">--}}
-                    {{--                                <span><i class="las la-clock"></i></span>--}}
-                    {{--                                <div id="getting-started3"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="car-specifation">--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        20,500 km--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        16.5 kmpl--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Petrol--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Auto--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-price my-bids-price">--}}
-                    {{--                            <div class="initial-price-box">--}}
-                    {{--                                <p>Initial Price</p>--}}
-                    {{--                                <h3>SAR 50,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="my-bid-box">--}}
-                    {{--                                <p>Total Bids</p>--}}
-                    {{--                                <h3>20</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="current-highest-bid-box">--}}
-                    {{--                                <p>Current Highest Bid</p>--}}
-                    {{--                                <h3>SAR 78,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <a href="javascript:void(0)" class="place-bid-blue update-bid" data-bs-toggle="modal"--}}
-                    {{--                               data-bs-target="#carderails">View Auction</a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-                    {{--                    <div class="details-box bid-details-box">--}}
-                    {{--                        <div class="car-img">--}}
-                    {{--                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">--}}
-                    {{--                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>--}}
-                    {{--                            <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-name">--}}
-                    {{--                            <div class="names">--}}
-                    {{--                                <h3>2019 Infiniti QX80</h3>--}}
-                    {{--                                <p>Luxe Sensory 7ST</p>--}}
-                    {{--                                <div class="feedback">--}}
-                    {{--                                    <i class="las la-comments"></i>--}}
-                    {{--                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-time-specification">--}}
-                    {{--                            <div class="time-temain time-close">--}}
-                    {{--                                <span><i class="las la-clock"></i></span>--}}
-                    {{--                                <div id="getting-started4"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="car-specifation">--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        20,500 km--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        16.5 kmpl--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Petrol--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Auto--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-price my-bids-price time-close">--}}
-                    {{--                            <div class="initial-price-box">--}}
-                    {{--                                <p>Initial Price</p>--}}
-                    {{--                                <h3>SAR 50,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="current-highest-bid-box">--}}
-                    {{--                                <p>Total Bids</p>--}}
-                    {{--                                <h3>20</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="my-bid-box">--}}
-                    {{--                                <p>Winning Bid</p>--}}
-                    {{--                                <h3>SAR 78,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <a href="javascript:void(0)" class="place-bid-blue update-bid comtrans">Complete--}}
-                    {{--                                Transaction</a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-                    {{--                    <div class="details-box bid-details-box">--}}
-                    {{--                        <div class="car-img">--}}
-                    {{--                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">--}}
-                    {{--                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>--}}
-                    {{--                            <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-name">--}}
-                    {{--                            <div class="names">--}}
-                    {{--                                <h3>2019 Infiniti QX80</h3>--}}
-                    {{--                                <p>Luxe Sensory 7ST</p>--}}
-                    {{--                                <div class="feedback">--}}
-                    {{--                                    <i class="las la-comments"></i>--}}
-                    {{--                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-time-specification">--}}
-                    {{--                            <div class="time-temain time-close">--}}
-                    {{--                                <span><i class="las la-clock"></i></span>--}}
-                    {{--                                <div id="getting-started5"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="car-specifation">--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        20,500 km--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        16.5 kmpl--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Petrol--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Auto--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-price my-bids-price time-close">--}}
-                    {{--                            <div class="initial-price-box">--}}
-                    {{--                                <p>Initial Price</p>--}}
-                    {{--                                <h3>SAR 50,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="current-highest-bid-box">--}}
-                    {{--                                <p>Total Bids</p>--}}
-                    {{--                                <h3>20</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="my-bid-box">--}}
-                    {{--                                <p>Winning Bid</p>--}}
-                    {{--                                <h3>SAR 78,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <a href="javascript:void(0)" class="place-bid-blue update-bid comtrans">Complete--}}
-                    {{--                                Transaction</a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
-                    {{--                    <div class="details-box bid-details-box">--}}
-                    {{--                        <div class="car-img">--}}
-                    {{--                            <img src="{{asset('web/assets/images/car.jpg')}}" align="car">--}}
-                    {{--                            <span class="cat-tags"><img src="{{asset('web/assets/images/dymand.png')}}"> Featured</span>--}}
-                    {{--                            <a href="javascript:void(0)" class="like"><i class="las la-heart"></i></a>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-name">--}}
-                    {{--                            <div class="names">--}}
-                    {{--                                <h3>2019 Infiniti QX80</h3>--}}
-                    {{--                                <p>Luxe Sensory 7ST</p>--}}
-                    {{--                                <div class="feedback">--}}
-                    {{--                                    <i class="las la-comments"></i>--}}
-                    {{--                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-time-specification">--}}
-                    {{--                            <div class="time-temain time-close">--}}
-                    {{--                                <span><i class="las la-clock"></i></span>--}}
-                    {{--                                <div id="getting-started6"></div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="car-specifation">--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        20,500 km--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        16.5 kmpl--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Petrol--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                                <div class="car-dt">--}}
-                    {{--                                    <div class="icon">--}}
-                    {{--                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">--}}
-                    {{--                                    </div>--}}
-                    {{--                                    <div class="detsl">--}}
-                    {{--                                        Auto--}}
-                    {{--                                    </div>--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                        <div class="car-price my-bids-price time-close">--}}
-                    {{--                            <div class="initial-price-box">--}}
-                    {{--                                <p>Initial Price</p>--}}
-                    {{--                                <h3>SAR 50,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="current-highest-bid-box">--}}
-                    {{--                                <p>Total Bids</p>--}}
-                    {{--                                <h3>20</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="my-bid-box">--}}
-                    {{--                                <p>Winning Bid</p>--}}
-                    {{--                                <h3>SAR 78,000</h3>--}}
-                    {{--                            </div>--}}
-                    {{--                            <a href="javascript:void(0)" class="place-bid-blue update-bid">Transaction Complete</a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
                 </div>
             </div>
         </div>
@@ -536,6 +171,58 @@
                 window.location.href = APP_URL + '/add-auction'
             }
         })
+        $('.vehicle_detail').on('click', function () {
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/vehicle-details' + '/' + value_id)
+                .then(function (response) {
+                    $('#vehicle_detail_title').html(response.data.modal_title)
+                    $('#vehicle_detail_body').html(response.data.data)
+
+                    $('#carderails').modal('show')
+                    // var mySwiper = new Swiper('.swiper-container', {
+                    //     speed: 400,
+                    //     loop: true,
+                    //     slidesPerView: 1,
+                    //     calculateHeight: true,
+                    //     spaceBetween: 50,
+                    //     watchActiveIndex: true,
+                    //     prevButton: '.swiper-button-prev',
+                    //     nextButton: '.swiper-button-next'
+                    // })
+
+                    var productSlider = new Swiper('.product-slider', {
+                        spaceBetween: 0,
+                        centeredSlides: false,
+                        loop: true,
+                        direction: 'horizontal',
+                        loopedSlides: 3,
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                        resizeObserver: true,
+                    });
+                    var productThumbs = new Swiper('.product-thumbs', {
+                        spaceBetween: 0,
+                        centeredSlides: true,
+                        loop: true,
+                        slideToClickedSlide: true,
+                        direction: 'horizontal',
+                        slidesPerView: 3,
+                        loopedSlides: 3,
+                    });
+                    productSlider.controller.control = productThumbs;
+                    productThumbs.controller.control = productSlider;
+
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
+        })
+
     </script>
     <script src="{{asset('web/assets/custom/home/home.js')}}?v={{time()}}"></script>
 @endsection

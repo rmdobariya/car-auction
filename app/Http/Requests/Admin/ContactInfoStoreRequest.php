@@ -21,6 +21,7 @@ class ContactInfoStoreRequest extends FormRequest
             'setting_key.CONTACT_NUMBER_1' => 'required',
             'setting_key.CONTACT_NUMBER_2' => 'required',
             'setting_key.WHATSAPP_NUMBER' => 'required',
+            'setting_key.ADDRESS_GOOGLE_MAP' => 'required',
             'setting_key.ADDRESS_1' => 'required',
             'setting_key.ADDRESS_2' => 'required',
             'setting_key.COUNTRY' => 'required',

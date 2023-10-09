@@ -26,10 +26,13 @@ class RegisterStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'        => 'required|unique:users,email',
-            'name'     => 'required',
-            'password'     => 'required',
-            'device_type'  => 'required',
+            'user_type' => 'required',
+            'email' => 'required_if:user_type,=,seller,email:rfc,dns|unique:users,email,',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contact_no' => 'required|digits_between:1,10',
+            'password' => 'required',
+            'device_type' => 'required',
             'device_token' => 'required',
         ];
     }

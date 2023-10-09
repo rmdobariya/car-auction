@@ -100,6 +100,7 @@ let $form = $('#addEditForm')
 $form.on('submit', function (e) {
     e.preventDefault()
     let formData = new FormData($form[0])
+    loaderView()
     axios
         .post(APP_URL + '/reset-password-submit', formData)
         .then(function (response) {

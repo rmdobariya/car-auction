@@ -11,6 +11,7 @@ use App\Models\CarInquiry;
 use App\Models\ContactUs;
 use App\Models\Notification;
 use App\Models\Question;
+use App\Models\User;
 use App\Models\WishList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -351,20 +352,29 @@ class HomeController extends Controller
 
     public function contactUsSubmit(ContactUsStoreRequest $request)
     {
-        $contact_us = new ContactUs();
-        $contact_us->user_id = Auth::user()->id;
-        $contact_us->first_name = $request->first_name;
-        $contact_us->last_name = $request->last_name;
-        $contact_us->name = $request->first_name . ' ' . $request->last_name;
-        $contact_us->email = $request->email;
-        $contact_us->contact_number = $request->mobile_no;
-        $contact_us->message = $request->message;
-        $contact_us->subject = 'contact_us';
-        $contact_us->save();
+        if (!is_null(Auth::user())) {
+            $contact_us = new ContactUs();
+            $contact_us->user_id = Auth::user()->id;
+            $contact_us->first_name = $request->first_name;
+            $contact_us->last_name = $request->last_name;
+            $contact_us->name = $request->first_name . ' ' . $request->last_name;
+            $contact_us->email = $request->email;
+            $contact_us->contact_number = $request->mobile_no;
+            $contact_us->message = $request->message;
+            $contact_us->subject = 'contact_us';
+            $contact_us->save();
+            return response()->json([
+                'success' => true,
+                'message' => 'Contact Us Save Successfully'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please First Login Or Signup'
+            ]);
+        }
 
-        return response()->json([
-            'message' => 'Contact Us Save Successfully'
-        ]);
+
     }
 
     public function addQuestionStore(QuestionStoreRequest $request)
@@ -557,5 +567,50 @@ class HomeController extends Controller
             'hot_deal_count' => $hot_deal_count,
             'car_for_sell_count' => $car_for_sell_count,
         ]);
+    }
+
+    public function myBids()
+    {
+        $user_id = Auth::user()->id;
+        $user = User::where('id', $user_id)->first();
+        if ($user) {
+            $bids = DB::table('vehicle_bids')
+                ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
+                ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+                ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+                ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
+                ->where('vehicle_translations.locale', App::getLocale())
+                ->where('vehicle_bids.user_id', $user_id)
+                ->where('vehicle_bids.is_winner', 1)
+                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name','vehicle_categories.name as category_name')
+                ->get();
+
+            return view('website.user.my_bid', [
+                'bids' => $bids
+            ]);
+        }
+        abort(404);
+    }
+    public function myWinnings()
+    {
+        $user_id = Auth::user()->id;
+        $user = User::where('id', $user_id)->first();
+        if ($user) {
+            $winner_bids = DB::table('vehicle_bids')
+                ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
+                ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+                ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+                ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
+                ->where('vehicle_translations.locale', App::getLocale())
+                ->where('vehicle_bids.user_id', $user_id)
+                ->where('vehicle_bids.is_winner', 1)
+                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
+                ->get();
+
+            return view('website.user.winner_bid', [
+                'winner_bids' => $winner_bids
+            ]);
+        }
+        abort(404);
     }
 }

@@ -75,4 +75,6 @@ Route::post('wish-list', [HomeController::class, 'wishList'])->name('wish-list')
 Route::get('filter', [HomeController::class, 'filter'])->name('filter');
 Route::post('add-question-store', [HomeController::class, 'addQuestionStore'])->name('add-question-store');
 Route::get('wishlist', [PageController::class, 'wishListPage'])->name('wishlist');
+Route::get('my-bids', [HomeController::class, 'myBids'])->name('my-bids');
+Route::get('my-winnings', [HomeController::class, 'myWinnings'])->name('my-winnings');
 
