@@ -79,25 +79,4 @@ class CatchCreateHelper
             return $array;
         }
     }
-
-    public static function getCountry( $local )
-    {
-        if (Cache::has($local . '_country')) {
-            return Cache::get($local . '_country');
-        } else {
-            $array = [];
-            $countries = Country::where('status', 'active')->get();
-            foreach ($countries as $country) {
-                $array[] = [
-                    'id'           => $country->id,
-                    'country_code' => $country->country_code,
-                    'code'         => $country->code,
-                    'name'         => $country->name,
-                    'status'       => $country->status,
-                ];
-            }
-            Cache::forever($local . '_country', $array);
-            return $array;
-        }
-    }
 }
