@@ -29,12 +29,14 @@ class PageController extends Controller
         $address_1 = DB::table('site_settings')->where('setting_key', 'ADDRESS_1')->first()->setting_value;
         $address_2 = DB::table('site_settings')->where('setting_key', 'ADDRESS_2')->first()->setting_value;
         $email = DB::table('site_settings')->where('setting_key', 'FROM_EMAIL')->first()->setting_value;
+        $address_google_map = DB::table('site_settings')->where('setting_key', 'ADDRESS_GOOGLE_MAP')->first()->setting_value;
         return view('website.page.contact_us', [
             'mobile_no' => $mobile_no,
             'whatsapp_mobile_no' => $whatsapp_mobile_no,
             'address_1' => $address_1,
             'address_2' => $address_2,
             'email' => $email,
+            'address_google_map' => $address_google_map,
         ]);
     }
 
