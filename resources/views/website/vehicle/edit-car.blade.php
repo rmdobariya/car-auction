@@ -51,7 +51,6 @@
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="year"
-                                                   id="year"
                                                    value="{{$vehicle->year}}"
                                                    placeholder="Year"/>
                                         </div>
