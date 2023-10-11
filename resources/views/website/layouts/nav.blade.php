@@ -14,39 +14,39 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="tel:{{$contact_no}}"><span>Toll Free:</span> {{$contact_no}}</a>
+                    <a class="nav-link" href="tel:{{$contact_no}}"><span>{{trans('web_string.toll_free')}}:</span> {{$contact_no}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mailto:{{$email}}"><span>Email:</span> {{$email}}</a>
+                    <a class="nav-link" href="mailto:{{$email}}"><span>{{trans('web_string.email')}}:</span> {{$email}}</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('/')}}">Home</a>
+                    <a class="nav-link" href="{{route('/')}}">{{trans('web_string.home')}}</a>
                 </li>
                 @if(!is_null(Auth::user()))
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('auction')}}">Auctions</a>
+                        <a class="nav-link" href="{{route('auction')}}">{{trans('web_string.auctions')}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('wishlist')}}">Wishlist</a>
+                        <a class="nav-link" href="{{route('wishlist')}}">{{trans('web_string.wishlist')}}</a>
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('page',['how-it-work'])}}#contact_us">How it works?</a>
+                    <a class="nav-link" href="{{route('page',['how-it-work'])}}#contact_us">{{trans('web_string.how_it_works')}}?</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('page',['about-us'])}}#contact_us">About us</a>
+                    <a class="nav-link" href="{{route('page',['about-us'])}}#contact_us">{{trans('web_string.about_us')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('contact-us')}}#contact_us">Contact us</a>
+                    <a class="nav-link" href="{{route('contact-us')}}#contact_us">{{trans('web_string.contact_us')}}</a>
                 </li>
                 @if(!is_null(Auth::user()))
                     @php
                         $count = DB::table('notifications')->where('user_id', Auth::user()->id)->where('is_read',0)->count();
                     @endphp
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('notification')}}">Notifications
+                        <a class="nav-link" href="{{route('notification')}}">{{trans('web_string.notifications')}}
                             <span class="badge" style="background-color: white">{{$count}}</span>
                         </a>
 
@@ -62,10 +62,16 @@
                     </li>
                 @endif
                 <li class="nav-item language">
-                    <div class="form-check form-switch chked">
+                    <div
+                        class="form-check form-switch language-change @if((string)App::getLocale() === 'en') chked @endif">
                         <label class="form-check-label" for="flexSwitchCheckDefault">AR</label>
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-                               checked>
+                        @if((string)App::getLocale() === 'en')
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                   value="ar" checked>
+                        @else
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                                   value="en" checked>
+                        @endif
                         <label class="form-check-label" for="flexSwitchCheckDefault">EN</label>
                     </div>
                 </li>
@@ -79,30 +85,30 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="heading">
-                    <h1>100% Online Auto Auctions</h1>
-                    <p>Featuring thousands of Used and Salvage Cars, Trucks & SUVs for Sale</p>
+                    <h1>{{trans('web_string.online_auto_auction')}}</h1>
+                    <p>{{trans('web_string.featuring_thousands_of')}}</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
-                    <h4>Register</h4>
-                    <p>Sign up for a Copart Middle East Standard or Premier Membership</p>
+                    <h4>{{trans('web_string.register')}}</h4>
+                    <p>{{trans('web_string.sign_up_for_a')}}</p>
                     <span>1</span>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
-                    <h4>Find</h4>
-                    <p>Search our large inventory of used & damaged vehicles</p>
+                    <h4>{{trans('web_string.find')}}</h4>
+                    <p>{{trans('web_string.search_out_range')}}</p>
                     <span>2</span>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
-                    <h4>Bid</h4>
-                    <p>Bid in our online auctions across the Middle East</p>
+                    <h4>{{trans('web_string.bid')}}</h4>
+                    <p>{{trans('web_string.bid_in_our_online')}}</p>
                     <span>3</span>
                 </div>
             </div>
@@ -116,7 +122,7 @@
                         {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                     >
                         <img src="{{asset('web/assets/images/google-play.png')}}"></a>
-                    <p>Download Now</p>
+                    <p>{{trans('web_string.download_now')}}</p>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -127,24 +133,24 @@
                     </div>
                     <div class="search-box">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search by Make, Model or VIN">
+                            <input type="text" class="form-control" placeholder="{{trans('web_string.search_by_make')}}">
                             <span class="input-group-text" id="basic-addon2"><i class="las la-search"></i></span>
                         </div>
                     </div>
                     <div class="filter-btn">
-                        <button class="btn btn-filter">Filters
+                        <button class="btn btn-filter">{{trans('web_string.filters')}}
                             <i class="las la-angle-up"></i>
                         </button>
 
                     </div>
                     @if(is_null(Auth::user()))
                         <div class="login-btn">
-                            <button class="btn btn-login" data-bs-toggle="modal" data-bs-target="#login">Login
+                            <button class="btn btn-login" data-bs-toggle="modal" data-bs-target="#login">{{trans('web_string.login')}}
                             </button>
                         </div>
                         <div class="reg-btn">
                             <button class="btn btn-register" data-bs-toggle="modal" data-bs-target="#signup">
-                                Registration
+                                {{trans('web_string.registration')}}
                             </button>
                         </div>
                     @else
@@ -161,7 +167,7 @@
 
                         <div class="login-btn">
                             <a class="btn btn-login" href="{{route('/logout')}}"
-                               style="background: #673AAA 0% 0% no-repeat padding-box">Logout
+                               style="background: #673AAA 0% 0% no-repeat padding-box">{{trans('web_string.logout')}}
                             </a>
                         </div>
                     @endif
@@ -175,31 +181,31 @@
                         <div class="filter-pop">
                             <div class="f-head">
                                 <p>Filters</p>
-                                <a href="{{route('/')}}">Reset All</a>
-                                <button type="button" id="filterData">Submit</button>
+                                <a href="{{route('/')}}">{{trans('web_string.reset_all')}}</a>
+                                <button type="button" id="filterData">{{trans('web_string.submit')}}</button>
                                 <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
                             </div>
                             <div class="f-body">
                                 <div class="row">
-{{--                                    <div class="col-md-3">--}}
-                                        {{--                                        <label>Vehicle Condition</label>--}}
-                                        {{--                                        <div class="checkbox-group">--}}
-                                        {{--                                            <div class="form-check">--}}
-                                        {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
-                                        {{--                                                       name="condition" id="used">--}}
-                                        {{--                                                <label class="form-check-label" for="used">--}}
-                                        {{--                                                    Used--}}
-                                        {{--                                                </label>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                            <div class="form-check">--}}
-                                        {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
-                                        {{--                                                       name="condition" id="new">--}}
-                                        {{--                                                <label class="form-check-label" for="new">--}}
-                                        {{--                                                    New--}}
-                                        {{--                                                </label>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    {{--                                    <div class="col-md-3">--}}
+                                    {{--                                        <label>Vehicle Condition</label>--}}
+                                    {{--                                        <div class="checkbox-group">--}}
+                                    {{--                                            <div class="form-check">--}}
+                                    {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
+                                    {{--                                                       name="condition" id="used">--}}
+                                    {{--                                                <label class="form-check-label" for="used">--}}
+                                    {{--                                                    Used--}}
+                                    {{--                                                </label>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                            <div class="form-check">--}}
+                                    {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
+                                    {{--                                                       name="condition" id="new">--}}
+                                    {{--                                                <label class="form-check-label" for="new">--}}
+                                    {{--                                                    New--}}
+                                    {{--                                                </label>--}}
+                                    {{--                                            </div>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
                                     @php
                                         $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
                                         if(request()->get('min_amount')){
@@ -216,11 +222,11 @@
                                         $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
                                     @endphp
                                     <div class="col-md-3">
-                                        <label>Category</label>
+                                        <label>{{trans('web_string.category')}}</label>
                                         <div class="category">
                                             <select class="form-select" name="category" id="category"
                                                     aria-label="Default select example">
-                                                <option value="">Select Category</option>
+                                                <option value="">{{trans('web_string.select_category')}}</option>
                                                 @foreach($v_categories as $v_category) @endforeach
                                                 <option value="{{$v_category->id}}"
                                                         @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
@@ -228,31 +234,33 @@
                                         </div>
                                     </div>
 
-{{--                                    <div class="col-md-3">--}}
-{{--                                        <div class="price-range-slider">--}}
-                                            {{--                                            <p class="range-value">--}}
-                                            {{--                                                Price Range--}}
-                                            {{--                                                <input type="text" id="year" readonly>--}}
-                                            {{--                                            </p>--}}
-                                            {{--                                            <div id="year-range" class="range-bar"></div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                    {{--                                    <div class="col-md-3">--}}
+                                    {{--                                        <div class="price-range-slider">--}}
+                                    {{--                                            <p class="range-value">--}}
+                                    {{--                                                Price Range--}}
+                                    {{--                                                <input type="text" id="year" readonly>--}}
+                                    {{--                                            </p>--}}
+                                    {{--                                            <div id="year-range" class="range-bar"></div>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
                                     <div class="col-md-3">
-                                        <label>Make & Model</label>
+                                        <label>{{trans('web_string.make_model')}}</label>
                                         <div class="model">
-                                            <input type="text" class="form-control" name="model" id="model" value="{{request()->get('model')}}">
+                                            <input type="text" class="form-control" name="model" id="model"
+                                                   value="{{request()->get('model')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <label>Body Type</label>
+                                        <label>{{trans('web_string.body_type')}}</label>
                                         <div class="category">
-                                            <input type="text" class="form-control" name="body_type" id="body_type" value="{{request()->get('body_type')}}">
+                                            <input type="text" class="form-control" name="body_type" id="body_type"
+                                                   value="{{request()->get('body_type')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="price-range-slider">
                                             <p class="range-value">
-                                                Price Range
+                                                {{trans('web_string.price_range')}}
                                                 <input type="text" id="amount" name="price_range" readonly>
                                                 <input type="hidden" id="min_amount" name="min_amount"
                                                        value="{{request()->get('min_amount')}}" readonly>
@@ -263,7 +271,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Exterior Type</label>
+                                        <label>{{trans('web_string.exterior_type')}}</label>
                                         <div class="checkbox-group color-check">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="exterior"
@@ -303,7 +311,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Exterior Type</label>
+                                        <label>{{trans('web_string.exterior_type')}}</label>
                                         <div class="checkbox-group color-check">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="exterior"
@@ -329,7 +337,7 @@
                                     <div class="col-md-3">
                                         <div class="price-range-slider">
                                             <p class="range-value">
-                                                Seller Ratings
+                                                {{trans('web_string.seller_ratings')}}
                                                 <input type="text" id="ratings" name="ratting" readonly>
                                                 <input type="hidden" id="min_ratting" name="min_ratting" readonly>
                                                 <input type="hidden" id="max_ratting" name="max_ratting" readonly>

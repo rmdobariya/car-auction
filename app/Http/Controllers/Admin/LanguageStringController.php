@@ -122,7 +122,7 @@ class LanguageStringController extends Controller
                 CacheClearHelper::languageStringCacheClear();
 
                 return response()->json([
-                    'message' => trans('admin_string.language_string_updated')
+                    'message' => 'Language String Update Successfully'
                 ]);
             } catch (Exception $exception) {
                 DB::rollback();

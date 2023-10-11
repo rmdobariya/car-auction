@@ -4,38 +4,41 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="heading auction-detailss">
-                        <h1>Auction Details</h1>
-                        <div class="add-car">
-                            <div class="sdate">
-                                <div class="input-group date" id="datepicker2">
-                                    <input type="text" class="form-control" id="date" placeholder="Auction Start Date">
-                                    <span class="input-group-append">
-										<span class="input-group-text bg-light d-block">
-											<img src="{{asset('web/assets/images/registration-year.svg')}}">
-										</span>
-									</span>
-                                </div>
-                            </div>
-                            <div class="edate">
-                                <div class="input-group date" id="datepicker1">
-                                    <input type="text" class="form-control" id="date" placeholder="Auction End Date">
-                                    <span class="input-group-append">
-										<span class="input-group-text bg-light d-block">
-											<img src="{{asset('web/assets/images/registration-year.svg')}}">
-										</span>
-									</span>
-                                </div>
-                            </div>
-                            <div class="action-btn">
-                                <a href="{{route('add-car')}}" class="create-auction">Add Car</a>
-                            </div>
-                        </div>
-                    </div>
+                    {{--                    <div class="heading auction-detailss">--}}
+                    {{--                        <h1>Auction Details</h1>--}}
+                    {{--                        <div class="add-car">--}}
+                    {{--                            <div class="sdate">--}}
+                    {{--                                <div class="input-group date" id="datepicker2">--}}
+                    {{--                                    <input type="text" class="form-control" id="date" placeholder="Auction Start Date">--}}
+                    {{--                                    <span class="input-group-append">--}}
+                    {{--										<span class="input-group-text bg-light d-block">--}}
+                    {{--											<img src="{{asset('web/assets/images/registration-year.svg')}}">--}}
+                    {{--										</span>--}}
+                    {{--									</span>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="edate">--}}
+                    {{--                                <div class="input-group date" id="datepicker1">--}}
+                    {{--                                    <input type="text" class="form-control" id="date" placeholder="Auction End Date">--}}
+                    {{--                                    <span class="input-group-append">--}}
+                    {{--										<span class="input-group-text bg-light d-block">--}}
+                    {{--											<img src="{{asset('web/assets/images/registration-year.svg')}}">--}}
+                    {{--										</span>--}}
+                    {{--									</span>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+                    {{--                            <div class="action-btn">--}}
+                    {{--                                <a href="{{route('add-car')}}" class="create-auction">Add Car</a>--}}
+                    {{--                            </div>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
                     <div class="heading">
-                        <h1>Auction Cars</h1>
+                        <h1>{{trans('web_string.auction_cars')}}</h1>
                         <div class="action-btn" style="visibility: hidden">
                             <a href="#" class="create-auction">Start Auction</a>
+                        </div>
+                        <div class="action-btn">
+                            <a href="{{route('add-car')}}" class="create-auction">Add Car</a>
                         </div>
                     </div>
                 </div>
@@ -46,7 +49,8 @@
                             <div class="auctions-filter">
                                 <div class="sdate">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search car name">
+                                        <input type="text" class="form-control" placeholder="Search car name"
+                                               name="car_search" id="car_search">
                                         <span class="input-group-text" id="basic-addon2">
 										<i class="las la-search"></i>
 									</span>
@@ -61,7 +65,6 @@
 
                             <div class="lists">
                                 <table>
-
                                     <thead>
                                     <tr>
                                         <th>Car Name</th>
@@ -72,7 +75,7 @@
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="search_body">
                                     @foreach($vehicles as $vehicle)
                                         <tr>
                                             <td>{{$vehicle->vehicle_name}}</td>
@@ -105,7 +108,7 @@
                         </div>
                     </div>
                 @else
-                    <h2>Car Not Found</h2>
+                    <h2>{{trans('web_string.no_new_car')}}</h2>
                 @endif
             </div>
         </div>
@@ -115,10 +118,14 @@
     {{--    @include('website.layouts.component.news')--}}
     <div class="clearfix"></div>
     <!-- Auction Details Modal -->
-    <div class="modal fade bid-model" id="auctiondetails" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="auctiondetailsLabel" aria-hidden="true">
+    <div class="modal fade bid-model" id="auctiondetails" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-xl modal-dialog-centered">
+
             <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Close button (X) -->
+                    <button type="button" class="btn-close" id="bib_modal_close"></button>
+                </div>
                 <div class="modal-body" id="bid_listing_model">
 
                 </div>
@@ -138,7 +145,7 @@
                 .then(function (response) {
                     // $('#bid_listing_title').html(response.data.modal_title)
                     $('#bid_listing_model').html(response.data.data)
-
+                    startInterval()
                     $('#auctiondetails').modal('show')
                     var mySwiper = new Swiper('.swiper-container', {
                         speed: 400,
@@ -156,6 +163,27 @@
                 .catch(function (error) {
                     loaderHide()
                 })
+        })
+        $('#car_search').on('keyup', function () {
+            const name = $(this).val()
+            console.log(name)
+            if (name.length > 3 || name.length == 0) {
+                loaderView()
+                axios
+                    .post(APP_URL + '/search-car', {
+                        name: name
+                    })
+                    .then(function (response) {
+                        // $('#bid_listing_title').html(response.data.modal_title)
+                        $('#search_body').html(response.data.data)
+
+                        loaderHide()
+                    })
+                    .catch(function (error) {
+                        loaderHide()
+                    })
+            }
+
         })
     </script>
 @endsection

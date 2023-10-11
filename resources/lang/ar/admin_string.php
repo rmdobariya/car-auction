@@ -1,4 +1,4 @@
 <?php
  return array (
-  'name_key' => 'Name',
+  'common_name' => 'اسم',
 );

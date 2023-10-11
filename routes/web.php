@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\AuctionController;
 use App\Http\Controllers\Web\BidController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\LanguageController;
 use App\Http\Controllers\Web\LoginController;
 use App\Http\Controllers\Web\NotificationController;
 use App\Http\Controllers\Web\PageController;
@@ -27,11 +28,13 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+Route::group(['middleware' => ['websiteLanguageCheck']], function () {
 Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::post('home', [HomeController::class, 'index'])->name('home');
 Route::post('/login', [LoginController::class, 'loginCheck'])->name('/login');
 Route::post('/register', [LoginController::class, 'register'])->name('/register');
 Route::get('/logout', [LoginController::class, 'logout'])->name('/logout');
+Route::get('language/{code}', [LanguageController::class, 'changeLanguage'])->name('language');
 Route::get('vehicle-details/{id}', [HomeController::class, 'vehicleDetail'])->name('vehicle-details');
 Route::get('car-inquiry/{id}', [HomeController::class, 'vehicleInquiry'])->name('car-inquiry');
 Route::get('vehicle-bid-modal/{id}', [HomeController::class, 'vehicleBid'])->name('vehicle-bid-modal');
@@ -65,6 +68,7 @@ Route::post('vehicle-inquiry-store', [HomeController::class,'carInquirySubmit'])
 Route::post('contact-us-store', [HomeController::class,'contactUsSubmit'])->name('contact-us-store');
 
 Route::get('vehicle-bid-listing/{id}', [AuctionController::class, 'vehicleBidListing'])->name('vehicle-bid-listing');
+Route::post('search-car', [AuctionController::class, 'searchCar'])->name('search-car');
 Route::get('updated-bid/{id}', [BidController::class, 'updatedBid'])->name('updated-bid');
 Route::get('notification', [NotificationController::class, 'index'])->name('notification');
 
@@ -78,3 +82,4 @@ Route::get('wishlist', [PageController::class, 'wishListPage'])->name('wishlist'
 Route::get('my-bids', [HomeController::class, 'myBids'])->name('my-bids');
 Route::get('my-winnings', [HomeController::class, 'myWinnings'])->name('my-winnings');
 
+});

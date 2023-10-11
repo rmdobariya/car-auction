@@ -137,7 +137,7 @@
                     @endforeach
                 </div>
                 @else
-                    <h3>Wishlist Not Found</h3>
+                    <h3>{{trans('web_string.no_new_wishlist')}}</h3>
                 @endif
             </div>
         </div>

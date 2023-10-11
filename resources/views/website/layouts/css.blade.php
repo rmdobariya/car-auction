@@ -6,6 +6,10 @@
 <link rel='stylesheet' href='https://unpkg.com/swiper@6.5.4/swiper-bundle.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css'>
 <link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/bootstrap.min.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/style.css')}}">
+@if((string)App::getLocale() === 'en')
+<link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/style.css')}}?v={{time()}}">
+@else
+    <link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/ar_style.css')}}?v={{time()}}">
+@endif
 <link rel="stylesheet" type="text/css" href="{{asset('web/assets/css/custom.css')}}?v={{time()}}">
 <script src="https://unpkg.com/feather-icons"></script>

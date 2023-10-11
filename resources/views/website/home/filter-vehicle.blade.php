@@ -1,14 +1,16 @@
+@if(count($sell_vehicles) > 0)
     <div class="row">
         <div class="col-md-12">
             <div class="heading">
                 <h1>Cars for Sell</h1>
-                @if($car_for_sell_count > 3)
-                    <a href="{{route('car-for-sell','car_for_sell')}}">View All</a>
-                @endif
+                {{--                @if($car_for_sell_count > 3)--}}
+                {{--                    <a href="{{route('car-for-sell','car_for_sell')}}">View All</a>--}}
+                {{--                @endif--}}
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="col-md-12">
+
             @foreach($sell_vehicles as $sell_vehicle)
 
                 @if(Auth::user())
@@ -95,15 +97,18 @@
                     </div>
                 </div>
             @endforeach
+
         </div>
     </div>
+@endif
+@if(count($featured_vehicles) > 0)
     <div class="row">
         <div class="col-md-12">
             <div class="heading">
                 <h1>Featured Vehicles</h1>
-                @if($featured_vehicle_count > 3)
-                    <a href="{{route('type-wise-car','is_featured')}}">View All</a>
-                @endif
+                {{--                @if($featured_vehicle_count > 3)--}}
+                {{--                    <a href="{{route('type-wise-car','is_featured')}}">View All</a>--}}
+                {{--                @endif--}}
             </div>
         </div>
         <div class="clearfix"></div>
@@ -194,13 +199,15 @@
             @endforeach
         </div>
     </div>
+@endif
+@if(count($popular_vehicles) > 0)
     <div class="row">
         <div class="col-md-12">
             <div class="heading">
                 <h1>Popular Vehicles</h1>
-                @if($popular_vehicle_count > 3)
-                    <a href="{{route('type-wise-car','is_popular')}}">View All</a>
-                @endif
+                {{--                @if($popular_vehicle_count > 3)--}}
+                {{--                    <a href="{{route('type-wise-car','is_popular')}}">View All</a>--}}
+                {{--                @endif--}}
             </div>
         </div>
         <div class="clearfix"></div>
@@ -294,13 +301,15 @@
             @endforeach
         </div>
     </div>
+@endif
+@if(count($hot_deal_vehicles) > 0)
     <div class="row">
         <div class="col-md-12">
             <div class="heading">
                 <h1>Hot Deals</h1>
-                @if($hot_deal_count > 3)
-                    <a href="{{route('type-wise-car','is_hot_deal')}}">View All</a>
-                @endif
+                {{--            @if($hot_deal_count > 3)--}}
+                {{--                <a href="{{route('type-wise-car','is_hot_deal')}}">View All</a>--}}
+                {{--            @endif--}}
             </div>
         </div>
         <div class="clearfix"></div>
@@ -394,3 +403,4 @@
             @endforeach
         </div>
     </div>
+@endif

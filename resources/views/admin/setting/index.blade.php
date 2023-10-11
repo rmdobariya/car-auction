@@ -50,13 +50,13 @@
                                 </a>
                             </li>
 
-{{--                            <li class="nav-item">--}}
-{{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
-{{--                                   data-bs-toggle="tab" href="#social_media_setting">--}}
-{{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
-{{--                                    Social Media--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
+                            {{--                            <li class="nav-item">--}}
+                            {{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
+                            {{--                                   data-bs-toggle="tab" href="#social_media_setting">--}}
+                            {{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
+                            {{--                                    Social Media--}}
+                            {{--                                </a>--}}
+                            {{--                            </li>--}}
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
@@ -306,10 +306,7 @@
                                                 </div>
 
                                                 <div class="col-md-9">
-                                                        <textarea type="text" class="form-control form-control-solid"
-                                                                  name="setting_key[{{$setting->setting_key}}]"
-                                                                  id="{{$setting->setting_key}}">
-                                                            {{ $setting->setting_value }}</textarea>
+                                                        <textarea type="text" class="form-control form-control-solid" name="setting_key[{{$setting->setting_key}}]" id="{{$setting->setting_key}}">{{ $setting->setting_value }}</textarea>
                                                 </div>
                                             </div>
 
@@ -355,16 +352,30 @@
                                                            value="{{$setting->setting_value}}"/>
 
                                                     <br>
-{{--                                                    <div id="map-container">--}}
-{{--                                                        <iframe--}}
-{{--                                                            width="600"--}}
-{{--                                                            height="450"--}}
-{{--                                                            frameborder="0"--}}
-{{--                                                            style="border:0"--}}
-{{--                                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118147.68688962182!2d70.73889383315678!3d22.273625028792733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959c98ac71cdf0f%3A0x76dd15cfbe93ad3b!2sRajkot%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1692618714097!5m2!1sen!2sin"--}}
-{{--                                                            allowfullscreen--}}
-{{--                                                        ></iframe>--}}
-{{--                                                    </div>--}}
+                                                    <div class="alert alert-info">
+                                                        <ul>
+                                                            <li><b>Steps to generate the map link.</b></li>
+                                                            <li>- Open, <a href="https://www.google.com/maps"
+                                                                           title="https://www.google.com/maps"
+                                                                           target="_blank">https://www.google.com/maps</a>
+                                                            </li>
+                                                            <li>- Search your address</li>
+                                                            <li>- Click on Share</li>
+                                                            <li>- Click on Embed Map</li>
+                                                            <li>- Now Just COPY HTML and paste in the map input box.
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    {{--                                                    <div id="map-container">--}}
+                                                    {{--                                                        <iframe--}}
+                                                    {{--                                                            width="600"--}}
+                                                    {{--                                                            height="450"--}}
+                                                    {{--                                                            frameborder="0"--}}
+                                                    {{--                                                            style="border:0"--}}
+                                                    {{--                                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d118147.68688962182!2d70.73889383315678!3d22.273625028792733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3959c98ac71cdf0f%3A0x76dd15cfbe93ad3b!2sRajkot%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1692618714097!5m2!1sen!2sin"--}}
+                                                    {{--                                                            allowfullscreen--}}
+                                                    {{--                                                        ></iframe>--}}
+                                                    {{--                                                    </div>--}}
                                                 </div>
                                             </div>
 
@@ -443,7 +454,7 @@
     </script>
     <script>
 
-        $(document).on('keyup','#ADDRESS_GOOGLE_MAP', function () {
+        $(document).on('keyup', '#ADDRESS_GOOGLE_MAP', function () {
             var address = $('#ADDRESS_GOOGLE_MAP').val();
             var embedUrl = 'https://www.google.com/maps/embed?';
             if (address) {

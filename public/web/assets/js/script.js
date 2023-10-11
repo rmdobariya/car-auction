@@ -1,3 +1,7 @@
+// $("#flexSwitchCheckDefault").change(function() {
+    $('body').toggleClass("rtl");
+// });
+
 //-----JS for Price Range slider-----
 
 $(function () {

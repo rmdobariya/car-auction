@@ -20,11 +20,21 @@
                                 $count = 0;
                             @endphp
                         @endif
-                        <div class="details-box">
+                        @php
+                            $total_bids = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->count();
+                            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
+                        @endphp
+                        <div class="details-box bid-details-box">
                             <div class="car-img">
                                 <img src="{{asset($vehicle->main_image)}}" align="car">
-                                <span class="cat-tags">
-                                    <img src="{{asset('web/assets/images/dymand.png')}}"> @if($vehicle->is_product == 'is_featured') Featured @elseif($vehicle->is_product == 'is_popular') Popular @else Hot Deal @endif</span>
+                                <span class="cat-tags"><img
+                                        src="{{asset('web/assets/images/dymand.png')}}"> @if($vehicle->is_product == 'is_featured')
+                                        {{trans('web_string.featured')}}
+                                    @elseif($vehicle->is_product == 'is_popular')
+                                        {{trans('web_string.popular')}}
+                                    @else
+                                        {{trans('web_string.hot_deal')}}
+                                    @endif</span>
                                 @if(!is_null(Auth::user()))
                                     @if($vehicle->user_id != Auth::user()->id)
                                         <a class="like" data-id="{{$vehicle->id}}"
@@ -47,50 +57,93 @@
                                 <div class="names">
                                     <h3>{{$vehicle->vehicle_name}}</h3>
                                     <p>{{$vehicle->category_name}}</p>
-                                </div>
-                            </div>
-                            <div class="car-specifation">
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
-                                    </div>
-                                    <div class="detsl">
-                                        {{$vehicle->kms_driven}}
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
-                                    </div>
-                                    <div class="detsl">
-                                        {{$vehicle->mileage}}
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                    </div>
-                                    <div class="detsl">
-                                        {{$vehicle->fuel_type}}
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                    </div>
-                                    <div class="detsl">
-                                        {{$vehicle->body_type}}
+                                    <div class="feedback" style="visibility: hidden">
+                                        <i class="las la-comments"></i>
+                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                           data-bs-target="#feedback">Feedbacks</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="car-price">
-                                <span>Bid Start on <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                            <div class="car-time-specification">
+                                <div class="time-temain"
+                                     @if($vehicle->auction_end_date <  date('Y-m-d') || $vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
+                                    <span><i class="las la-clock"></i></span>
+                                    <input type="hidden" id="vehicle_id" value="{{$vehicle->id}}"
+                                           class="vehicle_id">
+                                    <input type="hidden" id="start_date_{{$vehicle->id}}"
+                                           value="{{$vehicle->auction_end_date}}">
+                                    <div class="my-auction-counter"
+                                         id="my-auction-counter_{{$vehicle->id}}">
+
+                                    </div>
+                                </div>
+                                <div class="car-specifation">
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->kms_driven}}
+                                        </div>
+                                    </div>
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->mileage}}
+                                        </div>
+                                    </div>
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->fuel_type}}
+                                        </div>
+                                    </div>
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->body_type}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="car-price my-bids-price @if($vehicle->auction_end_date < date('Y-m-d') || $vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                <span>Bid Start <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>Bid End <b>{{Carbon\Carbon::parse($vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
-                                    <p>Initial Price</p>
+                                    <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>
                                 </div>
-                                <a href="#" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">Place
-                                    Bid</a>
+                                <div class="my-bid-box">
+                                    <p>{{trans('web_string.total_bids')}}</p>
+                                    <h3>{{$total_bids}}</h3>
+                                </div>
+                                <div class="current-highest-bid-box">
+                                    <p>{{trans('web_string.current_highest_bid')}}</p>
+                                    <h3>
+                                        SAR {{$total_bids == 0 ? number_format($vehicle->price) : number_format($height_bid)}}</h3>
+                                </div>
+                                @php
+                                    $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
+                                    $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
+                                    $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                @endphp
+                                @if($dateToCheck->between($startDate, $endDate))
+                                    <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
+                                       data-id="{{$vehicle->id}}">{{trans('web_string.view_auction')}}</a>
+                                @else
+                                    @if($vehicle->auction_start_date > date('Y-m-d'))
+                                        <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                    @else
+                                        <a href="javascript:void(0)"
+                                           class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                    @endif
+                                @endif
                             </div>
                         </div>
                     @endforeach
@@ -223,7 +276,25 @@
 
 @endsection
 @section('custom-script')
+    <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
+        var $j_object = $(".vehicle_id");
+        $j_object.each(function (i) {
+            var id = $(this).val();
+            var start_date = $('#start_date_' + id).val()
+            var auction_end_date = new Date(start_date);
+            var targetDate = new Date(auction_end_date);
+            targetDate.setHours(23);
+            targetDate.setMinutes(60);
+            targetDate.setSeconds(60);
+            var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
+            $("#my-auction-counter_" + id)
+                .countdown(formattedDateTime, function (event) {
+                    $("#my-auction-counter_" + id).html(
+                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+                    );
+                });
+        });
         $('.vehicle_detail').on('click', function () {
             const value_id = $(this).data('id')
             loaderView()
