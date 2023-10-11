@@ -64,7 +64,7 @@
 {{--                    </div>--}}
                 </div>
                 @else
-                    <h3>Notification Not Found</h3>
+                    <h3>{{trans('web_string.no_new_notification')}}</h3>
                 @endif
             </div>
         </div>

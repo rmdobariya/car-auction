@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.home')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container" id="filter-part">
@@ -6,9 +9,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h1>Cars for Sell</h1>
+                            <h1>{{trans('web_string.car_for_sell')}}</h1>
                             @if($car_for_sell_count > 3)
-                                <a href="{{route('car-for-sell','car_for_sell')}}">View All</a>
+                                <a href="{{route('car-for-sell','car_for_sell')}}">{{trans('web_string.common_view_all')}}</a>
                             @endif
                         </div>
                     </div>
@@ -30,7 +33,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($sell_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                            src="{{asset('web/assets/images/dymand.png')}}"> Car For Sell</span>
+                                            src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
                                     @if(!is_null(Auth::user()))
                                         @if($sell_vehicle->user_id != Auth::user()->id)
                                             <a class="like" data-id="{{$sell_vehicle->id}}"
@@ -100,8 +103,8 @@
                                         <p>Initial Price</p>
                                         <h3>SAR {{number_format($sell_vehicle->price)}}</h3>
                                     </div>
-                                    <a href="#" class="place-bid-blue car_inquiry" data-id="{{$sell_vehicle->id}}">Contact
-                                        Seller</a>
+                                    <a href="#" class="place-bid-blue car_inquiry"
+                                       data-id="{{$sell_vehicle->id}}">{{trans('web_string.contact_seller')}}</a>
                                 </div>
                             </div>
                         @endforeach
@@ -112,9 +115,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h1>Featured Vehicles</h1>
-                            @if($featured_vehicle_count > 3)
-                                <a href="{{route('type-wise-car','is_featured')}}">View All</a>
+                            <h1>{{trans('web_string.featured_vehicles')}}</h1>
+                            @if($featured_vehicle_count > 1)
+                                <a href="{{route('type-wise-car','is_featured')}}">{{trans('web_string.common_view_all')}}</a>
                             @endif
                         </div>
                     </div>
@@ -139,11 +142,11 @@
                                     <img src="{{asset($featured_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
                                             src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
-                                            Featured
+                                            {{trans('web_string.featured')}}
                                         @elseif($featured_vehicle->is_product == 'is_popular')
-                                            Popular
+                                            {{trans('web_string.popular')}}
                                         @else
-                                            Hot Deal
+                                            {{trans('web_string.hot_deal')}}
                                         @endif</span>
                                     @if(!is_null(Auth::user()))
                                         @if($featured_vehicle->user_id != Auth::user()->id)
@@ -176,7 +179,7 @@
                                 </div>
                                 <div class="car-time-specification">
                                     <div class="time-temain"
-                                         @if($featured_vehicle->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
+                                         @if($featured_vehicle->auction_end_date <  date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                         <span><i class="las la-clock"></i></span>
                                         <input type="hidden" id="vehicle_id" value="{{$featured_vehicle->id}}"
                                                class="vehicle_id">
@@ -223,17 +226,19 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d')) time-close @endif">
+                                    class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    <span>Bid Start <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                    <span>Bid End <b>{{Carbon\Carbon::parse($featured_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
-                                        <p>Initial Price</p>
+                                        <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($featured_vehicle->price)}}</h3>
                                     </div>
                                     <div class="my-bid-box">
-                                        <p>Total Bids</p>
+                                        <p>{{trans('web_string.total_bids')}}</p>
                                         <h3>{{$total_bids}}</h3>
                                     </div>
                                     <div class="current-highest-bid-box">
-                                        <p>Current Highest Bid</p>
+                                        <p>{{trans('web_string.current_highest_bid')}}</p>
                                         <h3>
                                             SAR {{$total_bids == 0 ? number_format($featured_vehicle->price) : number_format($height_bid)}}</h3>
                                     </div>
@@ -244,13 +249,13 @@
                                     @endphp
                                     @if($dateToCheck->between($startDate, $endDate))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
-                                           data-id="{{$featured_vehicle->id}}">View Auction</a>
+                                           data-id="{{$featured_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                     @else
                                         @if($featured_vehicle->auction_start_date > date('Y-m-d'))
-                                            <a href="#" class="place-bid-blue">Pending</a>
+                                            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                         @else
                                             <a href="javascript:void(0)"
-                                               class="place-bid-blue update-bid comtrans">Auction Close</a>
+                                               class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
                                         @endif
                                     @endif
                                 </div>
@@ -263,9 +268,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h1>Popular Vehicles</h1>
+                            <h1>{{trans('web_string.popular_vehicles')}}</h1>
                             @if($popular_vehicle_count > 3)
-                                <a href="{{route('type-wise-car','is_popular')}}">View All</a>
+                                <a href="{{route('type-wise-car','is_popular')}}">{{trans('web_string.common_view_all')}}</a>
                             @endif
                         </div>
                     </div>
@@ -290,11 +295,11 @@
                                     <img src="{{asset($popular_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
                                             src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
-                                            Featured
+                                            {{trans('web_string.feature')}}
                                         @elseif($popular_vehicle->is_product == 'is_popular')
-                                            Popular
+                                            {{trans('web_string.popular')}}
                                         @else
-                                            Hot Deal
+                                            {{trans('web_string.hot_deal')}}
                                         @endif</span>
                                     @if(!is_null(Auth::user()))
                                         @if($popular_vehicle->user_id != Auth::user()->id)
@@ -327,7 +332,7 @@
                                 </div>
                                 <div class="car-time-specification">
                                     <div class="time-temain"
-                                         @if($popular_vehicle->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
+                                         @if($popular_vehicle->auction_end_date <  date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                         <span><i class="las la-clock"></i></span>
                                         <input type="hidden" id="vehicle_id" value="{{$popular_vehicle->id}}"
                                                class="vehicle_id">
@@ -373,18 +378,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div
-                                    class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d')) time-close @endif">
+                                <div class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    <span>Bid Start <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                    <span>Bid End <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
-                                        <p>Initial Price</p>
+                                        <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($popular_vehicle->price)}}</h3>
                                     </div>
                                     <div class="my-bid-box">
-                                        <p>Total Bids</p>
+                                        <p>{{trans('web_string.total_bids')}}</p>
                                         <h3>{{$total_bids}}</h3>
                                     </div>
                                     <div class="current-highest-bid-box">
-                                        <p>Current Highest Bid</p>
+                                        <p>{{trans('web_string.current_highest_bid')}}</p>
                                         <h3>
                                             SAR {{$total_bids == 0 ? number_format($popular_vehicle->price) : number_format($height_bid)}}</h3>
                                     </div>
@@ -395,13 +401,13 @@
                                     @endphp
                                     @if($dateToCheck->between($startDate, $endDate))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
-                                           data-id="{{$popular_vehicle->id}}">View Auction</a>
+                                           data-id="{{$popular_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                     @else
                                         @if($popular_vehicle->auction_start_date > date('Y-m-d'))
-                                            <a href="#" class="place-bid-blue">Pending</a>
+                                            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                         @else
                                             <a href="javascript:void(0)"
-                                               class="place-bid-blue update-bid comtrans">Auction Close</a>
+                                               class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
                                         @endif
                                     @endif
                                 </div>
@@ -414,9 +420,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
-                            <h1>Hot Deals</h1>
+                            <h1>{{trans('web_string.hot_deals')}}</h1>
                             @if($hot_deal_count > 3)
-                                <a href="{{route('type-wise-car','is_hot_deal')}}">View All</a>
+                                <a href="{{route('type-wise-car','is_hot_deal')}}">{{trans('web_string.common_view_all')}}</a>
                             @endif
                         </div>
                     </div>
@@ -441,11 +447,11 @@
                                     <img src="{{asset($hot_deal_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
                                             src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
-                                            Featured
+                                            {{trans('web_string.featured')}}
                                         @elseif($hot_deal_vehicle->is_product == 'is_popular')
-                                            Popular
+                                            {{trans('web_string.popular')}}
                                         @else
-                                            Hot Deal
+                                            {{trans('web_string.hot_deal')}}
                                         @endif</span>
                                     @if(!is_null(Auth::user()))
                                         @if($hot_deal_vehicle->user_id != Auth::user()->id)
@@ -478,7 +484,7 @@
                                 </div>
                                 <div class="car-time-specification">
                                     <div class="time-temain"
-                                         @if($hot_deal_vehicle->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
+                                         @if($hot_deal_vehicle->auction_end_date <  date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                         <span><i class="las la-clock"></i></span>
                                         <input type="hidden" id="vehicle_id" value="{{$hot_deal_vehicle->id}}"
                                                class="vehicle_id">
@@ -524,18 +530,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div
-                                    class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d')) time-close @endif">
+                                <div class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    <span>Bid Start <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                    <span>Bid End <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
-                                        <p>Initial Price</p>
+                                        <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($hot_deal_vehicle->price)}}</h3>
                                     </div>
                                     <div class="my-bid-box">
-                                        <p>Total Bids</p>
+                                        <p>{{trans('web_string.total_bids')}}</p>
                                         <h3>{{$total_bids}}</h3>
                                     </div>
                                     <div class="current-highest-bid-box">
-                                        <p>Current Highest Bid</p>
+                                        <p>{{trans('web_string.current_highest_bid')}}</p>
                                         <h3>
                                             SAR {{$total_bids == 0 ? number_format($hot_deal_vehicle->price) : number_format($height_bid)}}</h3>
                                     </div>
@@ -546,13 +553,13 @@
                                     @endphp
                                     @if($dateToCheck->between($startDate, $endDate))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
-                                           data-id="{{$hot_deal_vehicle->id}}">View Auction</a>
+                                           data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                     @else
                                         @if($hot_deal_vehicle->auction_start_date > date('Y-m-d'))
-                                            <a href="#" class="place-bid-blue">Pending</a>
+                                            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                         @else
                                             <a href="javascript:void(0)"
-                                               class="place-bid-blue update-bid">Auction Close</a>
+                                               class="place-bid-blue update-bid">{{trans('web_string.auction_close')}}</a>
                                         @endif
                                     @endif
                                 </div>
@@ -568,29 +575,29 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title">
-                        <h1>How it Works</h1>
+                        <h1>{{trans('web_string.how_it_works')}}</h1>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-4">
                     <div class="work-box">
                         <span>1</span>
-                        <h2>Register</h2>
-                        <p>Sign up for a Copart Middle East Standard or Premier Membership</p>
+                        <h2>{{trans('web_string.register')}}</h2>
+                        <p>{{trans('web_string.sign_up_for_a')}}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="work-box">
                         <span>2</span>
-                        <h2>Find</h2>
-                        <p>Search our large inventory of used & damaged vehicles</p>
+                        <h2>{{trans('web_string.find')}}</h2>
+                        <p>{{trans('web_string.search_out_range')}}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="work-box">
                         <span>3</span>
-                        <h2>Bid</h2>
-                        <p>Bid in our online auctionsacross the Middle East</p>
+                        <h2>{{trans('web_string.bid')}}</h2>
+                        <p>{{trans('web_string.bid_in_our_online')}}</p>
                     </div>
                 </div>
             </div>
@@ -601,7 +608,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title">
-                        <h1>Testimonial</h1>
+                        <h1>{{trans('web_string.testimonial')}}</h1>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -649,7 +656,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title ">
-                        <h1 class="text-white">News</h1>
+                        <h1 class="text-white">{{trans('web_string.news')}}</h1>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -668,7 +675,7 @@
                                                             </div>
                                                             <h1>{{$new->title}}</h1>
                                                             <p>{{$new->description}}</p>
-                                                            <a href="#">Read Now</a>
+                                                            <a href="#">{{trans('web_string.read_now')}}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -694,8 +701,14 @@
         $j_object.each(function (i) {
             var id = $(this).val();
             var start_date = $('#start_date_' + id).val()
+            var auction_end_date = new Date(start_date);
+            var targetDate = new Date(auction_end_date);
+            targetDate.setHours(23);
+            targetDate.setMinutes(60);
+            targetDate.setSeconds(60);
+            var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
             $("#my-auction-counter_" + id)
-                .countdown(start_date, function (event) {
+                .countdown(formattedDateTime, function (event) {
                     $("#my-auction-counter_" + id).html(
                         event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
                     );

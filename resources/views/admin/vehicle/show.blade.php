@@ -107,10 +107,12 @@
                                 <tr>
                                     <th class="fw-bold" scope="row">Status</th>
                                     <td>
-                                        @if ((string)$vehicle->status === 'active')
-                                            <div class="badge badge-light-success">Active</div>
+                                        @if ((string)$vehicle->status === 'pending')
+                                            <div class="badge badge-light-warning">Pending</div>
+                                        @elseif((string)$vehicle->status === 'approve')
+                                            <div class="badge badge-light-success">Approve</div>
                                         @else
-                                            <div class="badge badge-light-danger">Inactive</div>
+                                            <div class="badge badge-light-danger">Reject</div>
                                         @endif
                                     </td>
                                 </tr>

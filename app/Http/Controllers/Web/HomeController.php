@@ -533,6 +533,7 @@ class HomeController extends Controller
         $sell_vehicles = $sell_vehicles->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
+
         $featured_vehicle_count = DB::table('vehicles')->where('is_product', 'is_featured')->count();
         $popular_vehicle_count = DB::table('vehicles')->where('is_product', 'is_popular')->count();
         $hot_deal_count = DB::table('vehicles')->where('is_product', 'is_hot_deal')->count();

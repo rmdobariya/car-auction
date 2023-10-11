@@ -221,6 +221,10 @@
         $("#login").modal("show");
         $("body").addClass("modal-open");
     });
+
+    $('html, body').animate({
+        scrollTop: $('#contact_us').offset().top - 20
+    }, 'slow');
 </script>
 
 

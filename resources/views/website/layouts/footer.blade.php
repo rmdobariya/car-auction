@@ -15,7 +15,7 @@
             <div class="col-md-10">
                 <div class="f-link">
                     <div class="link">
-                        <p>Download Now</p>
+                        <p>{{trans('web_string.download_now')}}</p>
                         <a href="{{$play_store_link}}" target="_blank"
                             {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                         >
@@ -28,24 +28,24 @@
                             <img src="{{asset('web/assets/images/app-store.png')}}" alt="app-store"></a>
                     </div>
                     <div class="link">
-                        <span>Inquiry: <a href="mailto:{{$email}}">{{$email}}</a></span>
+                        <span>{{trans('web_string.inquiry')}}: <a href="mailto:{{$email}}">{{$email}}</a></span>
                     </div>
                     <div class="link">
-                        <span>Support: <a href="mailto:{{$email}}">{{$email}}</a></span>
+                        <span>{{trans('web_string.support')}}: <a href="mailto:{{$email}}">{{$email}}</a></span>
                     </div>
                     <div class="link">
-                        <span>Phone: <a href="tel:{{$contact_no}}">{{$contact_no}}</a></span>
+                        <span>{{trans('web_string.phone')}}: <a href="tel:{{$contact_no}}">{{$contact_no}}</a></span>
                     </div>
                 </div>
                 <hr>
                 <div class="copyright">
                     <div class="copy">
-                        <p>Copyright © {{date('Y')}} Zodha. All rights reserved.</p>
+                        <p>{{trans('web_string.copyright')}} © {{date('Y')}} {{trans('web_string.all_right_reserved')}}.</p>
                     </div>
                     <div class="pagelink">
-                        <a href="{{route('page',['terms-conditions'])}}">Terms and conditions</a>
-                        <a href="{{route('page',['privacy-policy'])}}">Privacy policy</a>
-                        <a href="{{route('page',['cookie-policy'])}}">Cookies policy</a>
+                        <a href="{{route('page',['terms-conditions'])}}">{{trans('web_string.terms_and_conditions')}}</a>
+                        <a href="{{route('page',['privacy-policy'])}}">{{trans('web_string.privacy_policy')}}</a>
+                        <a href="{{route('page',['cookie-policy'])}}">{{trans('web_string.cookies_policy')}}</a>
                     </div>
                 </div>
             </div>

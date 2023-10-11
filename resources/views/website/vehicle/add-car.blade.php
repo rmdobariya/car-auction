@@ -49,7 +49,6 @@
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="year"
-                                                   id="year"
                                                    placeholder="Year"/>
                                         </div>
                                     </div>

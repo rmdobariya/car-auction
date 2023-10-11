@@ -47,14 +47,14 @@ class PageController extends Controller
             $vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
                 ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
-                ->whereNull('vehicles.deleted_at')
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicles.user_id', $user->id)
+                ->where('vehicles.status', 'approve')
                 ->where('vehicles.is_vehicle_type', 'car_for_auction')
+                ->whereNull('vehicles.deleted_at')
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
                 ->get();
-
             return view('website.auction.auction', [
                 'vehicles' => $vehicles
             ]);

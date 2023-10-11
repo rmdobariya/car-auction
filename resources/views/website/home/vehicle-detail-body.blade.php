@@ -208,9 +208,15 @@
 <script src="{{asset('web/assets/js/countdown.js')}}"></script>
 <script>
     var start_date = '{{$vehicle->auction_end_date}}';
+    var auction_end_date = new Date(start_date);
+    var targetDate = new Date(auction_end_date);
+    targetDate.setHours(23);
+    targetDate.setMinutes(60);
+    targetDate.setSeconds(60);
+    var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
     console.log(start_date)
     $("#getting-started")
-        .countdown(start_date, function(event) {
+        .countdown(formattedDateTime, function(event) {
             $(this).html(
                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
             );

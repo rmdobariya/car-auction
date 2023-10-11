@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Zodha</title>
+    <title>{{trans('web_string.zodha')}} - @yield('title')</title>
     @include('website.layouts.css')
 </head>
 <body>
@@ -31,7 +31,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="increment">
                                 <label class="form-check-label" for="increment">
-                                    Auto Increment Bidding
+                                    {{trans('web_string.auto_increment_bidding')}}
                                 </label>
                             </div>
                             <input type="text" name="increment-val" class="form-control"
@@ -42,7 +42,7 @@
                         <div class="auto-inc">
                             <div class="price-range-slider">
                                 <p class="range-value">
-                                    Auto increment of
+                                    {{trans('web_string.auto_increment_of')}}
                                     <input type="text" id="incamount" readonly>
                                 </p>
                                 <div id="slider-incamount" class="range-bar"></div>
@@ -54,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="bid-amoun">
                             <input type="text" name="bid-amo" class="form-control" placeholder="Bid amount">
-                            <a href="#" class="place-bid-blue">Place Bid</a>
+                            <a href="#" class="place-bid-blue">{{trans('web_string.place_bid')}}</a>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="vehicle_bid_label">Bid Place Modal</h5>
+                <h5 class="modal-title" id="vehicle_bid_label">{{trans('web_string.bid_place_modal')}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="vehicle_bid_body">
@@ -89,29 +89,29 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title" id="loginLabel">Login to Your Account</h5>
+                <h5 class="modal-title" id="loginLabel">{{trans('web_string.login_to_your_account')}}</h5>
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
                 <div class="login-form">
                     <form action="" id="loginForm" method="POST">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="email" name="email" class="form-control" placeholder="{{trans('web_string.email')}}">
+                        <input type="password" name="password" class="form-control" placeholder="{{trans('web_string.password')}}">
                         <div class="forgotlink text-end">
-                            <a href="#" id="forgot_password">Forgot User ID/Password</a>
+                            <a href="#" id="forgot_password">{{trans('web_string.forgot_password')}}</a>
                         </div>
-                        <input type="submit" class="place-bid-blue" name="submit" value="Sign In">
+                        <input type="submit" class="place-bid-blue" name="submit" value="{{trans('web_string.sign_In')}}">
                     </form>
-                    <p>Don’t have an account? <a href="javascript:void(0)" id="closelogin" data-toggle="modal"
-                                                 data-target="#signup">Sign Up</a></p>
+                    <p>{{trans('web_string.dont_have_an_account')}} <a href="javascript:void(0)" id="closelogin" data-toggle="modal"
+                                                 data-target="#signup">{{trans('web_string.sign_up')}}</a></p>
                     <b>OR</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="#" data-social-type="facebook" class="socialSignIn">Sign in with <span><i
+                            <a href="#" data-social-type="facebook" class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><i
                                         class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="#" data-social-type="google" class="socialSignIn">Sign in with <span><img
+                            <a href="#" data-social-type="google" class="socialSignIn">{{trans('web_string.sign_in_with')}}  <span><img
                                         src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
@@ -130,30 +130,30 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title" id="loginLabel">Create Free Account</h5>
+                <h5 class="modal-title" id="loginLabel">{{trans('web_string.create_free_account')}}</h5>
                 <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
                 <div class="login-form">
                     <form action="" id="registerForm" method="POST">
-                        <input type="text" name="first_name" class="form-control" placeholder="First Name">
-                        <input type="text" name="last_name" class="form-control" placeholder="Last Name">
-                        <input type="text" name="phone" class="form-control integer" placeholder="Mobile No.">
-                        <input type="text" name="email" class="form-control" placeholder="Email">
+                        <input type="text" name="first_name" class="form-control" placeholder="{{trans('web_string.first_name')}}">
+                        <input type="text" name="last_name" class="form-control" placeholder="{{trans('web_string.last_name')}}">
+                        <input type="text" name="phone" class="form-control integer" placeholder="{{trans('web_string.mobile_no')}}.">
+                        <input type="text" name="email" class="form-control" placeholder="{{trans('web_string.email')}}">
                         {{--                        <input type="text" name="email" class="form-control" placeholder="Username">--}}
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="{{trans('web_string.password')}}">
                         <div class="select-opt">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="user_type" id="buyer" value="buyer">
                                 <label class="form-check-label" for="buyer">
-                                    Buyer
+                                    {{trans('web_string.buyer')}}
                                 </label>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="user_type" id="seller"
                                        value="seller">
                                 <label class="form-check-label" for="seller">
-                                    Seller
+                                    {{trans('web_string.seller')}}
                                 </label>
                             </div>
                         </div>
@@ -161,23 +161,21 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="term" name="term" id="term">
                                 <label class="form-check-label" for="term">
-                                    I have read the <a href="{{route('page',['terms-conditions'])}}" target="_blank">Term
-                                        & Conditions</a>
+                                    {{trans('web_string.i_have_a_read_the')}} <a href="{{route('page',['terms-conditions'])}}" target="_blank">{{trans('web_string.terms_and_conditions')}}</a>
                                 </label>
                             </div>
                         </div>
                         <input type="submit" class="place-bid-blue" name="submit" value="Sign Up">
                     </form>
-                    <p>Already have an account? <a href="#" id="closesignup" data-toggle="modal" data-target="#login">Sign
-                            In</a></p>
-                    <b>OR</b>
+                    <p>{{trans('web_string.already_have_an_account')}}<a href="#" id="closesignup" data-toggle="modal" data-target="#login">{{trans('web_string.sign_in')}}</a></p>
+                    <b>{{trans('web_string.or')}}</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="#" data-social-type="facebook" class="socialSignIn">Sign in with <span><i
+                            <a href="#" data-social-type="facebook" class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><i
                                         class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="#" data-social-type="google" class="socialSignIn">Sign in with <span><img
+                            <a href="#" data-social-type="google" class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><img
                                         src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
@@ -196,7 +194,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title" id="loginLabel">Select User Role</h5>
+                <h5 class="modal-title" id="loginLabel">{{trans('web_string.select_user_role')}}</h5>
             </div>
             <div class="modal-body">
                 <div class="login-form">
@@ -206,19 +204,19 @@
                             <input class="form-check-input" type="radio" name="user_type" id="buyer" value="buyer"
                                    required>
                             <label class="form-check-label" for="buyer">
-                                Buyer
+                                {{trans('web_string.buyer')}}
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="user_type" id="seller" value="seller"
                                    required>
                             <label class="form-check-label" for="seller">
-                                Seller
+                                {{trans('web_string.seller')}}
                             </label>
                         </div>
                     </div>
 
-                    <a href="#" class="place-bid-blue" id="continue">Continue</a>
+                    <a href="#" class="place-bid-blue" id="continue">{{trans('web_string.continue')}}</a>
                 </div>
             </div>
             <div class="modal-footer">
@@ -234,32 +232,32 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title" id="loginLabel">Ask a Question</h5>
-                <p>Please contact us for specific reasons</p>
+                <h5 class="modal-title" id="loginLabel">{{trans('web_string.ask_a_question')}}</h5>
+                <p>{{trans('web_string.please_contact_us_for')}}</p>
             </div>
             <div class="modal-body">
                 <div class="login-form">
                     <form id="askQuestionForm" method="POST">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" name="first_name" class="form-control" placeholder="First Name *">
+                                <input type="text" name="first_name" class="form-control" placeholder="{{trans('web_string.first_name')}}">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="last_name" class="form-control" placeholder="Last Name *">
+                                <input type="text" name="last_name" class="form-control" placeholder="{{trans('web_string.last_name')}}">
                             </div>
                             <div class="col-md-6">
-                                <input type="email" name="email" class="form-control" placeholder="Email *">
+                                <input type="email" name="email" class="form-control" placeholder="{{trans('web_string.email')}}">
                             </div>
                             <div class="col-md-6">
                                 <input type="text" name="mobile_no" class="form-control integer"
-                                       placeholder="Mobile No">
+                                       placeholder="{{trans('web_string.mobile_no')}}">
                             </div>
                             <div class="col-md-12">
                                 <textarea name="question" class="form-control" rows="4"
-                                          placeholder="Comments and Questions *"></textarea>
+                                          placeholder="{{trans('web_string.comments_and_question')}}"></textarea>
                             </div>
                             <div class="col-md-12">
-                                <input type="submit" class="place-bid-blue" name="submit" value="Submit">
+                                <input type="submit" class="place-bid-blue" name="submit" value="{{trans('web_string.submit')}}">
                             </div>
                         </div>
                     </form>
@@ -275,9 +273,8 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h5 class="modal-title" id="loginLabel">Coming Soon...</h5>
-                <p>We are launching soon. We are working hard. We are almost ready to launch. Something awesome is
-                    coming soon.</p>
+                <h5 class="modal-title" id="loginLabel">{{trans('web_string.comming_soon')}}</h5>
+                <p>{{trans('web_string.we_are_launching_soon')}}</p>
             </div>
         </div>
     </div>
@@ -287,26 +284,26 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Forgot Password</h4>
+                <h4 class="modal-title w-100 font-weight-bold">{{trans('web_string.common_forgot_password')}}</h4>
             </div>
             <div class="modal-body mx-3">
                 <div class="fv-row mb-10">
                     <div class="d-flex flex-stack mb-2">
                         <label class="form-label fw-bolder text-dark fs-6 mb-0" for="password">
-                            Enter Your Email
+                            {{trans('web_string.enter_your_email')}}
                         </label>
                     </div>
                     <div class="position-relative mb-3" data-kt-password-meter="true">
                         <input class="form-control"
                                type="email" id="forgot_email"
-                               placeholder="Email"
+                               placeholder="{{trans('web_string.email')}}"
                                name="forgot_email"/>
                     </div>
                 </div>
                 <div class="text-center">
                     <button type="button" id="forgot_password_submit"
                             class="btn btn-lg btn-primary w-100 mb-5 place-bid-blue">
-                        <span class="indicator-label">Submit</span>
+                        <span class="indicator-label">{{trans('web_string.submit')}}</span>
                     </button>
                 </div>
             </div>
@@ -318,7 +315,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Vehicle Inquiry</h4>
+                <h4 class="modal-title w-100 font-weight-bold">{{trans('web_string.vehicle_inquiry')}}</h4>
             </div>
             <div class="modal-body">
                 <div class="login-form" id="car_inquiry_body">
@@ -345,7 +342,11 @@
             notificationToast('User Type Is Required', 'warning')
         }
     })
-
+    $(document).on('click', '.language-change', function () {
+        let code = $('#flexSwitchCheckDefault').val()
+        console.log(code)
+        window.location = APP_URL + '/language/' + code
+    })
 </script>
 <script src="{{URL::asset('web/assets/custom/login.js')}}?v={{ time() }}"></script>
 </body>

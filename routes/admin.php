@@ -119,8 +119,8 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::delete('vehicle-hard-delete/{id}', [VehicleController::class, 'hardDelete'])->name('vehicle-hard-delete');
     Route::post('multiple-vehicle-delete', [VehicleController::class, 'multipleVehicleDelete'])->name('multiple-vehicle-delete');
     Route::get('vehicle/status/{id}/{status}', [VehicleController::class, 'changeStatus'])->name('vehicle.status.change');
-    Route::post('vehicle-image-upload', [VehicleController::class,'imageUpload'])->name('vehicle-image-upload');
-    Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class,'imageDelete'])->name('vehicle-image-delete');
+    Route::post('vehicle-image-upload', [VehicleController::class, 'imageUpload'])->name('vehicle-image-upload');
+    Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class, 'imageDelete'])->name('vehicle-image-delete');
     Route::post('getVehicleGallery', [VehicleController::class, 'getVehicleGallery'])->name('getVehicleGallery');
     Route::get('deleteVehicleImage/{id}', [VehicleController::class, 'deleteVehicleImage'])->name('deleteVehicleImage');
 

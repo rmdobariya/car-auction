@@ -142,19 +142,21 @@
                                     </a>
                                 @endif
                             </div>
+
                             <div class="car-name">
                                 <div class="names">
                                     <h3>{{$bid->vehicle_name}}</h3>
                                     <p>{{$bid->category_name}}</p>
                                     <div class="feedback" style="visibility: hidden">
                                         <i class="las la-comments"></i>
-                                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#feedback">Feedbacks</a>
+                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                           data-bs-target="#feedback">Feedbacks</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="car-time-specification">
                                 <div class="time-temain"
-                                     @if($bid->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
+                                     @if($bid->auction_end_date <  date('Y-m-d') || $bid->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                     <span><i class="las la-clock"></i></span>
                                     <input type="hidden" id="vehicle_id" value="{{$bid->id}}" class="vehicle_id">
                                     <input type="hidden" id="start_date_{{$bid->id}}"
@@ -198,7 +200,9 @@
                                 </div>
                             </div>
                             <div
-                                class="car-price my-bids-price @if($bid->auction_end_date < date('Y-m-d')) time-close @endif">
+                                class="car-price my-bids-price @if($bid->auction_end_date < date('Y-m-d') || $bid->auction_start_date > date('Y-m-d')) time-close @endif">
+                                <span>Bid Start <b>{{Carbon\Carbon::parse($bid->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>Bid End <b>{{Carbon\Carbon::parse($bid->auction_end_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>Initial Price</p>
                                     <h3>SAR {{number_format($bid->price)}}</h3>
@@ -208,7 +212,7 @@
                                     <h3>{{$total_bids}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
-                                    <p>Current Highest Bid</p>
+                                    <p>Highest Bid</p>
                                     <h3>
                                         SAR {{$total_bids == 0 ? number_format($bid->price) : number_format($height_bid)}}</h3>
                                 </div>
@@ -299,12 +303,16 @@
                             </div>
                             <div class="car-time-specification">
                                 <div class="time-temain"
-                                     @if($winner_bid->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
+                                     @if($winner_bid->auction_end_date < date('Y-m-d') || $winner_bid->auction_start_date > date('Y-m-d')) style="visibility: hidden @endif">
                                     <span><i class="las la-clock"></i></span>
-                                    <input type="hidden" id="vehicle_id" value="{{$winner_bid->id}}" class="vehicle_id">
-                                    <input type="hidden" id="start_date_{{$winner_bid->id}}"
-                                           value="{{$winner_bid->auction_start_date}}">
-                                    <div class="my-auction-counter" id="my-auction-counter_{{$winner_bid->id}}"></div>
+                                    <input type="hidden" id="win_vehicle_id" value="{{$winner_bid->id}}"
+                                           class="win_vehicle_id">
+                                    <input type="hidden" id="win_start_date_{{$winner_bid->id}}"
+                                           value="{{$winner_bid->auction_end_date}}">
+                                    <div class="my-auction-counter"
+                                         id="win_my-auction-counter_{{$winner_bid->id}}">
+
+                                    </div>
                                 </div>
                                 <div class="car-specifation">
                                     <div class="car-dt">
@@ -341,15 +349,19 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div
-                                class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
+                                class="car-price my-bids-price @if($winner_bid->auction_end_date < date('Y-m-d') || $winner_bid->auction_start_date > date('Y-m-d')) time-close @endif">
+                                <span>Bid Start <b>{{Carbon\Carbon::parse($winner_bid->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>Bid End <b>{{Carbon\Carbon::parse($winner_bid->auction_end_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
-                                    <p>Initial Price</p>
+                                    <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($winner_bid->price)}}</h3>
                                 </div>
                                 <div class="my-bid-box">
-                                    <p>My Bid</p>
-                                    <h3>SAR {{number_format($winner_bid->amount)}}</h3>
+                                    <p>{{trans('web_string.total_bids')}}</p>
+                                    <h3>{{$total_bids}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
                                     <p>Winning Bid</p>
@@ -361,13 +373,14 @@
                                     $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
-                                    <a href="javascript:void(0)" class="place-bid-blue update-bid">View Auction</a>
+                                    <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
+                                       data-id="{{$winner_bid->id}}">Auction Started</a>
                                 @else
                                     @if($winner_bid->auction_start_date > date('Y-m-d'))
-                                        <a href="#" class="place-bid-blue">Pending</a>
+                                        <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                     @else
                                         <a href="javascript:void(0)"
-                                           class="place-bid-blue update-bid">Auction Close</a>
+                                           class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
                                     @endif
                                 @endif
                             </div>
