@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.auction_win_details')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles congratulations">
         <div class="container">

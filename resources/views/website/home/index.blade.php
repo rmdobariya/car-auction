@@ -98,7 +98,6 @@
                                     </div>
                                 </div>
                                 <div class="car-price">
-                                    {{--                            <span>Bid Start on <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>--}}
                                     <div class="initial-price-box">
                                         <p>Initial Price</p>
                                         <h3>SAR {{number_format($sell_vehicle->price)}}</h3>
@@ -116,7 +115,7 @@
                     <div class="col-md-12">
                         <div class="heading">
                             <h1>{{trans('web_string.featured_vehicles')}}</h1>
-                            @if($featured_vehicle_count > 1)
+                            @if($featured_vehicle_count > 3)
                                 <a href="{{route('type-wise-car','is_featured')}}">{{trans('web_string.common_view_all')}}</a>
                             @endif
                         </div>
@@ -227,8 +226,8 @@
                                 </div>
                                 <div
                                     class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
-                                    <span>Bid Start <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
-                                    <span>Bid End <b>{{Carbon\Carbon::parse($featured_vehicle->auction_end_date)->format('d M Y')}}</b></span>
+                                    <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                    <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($featured_vehicle->price)}}</h3>
@@ -379,8 +378,8 @@
                                     </div>
                                 </div>
                                 <div class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
-                                    <span>Bid Start <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
-                                    <span>Bid End <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
+                                    <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                    <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($popular_vehicle->price)}}</h3>
@@ -531,8 +530,8 @@
                                     </div>
                                 </div>
                                 <div class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
-                                    <span>Bid Start <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
-                                    <span>Bid End <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
+                                    <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                    <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($hot_deal_vehicle->price)}}</h3>

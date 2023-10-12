@@ -6,7 +6,6 @@ use App\Helpers\CatchCreateHelper;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\VehicleStoreRequest;
-use App\Models\Page;
 use App\Models\TempDocument;
 use App\Models\TempImage;
 use App\Models\User;
@@ -23,7 +22,6 @@ use Illuminate\Support\Facades\DB;
 
 class VehicleController extends Controller
 {
-
     public function create()
     {
         $user_id = Auth::user()->id;
@@ -119,7 +117,7 @@ class VehicleController extends Controller
                 TempDocument::where('temp_time', $request->temp_time)->delete();
 
                 DB::commit();
-                return response()->json(['message' => "Vehicle Added Successfully"]);
+                return response()->json(['message' => trans('web_string.car_add_successfully')]);
             } catch
             (\Exception $exception) {
                 DB::rollback();
@@ -185,7 +183,7 @@ class VehicleController extends Controller
                 TempDocument::where('temp_time', $request->temp_time)->delete();
 
                 DB::commit();
-                return response()->json(['message' => "Vehicle Update Successfully"]);
+                return response()->json(['message' => trans('web_string.car_update_successfully')]);
             } catch
             (\Exception $exception) {
                 DB::rollback();
@@ -198,7 +196,6 @@ class VehicleController extends Controller
 
     public function imageUpload(Request $request): \Illuminate\Http\JsonResponse
     {
-
         $files = $request->qqfile;
         $image_path = 'vehicle';
         $extension = $files->getClientOriginalExtension();
@@ -223,7 +220,6 @@ class VehicleController extends Controller
 
     public function documentUpload(Request $request): \Illuminate\Http\JsonResponse
     {
-
         $files = $request->qqfile;
         $image_path = 'vehicle-document';
         $extension = $files->getClientOriginalExtension();
@@ -281,7 +277,7 @@ class VehicleController extends Controller
             ImageUploadHelper::deleteImage($image->image);
             VehicleImage::where('id', $id)->delete();
         }
-        return response()->json(['success' => true, 'message' => 'Image Delete Successfully']);
+        return response()->json(['success' => true, 'message' => trans('web_string.image_delete_successfully')]);
 
     }
 
@@ -292,16 +288,14 @@ class VehicleController extends Controller
             ImageUploadHelper::deleteImage($image->image);
             VehicleDocument::where('id', $id)->delete();
         }
-        return response()->json(['success' => true, 'message' => 'Doument Delete Successfully']);
-
+        return response()->json(['success' => true, 'message' => trans('web_string.document_delete_successfully')]);
     }
 
     public function destroy($id): JsonResponse
     {
         Vehicle::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Vehicle Delete Successfully'
+            'message' => trans('web_string.car_delete_successfully')
         ]);
     }
-
 }

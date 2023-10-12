@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.auctions')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
@@ -8,10 +11,10 @@
                         <h1>My Auctions</h1>
                         @if(!is_null(Auth::user()))
                             @if(Auth::user()->user_type == 'seller')
-                                <a class="add_auction" data-id="{{Auth::user()->id}}" href="#">Add Auction</a>
+                                <a class="add_auction" data-id="{{Auth::user()->id}}" href="#">{{trans('web_string.add_auction')}}</a>
                             @endif
                         @else
-                            <a class="add_auction" data-id="0" href="#">Add Auction</a>
+                            <a class="add_auction" data-id="0" href="#">{{trans('web_string.add_auction')}}</a>
                         @endif
 {{--                        <a href="javascript:void(0)">View All</a>--}}
                     </div>
@@ -122,8 +125,8 @@
                                 </div>
                             </div>
                             <div class="car-price my-bids-price @if($vehicle->auction_end_date < date('Y-m-d') || $vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
-                                <span>Bid Start <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
-                                <span>Bid End <b>{{Carbon\Carbon::parse($vehicle->auction_end_date)->format('d M Y')}}</b></span>
+                                <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>

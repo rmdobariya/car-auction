@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
-
     public function index()
     {
         DB::table('notifications')->where('user_id', Auth::user()->id)->update([
@@ -28,7 +24,5 @@ class NotificationController extends Controller
         return view('website.user.notification', [
             'notifications' => $notifications,
         ]);
-
-
     }
 }

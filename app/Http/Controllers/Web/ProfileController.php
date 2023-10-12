@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -13,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-
     public function index()
     {
         $user_id = Auth::user()->id;
@@ -56,7 +54,6 @@ class ProfileController extends Controller
                 'my_bid_count' => $my_bid_count,
                 'winner_count' => $winner_count,
             ]);
-
         }
         abort(404);
     }
@@ -70,7 +67,7 @@ class ProfileController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Profile Update Successfully'
+            'message' => trans('web_string.profile_update_successfully')
         ]);
     }
 
@@ -84,7 +81,7 @@ class ProfileController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Profile Change Image Successfully'
+            'message' => trans('web_string.profile_change_image_successfully')
         ]);
     }
 }

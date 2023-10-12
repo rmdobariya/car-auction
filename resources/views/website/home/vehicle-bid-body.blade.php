@@ -3,18 +3,18 @@
         <input type="hidden" name="vehicle_id" class="form-control" value="{{$vehicle->id}}">
         <div class="row mb-3">
             <div class="col-md-12">
-                <input type="text" name="last_amount" class="form-control" placeholder="Current Bid Amount"
+                <input type="text" name="last_amount" class="form-control" placeholder="{{trans('web_string.current_bid_amount')}}"
                        value="{{$last_bid_amount}}" readonly>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-md-12">
-                <input type="text" name="amount" class="form-control integer" value="{{$bid_amount}}" placeholder="Amount">
+                <input type="text" name="amount" class="form-control integer" value="{{$bid_amount}}" placeholder="{{trans('web_string.amount')}}">
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input type="submit" class="place-bid-blue" name="submit" value="Submit">
+                <input type="submit" class="place-bid-blue" name="submit" value="{{trans('web_string.submit')}}">
             </div>
         </div>
     </form>

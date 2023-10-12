@@ -9,7 +9,6 @@ use App\Http\Requests\Web\LoginRequest;
 use App\Http\Requests\Web\RegisterRequest;
 use App\Mail\Web\ForgotPasswordMail;
 use App\Models\User;
-use App\Rules\ValidEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -24,28 +23,27 @@ class LoginController extends Controller
     public function loginCheck(LoginRequest $request): JsonResponse
     {
         $validated = $request->validated();
-        $user = User::where('email', $request->email)->whereIn('user_type', ['user', 'buyer','seller'])
+        $user = User::where('email', $request->email)->whereIn('user_type', ['user', 'buyer', 'seller'])
             ->first();
         if (empty($user)) {
             return response()->json([
-                'message' => 'Invalid Email',
+                'message' => trans('web_string.invalid_email'),
             ], 401);
         } else if (!Hash::check($validated['password'], $user->password)) {
             return response()->json([
-                'message' => 'Invalid Password',
+                'message' => trans('web_string.invalid_password'),
             ], 401);
         } else {
             Auth::login($user);
             return response()->json([
-                'user_type' =>$user->user_type,
-                'message' => 'Login Successfully',
+                'user_type' => $user->user_type,
+                'message' => trans('web_string.login_successfully'),
             ]);
         }
     }
 
     public function register(RegisterRequest $request)
     {
-
         $user = new User();
         $user->name = $request->first_name;
         $user->last_name = $request->last_name;
@@ -57,7 +55,7 @@ class LoginController extends Controller
         $user->save();
         Auth::login($user);
         return response()->json([
-            'message' => 'Register Successfully',
+            'message' => trans('web_string.register_successfully'),
         ]);
     }
 
@@ -82,11 +80,11 @@ class LoginController extends Controller
             ];
             Mail::to($request->input('email'))->send(new ForgotPasswordMail($array));
             return response()->json([
-                'message' => 'Please Check Your Mail',
+                'message' => trans('web_string.please_check_your_mail'),
             ], 200);
         }
         return response()->json([
-            'message' => 'Email Not Found',
+            'message' => trans('web_string.email_not_found'),
         ], 400);
     }
 
@@ -121,10 +119,10 @@ class LoginController extends Controller
 
                 DB::table('password_reset_tokens')->where('email', $request['email'])->delete();
             } else {
-                return response()->json(['message' => 'Email not found'], 422);
+                return response()->json(['message' => trans('web_string.email_not_found')], 422);
             }
-            return response()->json(['message' => 'Password reset successfully!']);
+            return response()->json(['message' => trans('web_string.password_reset_successfully')]);
         }
-        return response()->json(['message' => 'Email not found'], 422);
+        return response()->json(['message' => trans('web_string.email_not_found')], 422);
     }
 }

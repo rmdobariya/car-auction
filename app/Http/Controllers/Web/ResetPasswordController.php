@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Http\Requests\Web\ResetPasswordRequest;
 
 class ResetPasswordController extends Controller
@@ -34,22 +32,18 @@ class ResetPasswordController extends Controller
     public function resetPassword(ResetPasswordRequest $request)
     {
         $password = $request->input('new_password');
-
-        $tokenData = DB::table('password_reset_tokens')
-            ->where('email', $request->input('email'))->first();
-
+        $tokenData = DB::table('password_reset_tokens')->where('email', $request->input('email'))->first();
         if ($tokenData) {
             $user = User::where('email', $tokenData->email)->first();
             if ($user) {
                 $user->password = bcrypt($password);
                 $user->update();
-
                 DB::table('password_reset_tokens')->where('email', $request['email'])->delete();
             } else {
-                return response()->json(['message' => 'Email not found'], 422);
+                return response()->json(['message' => trans('web_string.email_not_found')], 422);
             }
-            return response()->json(['message' => 'Password reset successfully!']);
+            return response()->json(['message' => trans('web_string.password_reset_successfully')]);
         }
-        return response()->json(['message' => 'Email not found'], 422);
+        return response()->json(['message' => trans('web_string.email_not_found')], 422);
     }
 }

@@ -4,20 +4,17 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
-
     public function index($slug)
     {
         $page = Page::where('slug', $slug)->first();
         if ($page) {
             return view('website.page.index', ['page' => $page]);
-
         }
         abort(404);
     }
@@ -85,6 +82,5 @@ class PageController extends Controller
         } else {
             abort(404);
         }
-
     }
 }

@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.my_profile')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
@@ -8,7 +11,7 @@
                         <div class="profile-box">
                             <div class="head">
                                 <h3>Profile</h3>
-                                <button type="submit" class="place-bid-blue">Update</button>
+                                <button type="submit" class="place-bid-blue">{{trans('web_string.update')}}</button>
                             </div>
                             <div class="profile-pic">
                                 <img src="{{asset($user->image)}}" id="displayedImage" alt="profile">
@@ -25,14 +28,14 @@
                             </div>
                             <div class="profile-field">
                                 <div class="u-pro">
-                                    <label>User Profile :</label>
+                                    <label>{{trans('web_string.user_profile')}} :</label>
                                     <input type="text" class="form-control" name="ptype" readonly
                                            value="{{$user->user_type}}">
                                 </div>
                                 <div class="name">
-                                    <input type="text" class="form-control" name="fname" placeholder="First Name *"
+                                    <input type="text" class="form-control" name="fname" placeholder="{{trans('web_string.first_name')}}"
                                            value="{{$user->name}}">
-                                    <input type="text" class="form-control" name="lname" placeholder="Last Name *"
+                                    <input type="text" class="form-control" name="lname" placeholder="{{trans('web_string.last_name')}}"
                                            value="{{$user->last_name}}">
                                 </div>
                                 <div class="emails">
@@ -91,9 +94,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>My Bids</h1>
+                        <h1>{{trans('web_string.my_bids')}}</h1>
                         @if($my_bid_count > 3)
-                            <a href="{{route('my-bids')}}">View All</a>
+                            <a href="{{route('my-bids')}}">{{trans('web_string.common_view_all')}}</a>
                         @endif
                     </div>
                 </div>
@@ -118,11 +121,11 @@
                                 <img src="{{asset($bid->main_image)}}" align="car">
                                 <span class="cat-tags"><img
                                         src="{{asset('web/assets/images/dymand.png')}}"> @if($bid->is_product == 'is_featured')
-                                        Featured
+                                        {{trans('web_string.featured')}}
                                     @elseif($bid->is_product == 'is_popular')
-                                        Popular
+                                        {{trans('web_string.popular')}}
                                     @else
-                                        Hot Deal
+                                        {{trans('web_string.hot_deal')}}
                                     @endif</span>
                                 @if(!is_null(Auth::user()))
                                     @if($bid->user_id != Auth::user()->id)
@@ -201,18 +204,18 @@
                             </div>
                             <div
                                 class="car-price my-bids-price @if($bid->auction_end_date < date('Y-m-d') || $bid->auction_start_date > date('Y-m-d')) time-close @endif">
-                                <span>Bid Start <b>{{Carbon\Carbon::parse($bid->auction_start_date)->format('d M Y')}}</b></span>
-                                <span>Bid End <b>{{Carbon\Carbon::parse($bid->auction_end_date)->format('d M Y')}}</b></span>
+                                <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($bid->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($bid->auction_end_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
-                                    <p>Initial Price</p>
+                                    <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($bid->price)}}</h3>
                                 </div>
                                 <div class="my-bid-box">
-                                    <p>Total Bids</p>
+                                    <p>{{trans('web_string.total_bids')}}</p>
                                     <h3>{{$total_bids}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
-                                    <p>Highest Bid</p>
+                                    <p>{{trans('web_string.current_highest_bid')}}</p>
                                     <h3>
                                         SAR {{$total_bids == 0 ? number_format($bid->price) : number_format($height_bid)}}</h3>
                                 </div>
@@ -223,13 +226,13 @@
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
                                     <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
-                                       data-id="{{$bid->id}}">Update Bid</a>
+                                       data-id="{{$bid->id}}">{{trans('web_string.update_bid')}}</a>
                                 @else
                                     @if($bid->auction_start_date > date('Y-m-d'))
-                                        <a href="#" class="place-bid-blue">Pending</a>
+                                        <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                     @else
                                         <a href="javascript:void(0)"
-                                           class="place-bid-blue update-bid">Auction Close</a>
+                                           class="place-bid-blue update-bid">{{trans('web_string.auction_close')}}</a>
                                     @endif
                                 @endif
                             </div>
@@ -240,9 +243,9 @@
             <div class="row winning-profile">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>My Winnings</h1>
+                        <h1>{{trans('web_string.my_winnings')}}</h1>
                         @if($winner_count > 3)
-                            <a href="{{route('my-winnings')}}">View All</a>
+                            <a href="{{route('my-winnings')}}">{{trans('web_string.common_view_all')}}</a>
                         @endif
                     </div>
                 </div>
@@ -267,11 +270,11 @@
                                 <img src="{{asset($winner_bid->main_image)}}" align="car">
                                 <span class="cat-tags"><img
                                         src="{{asset('web/assets/images/dymand.png')}}"> @if($winner_bid->is_product == 'is_featured')
-                                        Featured
+                                        {{trans('web_string.featured')}}
                                     @elseif($winner_bid->is_product == 'is_popular')
-                                        Popular
+                                        {{trans('web_string.popular')}}
                                     @else
-                                        Hot Deal
+                                        {{trans('web_string.hot_deal')}}
                                     @endif</span>
                                 @if(!is_null(Auth::user()))
                                     @if($winner_bid->user_id != Auth::user()->id)
@@ -353,8 +356,8 @@
 
                             <div
                                 class="car-price my-bids-price @if($winner_bid->auction_end_date < date('Y-m-d') || $winner_bid->auction_start_date > date('Y-m-d')) time-close @endif">
-                                <span>Bid Start <b>{{Carbon\Carbon::parse($winner_bid->auction_start_date)->format('d M Y')}}</b></span>
-                                <span>Bid End <b>{{Carbon\Carbon::parse($winner_bid->auction_end_date)->format('d M Y')}}</b></span>
+                                <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($winner_bid->auction_start_date)->format('d M Y')}}</b></span>
+                                <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($winner_bid->auction_end_date)->format('d M Y')}}</b></span>
                                 <div class="initial-price-box">
                                     <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($winner_bid->price)}}</h3>
@@ -364,7 +367,7 @@
                                     <h3>{{$total_bids}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
-                                    <p>Winning Bid</p>
+                                    <p>{{trans('web_string.winning_bid')}}</p>
                                     <h3>SAR {{number_format($winner_bid->amount)}}</h3>
                                 </div>
                                 @php
@@ -374,7 +377,7 @@
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
                                     <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
-                                       data-id="{{$winner_bid->id}}">Auction Started</a>
+                                       data-id="{{$winner_bid->id}}">{{trans('web_string.auction_started')}}</a>
                                 @else
                                     @if($winner_bid->auction_start_date > date('Y-m-d'))
                                         <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>

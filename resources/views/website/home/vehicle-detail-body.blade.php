@@ -35,7 +35,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
-                <p>Registration Year</p>
+                <p>{{trans('web_string.registration_year')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->year}}</p>
@@ -44,7 +44,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/make.svg')}}" align="road">
-                <p>Make</p>
+                <p>{{trans('web_string.make')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->make}}</p>
@@ -53,7 +53,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/model.svg')}}" align="road">
-                <p>Model</p>
+                <p>{{trans('web_string.model')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->model}}</p>
@@ -62,7 +62,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/trim.svg')}}" align="road">
-                <p>Trim</p>
+                <p>{{trans('web_string.trim')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->trim}}</p>
@@ -71,7 +71,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/kms-driven.svg')}}" align="road">
-                <p>KMs Driven</p>
+                <p>{{trans('web_string.kms_driven')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->kms_driven}}</p>
@@ -80,7 +80,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/no-of-owners.svg')}}" align="road">
-                <p>No. of Owners</p>
+                <p>{{trans('web_string.no_of_owners')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->owners}}</p>
@@ -89,7 +89,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/transmission.svg')}}" align="road">
-                <p>Transmission</p>
+                <p>{{trans('web_string.transmission')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->transmission}}</p>
@@ -98,7 +98,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/fuel-type.svg')}}" align="petrol">
-                <p>Fuel Type</p>
+                <p>{{trans('web_string.fuel_type')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->fuel_type}}</p>
@@ -107,7 +107,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/body-type.svg')}}" align="auto">
-                <p>Body Type</p>
+                <p>{{trans('web_string.body_type')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->body_type}}</p>
@@ -116,7 +116,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
-                <p>Registration</p>
+                <p>{{trans('web_string.registration')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->registration}}</p>
@@ -125,7 +125,7 @@
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/mileage.svg')}}" align="km">
-                <p>Mileage</p>
+                <p>{{trans('web_string.mileage')}}</p>
             </div>
             <div class="value">
                 <p>{{$vehicle->mileage}}</p>
@@ -138,13 +138,13 @@
             <p>{{$vehicle->vehicle_name}}</p>
         </div>
         <div class="ini-price">
-            <p>Initial Price</p>
+            <p>{{trans('web_string.common_price')}}</p>
             <p><span>SAR {{number_format($vehicle->price)}}</span></p>
         </div>
         <div class="int-box">
             {{-- @dd('2023-09-22' > '2023-09-26' && '2023-09-22' < '2023-10-06');--}}
             @if($bid_count > 0)
-            <p><i class="las la-user"></i> {{$bid_count}} people are interested</p>
+            <p><i class="las la-user"></i> {{$bid_count}} {{trans('web_string.people_are_interested')}}</p>
             @endif
             @php
             $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
@@ -152,12 +152,12 @@
             $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
             @endphp
             @if($dateToCheck->between($startDate, $endDate))
-            <a href="#" class="place-bid" data-id="{{$vehicle->id}}">Place Bid</a>
+            <a href="#" class="place-bid" data-id="{{$vehicle->id}}">{{trans('web_string.place_bid')}}</a>
             @else
             @if($vehicle->auction_start_date > date('Y-m-d'))
-            <a href="#" class="place-bid-blue">Pending</a>
+            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
             @else
-            <a href="#" class="place-bid-blue">Auction Closed</a>
+            <a href="#" class="place-bid-blue">{{trans('web_string.auction_close')}}</a>
             @endif
             @endif
             @php
@@ -169,9 +169,9 @@
             @endphp
             <div class="current-high @if($vehicle->auction_start_date > date('Y-m-d')) d-none @endif mt-1">
                 @if($height_bid == 0)
-                {{'Bid Not Found'}}
+                {{trans('web_string.bid_not_found')}}
                 @else
-                <p>Current Highest Bid</p>
+                <p>{{trans('web_string.current_height_bid')}}</p>
                 <p><span>SAR {{ number_format($height_bid) }}
                         @endif
                     </span>
@@ -179,18 +179,18 @@
             </div>
         </div>
         <div class="auction-details">
-            <h3>Auction Details</h3>
+            <h3>{{trans('web_string.auction_details')}}</h3>
             <div class="createdon">
                 <span><i class="las la-calendar"></i></span>
                 <div class="dates">
-                    <p>Created on</p>
+                    <p>{{trans('web_string.created_on')}}</p>
                     <b>{{$vehicle->auction_start_date}}</b>
                 </div>
             </div>
             <div class="createdon">
                 <span><i class="las la-calendar"></i></span>
                 <div class="dates">
-                    <p>Ends on</p>
+                    <p>{{trans('web_string.ends_on')}}</p>
                     <b>{{$vehicle->auction_end_date}}</b>
                 </div>
             </div>
@@ -199,7 +199,7 @@
                 <div id="getting-started"></div>
             </div>
             <div class="notes">
-                <h3>Seller Notes</h3>
+                <h3>{{trans('web_string.seller_notes')}}</h3>
                 <p>{{$vehicle->description}}</p>
             </div>
         </div>

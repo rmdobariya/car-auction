@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use App\Models\VehicleBid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -12,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class BidController extends Controller
 {
-
     public function addBid(Request $request)
     {
         if (!is_null(Auth::user())) {
@@ -31,12 +29,12 @@ class BidController extends Controller
                         ]);
                     return response()->json([
                         'success' => true,
-                        'message' => 'Bid Update Successfully'
+                        'message' => trans('web_string.bid_update_successfully')
                     ]);
                 } else {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Enter an amount greater than the last amount'
+                        'message' => trans('web_string.enter_an_amount_greater_than')
                     ]);
                 }
             } else {
@@ -49,19 +47,19 @@ class BidController extends Controller
                     $bid->save();
                     return response()->json([
                         'success' => true,
-                        'message' => 'Bid Add Successfully'
+                        'message' => trans('web_string.bid_add_successfully')
                     ]);
                 } else {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Enter an amount greater than the last amount'
+                        'message' => trans('web_string.enter_an_amount_greater_than')
                     ]);
                 }
             }
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Please First Login Or Sign Up'
+                'message' => trans('web_string.please_first_login_or_sign_up')
             ]);
         }
     }
@@ -98,10 +96,8 @@ class BidController extends Controller
             'bids' => $bids,
             'vehicle' => $vehicle,
         ])->render();
-
         return response()->json([
             'data' => $view,
-//            'modal_title' => $vehicle->vehicle_name,
         ]);
     }
 }

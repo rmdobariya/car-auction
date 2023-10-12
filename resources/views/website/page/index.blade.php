@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{$page->name}}
+@endsection
 @section('content')
     <section id="contact_us">
 

@@ -1,11 +1,11 @@
 <thead>
 <tr>
-    <th>Car Name</th>
-    <th>Minimum Bid Amount</th>
-    <th>Bid Increment</th>
-    <th>Highest Bidder</th>
-    <th>Bid Amount</th>
-    <th>Bid On</th>
+    <th>{{trans('web_string.car_name')}}</th>
+    <th>{{trans('web_string.minimum_bid_amount')}}</th>
+    <th>{{trans('web_string.bid_increment')}}</th>
+    <th>{{trans('web_string.highest_bidder')}}</th>
+    <th>{{trans('web_string.bid_amount')}}</th>
+    <th>{{trans('web_string.bid_on')}}</th>
     {{--                <th>Action</th>--}}
 </tr>
 </thead>

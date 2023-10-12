@@ -1,11 +1,14 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.wishlist')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>My Wishlist</h1>
+                        <h1>{{trans('web_string.my_wishlists')}}</h1>
 
                     </div>
                 </div>
@@ -106,15 +109,15 @@
                             </div>
                             <div class="car-price my-bids-price @if($vehicle->auction_end_date < date('Y-m-d')) time-close @endif">
                                 <div class="initial-price-box">
-                                    <p>Initial Price</p>
+                                    <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>
                                 </div>
                                 <div class="my-bid-box">
-                                    <p>Total Bids</p>
+                                    <p>{{trans('web_string.total_bids')}}</p>
                                     <h3>{{$total_bids}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
-                                    <p>Current Highest Bid</p>
+                                    <p>{{trans('web_string.current_highest_bid')}}</p>
                                     <h3>SAR {{$total_bids == 0 ? number_format($vehicle->price) : number_format($height_bid)}}</h3>
                                 </div>
                                 @php
@@ -123,13 +126,13 @@
                                     $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
-                                    <a href="javascript:void(0)" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">View Auction</a>
+                                    <a href="javascript:void(0)" class="place-bid-blue vehicle_detail" data-id="{{$vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                 @else
                                     @if($vehicle->auction_start_date > date('Y-m-d'))
-                                        <a href="#" class="place-bid-blue">Pending</a>
+                                        <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                     @else
                                         <a href="javascript:void(0)"
-                                           class="place-bid-blue update-bid comtrans">Auction Close</a>
+                                           class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
                                     @endif
                                 @endif
                             </div>

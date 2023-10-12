@@ -1,11 +1,14 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.winner_bid')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>My Winnings</h1>
+                        <h1>{{trans('web_string.my_winnings')}}</h1>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -29,11 +32,11 @@
                                 <img src="{{asset($winner_bid->main_image)}}" align="car">
                                 <span class="cat-tags"><img
                                         src="{{asset('web/assets/images/dymand.png')}}"> @if($winner_bid->is_product == 'is_featured')
-                                        Featured
+                                        {{trans('web_string.featured')}}
                                     @elseif($winner_bid->is_product == 'is_popular')
-                                        Popular
+                                        {{trans('web_string.popular')}}
                                     @else
-                                        Hot Deal
+                                        {{trans('web_string.hot_deal')}}
                                     @endif</span>
                                 @if(!is_null(Auth::user()))
                                     @if($winner_bid->user_id != Auth::user()->id)
@@ -110,15 +113,15 @@
                             <div
                                 class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
                                 <div class="initial-price-box">
-                                    <p>Initial Price</p>
+                                    <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($winner_bid->price)}}</h3>
                                 </div>
                                 <div class="my-bid-box">
-                                    <p>My Bid</p>
+                                    <p>{{trans('web_string.my_bids')}}</p>
                                     <h3>SAR {{number_format($winner_bid->amount)}}</h3>
                                 </div>
                                 <div class="current-highest-bid-box">
-                                    <p>Winning Bid</p>
+                                    <p>{{trans('web_string.winning_bid')}}</p>
                                     <h3>SAR {{number_format($winner_bid->amount)}}</h3>
                                 </div>
                                 @php
@@ -127,13 +130,13 @@
                                     $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
                                 @endphp
                                 @if($dateToCheck->between($startDate, $endDate))
-                                    <a href="javascript:void(0)" class="place-bid-blue update-bid">View Auction</a>
+                                    <a href="javascript:void(0)" class="place-bid-blue update-bid">{{trans('web_string.view_auction')}}</a>
                                 @else
                                     @if($winner_bid->auction_start_date > date('Y-m-d'))
-                                        <a href="#" class="place-bid-blue">Pending</a>
+                                        <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                     @else
                                         <a href="javascript:void(0)"
-                                           class="place-bid-blue update-bid">Auction Close</a>
+                                           class="place-bid-blue update-bid">{{trans('web_string.auction_close')}}</a>
                                     @endif
                                 @endif
                             </div>
