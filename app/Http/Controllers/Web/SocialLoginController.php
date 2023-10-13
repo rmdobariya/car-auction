@@ -12,12 +12,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
-//    public function socialAccount()
-//    {
-//        $user = Auth::user();
-//        return view('user.profile.socialAccount', ['user' => $user]);
-//    }
-
     public function googleCallback(Request $request)
     {
         $user_type = Session::get('user_type');
@@ -30,7 +24,7 @@ class SocialLoginController extends Controller
                 ->first();
 
             if ($check) {
-                return redirect()->route('socialAccount')->with(['error' => 'This Google Account is already registered with other user']);
+                return redirect()->route('socialAccount')->with(['error' => trans('web_string.this_google_account_is_already')]);
             }
         }
         $name = explode(' ', $userSocial->getName());
@@ -73,7 +67,7 @@ class SocialLoginController extends Controller
                 ->first();
 
             if ($check) {
-                return redirect()->route('socialAccount')->with(['error' => 'This Facebook Account is already registered with other user']);
+                return redirect()->route('socialAccount')->with(['error' => trans('web_string.this_facebook_account_is_already')]);
             }
         }
 
@@ -108,9 +102,9 @@ class SocialLoginController extends Controller
         return redirect()->intended('/');
     }
 
-    public function socialLogin(Request $request,$social): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function socialLogin(Request $request, $social): \Symfony\Component\HttpFoundation\RedirectResponse
     {
-        Session::put('user_type',$request->user_type);
+        Session::put('user_type', $request->user_type);
         return Socialite::driver($social)->redirect();
     }
 }

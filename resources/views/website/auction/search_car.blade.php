@@ -26,5 +26,5 @@
     </tr>
 @endforeach
 @else
-    <h2>Car Not Found</h2>
+    <h2>{{trans('web_string.car_not_found')}}</h2>
 @endif

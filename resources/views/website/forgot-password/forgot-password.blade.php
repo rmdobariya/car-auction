@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Zodha</title>
+    <title>{{trans('web_string.zodha')}} -  {{trans('web_string.common_forgot_password')}}</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
@@ -37,10 +37,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="tel:{{$contact_no}}"><span>Toll Free:</span> {{$contact_no}}</a>
+                    <a class="nav-link" href="tel:{{$contact_no}}"><span>{{trans('web_string.toll_free')}}:</span> {{$contact_no}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mailto:{{$footer_email}}"><span>Email:</span> {{$footer_email}}</a>
+                    <a class="nav-link" href="mailto:{{$footer_email}}"><span>{{trans('web_string.email')}}:</span> {{$footer_email}}</a>
                 </li>
             </ul>
         </div>
@@ -52,30 +52,30 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="heading">
-                    <h1>100% Online Auto Auctions</h1>
-                    <p>Featuring thousands of Used and Salvage Cars, Trucks & SUVs for Sale</p>
+                    <h1>{{trans('web_string.online_auto_auction')}}</h1>
+                    <p>{{trans('web_string.featuring_thousands_of')}}</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
-                    <h4>Register</h4>
-                    <p>Sign up for a Copart Middle East Standard or Premier Membership</p>
+                    <h4>{{trans('web_string.register')}}</h4>
+                    <p>{{trans('web_string.sign_up_for_a')}}</p>
                     <span>1</span>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
-                    <h4>Find</h4>
-                    <p>Search our large inventory of used & damaged vehicles</p>
+                    <h4>{{trans('web_string.find')}}</h4>
+                    <p>{{trans('web_string.search_out_range')}}</p>
                     <span>2</span>
                 </div>
             </div>
             <div class="clearfix"></div>
             <div class="col-md-6 col-lg-4">
                 <div class="steps-box">
-                    <h4>Bid</h4>
-                    <p>Bid in our online auctions across the Middle East</p>
+                    <h4>{{trans('web_string.bid')}}</h4>
+                    <p>{{trans('web_string.bid_in_our_online')}}</p>
                     <span>3</span>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         <img src="{{asset('web/assets/images/app-store.png')}}"></a>
                     <a href="{{$play_store_link}}" target="_blank">
                         <img src="{{asset('web/assets/images/google-play.png')}}"></a>
-                    <p>Download Now</p>
+                    <p>{{trans('web_string.download_now')}}</p>
                 </div>
             </div>
         </div>
@@ -96,9 +96,8 @@
     <div class="container">
         <div class="row" id="contatti">
             <div class="container">
-
                 <div class="row">
-                    <h2 class="text-uppercase font-weight-bold text-dark">Forget Password</h2>
+                    <h2 class="text-uppercase font-weight-bold text-dark">{{trans('web_string.common_forgot_password')}}</h2>
                     <form id="addEditForm">
                         <input type="hidden" id="email" value="{{ $email }}"
                                name="email">
@@ -107,18 +106,18 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <input type="password" class="form-control mt-2" name="new_password"
-                                           placeholder="New Password">
+                                           placeholder="{{trans('web_string.new_password')}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <input type="password" class="form-control mt-2" name="confirm_password"
-                                           placeholder="Confirm Password">
+                                           placeholder="{{trans('web_string.confirm_password')}}">
                                 </div>
                             </div>
 
                             <div class="col-12 mt-2">
-                                <button class="place-bid-blue" type="submit">Submit</button>
+                                <button class="place-bid-blue" type="submit">{{trans('web_string.submit')}}</button>
                             </div>
                         </div>
                     </form>
@@ -144,7 +143,7 @@
             <div class="col-md-10">
                 <div class="f-link">
                     <div class="link">
-                        <p>Download Now</p>
+                        <p>{{trans('web_string.download_now')}}</p>
                         <a href="{{$play_store_link}}" target="_blank"
                             {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                         >
@@ -157,24 +156,24 @@
                             <img src="{{asset('web/assets/images/app-store.png')}}" alt="app-store"></a>
                     </div>
                     <div class="link">
-                        <span>Inquiry: <a href="mailto:{{$footer_email}}">{{$footer_email}}</a></span>
+                        <span>{{trans('web_string.inquiry')}}: <a href="mailto:{{$footer_email}}">{{$footer_email}}</a></span>
                     </div>
                     <div class="link">
-                        <span>Support: <a href="mailto:{{$footer_email}}">{{$footer_email}}</a></span>
+                        <span>{{trans('web_string.support')}}: <a href="mailto:{{$footer_email}}">{{$footer_email}}</a></span>
                     </div>
                     <div class="link">
-                        <span>Phone: <a href="tel:{{$contact_no}}">{{$contact_no}}</a></span>
+                        <span>{{trans('web_string.phone')}}: <a href="tel:{{$contact_no}}">{{$contact_no}}</a></span>
                     </div>
                 </div>
                 <hr>
                 <div class="copyright">
                     <div class="copy">
-                        <p>Copyright © {{date('Y')}} Zodha. All rights reserved.</p>
+                        <p>{{trans('web_string.copyright')}} © {{date('Y')}} {{trans('web_string.all_right_reserved')}}.</p>
                     </div>
                     <div class="pagelink">
-                        <a href="{{route('page',['terms-conditions'])}}">Terms and conditions</a>
-                        <a href="{{route('page',['privacy-policy'])}}">Privacy policy</a>
-                        <a href="{{route('page',['cookie-policy'])}}">Cookies policy</a>
+                        <a href="{{route('page',['terms-conditions'])}}">{{trans('web_string.terms_and_conditions')}}</a>
+                        <a href="{{route('page',['privacy-policy'])}}">{{trans('web_string.privacy_policy')}}</a>
+                        <a href="{{route('page',['cookie-policy'])}}">{{trans('web_string.cookies_policy')}}</a>
                     </div>
                 </div>
             </div>

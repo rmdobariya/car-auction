@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.add_auction')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
@@ -38,7 +41,7 @@
                             <a href="#" class="create-auction">Start Auction</a>
                         </div>
                         <div class="action-btn">
-                            <a href="{{route('add-car')}}" class="create-auction">Add Car</a>
+                            <a href="{{route('add-car')}}" class="create-auction">{{trans('web_string.add_car')}}</a>
                         </div>
                     </div>
                 </div>
@@ -56,7 +59,7 @@
 									</span>
                                     </div>
                                 </div>
-                                <select class="form-select">
+                                <select class="form-select" style="visibility: hidden">
                                     <option>Search car by</option>
                                     <option>New</option>
                                     <option>Old</option>
@@ -67,12 +70,12 @@
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th>Car Name</th>
-                                        <th>Make</th>
-                                        <th>Model</th>
-                                        <th>Minimum Bid Amount</th>
-                                        <th>Bid Increment</th>
-                                        <th>Action</th>
+                                        <th>{{trans('web_string.car_name')}}</th>
+                                        <th>{{trans('web_string.make')}}</th>
+                                        <th>{{trans('web_string.model')}}</th>
+                                        <th>{{trans('web_string.minimum_bid_amount')}}</th>
+                                        <th>{{trans('web_string.bid_increment')}}</th>
+                                        <th>{{trans('web_string.action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody id="search_body">

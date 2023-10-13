@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -12,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class AuctionController extends Controller
 {
-
     public function index()
     {
         if (!is_null(Auth::user())) {
@@ -33,10 +31,8 @@ class AuctionController extends Controller
                 'vehicles' => $vehicles,
             ]);
         }
-
         abort(404);
     }
-
     public function vehicleBidListing($id)
     {
         $user_id = Auth::user()->id;
@@ -60,10 +56,8 @@ class AuctionController extends Controller
             'bids' => $bids,
             'vehicle' => $vehicle,
         ])->render();
-
         return response()->json([
             'data' => $view,
-//            'modal_title' => $vehicle->vehicle_name,
         ]);
     }
 
@@ -96,11 +90,8 @@ class AuctionController extends Controller
         $view = view('website.auction.search_car', [
             'vehicles' => $vehicles,
         ])->render();
-
         return response()->json([
             'data' => $view,
-//            'modal_title' => $vehicle->vehicle_name,
         ]);
     }
-
 }

@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.contact_us')}}
+@endsection
 @section('content')
     <section id="contact_us">
         <div class="container">
@@ -13,37 +16,37 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <h2 class="text-uppercase mt-3 font-weight-bold text-dark">CONTACT US</h2>
+                            <h2 class="text-uppercase mt-3 font-weight-bold text-dark">{{trans('web_string.contact_us')}}</h2>
                             <form id="contactUsForm">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control mt-2" name="first_name" placeholder="First Name">
+                                            <input type="text" class="form-control mt-2" name="first_name" placeholder="{{trans('web_string.first_name')}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control mt-2" name="last_name" placeholder="Last Name">
+                                            <input type="text" class="form-control mt-2" name="last_name" placeholder="{{trans('web_string.last_name')}}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="email" class="form-control mt-2"  name="email" placeholder="Email" >
+                                            <input type="email" class="form-control mt-2"  name="email" placeholder="{{trans('web_string.email')}}" >
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control mt-2 integer"   name="mobile_no"  placeholder="Mobile No">
+                                            <input type="text" class="form-control mt-2 integer"   name="mobile_no"  placeholder="{{trans('web_string.mobile_no')}}">
                                         </div>
                                     </div>
                                     <div class="col-12 mt-2">
                                         <div class="form-group">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Message" rows="3"></textarea>
+                                            <textarea class="form-control" id="message" name="message" placeholder="{{trans('web_string.message')}}" rows="3"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-12 mt-2">
-                                        <button class="place-bid-blue" type="submit">Submit</button>
+                                        <button class="place-bid-blue" type="submit">{{trans('web_string.submit')}}</button>
                                     </div>
                                 </div>
                             </form>

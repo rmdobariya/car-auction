@@ -3,23 +3,23 @@
         <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
         <input type="hidden" name="vehicle_id" id="vehicle_id" value="{{$vehicle_id}}">
         <div class="col-md-6">
-            <input type="text" name="first_name" class="form-control" value="{{$user->name}}" placeholder="First Name *">
+            <input type="text" name="first_name" class="form-control" value="{{$user->name}}" placeholder="{{trans('web_string.first_name')}}">
         </div>
         <div class="col-md-6">
-            <input type="text" name="last_name" class="form-control" value="{{$user->last_name}}" placeholder="Last Name *">
+            <input type="text" name="last_name" class="form-control" value="{{$user->last_name}}" placeholder="{{trans('web_string.last_name')}}">
         </div>
 
         <div class="col-md-12">
-            <input type="email" name="email" class="form-control" value="{{$user->email}}" placeholder="Email *">
+            <input type="email" name="email" class="form-control" value="{{$user->email}}" placeholder="{{trans('web_string.email')}}">
         </div>
         <div class="col-md-6">
-            <input type="text" name="mobile_no" class="form-control integer" value="{{$user->contact_no}}" placeholder="Mobile No">
+            <input type="text" name="mobile_no" class="form-control integer" value="{{$user->contact_no}}" placeholder="{{trans('web_string.mobile_no')}}">
         </div>
         <div class="col-md-12">
-            <textarea name="message" class="form-control" rows="4" placeholder="Comments and Questions *"></textarea>
+            <textarea name="message" class="form-control" rows="4" placeholder="{{trans('web_string.comments_and_questions')}}"></textarea>
         </div>
         <div class="col-md-12">
-            <input type="submit" class="place-bid-blue" name="submit" value="Submit">
+            <input type="submit" class="place-bid-blue" name="submit" value="{{trans('web_string.submit')}}">
         </div>
     </div>
 </form>

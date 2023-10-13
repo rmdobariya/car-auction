@@ -237,12 +237,12 @@ class HomeController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => $view,
-                'modal_title' => 'Vehicle Inquiry',
+                'modal_title' => trans('web_string.vehicle_inquiry'),
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Please First Login Or Sign up',
+                'message' => trans('web_string.please_first_login_or_sign_up')
             ]);
         }
     }
@@ -272,7 +272,7 @@ class HomeController extends Controller
 
         return response()->json([
             'data' => $view,
-            'modal_title' => $vehicle->vehicle_name . ' ' . 'Bid Place Modal',
+            'modal_title' => $vehicle->vehicle_name . ' ' . trans('web_string.bid_place_modal'),
         ]);
     }
 
@@ -282,7 +282,7 @@ class HomeController extends Controller
         if ($inquiry_count > 0) {
             return response()->json([
                 'success' => false,
-                'message' => "Car Inquiry Is Already Added",
+                'message' => trans('web_string.car_inquiry_is_already_added'),
             ]);
         }
         $vehicle = DB::table('vehicles')
@@ -323,7 +323,7 @@ class HomeController extends Controller
         Mail::to($user->email)->send(new CarInquiryMail($array));
         return response()->json([
             'success' => true,
-            'message' => "Add Car Inquiry Successfully",
+            'message' => trans('web_string.add_car_inquiry_successfully'),
         ]);
     }
 
@@ -335,7 +335,7 @@ class HomeController extends Controller
             return response()->json([
                 'success' => true,
                 'is_wishlist' => 0,
-                'message' => "Remove In Wishlist Successfully",
+                'message' => trans('web_string.remove_in_wishlist_successfully'),
             ]);
         } else {
             $wish_list = new WishList();
@@ -345,7 +345,7 @@ class HomeController extends Controller
             return response()->json([
                 'success' => true,
                 'is_wishlist' => 1,
-                'message' => "Add In Wishlist Successfully",
+                'message' => trans('web_string.add_in_wishlist_successfully'),
             ]);
         }
     }
@@ -365,16 +365,14 @@ class HomeController extends Controller
             $contact_us->save();
             return response()->json([
                 'success' => true,
-                'message' => 'Contact Us Save Successfully'
+                'message' => trans('web_string.contact_us_save_successfully')
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Please First Login Or Signup'
+                'message' => trans('web_string.please_first_login_or_sign_up')
             ]);
         }
-
-
     }
 
     public function addQuestionStore(QuestionStoreRequest $request)
@@ -388,9 +386,8 @@ class HomeController extends Controller
         $question->contact_number = $request->mobile_no;
         $question->question = $request->question;
         $question->save();
-
         return response()->json([
-            'message' => 'Question Save Successfully'
+            'message' => trans('web_string.question_save_successfully')
         ]);
     }
 
@@ -534,10 +531,10 @@ class HomeController extends Controller
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
 
-        $featured_vehicle_count = DB::table('vehicles')->where('is_product', 'is_featured')->count();
-        $popular_vehicle_count = DB::table('vehicles')->where('is_product', 'is_popular')->count();
-        $hot_deal_count = DB::table('vehicles')->where('is_product', 'is_hot_deal')->count();
-        $car_for_sell_count = DB::table('vehicles')->where('is_vehicle_type', 'car_for_sell')->count();
+        $featured_vehicle_count = $featured_vehicles->count();
+        $popular_vehicle_count = $popular_vehicles->count();
+        $hot_deal_count = $hot_deal_vehicles->count();
+        $car_for_sell_count = $sell_vehicles->count();
         $testimonials = DB::table('testimonials')
             ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
             ->where('testimonial_translations.locale', App::getLocale())
@@ -554,7 +551,6 @@ class HomeController extends Controller
             ->orderBy('blogs.id', 'desc')
             ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
             ->get();
-
 
         return view('website.home.index', [
             'featured_vehicles' => $featured_vehicles,
@@ -583,7 +579,7 @@ class HomeController extends Controller
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicle_bids.user_id', $user_id)
                 ->where('vehicle_bids.is_winner', 1)
-                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name','vehicle_categories.name as category_name')
+                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->get();
 
             return view('website.user.my_bid', [
@@ -592,6 +588,7 @@ class HomeController extends Controller
         }
         abort(404);
     }
+
     public function myWinnings()
     {
         $user_id = Auth::user()->id;

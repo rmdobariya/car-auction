@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.type_wise_vehicle ')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
@@ -156,29 +159,29 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title">
-                        <h1>How it Works</h1>
+                        <h1>{{trans('web_string.how_it_works')}}</h1>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-md-4">
                     <div class="work-box">
                         <span>1</span>
-                        <h2>Register</h2>
-                        <p>Sign up for a Copart Middle East Standard or Premier Membership</p>
+                        <h2>{{trans('web_string.register')}}</h2>
+                        <p>{{trans('web_string.sign_up_for_a')}}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="work-box">
                         <span>2</span>
-                        <h2>Find</h2>
-                        <p>Search our large inventory of used & damaged vehicles</p>
+                        <h2>{{trans('web_string.find')}}</h2>
+                        <p>{{trans('web_string.search_out_range')}}</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="work-box">
                         <span>3</span>
-                        <h2>Bid</h2>
-                        <p>Bid in our online auctionsacross the Middle East</p>
+                        <h2>{{trans('web_string.bid')}}</h2>
+                        <p>{{trans('web_string.bid_in_our_online')}}</p>
                     </div>
                 </div>
             </div>
@@ -189,7 +192,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title">
-                        <h1>Testimonial</h1>
+                        <h1>{{trans('web_string.testimonial')}}</h1>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -237,7 +240,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title ">
-                        <h1 class="text-white">News</h1>
+                        <h1 class="text-white">{{trans('web_string.news')}}</h1>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -256,7 +259,7 @@
                                                             </div>
                                                             <h1>{{$new->title}}</h1>
                                                             <p>{{$new->description}}</p>
-                                                            <a href="#">Read Now</a>
+                                                            <a href="#">{{trans('web_string.read_now')}}</a>
                                                         </div>
                                                     </div>
                                                 </div>

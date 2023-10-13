@@ -4,21 +4,21 @@
     <h3>Auction Details</h3>
     <div class="auction-times">
         <div class="start-date">
-            <p>Start Date</p>
+            <p>{{trans('web_string.start_date')}}</p>
             <span>{{$vehicle->auction_start_date}}</span>
         </div>
         <div class="end-date">
-            <p>End Date</p>
+            <p>{{trans('web_string.end_date')}}</p>
             <span>{{$vehicle->auction_end_date}}</span>
         </div>
         <div class="auction-status">
-            <p>Auction Status</p>
+            <p>{{trans('web_string.auction_status')}}</p>
             <span>Ongoing</span>
         </div>
     </div>
 </div>
 <div class="auctions-list bid-list">
-    <h3>Auction Cars ({{$vehicle->vehicle_name}})</h3>
+    <h3>{{trans('web_string.auction_cars')}} ({{$vehicle->vehicle_name}})</h3>
     @if(count($bids) > 0)
         {{--    <div class="auctions-filter">--}}
         {{--        <div class="sdate">--}}
@@ -51,12 +51,12 @@
             <table id="bid_listing">
                 <thead>
                 <tr>
-                    <th>Car Name</th>
-                    <th>Minimum Bid Amount</th>
-                    <th>Bid Increment</th>
-                    <th>Highest Bidder</th>
-                    <th>Bid Amount</th>
-                    <th>Bid On</th>
+                    <th>{{trans('web_string.car_name')}}</th>
+                    <th>{{trans('web_string.minimum_bid_amount')}}</th>
+                    <th>{{trans('web_string.bid_increment')}}</th>
+                    <th>{{trans('web_string.highest_bidder')}}</th>
+                    <th>{{trans('web_string.bid_amount')}}</th>
+                    <th>{{trans('web_string.bid_on')}}</th>
                     {{--                <th>Action</th>--}}
                 </tr>
                 </thead>

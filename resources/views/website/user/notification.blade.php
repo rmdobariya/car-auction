@@ -1,11 +1,14 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.notifications')}}
+@endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h1>Notifications</h1>
+                        <h1>{{trans('web_string.notifications')}}</h1>
 {{--                        <a href="javascript:void(0)">Load more</a>--}}
                     </div>
                 </div>
@@ -19,7 +22,7 @@
                         </div>
                         <div class="noti-details">
                             <div class="noti-heading">
-                                <h2>Car Inquiry</h2>
+                                <h2>{{trans('web_string.car_inquiry')}}</h2>
                                 <span>{{Carbon\Carbon::parse($notification->created_at)->format('h:i A | l  d F Y')}}</span>
                             </div>
                             <p>{!! $notification->message !!}</p>

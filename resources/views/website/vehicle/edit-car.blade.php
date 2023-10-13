@@ -1,4 +1,7 @@
 @extends('website.layouts.master')
+@section('title')
+    {{trans('web_string.edit_car')}}
+@endsection
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css"/>
 @section('content')
     <section id="vehicles" class="featured-vehicles">
@@ -6,7 +9,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading auction-detailss">
-                        <h1>Car Details</h1>
+                        <h1>{{trans('web_string.car_details')}}</h1>
                         <div class="add-car-form">
                             <form id="vehicleAddForm">
                                 <input type="hidden" id="edit_value" value="{{$vehicle->id}}" name="edit_value">
@@ -17,25 +20,25 @@
                                         <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_name"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Name
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{ trans('web_string.common_name') }}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_name"
                                                        id="{{ $language['language_code'] }}_name"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->name }}"
-                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
+                                                       placeholder="{{ $language['name'] }} {{ trans('web_string.common_name') }}"
                                                        required/>
                                             </div>
                                         </div>
                                     @endforeach
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2">Vehicle Category</label>
+                                            <label class="required fs-6 fw-bold mb-2">{{trans('web_string.vehicle_category')}}</label>
                                             <select class="form-select form-select-solid fw-bold"
                                                     name="vehicle_category_id"
                                                     id="vehicle_category_id">
-                                                <option value="">Select Option</option>
+                                                <option value="">{{trans('web_string.select_option')}}</option>
                                                 @foreach($vehicle_categories as $vehicle_category)
                                                     <option
                                                         value="{{$vehicle_category->id}}"
@@ -47,156 +50,156 @@
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="year">
-                                                Year
+                                                {{trans('web_string.year')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="year"
                                                    value="{{$vehicle->year}}"
-                                                   placeholder="Year"/>
+                                                   placeholder="{{trans('web_string.year')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="make">
-                                                Make
+                                                {{trans('web_string.make')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="make"
                                                    id="make"
                                                    value="{{$vehicle->make}}"
-                                                   placeholder="Make"/>
+                                                   placeholder="{{trans('web_string.make')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="model">
-                                                Model
+                                                {{trans('web_string.model')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="model"
                                                    id="model"
                                                    value="{{$vehicle->model}}"
-                                                   placeholder="Model"/>
+                                                   placeholder="{{trans('web_string.model')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="trim">
-                                                Trim
+                                                {{trans('web_string.trim')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="trim"
                                                    id="trim"
                                                    value="{{$vehicle->trim}}"
-                                                   placeholder="Trim"/>
+                                                   placeholder="{{trans('web_string.trim')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="kms_driven">
-                                                KMs Driven
+                                                {{trans('web_string.kms_driven')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="kms_driven"
                                                    value="{{$vehicle->kms_driven}}"
                                                    id="kms_driven"
-                                                   placeholder="KMs Driven"/>
+                                                   placeholder="{{trans('web_string.kms_driven')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="owners">
-                                                No Of Owners
+                                                {{trans('web_string.no_of_owners')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="owners"
                                                    id="owners"
                                                    value="{{$vehicle->owners}}"
-                                                   placeholder="No Of Owners"/>
+                                                   placeholder="{{trans('web_string.no_of_owners')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="transmission">
-                                                Transmission
+                                                {{trans('web_string.transmission')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="transmission"
                                                    value="{{$vehicle->transmission}}"
                                                    id="transmission"
-                                                   placeholder="Transmission"/>
+                                                   placeholder="{{trans('web_string.transmission')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="fuel_type">
-                                                Fuel Type
+                                                {{trans('web_string.fuel_type')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="fuel_type"
                                                    id="fuel_type"
                                                    value="{{$vehicle->fuel_type}}"
-                                                   placeholder="Fuel Type"/>
+                                                   placeholder="{{trans('web_string.fuel_type')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="body_type">
-                                                Body Type
+                                                {{trans('web_string.body_type')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="body_type"
                                                    id="body_type"
                                                    value="{{$vehicle->body_type}}"
-                                                   placeholder="Body Type"/>
+                                                   placeholder="{{trans('web_string.body_type')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="registration">
-                                                Registration
+                                                {{trans('web_string.registration')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="registration"
                                                    id="registration"
                                                    value="{{$vehicle->registration}}"
-                                                   placeholder="Registration"/>
+                                                   placeholder="{{trans('web_string.registration')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="mileage">
-                                                Mileage
+                                                {{trans('web_string.mileage')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="mileage"
                                                    id="mileage"
                                                    value="{{$vehicle->mileage}}"
-                                                   placeholder="Mileage"/>
+                                                   placeholder="{{trans('web_string.mileage')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="color">
-                                                Exterior Color
+                                                {{trans('web_string.exterior_color')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="color"
                                                    id="color"
                                                    value="{{$vehicle->color}}"
-                                                   placeholder="Exterior Color"/>
+                                                   placeholder="{{trans('web_string.exterior_color')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="car_type">
-                                                Car Type
+                                                {{trans('web_string.car_type')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="car_type"
                                                    id="car_type"
                                                    value="{{$vehicle->type}}"
-                                                   placeholder="Car Type"/>
+                                                   placeholder="{{trans('web_string.car_type')}}"/>
                                         </div>
                                     </div>
                                     <div
@@ -204,12 +207,12 @@
                                         id="bid_increment">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="car_type">
-                                                Bid Increment
+                                                {{trans('web_string.bid_increment')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="bid_increment"
                                                    value="{{$vehicle->bid_increment}}"
-                                                   placeholder="Bid Increment"/>
+                                                   placeholder="{{trans('web_string.bid_increment')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +226,7 @@
                                             type="radio" data-bs-original-title=""
                                             title="">
                                         <label class="form-check-label fw-bold"
-                                               for="is_vehicle_type">Car For Auction</label>
+                                               for="is_vehicle_type">{{trans('web_string.car_for_auction')}}</label>
                                     </div>
                                 </div>
 
@@ -237,21 +240,20 @@
                                             type="radio" data-bs-original-title=""
                                             title="">
                                         <label class="form-check-label fw-bold"
-                                               for="is_vehicle_type">Car For Sell</label>
+                                               for="is_vehicle_type">{{trans('web_string.car_for_sell')}}</label>
                                     </div>
                                 </div>
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container mt-2">
                                         <label for="{{ $language['language_code'] }}_short_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Short
-                                            Description
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.short_description')}}
                                         </label>
                                         <input type="text" class="form-control form-control-solid"
                                                name="{{ $language['language_code'] }}_short_description"
                                                id="{{ $language['language_code'] }}_short_description"
                                                @if($language['is_rtl']==1) dir="rtl" @endif
                                                value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"
-                                               placeholder="{{ $language['name'] }} Short Description"
+                                               placeholder="{{ $language['name'] }} {{trans('web_string.short_description')}}"
                                                required/>
                                     </div>
                                 @endforeach
@@ -259,8 +261,7 @@
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                         <label for="{{ $language['language_code'] }}_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
-                                            Description
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.description')}}
                                         </label>
                                         <textarea class="form-control"
                                                   name="{{ $language['language_code'] }}_description"
@@ -274,7 +275,7 @@
                                             Ratting
                                         </label>
                                         <div class="car-rating">
-                                            <p>Rating</p>
+                                            <p>{{trans('web_string.rating')}}</p>
                                             <div class="rating_container secondary">
                                                 <span class="rating @if($vehicle->ratting >= 1) active @endif">1</span>
                                                 <span class="rating @if($vehicle->ratting >= 2) active @endif">2</span>
@@ -289,20 +290,20 @@
                                     </div>
                                     <div class="col-md-8">
                                         <label class="required fs-6 fw-bold mb-2" for="main_image">
-                                            Main Image
+                                            {{trans('web_string.main_image')}}
                                         </label>
                                         <input type="file" name="main_image" id="file" class="dropify"
                                                data-default-file="{{asset($vehicle->main_image)}}"
                                                value="{{$vehicle->main_image}}">
                                     </div>
-                                    <h1>Car Images</h1>
+                                    <h1>{{trans('web_string.car_images')}}</h1>
                                     <div class="row">
                                         <div id="car_gallery">
                                             @include('website.vehicle.car_gallery')
                                         </div>
                                         <div id="fine-uploader"></div>
                                     </div>
-                                    <h1>Car Documents</h1>
+                                    <h1>{{trans('web_string.car_documents')}}</h1>
                                     <div class="row">
                                         <div id="car_document">
                                             @include('website.vehicle.car_document')
@@ -311,17 +312,17 @@
                                             <div id="fine-uploader-document"></div>
                                         </div>
                                     </div>
-                                    <h1>Car Auction Details</h1>
+                                    <h1>{{trans('web_string.car_auction_details')}}</h1>
                                     <div class="row">
                                         <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label class="required fs-6 fw-bold mb-2" for="price">
-                                                    Initial Price
+                                                    {{trans('web_string.common_price')}}
                                                 </label>
                                                 <input type="text" name="price"
                                                        value="{{$vehicle->price}}"
                                                        class="form-control"
-                                                       placeholder="Initial Price *">
+                                                       placeholder="{{trans('web_string.common_price')}}">
                                             </div>
                                         </div>
                                         <div
@@ -329,12 +330,12 @@
                                             id="minimumBidIncrement">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">
-                                                    Minimum Bid Increment
+                                                    {{trans('web_string.minimum_bid_increment')}}
                                                 </label>
                                                 <input type="text" name="minimumBidIncrement"
                                                        value="{{$vehicle->minimum_bid_increment_price}}"
                                                        class="form-control"
-                                                       placeholder="Minimum Bid Increment *">
+                                                       placeholder="{{trans('web_string.minimum_bid_increment')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -343,52 +344,52 @@
                                         <div class="mb-1 col-md-3">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                    Start Date
+                                                    {{trans('web_string.start_date')}}
                                                 </label>
                                                 <input type="date" name="auction_start_date"
                                                        value="{{$vehicle->auction_start_date}}"
                                                        class="form-control"
-                                                       placeholder="Auction Start Date">
+                                                       placeholder="{{trans('web_string.start_date')}}">
                                             </div>
                                         </div>
                                         <div class="mb-1 col-md-3">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                    Start Time
+                                                    {{trans('web_string.start_time')}}
                                                 </label>
                                                 <input type="time" name="auction_start_time"
                                                        value="{{$vehicle->auction_start_time}}"
                                                        class="form-control"
-                                                       placeholder="Auction Start Time">
+                                                       placeholder="{{trans('web_string.start_time')}}">
                                             </div>
                                         </div>
                                         <div class="mb-1 col-md-3">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                    End Date
+                                                    {{trans('web_string.end_date')}}
                                                 </label>
                                                 <input type="date" name="auction_end_date"
                                                        value="{{$vehicle->auction_end_date}}"
                                                        class="form-control"
-                                                       placeholder="Auction End Date">
+                                                       placeholder="{{trans('web_string.end_date')}}">
                                             </div>
                                         </div>
                                         <div class="mb-1 col-md-3">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                    End Time
+                                                    {{trans('web_string.end_time')}}
                                                 </label>
                                                 <input type="time" name="auction_end_time"
                                                        value="{{$vehicle->auction_end_time}}"
                                                        class="form-control"
-                                                       placeholder="Auction End Time">
+                                                       placeholder="{{trans('web_string.end_time')}}">
                                             </div>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <button type="submit" class="place-bid-blue">Update</button>
+                                                <button type="submit" class="place-bid-blue">{{trans('web_string.update_car')}}</button>
                                         </div>
                                     </div>
                             </form>
