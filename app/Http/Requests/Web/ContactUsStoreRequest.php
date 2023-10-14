@@ -27,7 +27,7 @@ class ContactUsStoreRequest extends FormRequest
     {
         return [
             'first_name' => 'required',
-            'mobile_no' => 'required|digits_between:1,10',
+            'mobile_no' => ['required', 'regex:/^[0-9]{10}$/'],
             'last_name' => 'required',
             'email' => 'required|email:rfc,dns',
             'message' => 'required',

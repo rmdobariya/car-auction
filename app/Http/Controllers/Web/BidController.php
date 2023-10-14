@@ -27,6 +27,13 @@ class BidController extends Controller
                         ->update([
                             'amount' => $request->amount
                         ]);
+                    $maxValue = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->max('amount');
+                    DB::table('vehicle_bids')
+                        ->where('vehicle_id', $request->vehicle_id)
+                        ->where('amount', $maxValue)
+                        ->update([
+                            'is_winner' => 1,
+                        ]);
                     return response()->json([
                         'success' => true,
                         'message' => trans('web_string.bid_update_successfully')

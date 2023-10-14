@@ -195,4 +195,10 @@
   'image_delete_successfully' => 'Image Delete Successfully',
   'document_delete_successfully' => 'Document Delete Successfully',
   'car_delete_successfully' => 'Car Delete Successfully',
+  'change_password' => 'Change Password',
+  'current_password' => 'Current Password',
+  'current_password_is_invalid' => 'Current Password Is Invalid',
+  'password_change_successfully' => 'Password Change Successfully',
+  'you_have_not_placed_any_bid_yet' => 'You have not placed any bid yet',
+  'you_have_not_won_any_auction' => 'You have not won any auction',
 );
