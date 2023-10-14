@@ -76,8 +76,9 @@
                                                data-kt-check-target="#basic-1 .form-check-input" value="1">
                                     </div>
                                 </th>
-                                <th>User</th>
                                 <th>Name</th>
+                                <th>email</th>
+                                <th>Mobile No</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -109,8 +110,9 @@
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
-                {data: 'user', name: 'users.full_name'},
                 {data: 'name', name: 'contact_us.name'},
+                {data: 'email', name: 'contact_us.email'},
+                {data: 'contact_number', name: 'contact_us.contact_number'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],

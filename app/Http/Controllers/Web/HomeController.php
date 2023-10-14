@@ -352,33 +352,24 @@ class HomeController extends Controller
 
     public function contactUsSubmit(ContactUsStoreRequest $request)
     {
-        if (!is_null(Auth::user())) {
-            $contact_us = new ContactUs();
-            $contact_us->user_id = Auth::user()->id;
-            $contact_us->first_name = $request->first_name;
-            $contact_us->last_name = $request->last_name;
-            $contact_us->name = $request->first_name . ' ' . $request->last_name;
-            $contact_us->email = $request->email;
-            $contact_us->contact_number = $request->mobile_no;
-            $contact_us->message = $request->message;
-            $contact_us->subject = 'contact_us';
-            $contact_us->save();
-            return response()->json([
-                'success' => true,
-                'message' => trans('web_string.contact_us_save_successfully')
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => trans('web_string.please_first_login_or_sign_up')
-            ]);
-        }
+        $contact_us = new ContactUs();
+        $contact_us->first_name = $request->first_name;
+        $contact_us->last_name = $request->last_name;
+        $contact_us->name = $request->first_name . ' ' . $request->last_name;
+        $contact_us->email = $request->email;
+        $contact_us->contact_number = $request->mobile_no;
+        $contact_us->message = $request->message;
+        $contact_us->subject = 'contact_us';
+        $contact_us->save();
+        return response()->json([
+            'success' => true,
+            'message' => trans('web_string.contact_us_save_successfully')
+        ]);
     }
 
     public function addQuestionStore(QuestionStoreRequest $request)
     {
         $question = new Question();
-        $question->user_id = Auth::user()->id;
         $question->first_name = $request->first_name;
         $question->last_name = $request->last_name;
         $question->name = $request->first_name . ' ' . $request->last_name;
@@ -578,7 +569,8 @@ class HomeController extends Controller
                 ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicle_bids.user_id', $user_id)
-                ->where('vehicle_bids.is_winner', 1)
+                ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
+//                ->where('vehicle_bids.is_winner', 1)
                 ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->get();
 
@@ -601,6 +593,7 @@ class HomeController extends Controller
                 ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicle_bids.user_id', $user_id)
+                ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
                 ->where('vehicle_bids.is_winner', 1)
                 ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->get();

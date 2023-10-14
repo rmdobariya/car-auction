@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Web;
 
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Web\ChangePasswordStoreRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -24,7 +27,8 @@ class ProfileController extends Controller
                 ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicle_bids.user_id', $user_id)
-                ->where('vehicle_bids.is_winner', 0)
+                ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
+//                ->where('vehicle_bids.is_winner', 0)
                 ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->limit(3)
                 ->get();
@@ -35,6 +39,7 @@ class ProfileController extends Controller
                 ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
                 ->where('vehicle_translations.locale', App::getLocale())
                 ->where('vehicle_bids.user_id', $user_id)
+                ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
                 ->where('vehicle_bids.is_winner', 1)
                 ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->limit(3)
@@ -83,5 +88,20 @@ class ProfileController extends Controller
         return response()->json([
             'message' => trans('web_string.profile_change_image_successfully')
         ]);
+    }
+
+    public function updatePassword(ChangePasswordStoreRequest $request): JsonResponse
+    {
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $current_password = $request->current_password;
+        $new_password = $request->new_password;
+        if (!Hash::check($current_password, $user->password)) {
+            return response()->json(['message' => trans('web_string.current_password_is_invalid')], 500);
+        }
+        User::where('id', $id)->update([
+            'password' => bcrypt($new_password),
+        ]);
+        return response()->json(['message' => trans('web_string.password_change_successfully')]);
     }
 }

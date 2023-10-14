@@ -30,7 +30,6 @@ class ContactUsController extends Controller
     {
         if ($request->ajax()) {
             $contact_us = DB::table('contact_us')
-                ->leftJoin('users', 'contact_us.user_id', 'users.id')
                 ->orderBy('id', 'desc');
 
             if (!empty($request->deleted)) {
@@ -40,7 +39,7 @@ class ContactUsController extends Controller
                     $contact_us->whereNull('contact_us.deleted_at');
                 }
             }
-            $contact_us = $contact_us->select('contact_us.*', 'users.full_name');
+            $contact_us = $contact_us->select('contact_us.*');
             return Datatables::of($contact_us)
                 ->addColumn('action', function ($contact_us) {
                     if (is_null($contact_us->deleted_at)) {
@@ -48,6 +47,7 @@ class ContactUsController extends Controller
                             'id' => $contact_us->id,
                             'actions' => [
                                 'delete' => $contact_us->id,
+                                'detail-page' => route('admin.contact-us.show', $contact_us->id),
                             ]
                         ];
                     } else {
@@ -68,9 +68,6 @@ class ContactUsController extends Controller
                     </div>
                 </td>';
                 })
-                ->addColumn('user', function ($contact_us) {
-                    return $contact_us->full_name;
-                })
                 ->rawColumns(['action', 'status', 'check'])
                 ->make(true);
         }
@@ -83,6 +80,7 @@ class ContactUsController extends Controller
             'message' => 'Contact Us Delete Successfully'
         ]);
     }
+
     public function restore($id): JsonResponse
     {
         DB::table('contact_us')->where('id', $id)->update([
@@ -114,5 +112,11 @@ class ContactUsController extends Controller
         return response()->json([
             'message' => 'Contact Us Delete Successfully'
         ]);
+    }
+
+    public function show($id)
+    {
+        $contact_us = DB::table('contact_us')->where('id', $id)->first();
+        return view('admin.contact-us.show',['contact_us' => $contact_us]);
     }
 }

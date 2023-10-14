@@ -26,6 +26,27 @@ $profileForm.on('submit', function (e) {
         });
 })
 
+var $changePasswordForm = $('#changePasswordForm')
+$changePasswordForm.on('submit', function (e) {
+    e.preventDefault()
+    loaderView();
+    let formData = new FormData($changePasswordForm[0]);
+    axios
+        .post(APP_URL + '/update-password', formData)
+        .then(function (response) {
+            $changePasswordForm[0].reset();
+            loaderHide();
+
+            window.location.reload();
+            notificationToast(response.data.message, 'success');
+        })
+        .catch(function (error) {
+            console.log(error);
+            notificationToast(error.response.data.message, 'warning')
+            loaderHide();
+        });
+})
+
 function openSelect(file) {
     $(file).trigger('click');
 }

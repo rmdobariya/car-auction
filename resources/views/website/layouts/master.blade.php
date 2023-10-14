@@ -95,23 +95,30 @@
             <div class="modal-body">
                 <div class="login-form">
                     <form action="" id="loginForm" method="POST">
-                        <input type="email" name="email" class="form-control" placeholder="{{trans('web_string.email')}}">
-                        <input type="password" name="password" class="form-control" placeholder="{{trans('web_string.password')}}">
+                        <input type="email" name="email" class="form-control"
+                               placeholder="{{trans('web_string.email')}}">
+                        <input type="password" name="password" class="form-control"
+                               placeholder="{{trans('web_string.password')}}">
                         <div class="forgotlink text-end">
                             <a href="#" id="forgot_password">{{trans('web_string.forgot_password')}}</a>
                         </div>
-                        <input type="submit" class="place-bid-blue" name="submit" value="{{trans('web_string.sign_In')}}">
+                        <input type="submit" class="place-bid-blue" name="submit"
+                               value="{{trans('web_string.sign_In')}}">
                     </form>
-                    <p>{{trans('web_string.dont_have_an_account')}} <a href="javascript:void(0)" id="closelogin" data-toggle="modal"
-                                                 data-target="#signup">{{trans('web_string.sign_up')}}</a></p>
+                    <p>{{trans('web_string.dont_have_an_account')}} <a href="javascript:void(0)" id="closelogin"
+                                                                       data-toggle="modal"
+                                                                       data-target="#signup">{{trans('web_string.sign_up')}}</a>
+                    </p>
                     <b>OR</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="#" data-social-type="facebook" class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><i
+                            <a href="#" data-social-type="facebook"
+                               class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><i
                                         class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="#" data-social-type="google" class="socialSignIn">{{trans('web_string.sign_in_with')}}  <span><img
+                            <a href="#" data-social-type="google"
+                               class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><img
                                         src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
@@ -136,12 +143,17 @@
             <div class="modal-body">
                 <div class="login-form">
                     <form action="" id="registerForm" method="POST">
-                        <input type="text" name="first_name" class="form-control" placeholder="{{trans('web_string.first_name')}}">
-                        <input type="text" name="last_name" class="form-control" placeholder="{{trans('web_string.last_name')}}">
-                        <input type="text" name="phone" class="form-control integer" placeholder="{{trans('web_string.mobile_no')}}.">
-                        <input type="text" name="email" class="form-control" placeholder="{{trans('web_string.email')}}">
+                        <input type="text" name="first_name" class="form-control"
+                               placeholder="{{trans('web_string.first_name')}}">
+                        <input type="text" name="last_name" class="form-control"
+                               placeholder="{{trans('web_string.last_name')}}">
+                        <input type="text" name="phone" class="form-control integer"
+                               placeholder="{{trans('web_string.mobile_no')}}.">
+                        <input type="text" name="email" class="form-control"
+                               placeholder="{{trans('web_string.email')}}">
                         {{--                        <input type="text" name="email" class="form-control" placeholder="Username">--}}
-                        <input type="password" name="password" class="form-control" placeholder="{{trans('web_string.password')}}">
+                        <input type="password" name="password" class="form-control"
+                               placeholder="{{trans('web_string.password')}}">
                         <div class="select-opt">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="user_type" id="buyer" value="buyer">
@@ -161,21 +173,27 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="term" name="term" id="term">
                                 <label class="form-check-label" for="term">
-                                    {{trans('web_string.i_have_a_read_the')}} <a href="{{route('page',['terms-conditions'])}}" target="_blank">{{trans('web_string.terms_and_conditions')}}</a>
+                                    {{trans('web_string.i_have_a_read_the')}} <a
+                                        href="{{route('page',['terms-conditions'])}}"
+                                        target="_blank">{{trans('web_string.terms_and_conditions')}}</a>
                                 </label>
                             </div>
                         </div>
                         <input type="submit" class="place-bid-blue" name="submit" value="Sign Up">
                     </form>
-                    <p>{{trans('web_string.already_have_an_account')}}<a href="#" id="closesignup" data-toggle="modal" data-target="#login">{{trans('web_string.sign_in')}}</a></p>
+                    <p>{{trans('web_string.already_have_an_account')}}<a href="#" id="closesignup" data-toggle="modal"
+                                                                         data-target="#login">{{trans('web_string.sign_in')}}</a>
+                    </p>
                     <b>{{trans('web_string.or')}}</b>
                     <div class="social-login">
                         <div class="facebook">
-                            <a href="#" data-social-type="facebook" class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><i
+                            <a href="#" data-social-type="facebook"
+                               class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><i
                                         class="lab la-facebook-f"></i></span></a>
                         </div>
                         <div class="gmail">
-                            <a href="#" data-social-type="google" class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><img
+                            <a href="#" data-social-type="google"
+                               class="socialSignIn">{{trans('web_string.sign_in_with')}} <span><img
                                         src="{{asset('web/assets/images/google.png')}}" alt="google"></span></a>
                         </div>
                     </div>
@@ -240,13 +258,16 @@
                     <form id="askQuestionForm" method="POST">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" name="first_name" class="form-control" placeholder="{{trans('web_string.first_name')}}">
+                                <input type="text" name="first_name" class="form-control"
+                                       placeholder="{{trans('web_string.first_name')}}">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" name="last_name" class="form-control" placeholder="{{trans('web_string.last_name')}}">
+                                <input type="text" name="last_name" class="form-control"
+                                       placeholder="{{trans('web_string.last_name')}}">
                             </div>
                             <div class="col-md-6">
-                                <input type="email" name="email" class="form-control" placeholder="{{trans('web_string.email')}}">
+                                <input type="email" name="email" class="form-control"
+                                       placeholder="{{trans('web_string.email')}}">
                             </div>
                             <div class="col-md-6">
                                 <input type="text" name="mobile_no" class="form-control integer"
@@ -257,7 +278,8 @@
                                           placeholder="{{trans('web_string.comments_and_question')}}"></textarea>
                             </div>
                             <div class="col-md-12">
-                                <input type="submit" class="place-bid-blue" name="submit" value="{{trans('web_string.submit')}}">
+                                <input type="submit" class="place-bid-blue" name="submit"
+                                       value="{{trans('web_string.submit')}}">
                             </div>
                         </div>
                     </form>
@@ -326,6 +348,42 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="change_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">{{trans('web_string.change_password')}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <form id="changePasswordForm" method="POST">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <label for="new_password">{{trans('web_string.current_password')}}</label>
+                                <input type="password" name="current_password" class="form-control"
+                                       placeholder="{{trans('web_string.current_password')}}">
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="new_password">{{trans('web_string.new_password')}}</label>
+                                <input type="password" name="new_password" class="form-control"
+                                       placeholder="{{trans('web_string.new_password')}}">
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label for="new_password">{{trans('web_string.confirm_password')}}</label>
+                                <input type="password" name="confirm_password" class="form-control"
+                                       placeholder="{{trans('web_string.confirm_password')}}">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="submit" class="place-bid-blue" name="submit" value="Submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @include('website.layouts.script')
 @yield('custom-script')
 <script>
@@ -338,7 +396,7 @@
     $(document).on('click', '#continue', function () {
         if ($('input[name="user_type"]:checked')) {
             window.location.href = 'socialLogin/' + [$('#social_type').val()] + '/?user_type=' + [$('input[name="user_type"]:checked').val()];
-        }else{
+        } else {
             notificationToast('User Type Is Required', 'warning')
         }
     })

@@ -51,16 +51,12 @@
                         </a>
 
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question">
-                            <span class="fa-stack">
-        <i class="fas fa-circle fa-stack-2x"></i>
-        <i class="fas fa-question-circle fa-stack-1x fa-inverse"></i>
-    </span>
-
-                        </a>
-                    </li>
                 @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question" title="Ask A Question">
+                        <i class="fas fa-question-circle"></i>
+                    </a>
+                </li>
                 <li class="nav-item language">
                     <div
                         class="form-check form-switch language-change @if((string)App::getLocale() === 'en') chked @endif">

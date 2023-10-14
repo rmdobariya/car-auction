@@ -35,6 +35,8 @@ class VehicleAwarded extends Command
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_auction_awarded', 0)
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
@@ -76,7 +78,8 @@ class VehicleAwarded extends Command
                         $user_notification->type = 'auction_awarded';
                         $user_notification->save();
                         DB::table('vehicles')->where('id', $vehicle->id)->update([
-                            'is_auction_awarded' => 1
+                            'is_auction_awarded' => 1,
+                            'status' => 'auction_close'
                         ]);
                     }
                 }

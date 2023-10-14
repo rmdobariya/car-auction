@@ -13,7 +13,13 @@
         </div>
         <div class="auction-status">
             <p>{{trans('web_string.auction_status')}}</p>
-            <span>Ongoing</span>
+            @if($vehicle->status == 'approve')
+                <span>Approve</span>
+            @elseif($vehicle->status == 'auction_start')
+                <span>Auction Start</span>
+            @elseif($vehicle->status == 'auction_close')
+                <span>Auction Close</span>
+            @endif
         </div>
     </div>
 </div>
@@ -86,6 +92,7 @@
 </div>
 <script>
     var intervalId;
+
     // $(document).ready(function(){
     function startInterval() {
         let vehicle_id = $('#vehicle_id').val();
@@ -100,6 +107,7 @@
                 })
         }, 5000);
     }
+
     // });
 
     function stopInterval() {

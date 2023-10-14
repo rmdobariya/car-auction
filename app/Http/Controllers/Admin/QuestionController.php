@@ -31,7 +31,6 @@ class QuestionController extends Controller
     {
         if ($request->ajax()) {
             $question = DB::table('questions')
-                ->leftJoin('users', 'questions.user_id', 'users.id')
                 ->orderBy('id', 'desc');
 
             if (!empty($request->deleted)) {
@@ -41,7 +40,7 @@ class QuestionController extends Controller
                     $question->whereNull('questions.deleted_at');
                 }
             }
-            $question = $question->select('questions.*', 'users.full_name');
+            $question = $question->select('questions.*');
             return Datatables::of($question)
                 ->addColumn('action', function ($question) {
                     if (is_null($question->deleted_at)) {
@@ -49,6 +48,7 @@ class QuestionController extends Controller
                             'id' => $question->id,
                             'actions' => [
                                 'delete' => $question->id,
+                                'detail-page' => route('admin.question.show',$question->id),
                             ]
                         ];
                     } else {
@@ -68,9 +68,6 @@ class QuestionController extends Controller
                         <input class="form-check-input all_selected" type="checkbox" value=' . $question->id . ' id="single_select">
                     </div>
                 </td>';
-                })
-                ->addColumn('user', function ($question) {
-                    return $question->full_name;
                 })
                 ->rawColumns(['action', 'status', 'check'])
                 ->make(true);
@@ -115,5 +112,10 @@ class QuestionController extends Controller
         return response()->json([
             'message' => 'Question Delete Successfully'
         ]);
+    }
+    public function show($id)
+    {
+        $question = DB::table('questions')->where('id', $id)->first();
+        return view('admin.question.show',['question' => $question]);
     }
 }

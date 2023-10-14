@@ -12,6 +12,7 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                @if(count($bids) > 0)
                 <div class="col-md-12">
                     @foreach($bids as $bid)
                         @if(Auth::user())
@@ -145,6 +146,9 @@
                         </div>
                     @endforeach
                 </div>
+                @else
+                    <h3>{{trans('web_string.you_have_not_placed_any_bid_yet')}}</h3>
+                @endif
             </div>
         </div>
     </section>
