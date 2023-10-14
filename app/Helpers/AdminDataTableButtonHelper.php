@@ -80,6 +80,10 @@ class AdminDataTableButtonHelper
             return '<div class="badge badge-light-success">Approve</div>';
         } elseif((string)$array['status'] === 'reject') {
             return '<div class="badge badge-light-danger">Reject</div>';
+        }elseif((string)$array['status'] === 'auction_close') {
+            return '<div class="badge badge-light-danger">Auction Close</div>';
+        }elseif((string)$array['status'] === 'ongoing') {
+            return '<div class="badge badge-light-danger">Ongoing</div>';
         }
     }
 }

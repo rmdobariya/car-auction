@@ -111,6 +111,10 @@
                                             <div class="badge badge-light-warning">Pending</div>
                                         @elseif((string)$vehicle->status === 'approve')
                                             <div class="badge badge-light-success">Approve</div>
+                                        @elseif((string)$vehicle->status === 'auction_close')
+                                            <div class="badge badge-light-danger">Auction Close</div>
+                                        @elseif((string)$vehicle->status === 'ongoing')
+                                            <div class="badge badge-light-success">Ongoing</div>
                                         @else
                                             <div class="badge badge-light-danger">Reject</div>
                                         @endif
