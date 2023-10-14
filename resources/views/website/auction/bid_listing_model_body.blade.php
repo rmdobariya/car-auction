@@ -19,6 +19,8 @@
                 <span>Auction Start</span>
             @elseif($vehicle->status == 'auction_close')
                 <span>Auction Close</span>
+            @elseif($vehicle->status == 'ongoing')
+                <span>Ongoing</span>
             @endif
         </div>
     </div>
