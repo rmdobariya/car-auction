@@ -1,15 +1,22 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BidController;
 use App\Http\Controllers\Api\V1\ContactusController;
+use App\Http\Controllers\Api\V1\MyAuctionController;
+use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\PageController;
 use App\Http\Controllers\Api\V1\BlogController;
 use App\Http\Controllers\Api\V1\FaqController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\ProfileController;
+use App\Http\Controllers\Api\V1\QuestionController;
+use App\Http\Controllers\Api\V1\SearchController;
 use App\Http\Controllers\Api\V1\SettingController;
+use App\Http\Controllers\Api\V1\TestimonialController;
 use App\Http\Controllers\Api\V1\VehicleCategoryController;
 use App\Http\Controllers\Api\V1\VehicleController;
 use App\Http\Controllers\Api\V1\VehicleDocumentController;
+use App\Http\Controllers\Api\V1\WishListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->name('api.v1')->namespace('Api\V1')->group(function () {
+Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguageCheck']], function () {
     Route::post('login', [LoginController::class,'login'])->name('login');
     Route::post('register', [LoginController::class,'register'])->name('register');
     Route::post('forgotPassword', [ProfileController::class, 'forgotPassword'])->name('forgotPassword');
@@ -31,7 +38,10 @@ Route::prefix('v1')->name('api.v1')->namespace('Api\V1')->group(function () {
     Route::get('page', [PageController::class, 'index'])->name('page');
     Route::get('pageDetail/{id}', [PageController::class, 'show'])->name('pageDetail');
     Route::get('faq', [FaqController::class, 'index'])->name('faq');
+    Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial');
     Route::get('blog', [BlogController::class, 'index'])->name('blog');
+    Route::post('search', [SearchController::class, 'index'])->name('search');
+    Route::post('ask-question', [QuestionController::class, 'index'])->name('ask-question');
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
@@ -51,5 +61,14 @@ Route::prefix('v1')->name('api.v1')->namespace('Api\V1')->group(function () {
 
         Route::post('vehicle-document-upload', [VehicleDocumentController::class, 'documentUpload'])->name('vehicle-document-upload');
         Route::get('vehicle-document-remove/{id}', [VehicleDocumentController::class, 'removeDocument'])->name('vehicle-document-remove');
+        Route::get('bid', [BidController::class, 'index'])->name('bid');
+        Route::get('my-bid', [BidController::class, 'myBid'])->name('my-bid');
+        Route::get('my-wining', [BidController::class, 'myWining'])->name('my-wining');
+        Route::post('place-bid', [BidController::class, 'placeBid'])->name('place-bid');
+        Route::get('bid-detail/{id}', [BidController::class, 'show'])->name('bid-detail');
+        Route::get('my-auction', [MyAuctionController::class, 'index'])->name('my-auction');
+        Route::post('add-wish-list', [WishListController::class, 'store'])->name('add-wish-list');
+        Route::get('get-wish-list', [WishListController::class, 'index'])->name('get-wish-list');
+        Route::get('notification', [NotificationController::class, 'index'])->name('notification');
     });
 });

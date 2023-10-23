@@ -13,7 +13,7 @@ class VehicleResource extends JsonResource
         $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id',$this->id)->get();
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->vehicle_name,
             'vehicle_category_name' => $this->vehicle_category_name,
             'model' => $this->model,
             'year' => $this->year,
