@@ -41,7 +41,7 @@ class BidDetailResource extends JsonResource
             'ratting' => $this->ratting,
             'is_product' => $this->is_product,
             'is_vehicle_type' => $this->is_vehicle_type,
-            'main_image' => $this->main_image,
+            'main_image' => ENV('APP_URL') .$this->main_image,
             'other_image' => VehicleImageResource::collection($vehicle_image),
             'vehicle_documents' => VehicleDocumentResource::collection($vehicle_document),
             'status' => $this->status,

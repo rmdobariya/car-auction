@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\BidController;
 use App\Http\Controllers\Api\V1\ContactusController;
+use App\Http\Controllers\Api\V1\LanguageStringController;
 use App\Http\Controllers\Api\V1\MyAuctionController;
 use App\Http\Controllers\Api\V1\NotificationController;
 use App\Http\Controllers\Api\V1\PageController;
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial');
     Route::get('blog', [BlogController::class, 'index'])->name('blog');
     Route::post('search', [SearchController::class, 'index'])->name('search');
+    Route::get('language-string', [LanguageStringController::class, 'index'])->name('language-string');
     Route::post('ask-question', [QuestionController::class, 'index'])->name('ask-question');
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');

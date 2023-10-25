@@ -24,11 +24,11 @@ class VehicleController extends Controller
 {
     public function create()
     {
-        $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->where('user_type', 'seller')->first();
-        $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        $vehicle_categories = VehicleCategory::where('status', 'active')->whereNull('deleted_at')->get();
+        $user = Auth::user();
         if ($user) {
+            $user = User::where('id', Auth::user())->where('user_type', 'seller')->first();
+            $languages = CatchCreateHelper::getLanguage(App::getLocale());
+            $vehicle_categories = VehicleCategory::where('status', 'active')->whereNull('deleted_at')->get();
             return view('website.vehicle.add-car', [
                 'user' => $user,
                 'languages' => $languages,
@@ -40,14 +40,15 @@ class VehicleController extends Controller
 
     public function edit($id)
     {
-        $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->where('user_type', 'seller')->first();
-        $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
-        $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
-        $vehicleDocuments = VehicleDocument::where('vehicle_id', $id)->get();
-        $vehicle = Vehicle::where('id', $id)->first();
+        $user = Auth::user();
+
         if ($user) {
+            $user = User::where('id', Auth::user()->id)->where('user_type', 'seller')->first();
+            $languages = CatchCreateHelper::getLanguage(App::getLocale());
+            $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
+            $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
+            $vehicleDocuments = VehicleDocument::where('vehicle_id', $id)->get();
+            $vehicle = Vehicle::where('id', $id)->first();
             return view('website.vehicle.edit-car', [
                 'user' => $user,
                 'languages' => $languages,
