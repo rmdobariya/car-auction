@@ -19,7 +19,7 @@ class VehicleResource extends JsonResource
             'year' => $this->year,
             'short_description' => $this->short_description,
             'description' => $this->description,
-            'main_image' => $this->main_image,
+            'main_image' => ENV('APP_URL') .$this->main_image,
             'status' => $this->status,
             'other_image' => VehicleImageResource::collection($vehicle_image),
             'vehicle_documents' => VehicleDocumentResource::collection($vehicle_document)

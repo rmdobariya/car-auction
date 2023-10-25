@@ -9,7 +9,7 @@ class VehicleImageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'image' => $this->image,
+            'image' => ENV('APP_URL') .$this->image,
         ];
     }
 }

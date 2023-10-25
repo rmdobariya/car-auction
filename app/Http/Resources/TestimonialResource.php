@@ -13,7 +13,7 @@ class TestimonialResource extends JsonResource
             'title' => $this->title,
             'role' => $this->role,
             'description' => $this->description,
-            'image' => $this->image,
+            'image' => ENV('APP_URL') . $this->image,
         ];
     }
 }
