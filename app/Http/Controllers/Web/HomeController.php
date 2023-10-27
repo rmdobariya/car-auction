@@ -404,6 +404,9 @@ class HomeController extends Controller
         if (!is_null($request->model)) {
             $featured_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
+        if(!is_null($request->make)) {
+            $featured_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+        }
         if (!is_null($request->body_type)) {
             $featured_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
@@ -440,6 +443,9 @@ class HomeController extends Controller
         if (!is_null($request->model)) {
             $popular_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
+        if(!is_null($request->make)) {
+            $popular_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+        }
         if (!is_null($request->body_type)) {
             $popular_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
@@ -475,6 +481,9 @@ class HomeController extends Controller
         if (!is_null($request->model)) {
             $hot_deal_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
         }
+        if(!is_null($request->make)) {
+            $hot_deal_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+        }
         if (!is_null($request->body_type)) {
             $hot_deal_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
@@ -506,6 +515,9 @@ class HomeController extends Controller
         }
         if (!is_null($request->model)) {
             $sell_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+        }
+        if(!is_null($request->make)) {
+            $sell_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
         }
         if (!is_null($request->body_type)) {
             $sell_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');

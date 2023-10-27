@@ -266,7 +266,7 @@ class VehicleController extends Controller
                 $vehicle->price = $request->price;
                 $vehicle->color = $request->color;
                 $vehicle->type = $request->car_type;
-                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
+//                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->is_product = $request['is_product'];
                 $vehicle->auction_start_date = $request->auction_start_date;
@@ -320,7 +320,7 @@ class VehicleController extends Controller
                 $vehicle->price = $request->price;
                 $vehicle->color = $request->color;
                 $vehicle->type = $request->car_type;
-                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
+//                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->is_product = $request['is_product'];
                 $vehicle->auction_start_date = $request->auction_start_date;

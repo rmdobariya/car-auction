@@ -202,19 +202,7 @@
                                                    placeholder="{{trans('web_string.car_type')}}"/>
                                         </div>
                                     </div>
-                                    <div
-                                        class="mb-1 col-md-4 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"
-                                        id="bid_increment">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="car_type">
-                                                {{trans('web_string.bid_increment')}}
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid integer"
-                                                   name="bid_increment"
-                                                   value="{{$vehicle->bid_increment}}"
-                                                   placeholder="{{trans('web_string.bid_increment')}}"/>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="mb-1 col-md-2">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -325,17 +313,30 @@
                                                        placeholder="{{trans('web_string.common_price')}}">
                                             </div>
                                         </div>
+{{--                                        <div--}}
+{{--                                            class="mb-1 col-md-6 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"--}}
+{{--                                            id="minimumBidIncrement">--}}
+{{--                                            <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+{{--                                                <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">--}}
+{{--                                                    {{trans('web_string.minimum_bid_increment')}}--}}
+{{--                                                </label>--}}
+{{--                                                <input type="text" name="minimumBidIncrement"--}}
+{{--                                                       value="{{$vehicle->minimum_bid_increment_price}}"--}}
+{{--                                                       class="form-control"--}}
+{{--                                                       placeholder="{{trans('web_string.minimum_bid_increment')}}">--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div
-                                            class="mb-1 col-md-6 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"
-                                            id="minimumBidIncrement">
+                                            class="mb-1 col-md-4 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif"
+                                            id="bid_increment">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">
-                                                    {{trans('web_string.minimum_bid_increment')}}
+                                                <label class="required fs-6 fw-bold mb-2" for="car_type">
+                                                    {{trans('web_string.bid_increment')}}
                                                 </label>
-                                                <input type="text" name="minimumBidIncrement"
-                                                       value="{{$vehicle->minimum_bid_increment_price}}"
-                                                       class="form-control"
-                                                       placeholder="{{trans('web_string.minimum_bid_increment')}}">
+                                                <input type="text" class="form-control form-control-solid integer"
+                                                       name="bid_increment"
+                                                       value="{{$vehicle->bid_increment}}"
+                                                       placeholder="{{trans('web_string.bid_increment')}}"/>
                                             </div>
                                         </div>
                                     </div>

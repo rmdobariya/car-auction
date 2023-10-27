@@ -82,10 +82,10 @@
                                     <th class="fw-bold" scope="row">Price</th>
                                     <td>{{ number_format($vehicle->price) }}</td>
                                 </tr>
-                                <tr>
-                                    <th class="fw-bold" scope="row">Minimum Bid Increment Price</th>
-                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>
-                                </tr>
+{{--                                <tr>--}}
+{{--                                    <th class="fw-bold" scope="row">Minimum Bid Increment Price</th>--}}
+{{--                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>--}}
+{{--                                </tr>--}}
                                 <tr>
                                     <th class="fw-bold" scope="row">Mileage</th>
                                     <td>{{ $vehicle->mileage }}</td>

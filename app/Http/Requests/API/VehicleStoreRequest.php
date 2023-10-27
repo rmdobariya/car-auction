@@ -39,8 +39,8 @@ class VehicleStoreRequest extends FormRequest
             'registration' => 'required',
             'mileage' => 'required',
             'price' => 'required|integer',
-            'bid_increment' => 'required|integer',
-            'minimumBidIncrement' => 'required_if:is_vehicle_type,=,car_for_auction',
+            'bid_increment' => 'required_if:is_vehicle_type,=,car_for_auction|integer',
+//            'minimumBidIncrement' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_start_date' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_start_time' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_end_date' => 'required_if:is_vehicle_type,=,car_for_auction',
@@ -58,6 +58,6 @@ class VehicleStoreRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json(['message' => $validator->errors()->first()], 422));
+        throw new HttpResponseException(response()->json(['status' => false,'message' => $validator->errors()->first()], 200));
     }
 }

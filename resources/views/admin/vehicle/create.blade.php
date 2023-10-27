@@ -300,17 +300,17 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">
-                                                Minimum Bid Increment Price
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid integer"
-                                                   name="minimumBidIncrement"
-                                                   id="minimumBidIncrement"
-                                                   placeholder="Minimum Bid Increment Price"/>
-                                        </div>
-                                    </div>
+{{--                                    <div class="mb-3 col-md-6">--}}
+{{--                                        <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+{{--                                            <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">--}}
+{{--                                                Minimum Bid Increment Price--}}
+{{--                                            </label>--}}
+{{--                                            <input type="text" class="form-control form-control-solid integer"--}}
+{{--                                                   name="minimumBidIncrement"--}}
+{{--                                                   id="minimumBidIncrement"--}}
+{{--                                                   placeholder="Minimum Bid Increment Price"/>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
