@@ -150,11 +150,12 @@ $('#filterData').on('click',function (){
    var max_amount = $('#max_amount').val();
    var price_range = $('#amount').val();
    var model = $('#model').val();
+   var make = $('#make').val();
     var body_type = $('#body_type').val();
    var ratting = $('#ratings').val();
     var exterior = $.map($('input[name="exterior"]:checked'), function(c){return c.value; })
     window.location.href = '/filter?category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
-    '&model=' + model + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting;
+    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting;
 
 })
 let $askQuestionForm = $('#askQuestionForm')

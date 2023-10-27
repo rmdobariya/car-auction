@@ -240,10 +240,17 @@
                                     {{--                                        </div>--}}
                                     {{--                                    </div>--}}
                                     <div class="col-md-3">
-                                        <label>{{trans('web_string.make_model')}}</label>
+                                        <label>{{trans('web_string.model')}}</label>
                                         <div class="model">
                                             <input type="text" class="form-control" name="model" id="model"
                                                    value="{{request()->get('model')}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>{{trans('web_string.make')}}</label>
+                                        <div class="make">
+                                            <input type="text" class="form-control" name="make" id="make"
+                                                   value="{{request()->get('make')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">

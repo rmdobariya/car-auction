@@ -1,7 +1,7 @@
 <thead>
 <tr>
     <th>{{trans('web_string.car_name')}}</th>
-    <th>{{trans('web_string.minimum_bid_amount')}}</th>
+{{--    <th>{{trans('web_string.minimum_bid_amount')}}</th>--}}
     <th>{{trans('web_string.bid_increment')}}</th>
     <th>{{trans('web_string.highest_bidder')}}</th>
     <th>{{trans('web_string.bid_amount')}}</th>
@@ -13,7 +13,7 @@
 @foreach($bids as $bid)
     <tr>
         <td>{{$bid->vehicle_name}}</td>
-        <td>SAR {{number_format($bid->minimum_bid_increment_price)}}</td>
+{{--        <td>SAR {{number_format($bid->minimum_bid_increment_price)}}</td>--}}
         <td>SAR {{number_format($bid->bid_increment)}}</td>
         <td>{{$bid->user_name}}</td>
         <td>SAR {{number_format($bid->amount)}}</td>

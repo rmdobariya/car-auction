@@ -4,11 +4,11 @@
         <td>{{$vehicle->vehicle_name}}</td>
         <td>{{$vehicle->make}}</td>
         <td>{{$vehicle->model}}</td>
-        @if(!is_null($vehicle->minimum_bid_increment_price))
-            <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>
-        @else
-            <td></td>
-        @endif
+{{--        @if(!is_null($vehicle->minimum_bid_increment_price))--}}
+{{--            <td>SAR {{$vehicle->minimum_bid_increment_price}}</td>--}}
+{{--        @else--}}
+{{--            <td></td>--}}
+{{--        @endif--}}
         @if(!is_null($vehicle->bid_increment))
             <td>SAR {{$vehicle->bid_increment}}</td>
         @else

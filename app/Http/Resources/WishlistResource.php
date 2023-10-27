@@ -31,7 +31,7 @@ class WishlistResource extends JsonResource
             'body_type' => $this->body_type,
             'registration' => $this->registration,
             'color' => $this->color,
-            'minimum_bid_increment_price' => $this->minimum_bid_increment_price,
+//            'minimum_bid_increment_price' => $this->minimum_bid_increment_price,
             'mileage' => $this->mileage,
             'type' => $this->type,
             'price' => $this->price,

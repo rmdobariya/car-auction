@@ -32,6 +32,6 @@ class VehicleChangeStatusStoreRequest extends FormRequest
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json(['message' => $validator->errors()->first()], 422));
+        throw new HttpResponseException(response()->json(['status' => false,'message' => $validator->errors()->first()], 200));
     }
 }
