@@ -16,13 +16,13 @@
                                 <input type="hidden" id="edit_value" value="{{$vehicle->id}}" name="edit_value">
                                 <input type="hidden" id="temp_time" name="temp_time" value="{{time()}}">
                                 <input type="hidden" id="form-method" value="add">
+
                                 <div class="row">
                                     @foreach($languages as $language)
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_name"
-                                                       class="required fs-6 fw-bold mb-2">
-                                                    {{ $language['name'] }} {{ trans('admin_string.common_name') }}
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Name
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_name"
@@ -67,57 +67,58 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="year">
-                                                Year
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="year"
-                                                   id="year"
-                                                   value="{{$vehicle->year}}"
-                                                   placeholder="Year"/>
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_make"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Make
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_make"
+                                                       id="{{ $language['language_code'] }}_make"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->make }}"
+                                                       placeholder="{{ $language['name'] }} Make"
+                                                       required/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="make">
-                                                Make
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="make"
-                                                   id="make"
-                                                   value="{{$vehicle->make}}"
-                                                   placeholder="Make"/>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-
                                 <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="model">
-                                                Model
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="model"
-                                                   id="model"
-                                                   value="{{$vehicle->model}}"
-                                                   placeholder="Model"/>
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_model"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Model
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_model"
+                                                       id="{{ $language['language_code'] }}_model"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->model }}"
+                                                       placeholder="{{ $language['name'] }} Model"
+                                                       required/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="trim">
-                                                Trim
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="trim"
-                                                   id="trim"
-                                                   value="{{$vehicle->trim}}"
-                                                   placeholder="Trim"/>
+                                    @endforeach
+                                </div>
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_trim"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Trim
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_trim"
+                                                       id="{{ $language['language_code'] }}_trim"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->trim }}"
+                                                       placeholder="{{ $language['name'] }} Trim"
+                                                       required/>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="row">
@@ -140,107 +141,166 @@
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="owners"
-                                                   id="owners"
                                                    value="{{$vehicle->owners}}"
+                                                   id="owners"
                                                    placeholder="No Of Owners"/>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_transmission"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                    Transmission
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_transmission"
+                                                       id="{{ $language['language_code'] }}_transmission"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->transmission }}"
+                                                       placeholder="{{ $language['name'] }} Transmission"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
 
                                 <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="transmission">
-                                                Transmission
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="transmission"
-                                                   id="transmission"
-                                                   value="{{$vehicle->transmission}}"
-                                                   placeholder="Transmission"/>
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_fuel_type"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Fuel
+                                                    Type
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_fuel_type"
+                                                       id="{{ $language['language_code'] }}_fuel_type"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->fuel_type }}"
+                                                       placeholder="{{ $language['name'] }} Fuel Type"
+                                                       required/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="fuel_type">
-                                                Fuel Type
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="fuel_type"
-                                                   id="fuel_type"
-                                                   value="{{$vehicle->fuel_type}}"
-                                                   placeholder="Fuel Type"/>
+                                    @endforeach
+                                </div>
+
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_body_type"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Body
+                                                    Type
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_body_type"
+                                                       id="{{ $language['language_code'] }}_body_type"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->body_type }}"
+                                                       placeholder="{{ $language['name'] }} Body Type"
+                                                       required/>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_registration"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                    Registration
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_registration"
+                                                       id="{{ $language['language_code'] }}_registration"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->registration }}"
+                                                       placeholder="{{ $language['name'] }} Registration"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_color"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                    Exterior Color
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_color"
+                                                       id="{{ $language['language_code'] }}_color"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->color }}"
+                                                       placeholder="{{ $language['name'] }} Exterior Color"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_car_type"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Car
+                                                    Type
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_car_type"
+                                                       id="{{ $language['language_code'] }}_car_type"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->car_type }}"
+                                                       placeholder="{{ $language['name'] }} Car Type"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <div class="row">
+                                    @foreach($languages as $language)
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_mileage"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                    Mileage
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_mileage"
+                                                       id="{{ $language['language_code'] }}_mileage"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       value="{{ $vehicle->translateOrNew($language['language_code'])->mileage }}"
+                                                       placeholder="{{ $language['name'] }} Mileage"
+                                                       required/>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="body_type">
-                                                Body Type
+                                            <label class="required fs-6 fw-bold mb-2" for="year">
+                                                Year
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
-                                                   name="body_type"
-                                                   id="body_type"
-                                                   value="{{$vehicle->body_type}}"
-                                                   placeholder="Body Type"/>
+                                                   name="year"
+                                                   id="year"
+                                                   value="{{$vehicle->year}}"
+                                                   placeholder="Year"/>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="registration">
-                                                Registration
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="registration"
-                                                   id="registration"
-                                                   value="{{$vehicle->registration}}"
-                                                   placeholder="Registration"/>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="color">
-                                                Exterior Color
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="color"
-                                                   value="{{$vehicle->color}}"
-                                                   id="color"
-                                                   placeholder="Exterior Color"/>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="car_type">
-                                                Car Type
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="car_type"
-                                                   value="{{$vehicle->type}}"
-                                                   id="car_type"
-                                                   placeholder="Car Type"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="mileage">
-                                                Mileage
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid"
-                                                   name="mileage"
-                                                   id="mileage"
-                                                   value="{{$vehicle->mileage}}"
-                                                   placeholder="Mileage"/>
-                                        </div>
-                                    </div>
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="price">
@@ -264,26 +324,10 @@
                                             <input type="date" class="form-control form-control-solid"
                                                    name="auction_start_date"
                                                    id="auction_start_date"
-                                                   value="{{$vehicle->auction_start_date}}"
+                                                   value="{{$vehicle->auction_strat_date}}"
                                                    placeholder="Auction Start Date"/>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_time">
-                                                Auction Start Time
-                                            </label>
-                                            <input type="time" class="form-control form-control-solid"
-                                                   name="auction_start_time"
-                                                   id="auction_start_time"
-                                                   value="{{$vehicle->auction_start_time}}"
-                                                   placeholder="Auction Start Time"/>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="auction_end_date">
@@ -296,55 +340,45 @@
                                                    placeholder="Auction End Date"/>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
-                                                Auction End Time
-                                            </label>
-                                            <input type="time" class="form-control form-control-solid"
-                                                   name="auction_end_time"
-                                                   id="auction_end_time"
-                                                   value="{{$vehicle->auction_end_time}}"
-                                                   placeholder="Auction End Time"/>
-                                        </div>
-                                    </div>
                                 </div>
 
+
+                                {{--                                <div class="row">--}}
+                                {{--                                    <div class="mb-3 col-md-6">--}}
+                                {{--                                        <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+                                {{--                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">--}}
+                                {{--                                                Auction End Time--}}
+                                {{--                                            </label>--}}
+                                {{--                                            <input type="time" class="form-control form-control-solid"--}}
+                                {{--                                                   name="auction_end_time"--}}
+                                {{--                                                   id="auction_end_time"--}}
+                                {{--                                                   placeholder="Auction End Time"/>--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+
                                 <div class="row">
-{{--                                    <div class="mb-3 col-md-6">--}}
-{{--                                        <div class="fv-row mb-7 fv-plugins-icon-container">--}}
-{{--                                            <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">--}}
-{{--                                                Minimum Bid Increment Price--}}
-{{--                                            </label>--}}
-{{--                                            <input type="text" class="form-control form-control-solid integer"--}}
-{{--                                                   name="minimumBidIncrement"--}}
-{{--                                                   id="minimumBidIncrement"--}}
-{{--                                                   value="{{$vehicle->minimum_bid_increment_price}}"--}}
-{{--                                                   placeholder="Minimum Bid Increment Price"/>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                    <div class="mt-5 mb-3 col-md-2">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                <input
-                                                    class="form-check-input h-20px w-20px"
-                                                    value="is_featured" name="is_product"
-                                                    id="is_product"
-                                                    @if($vehicle->is_product=='is_featured') checked @endif
-                                                    type="radio" data-bs-original-title=""
-                                                    title="">
-                                                <label class="form-check-label fw-bold"
-                                                       for="is-quantity-1">Is Featured</label>
-                                        </div>
-                                    </div>
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
                                                 class="form-check-input h-20px w-20px"
-                                                value="is_popular" name="is_product"
+                                                value="1" name="is_product"
                                                 id="is_product"
-                                                @if($vehicle->is_product=='is_popular') checked @endif
                                                 type="radio" data-bs-original-title=""
-                                                title="">
+                                                title="" @if($vehicle->is_product == 'is_featured') checked @endif>
+                                            <label class="form-check-label fw-bold"
+                                                   for="is-quantity-1">Is Featured</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-5 mb-3 col-md-2">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <input
+                                                class="form-check-input h-20px w-20px"
+                                                value="1" name="is_product"
+                                                id="is_product"
+                                                type="radio" data-bs-original-title=""
+                                                title="" @if($vehicle->is_product == 'is_popular') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">Is Popular</label>
                                         </div>
@@ -353,18 +387,14 @@
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
                                                 class="form-check-input h-20px w-20px"
-                                                value="is_hot_deal" name="is_product"
+                                                value="1" name="is_product"
                                                 id="is_product"
-                                                @if($vehicle->is_product=='is_hot_deal') checked @endif
                                                 type="radio" data-bs-original-title=""
-                                                title="">
+                                                title="" @if($vehicle->is_product == 'is_hot_deal') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">Hot Deal</label>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="bid_increment">
@@ -372,8 +402,8 @@
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="bid_increment"
-                                                   value="{{$vehicle->bid_increment}}"
                                                    id="bid_increment"
+                                                   value="{{$vehicle->bid_increment}}"
                                                    placeholder="Bid Increment Price"/>
                                         </div>
                                     </div>
@@ -382,7 +412,8 @@
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                         <label for="{{ $language['language_code'] }}_short_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Short Description
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Short
+                                            Description
                                         </label>
                                         <input type="text" class="form-control form-control-solid"
                                                name="{{ $language['language_code'] }}_short_description"
@@ -406,14 +437,13 @@
                                     </div>
                                 @endforeach
 
-
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2"
                                            for="image">Image
                                     </label><br>
                                     @include('admin.layouts2.components.image-selection',
                                       [
-                                      'id'=>'image',
+                                     'id'=>'image',
                                       'description_string'=>'',
                                       'image' => asset($vehicle->main_image)
                                       ])

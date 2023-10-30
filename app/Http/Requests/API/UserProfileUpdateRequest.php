@@ -25,15 +25,17 @@ class UserProfileUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $user=\Auth::guard('sanctum')->user();
         return [
-            'email'        => 'required|unique:users,email,'. $user->id,
-            'name'     => 'required',
+            'email' => 'required|email:rfc,dns|unique:users,email,' . $this->user()->id,
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contact_no' => 'required|digits_between:1,10',
+            'image' => 'required',
         ];
     }
 
     public function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json(['status' => false,'message' => $validator->errors()->first()], 200));
+        throw new HttpResponseException(response()->json(['status' => false, 'message' => $validator->errors()->first()], 200));
     }
 }

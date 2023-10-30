@@ -81,7 +81,7 @@
                                     <tbody id="search_body">
                                     @foreach($vehicles as $vehicle)
                                         <tr>
-                                            <td>{{$vehicle->vehicle_name}}</td>
+                                            <td>{{$vehicle->name}}</td>
                                             <td>{{$vehicle->make}}</td>
                                             <td>{{$vehicle->model}}</td>
 {{--                                            @if(!is_null($vehicle->minimum_bid_increment_price))--}}

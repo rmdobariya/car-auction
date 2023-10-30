@@ -46,7 +46,7 @@ class VehicleController extends Controller
     public function create()
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        $vehicle_categories = VehicleCategory::where('status','active')->whereNull('deleted_at')->get();
+        $vehicle_categories = VehicleCategory::where('status', 'active')->whereNull('deleted_at')->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         return view('admin.vehicle.create', [
             'vehicle_categories' => $vehicle_categories,
@@ -188,8 +188,7 @@ class VehicleController extends Controller
             ->leftjoin('roles', 'model_has_roles.role_id', 'roles.id')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
-            ->orderBy('id', 'desc')
-            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.name as vehicle_name','vehicle_translations.short_description as t_short_description','vehicle_translations.description as t_description')
+            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.*')
             ->first();
         $vehicle_images = VehicleImage::where('vehicle_id', $id)->get();
         $vehicle_documents = VehicleDocument::where('vehicle_id', $id)->get();
@@ -253,26 +252,13 @@ class VehicleController extends Controller
                 $vehicle->user_id = $request->user_id;
                 $vehicle->vehicle_category_id = $request->vehicle_category_id;
                 $vehicle->year = $request->year;
-                $vehicle->make = $request->make;
-                $vehicle->model = $request->model;
-                $vehicle->trim = $request->trim;
                 $vehicle->kms_driven = $request->kms_driven;
                 $vehicle->owners = $request->owners;
-                $vehicle->transmission = $request->transmission;
-                $vehicle->fuel_type = $request->fuel_type;
-                $vehicle->body_type = $request->body_type;
-                $vehicle->registration = $request->registration;
-                $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-                $vehicle->color = $request->color;
-                $vehicle->type = $request->car_type;
-//                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->is_product = $request['is_product'];
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
-                $vehicle->auction_start_time = $request->auction_start_time;
-                $vehicle->auction_end_time = $request->auction_end_time;
                 if ($request->hasfile('image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -283,6 +269,16 @@ class VehicleController extends Controller
                     VehicleTranslation::create([
                         'name' => $request->input($language['language_code'] . '_name'),
                         'short_description' => $request->input($language['language_code'] . '_short_description'),
+                        'make' => $request->input($language['language_code'] . '_make'),
+                        'model' => $request->input($language['language_code'] . '_model'),
+                        'trim' => $request->input($language['language_code'] . '_trim'),
+                        'transmission' => $request->input($language['language_code'] . '_transmission'),
+                        'fuel_type' => $request->input($language['language_code'] . '_fuel_type'),
+                        'body_type' => $request->input($language['language_code'] . '_body_type'),
+                        'registration' => $request->input($language['language_code'] . '_registration'),
+                        'color' => $request->input($language['language_code'] . '_color'),
+                        'car_type' => $request->input($language['language_code'] . '_car_type'),
+                        'mileage' => $request->input($language['language_code'] . '_mileage'),
                         'description' => $request->input($language['language_code'] . '_description'),
                         'vehicle_id' => $vehicle->id,
                         'locale' => $language['language_code'],
@@ -307,26 +303,13 @@ class VehicleController extends Controller
                 $vehicle->user_id = $request->user_id;
                 $vehicle->vehicle_category_id = $request->vehicle_category_id;
                 $vehicle->year = $request->year;
-                $vehicle->make = $request->make;
-                $vehicle->model = $request->model;
-                $vehicle->trim = $request->trim;
                 $vehicle->kms_driven = $request->kms_driven;
                 $vehicle->owners = $request->owners;
-                $vehicle->transmission = $request->transmission;
-                $vehicle->fuel_type = $request->fuel_type;
-                $vehicle->body_type = $request->body_type;
-                $vehicle->registration = $request->registration;
-                $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-                $vehicle->color = $request->color;
-                $vehicle->type = $request->car_type;
-//                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->is_product = $request['is_product'];
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
-                $vehicle->auction_start_time = $request->auction_start_time;
-                $vehicle->auction_end_time = $request->auction_end_time;
                 if ($request->hasfile('image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -343,8 +326,18 @@ class VehicleController extends Controller
                             'vehicle_id' => $validated['edit_value'],
                             'locale' => $language['language_code'],
                             'name' => $request->input($language['language_code'] . '_name'),
-                            'description' => $request->input($language['language_code'] . '_description'),
                             'short_description' => $request->input($language['language_code'] . '_short_description'),
+                            'make' => $request->input($language['language_code'] . '_make'),
+                            'model' => $request->input($language['language_code'] . '_model'),
+                            'trim' => $request->input($language['language_code'] . '_trim'),
+                            'transmission' => $request->input($language['language_code'] . '_transmission'),
+                            'fuel_type' => $request->input($language['language_code'] . '_fuel_type'),
+                            'body_type' => $request->input($language['language_code'] . '_body_type'),
+                            'registration' => $request->input($language['language_code'] . '_registration'),
+                            'color' => $request->input($language['language_code'] . '_color'),
+                            'car_type' => $request->input($language['language_code'] . '_car_type'),
+                            'mileage' => $request->input($language['language_code'] . '_mileage'),
+                            'description' => $request->input($language['language_code'] . '_description'),
                         ]);
                 }
                 $m_images = TempImage::where('temp_time', $request->temp_time)->get();

@@ -50,7 +50,8 @@ class PageController extends Controller
                 ->where('vehicles.is_vehicle_type', 'car_for_auction')
                 ->whereNull('vehicles.deleted_at')
                 ->orderBy('vehicles.id', 'desc')
-                ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+                ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
                 ->get();
             return view('website.auction.auction', [
                 'vehicles' => $vehicles
@@ -73,7 +74,8 @@ class PageController extends Controller
                 ->where('wish_lists.user_id', $user->id)
                 ->where('vehicles.is_vehicle_type', 'car_for_auction')
                 ->orderBy('vehicles.id', 'desc')
-                ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+                ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',  'vehicle_categories.name as category_name')
                 ->get();
 
             return view('website.user.wish_list', [
