@@ -71,27 +71,14 @@ class VehicleController extends Controller
                 $vehicle->user_id = Auth::user()->id;
                 $vehicle->vehicle_category_id = $request->vehicle_category_id;
                 $vehicle->year = $request->year;
-                $vehicle->make = $request->make;
-                $vehicle->model = $request->model;
-                $vehicle->trim = $request->trim;
                 $vehicle->kms_driven = $request->kms_driven;
                 $vehicle->owners = $request->owners;
-                $vehicle->transmission = $request->transmission;
-                $vehicle->fuel_type = $request->fuel_type;
-                $vehicle->body_type = $request->body_type;
-                $vehicle->registration = $request->registration;
-                $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-                $vehicle->color = $request->color;
-                $vehicle->type = $request->car_type;
-                $vehicle->ratting = $request->ratingvalue;
-//                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
                 $vehicle->bid_increment = $request->bid_increment;
-                $vehicle->is_vehicle_type = $request['is_vehicle_type'];
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
-                $vehicle->auction_start_time = $request->auction_start_time;
-                $vehicle->auction_end_time = $request->auction_end_time;
+                $vehicle->ratting = $request->ratingvalue;
+                $vehicle->is_vehicle_type = $request['is_vehicle_type'];
                 if ($request->hasfile('main_image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -102,6 +89,16 @@ class VehicleController extends Controller
                     VehicleTranslation::create([
                         'name' => $request->input($language['language_code'] . '_name'),
                         'short_description' => $request->input($language['language_code'] . '_short_description'),
+                        'make' => $request->input($language['language_code'] . '_make'),
+                        'model' => $request->input($language['language_code'] . '_model'),
+                        'trim' => $request->input($language['language_code'] . '_trim'),
+                        'transmission' => $request->input($language['language_code'] . '_transmission'),
+                        'fuel_type' => $request->input($language['language_code'] . '_fuel_type'),
+                        'body_type' => $request->input($language['language_code'] . '_body_type'),
+                        'registration' => $request->input($language['language_code'] . '_registration'),
+                        'color' => $request->input($language['language_code'] . '_color'),
+                        'car_type' => $request->input($language['language_code'] . '_car_type'),
+                        'mileage' => $request->input($language['language_code'] . '_mileage'),
                         'description' => $request->input($language['language_code'] . '_description'),
                         'vehicle_id' => $vehicle->id,
                         'locale' => $language['language_code'],
@@ -132,27 +129,14 @@ class VehicleController extends Controller
                 $vehicle->user_id = Auth::user()->id;
                 $vehicle->vehicle_category_id = $request->vehicle_category_id;
                 $vehicle->year = $request->year;
-                $vehicle->make = $request->make;
-                $vehicle->model = $request->model;
-                $vehicle->trim = $request->trim;
                 $vehicle->kms_driven = $request->kms_driven;
                 $vehicle->owners = $request->owners;
-                $vehicle->transmission = $request->transmission;
-                $vehicle->fuel_type = $request->fuel_type;
-                $vehicle->body_type = $request->body_type;
-                $vehicle->registration = $request->registration;
-                $vehicle->mileage = $request->mileage;
                 $vehicle->price = $request->price;
-                $vehicle->color = $request->color;
-                $vehicle->type = $request->car_type;
-                $vehicle->ratting = $request->ratingvalue;
-//                $vehicle->minimum_bid_increment_price = $request->minimumBidIncrement;
-                $vehicle->bid_increment = $request->bid_increment;
-                $vehicle->is_vehicle_type = $request['is_vehicle_type'];
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
-                $vehicle->auction_start_time = $request->auction_start_time;
-                $vehicle->auction_end_time = $request->auction_end_time;
+                $vehicle->bid_increment = $request->bid_increment;
+                $vehicle->ratting = $request->ratingvalue;
+                $vehicle->is_vehicle_type = $request['is_vehicle_type'];
                 if ($request->hasfile('main_image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -169,8 +153,18 @@ class VehicleController extends Controller
                             'vehicle_id' => $validated['edit_value'],
                             'locale' => $language['language_code'],
                             'name' => $request->input($language['language_code'] . '_name'),
-                            'description' => $request->input($language['language_code'] . '_description'),
                             'short_description' => $request->input($language['language_code'] . '_short_description'),
+                            'make' => $request->input($language['language_code'] . '_make'),
+                            'model' => $request->input($language['language_code'] . '_model'),
+                            'trim' => $request->input($language['language_code'] . '_trim'),
+                            'transmission' => $request->input($language['language_code'] . '_transmission'),
+                            'fuel_type' => $request->input($language['language_code'] . '_fuel_type'),
+                            'body_type' => $request->input($language['language_code'] . '_body_type'),
+                            'registration' => $request->input($language['language_code'] . '_registration'),
+                            'color' => $request->input($language['language_code'] . '_color'),
+                            'car_type' => $request->input($language['language_code'] . '_car_type'),
+                            'mileage' => $request->input($language['language_code'] . '_mileage'),
+                            'description' => $request->input($language['language_code'] . '_description'),
                         ]);
                 }
                 $m_images = TempImage::where('temp_time', $request->temp_time)->get();

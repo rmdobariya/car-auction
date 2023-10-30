@@ -37,7 +37,10 @@ class ProfileController extends Controller
     {
 
         $user = User::where('id', $request->user()->id)->first();
-        $user->name = $request['name'];
+        $user->name = $request['first_name'];
+        $user->last_name = $request['last_name'];
+        $user->contact_no = $request['contact_no'];
+        $user->full_name = $request['first_name'] . ' ' . $request['last_name'];
         $user->email = $request['email'];
         $user->save();
 

@@ -29,7 +29,8 @@ class ProfileController extends Controller
                 ->where('vehicle_bids.user_id', $user_id)
                 ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
 //                ->where('vehicle_bids.is_winner', 0)
-                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
+                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',  'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->limit(3)
                 ->get();
             $winner_bids = DB::table('vehicle_bids')
@@ -41,7 +42,8 @@ class ProfileController extends Controller
                 ->where('vehicle_bids.user_id', $user_id)
                 ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
                 ->where('vehicle_bids.is_winner', 1)
-                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
+                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicle_categories.name as category_name')
                 ->limit(3)
                 ->get();
             $my_bid_count = DB::table('vehicle_bids')

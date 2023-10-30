@@ -135,7 +135,7 @@
     <div class="car-opt">
         <div class="carnm">
             <h2>{{$vehicle->category_name}}</h2>
-            <p>{{$vehicle->vehicle_name}}</p>
+            <p>{{$vehicle->name}}</p>
         </div>
         <div class="ini-price">
             <p>{{trans('web_string.common_price')}}</p>

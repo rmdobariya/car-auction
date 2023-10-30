@@ -28,7 +28,7 @@
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Name</th>
-                                    <td>{{ $vehicle->vehicle_name }}</td>
+                                    <td>{{ $vehicle->name }}</td>
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Vehicle Category</th>
@@ -92,17 +92,17 @@
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Vehicle Type</th>
-                                    <td>{{ $vehicle->type }}</td>
+                                    <td>{{ $vehicle->car_type }}</td>
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Short Description</th>
 
-                                    <td>{{ $vehicle->t_short_description }}</td>
+                                    <td>{{ $vehicle->short_description }}</td>
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Description</th>
 
-                                    <td>{{ $vehicle->t_description }}</td>
+                                    <td>{{ $vehicle->description }}</td>
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">Status</th>

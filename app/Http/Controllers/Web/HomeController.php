@@ -32,7 +32,8 @@ class HomeController extends Controller
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->where('vehicle_translations.locale', App::getLocale())
             ->orderBy('vehicles.id', 'desc')
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->select('vehicles.*',  'vehicle_translations.name',
+                'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
             ->limit(3)
             ->get();
         $popular_vehicles = DB::table('vehicles')
@@ -44,7 +45,8 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->select('vehicles.*',  'vehicle_translations.name',
+                'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
             ->limit(3)
             ->get();
         $hot_deal_vehicles = DB::table('vehicles')
@@ -56,7 +58,8 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->select('vehicles.*',  'vehicle_translations.name',
+                'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
             ->limit(3)
             ->get();
         $sell_vehicles = DB::table('vehicles')
@@ -68,7 +71,8 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_sell')
             ->orderBy('vehicles.id', 'desc')
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
+            ->select('vehicles.*',  'vehicle_translations.name',
+                'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
             ->limit(3)
             ->get();
         $testimonials = DB::table('testimonials')
@@ -208,7 +212,8 @@ class HomeController extends Controller
             ->whereNull('vehicles.deleted_at')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_translations.short_description', 'vehicle_translations.description', 'vehicle_categories.name as category_name')
+            ->select('vehicles.*', 'vehicle_translations.name',
+                'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage','vehicle_categories.name as category_name')
             ->first();
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $id)->count();
         $vehicle_images = DB::table('vehicle_images')->where('vehicle_id', $id)->get();
@@ -221,7 +226,7 @@ class HomeController extends Controller
 
         return response()->json([
             'data' => $view,
-            'modal_title' => $vehicle->vehicle_name,
+            'modal_title' => $vehicle->name,
         ]);
     }
 
