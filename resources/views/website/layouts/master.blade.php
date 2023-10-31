@@ -7,7 +7,7 @@
     <title>{{trans('web_string.zodha')}} - @yield('title')</title>
     @include('website.layouts.css')
 </head>
-<body>
+<body class="@if(App::getLocale() == 'en') rtl @endif">
 @include('website.layouts.nav')
 @yield('content')
 @include('website.layouts.footer')
