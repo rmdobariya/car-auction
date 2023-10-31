@@ -201,4 +201,6 @@
   'password_change_successfully' => 'Password Change Successfully',
   'you_have_not_placed_any_bid_yet' => 'You have not placed any bid yet',
   'you_have_not_won_any_auction' => 'You have not won any auction',
+  'corporate_user' => 'Corporate User',
+  'corporate_seller' => 'Corporate Seller',
 );

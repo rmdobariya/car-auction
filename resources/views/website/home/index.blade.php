@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="car-name">
                                     <div class="names">
-                                        <h3>{{$sell_vehicle->name}}</h3>
+                                        <h3>{{$sell_vehicle->vehicle_name}}</h3>
                                         <p>{{$sell_vehicle->category_name}}</p>
                                         <div class="feedback" style="visibility: hidden">
                                             <i class="las la-comments"></i>
@@ -167,7 +167,7 @@
                                 </div>
                                 <div class="car-name">
                                     <div class="names">
-                                        <h3>{{$featured_vehicle->name}}</h3>
+                                        <h3>{{$featured_vehicle->vehicle_name}}</h3>
                                         <p>{{$featured_vehicle->category_name}}</p>
                                         <div class="feedback" style="visibility: hidden">
                                             <i class="las la-comments"></i>
@@ -320,7 +320,7 @@
                                 </div>
                                 <div class="car-name">
                                     <div class="names">
-                                        <h3>{{$popular_vehicle->name}}</h3>
+                                        <h3>{{$popular_vehicle->vehicle_name}}</h3>
                                         <p>{{$popular_vehicle->category_name}}</p>
                                         <div class="feedback" style="visibility: hidden">
                                             <i class="las la-comments"></i>
@@ -472,7 +472,7 @@
                                 </div>
                                 <div class="car-name">
                                     <div class="names">
-                                        <h3>{{$hot_deal_vehicle->name}}</h3>
+                                        <h3>{{$hot_deal_vehicle->vehicle_name}}</h3>
                                         <p>{{$hot_deal_vehicle->category_name}}</p>
                                         <div class="feedback" style="visibility: hidden">
                                             <i class="las la-comments"></i>
