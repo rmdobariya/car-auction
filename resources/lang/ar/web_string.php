@@ -201,4 +201,6 @@
   'password_change_successfully' => 'تم تغيير كلمة المرور بنجاح',
   'you_have_not_placed_any_bid_yet' => 'لم تقدم أي عرض بعد',
   'you_have_not_won_any_auction' => 'لم تفز بأي مزاد',
+  'corporate_user' => 'مستخدم الشركات',
+  'corporate_seller' => 'بائع الشركات',
 );

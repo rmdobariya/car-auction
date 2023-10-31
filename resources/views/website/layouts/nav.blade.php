@@ -14,10 +14,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="tel:{{$contact_no}}"><span>{{trans('web_string.toll_free')}}:</span> {{$contact_no}}</a>
+                    <a class="nav-link"
+                       href="tel:{{$contact_no}}"><span>{{trans('web_string.toll_free')}}:</span> {{$contact_no}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mailto:{{$email}}"><span>{{trans('web_string.email')}}:</span> {{$email}}</a>
+                    <a class="nav-link" href="mailto:{{$email}}"><span>{{trans('web_string.email')}}:</span> {{$email}}
+                    </a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -33,10 +35,12 @@
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('page',['how-it-work'])}}#contact_us">{{trans('web_string.how_it_works')}}?</a>
+                    <a class="nav-link"
+                       href="{{route('page',['how-it-work'])}}#contact_us">{{trans('web_string.how_it_works')}}?</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('page',['about-us'])}}#contact_us">{{trans('web_string.about_us')}}</a>
+                    <a class="nav-link"
+                       href="{{route('page',['about-us'])}}#contact_us">{{trans('web_string.about_us')}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('contact-us')}}#contact_us">{{trans('web_string.contact_us')}}</a>
@@ -52,8 +56,27 @@
 
                     </li>
                 @endif
+                @if(!is_null(Auth::user()))
+                    @if(Auth::user()->user_type == 'seller' && Auth::user()->seller_type == 'user')
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{{route('corporate-user')}}">{{trans('web_string.corporate_user')}}
+                            </a>
+
+                        </li>
+                    @endif
+                    @if(Auth::user()->seller_type == 'corporate_user')
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary"
+                               href="{{'seller/'.Auth::user()->id}}">{{trans('web_string.corporate_seller')}}
+                            </a>
+
+                        </li>
+                    @endif
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question" title="Ask A Question">
+                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question"
+                       title="Ask A Question">
                         <i class="fas fa-question-circle"></i>
                     </a>
                 </li>
@@ -129,7 +152,8 @@
                     </div>
                     <div class="search-box">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{trans('web_string.search_by_make')}}">
+                            <input type="text" class="form-control"
+                                   placeholder="{{trans('web_string.search_by_make')}}">
                             <span class="input-group-text" id="basic-addon2"><i class="las la-search"></i></span>
                         </div>
                     </div>
@@ -141,7 +165,8 @@
                     </div>
                     @if(is_null(Auth::user()))
                         <div class="login-btn">
-                            <button class="btn btn-login" data-bs-toggle="modal" data-bs-target="#login">{{trans('web_string.login')}}
+                            <button class="btn btn-login" data-bs-toggle="modal"
+                                    data-bs-target="#login">{{trans('web_string.login')}}
                             </button>
                         </div>
                         <div class="reg-btn">
