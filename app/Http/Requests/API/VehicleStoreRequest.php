@@ -39,7 +39,7 @@ class VehicleStoreRequest extends FormRequest
             'registration_*' => 'required',
             'mileage_*' => 'required',
             'price' => 'required|integer',
-            'bid_increment' => 'required_if:is_vehicle_type,=,car_for_auction|integer',
+            'bid_increment' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_start_date' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_end_date' => 'required_if:is_vehicle_type,=,car_for_auction',
             'main_image' => 'required_if:edit_value,=,0',

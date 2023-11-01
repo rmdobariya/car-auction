@@ -30,7 +30,7 @@ class UserProfileUpdateRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'contact_no' => 'required|digits_between:1,10',
-            'image' => 'required',
+//            'image' => 'required',
         ];
     }
 

@@ -9,6 +9,7 @@ class VehicleDocumentResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'document' => ENV('APP_URL') .$this->document,
         ];
     }

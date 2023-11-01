@@ -30,6 +30,13 @@ class ImageUploadHelper
         }
         return true;
     }
+    public static function deleteDocument( $files ): bool
+    {
+        if(file_exists(public_path() . "/" . $files)){
+            @unlink(public_path() . "/" . $files);
+        }
+        return true;
+    }
 
     public static function UploadMultipleImage($images, $id)
     {

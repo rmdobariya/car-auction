@@ -583,7 +583,7 @@ a.like i.las.la-heart {
 }
 a.like i.lar.la-heart {
     font-size: 24px;
-    color: #fff;
+    color: #000;
 }
 .car-name .names h3 {
     font-style: normal;
@@ -2642,8 +2642,51 @@ section#vehicles .heading.auction-detailss form h1 {
     color: #fff;
     padding: 10px 40px;
 }
+body.rtl .form-check .form-check-input {
+    margin-left: 0.5em;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    body.rtl .details-box {
+        display: inline-block;
+    }
+    body.rtl .bid-details-box .car-img {
+        float: right;
+    }
+    body.rtl .time-temain>span {
+        left: unset;
+        right: 0;
+    }
+    body.rtl .time-temain {
+        width: calc(100% - 0px);
+        margin-left: 0px;
+    }
+    body.rtl div.my-auction-counter {
+        padding-left: 0px;
+        padding-right: 32px;
+    }
+    body.rtl div.my-auction-counter span {
+        padding: 8px 18px!important;
+    }
+    body.rtl span.cat-tags {
+        left: unset;
+        right: 10px;
+        padding: 2px 2px 2px 12px;
+    }
+    body.rtl a.like {
+        right: unset;
+        left: 10px;
+    }
+    body.rtl .testimonial_box-text .date {
+        text-align: right;
+    }
+    body.rtl .user-login-info .user-profile img {
+        border-radius: 6px 0px 0px 6px;
+    }
+    body.rtl .price-range-slider .range-value input{
+        width: 210px;
+        text-align: left;
+    }
     body.rtl section#hero .col-lg-2.col-md-3.offset-md-3.offset-lg-6 {
         margin-right: 0!important;
     }
@@ -2931,7 +2974,7 @@ section#vehicles .heading.auction-detailss form h1 {
         height: 50px;
         width: 50px;
         font-size: 30px;
-        line-height: 50px;
+        line-height: 58px;
         margin-top: 4px;
     }
     .car-rating {

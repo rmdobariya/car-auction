@@ -487,6 +487,11 @@ class HomeController extends Controller
         $notification->user_id = $user->id;
         $notification->vehicle_id = $request->vehicle_id;
         $notification->type = 'car_inquiry';
+        $notification->first_name = $request->first_name;
+        $notification->last_name = $request->last_name;
+        $notification->email = $request->email;
+        $notification->mobile_no = $request->mobile_no;
+        $notification->question = $request->message;
         $notification->message = 'You have received new Inquiry for your car' . ' ' . $vehicle->vehicle_name . '<br><br>' . 'Name : ' . $request->first_name . ' ' . $request->last_name . '<br>' . 'Email : ' . $request->email . '<br>' . 'Mobile : ' . $request->mobile_no . '<br>' . 'Message : ' . $request->message;
         $notification->save();
         $array = [

@@ -9,6 +9,7 @@ use App\Http\Requests\API\VehicleChangeStatusStoreRequest;
 use App\Http\Requests\API\VehicleStoreRequest;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
+use App\Models\VehicleDocument;
 use App\Models\VehicleImage;
 use App\Models\VehicleTranslation;
 use Illuminate\Http\JsonResponse;
@@ -21,19 +22,19 @@ class VehicleController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $user = $request->user();
         $vehicle = DB::table('vehicles')
             ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-            ->where('vehicles.user_id', $user->id)
+//            ->where('vehicles.user_id', $user->id)
             ->where('vehicle_translations.locale', App::getLocale())
-            ->whereNull('vehicles.deleted_at');
+            ->whereNull('vehicles.deleted_at')
+            ->orderBy('vehicles.id', 'desc');
         if (!is_null($request->name)) {
             $vehicle = $vehicle->where('vehicle_translations.name', 'like', '%' . $request->name . '%');
         }
         if (!is_null($request->status)) {
             $vehicle = $vehicle->where('vehicles.status', 'like', '%' . $request->status . '%');
-        }else{
+        } else {
             $vehicle = $vehicle->where('vehicles.status', 'approve');
         }
         if (!is_null($request->is_product)) {
@@ -46,7 +47,26 @@ class VehicleController extends Controller
             $vehicle = $vehicle->where('vehicles.vehicle_category_id', 'like', '%' . $request->vehicle_category_id . '%');
         }
         $vehicle = $vehicle->select('vehicles.*', 'vehicle_categories.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-            'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
+            'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
+            ->get();
+        $result = VehicleResource::collection($vehicle);
+        return response()->json([
+            'status' => true,
+            'data' => ['vehicle' => $result],
+        ]);
+    }
+
+    public function pendingVehicle(Request $request): JsonResponse
+    {
+        $vehicle = DB::table('vehicles')
+            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicles.status', 'pending')
+            ->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_categories.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
         $result = VehicleResource::collection($vehicle);
         return response()->json([
@@ -70,7 +90,7 @@ class VehicleController extends Controller
             $vehicle->bid_increment = $request->bid_increment;
             $vehicle->auction_start_date = $request->auction_start_date;
             $vehicle->auction_end_date = $request->auction_end_date;
-            $vehicle->ratting = $request->ratingvalue;
+            $vehicle->ratting = $request->ratting;
             $vehicle->is_vehicle_type = $request['is_vehicle_type'];
             if ($request->hasfile('main_image')) {
                 $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
@@ -113,6 +133,25 @@ class VehicleController extends Controller
                     $vehicle_image->image = $image;
                     $vehicle_image->save();
                 }
+
+            }
+            if ($request->hasfile('document')) {
+                foreach ($request->file('document') as $document) {
+                    $image_path = 'vehicle-document';
+                    if (!File::exists(public_path() . "/" . $image_path)) {
+                        File::makeDirectory(public_path() . "/" . $image_path, 0777, true);
+                    }
+                    $image_name = $document->getClientOriginalName();
+                    $destination_path = public_path() . '/' . $image_path;
+                    $file_name = uniqid() . '-' . $image_name;
+                    $document->move($destination_path, $file_name);
+                    $image = $image_path . '/' . $file_name;
+                    $vehicle_document = new VehicleDocument();
+                    $vehicle_document->vehicle_id = $vehicle->id;
+                    $vehicle_document->document = $image;
+                    $vehicle_document->save();
+                }
+
             }
             return response()->json([
                 'status' => true,
@@ -132,7 +171,7 @@ class VehicleController extends Controller
         $vehicle->auction_start_date = $request->auction_start_date;
         $vehicle->auction_end_date = $request->auction_end_date;
         $vehicle->bid_increment = $request->bid_increment;
-        $vehicle->ratting = $request->ratingvalue;
+        $vehicle->ratting = $request->ratting;
         $vehicle->is_vehicle_type = $request['is_vehicle_type'];
         $vehicle->save();
 
@@ -183,6 +222,27 @@ class VehicleController extends Controller
                 $vehicle_image->image = $image;
                 $vehicle_image->save();
             }
+            if ($request->hasfile('document')) {
+                $images = DB::table('vehicle_documents')->where('vehicle_id', $vehicle->id)->get();
+                foreach ($images as $image) {
+                    ImageUploadHelper::deleteDocument($image->document);
+                }
+                foreach ($request->file('document') as $document) {
+                    $image_path = 'vehicle-document';
+                    if (!File::exists(public_path() . "/" . $image_path)) {
+                        File::makeDirectory(public_path() . "/" . $image_path, 0777, true);
+                    }
+                    $image_name = $document->getClientOriginalName();
+                    $destination_path = public_path() . '/' . $image_path;
+                    $file_name = uniqid() . '-' . $image_name;
+                    $document->move($destination_path, $file_name);
+                    $image = $image_path . '/' . $file_name;
+                    $vehicle_document = new VehicleDocument();
+                    $vehicle_document->vehicle_id = $vehicle->id;
+                    $vehicle_document->document = $image;
+                    $vehicle_document->save();
+                }
+            }
         }
 
         return response()->json([
@@ -219,10 +279,10 @@ class VehicleController extends Controller
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
-            ->where('vehicles.user_id', $user->id)
+//            ->where('vehicles.user_id', $user->id)
             ->whereNull('vehicles.deleted_at')
             ->select('vehicles.*', 'vehicle_categories.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-                'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
         $result = VehicleResource::collection($vehicle);
         return response()->json([
@@ -231,4 +291,24 @@ class VehicleController extends Controller
         ]);
     }
 
+    public function removeDocument($id)
+    {
+        $vehicle_document = DB::table('vehicle_documents')->where('id', $id)->first();
+        ImageUploadHelper::deleteDocument($vehicle_document->document);
+        DB::table('vehicle_documents')->where('id', $id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Vehicle Document Delete Successfully',
+        ]);
+    }
+    public function removeImage($id)
+    {
+        $vehicle_image = DB::table('vehicle_images')->where('id', $id)->first();
+        ImageUploadHelper::deleteImage($vehicle_image->image);
+        DB::table('vehicle_images')->where('id', $id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Vehicle Image Delete Successfully',
+        ]);
+    }
 }
