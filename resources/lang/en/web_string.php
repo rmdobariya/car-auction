@@ -203,4 +203,6 @@
   'you_have_not_won_any_auction' => 'You have not won any auction',
   'corporate_user' => 'Corporate User',
   'corporate_seller' => 'Corporate Seller',
+  'you_are_a_corporate_seller' => 'You are a corporate seller.view your',
+  'collection' => 'collection',
 );

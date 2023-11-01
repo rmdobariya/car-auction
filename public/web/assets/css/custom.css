@@ -123,5 +123,10 @@ div.my-auction-counter span strong {
 #author a{
     color: #fff;
     text-decoration: none;
-
 }
+.corporate_seller_text{
+    border: 1px;
+    background: #d8f9fb;
+    padding: 12px;
+}
+

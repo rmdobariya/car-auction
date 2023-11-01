@@ -25,6 +25,7 @@ class CustomerController extends Controller
         $this->middleware('permission:customer-update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
     }
+
     public function index()
     {
 
@@ -34,7 +35,7 @@ class CustomerController extends Controller
     public function create()
     {
         $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
-        return view('admin.customer.create',[
+        return view('admin.customer.create', [
             'roles' => $roles
         ]);
     }
@@ -46,6 +47,7 @@ class CustomerController extends Controller
             $user = new User();
             $user->is_sub_admin = 1;
             $user->name = $request->first_name;
+            $user->is_corporate_seller = isset($request->is_corporate_seller) ? 1 : 0;
             $user->last_name = $request->last_name;
             $user->contact_no = $request->contact_no;
             $user->full_name = $request->first_name . ' ' . $request->last_name;
@@ -61,6 +63,7 @@ class CustomerController extends Controller
             $user = User::find($validated['edit_value']);
             $user->is_sub_admin = 1;
             $user->name = $request->first_name;
+            $user->is_corporate_seller = isset($request->is_corporate_seller) ? 1 : 0;
             $user->last_name = $request->last_name;
             $user->contact_no = $request->contact_no;
             $user->full_name = $request->first_name . ' ' . $request->last_name;
@@ -80,7 +83,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $user = User::
-            where('users.id', $id)
+        where('users.id', $id)
             ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
             ->select('users.*', 'model_has_roles.role_id')
             ->first();

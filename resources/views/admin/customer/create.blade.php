@@ -92,6 +92,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row d-none"
+                                     id="corporate_seller_part">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="is_corporate_seller">
+                                                Corporate Seller
+                                            </label>
+                                            <input type="checkbox" class="form-check"
+                                                   name="is_corporate_seller"
+                                                   value="0"
+                                                   id="is_corporate_seller"/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">
@@ -116,6 +130,17 @@
         var form_url = '/customer'
         var redirect_url = '/customer'
     </script>
-
+    <script>
+        $('#role_id').on('change', function () {
+            var val = $(this).val();
+            if (val == 11) {
+                $('#corporate_seller_part').removeClass('d-none')
+                $('#is_corporate_seller').val(1)
+            } else {
+                $('#corporate_seller_part').addClass('d-none')
+                $('#is_corporate_seller').val(0)
+            }
+        })
+    </script>
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
 @endsection

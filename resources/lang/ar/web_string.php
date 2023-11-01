@@ -203,4 +203,6 @@
   'you_have_not_won_any_auction' => 'لم تفز بأي مزاد',
   'corporate_user' => 'مستخدم الشركات',
   'corporate_seller' => 'بائع الشركات',
+  'you_are_a_corporate_seller' => 'أنت بائع شركة.عرض الخاص بك',
+  'collection' => 'مجموعة',
 );

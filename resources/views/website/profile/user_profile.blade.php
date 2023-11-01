@@ -53,48 +53,52 @@
                         </div>
                     </form>
                 </div>
-                {{--                <div class="col-md-6">--}}
-                {{--                    <div class="notification-setting">--}}
-                {{--                        <div class="head">--}}
-                {{--                            <h3>Notification Settings</h3>--}}
-                {{--                            <a href="#" class="place-bid-blue">Update</a>--}}
-                {{--                        </div>--}}
-                {{--                        <div class="noti-list">--}}
-                {{--                            <div class="list-box">--}}
-                {{--                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
-                {{--                                <div class="form-check form-switch chked">--}}
-                {{--                                    <label class="form-check-label" for="onoff1">On</label>--}}
-                {{--                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff1" checked>--}}
-                {{--                                    <label class="form-check-label" for="onoff1">Off</label>--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                            <div class="list-box">--}}
-                {{--                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
-                {{--                                <div class="form-check form-switch">--}}
-                {{--                                    <label class="form-check-label" for="onoff2">On</label>--}}
-                {{--                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff2">--}}
-                {{--                                    <label class="form-check-label" for="onoff2">Off</label>--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                            <div class="list-box">--}}
-                {{--                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
-                {{--                                <div class="form-check form-switch chked">--}}
-                {{--                                    <label class="form-check-label" for="onoff3">On</label>--}}
-                {{--                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff3" checked>--}}
-                {{--                                    <label class="form-check-label" for="onoff3">Off</label>--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                            <div class="list-box">--}}
-                {{--                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
-                {{--                                <div class="form-check form-switch chked">--}}
-                {{--                                    <label class="form-check-label" for="onoff4">On</label>--}}
-                {{--                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff4" checked>--}}
-                {{--                                    <label class="form-check-label" for="onoff4">Off</label>--}}
-                {{--                                </div>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
+                <div class="col-md-6">
+                    <div class="notification-setting">
+                        @if($user->is_corporate_seller == 1)
+                            <p class="corporate_seller_text">{{trans('web_string.you_are_a_corporate_seller')}} <a
+                                    href="{{route('seller',$user->id)}}"><u>{{trans('web_string.collection')}}</u></a></p>
+                        @endif
+                        {{--                                        <div class="head">--}}
+                        {{--                                            <h3>Notification Settings</h3>--}}
+                        {{--                                            <a href="#" class="place-bid-blue">Update</a>--}}
+                        {{--                                        </div>--}}
+                        {{--                                        <div class="noti-list">--}}
+                        {{--                                            <div class="list-box">--}}
+                        {{--                                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
+                        {{--                                                <div class="form-check form-switch chked">--}}
+                        {{--                                                    <label class="form-check-label" for="onoff1">On</label>--}}
+                        {{--                                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff1" checked>--}}
+                        {{--                                                    <label class="form-check-label" for="onoff1">Off</label>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
+                        {{--                                            <div class="list-box">--}}
+                        {{--                                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
+                        {{--                                                <div class="form-check form-switch">--}}
+                        {{--                                                    <label class="form-check-label" for="onoff2">On</label>--}}
+                        {{--                                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff2">--}}
+                        {{--                                                    <label class="form-check-label" for="onoff2">Off</label>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
+                        {{--                                            <div class="list-box">--}}
+                        {{--                                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
+                        {{--                                                <div class="form-check form-switch chked">--}}
+                        {{--                                                    <label class="form-check-label" for="onoff3">On</label>--}}
+                        {{--                                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff3" checked>--}}
+                        {{--                                                    <label class="form-check-label" for="onoff3">Off</label>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
+                        {{--                                            <div class="list-box">--}}
+                        {{--                                                <p>There are many variations of passages of Lorem Ipsum available</p>--}}
+                        {{--                                                <div class="form-check form-switch chked">--}}
+                        {{--                                                    <label class="form-check-label" for="onoff4">On</label>--}}
+                        {{--                                                    <input class="form-check-input" type="checkbox" role="switch" id="onoff4" checked>--}}
+                        {{--                                                    <label class="form-check-label" for="onoff4">Off</label>--}}
+                        {{--                                                </div>--}}
+                        {{--                                            </div>--}}
+                        {{--                                        </div>--}}
+                    </div>
+                </div>
             </div>
             <div class="clearfix"></div>
             <div class="row">
