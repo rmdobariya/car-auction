@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row @if($user->is_corporate_seller == 0) d-none @endif"
+                                <div class="row @if($user->user_type != 'seller') d-none @endif"
                                      id="corporate_seller_part">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
