@@ -56,24 +56,7 @@
 
                     </li>
                 @endif
-                @if(!is_null(Auth::user()))
-                    @if(Auth::user()->user_type == 'seller' && Auth::user()->seller_type == 'user')
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="{{route('corporate-user')}}">{{trans('web_string.corporate_user')}}
-                            </a>
 
-                        </li>
-                    @endif
-                    @if(Auth::user()->seller_type == 'corporate_user')
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary"
-                               href="{{'seller/'.Auth::user()->id}}">{{trans('web_string.corporate_seller')}}
-                            </a>
-
-                        </li>
-                    @endif
-                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question"
                        title="Ask A Question">
@@ -198,185 +181,554 @@
                     <div class="reg-btn">
                         <button class="btn btn-register" data-bs-toggle="modal" data-bs-target="#signup">Registration</button>
                     </div> -->
-                    <form id="filterForm">
-                        <div class="filter-pop">
-                            <div class="f-head">
-                                <p>Filters</p>
-                                <a href="{{route('/')}}">{{trans('web_string.reset_all')}}</a>
-                                <button type="button" id="filterData">{{trans('web_string.submit')}}</button>
-                                <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
-                            </div>
-                            <div class="f-body">
-                                <div class="row">
-                                    {{--                                    <div class="col-md-3">--}}
-                                    {{--                                        <label>Vehicle Condition</label>--}}
-                                    {{--                                        <div class="checkbox-group">--}}
-                                    {{--                                            <div class="form-check">--}}
-                                    {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
-                                    {{--                                                       name="condition" id="used">--}}
-                                    {{--                                                <label class="form-check-label" for="used">--}}
-                                    {{--                                                    Used--}}
-                                    {{--                                                </label>--}}
-                                    {{--                                            </div>--}}
-                                    {{--                                            <div class="form-check">--}}
-                                    {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
-                                    {{--                                                       name="condition" id="new">--}}
-                                    {{--                                                <label class="form-check-label" for="new">--}}
-                                    {{--                                                    New--}}
-                                    {{--                                                </label>--}}
-                                    {{--                                            </div>--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </div>--}}
-                                    @php
-                                        $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
-                                        if(request()->get('min_amount')){
-                                           $min = request()->get('min_amount');
-                                        }else{
-                                        $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
-                                        }
-                                         if(request()->get('max_amount')){
-                                           $max = request()->get('max_amount');
-                                         }else{
-                                        $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
-                                         }
-                                        $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
-                                        $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
-                                    @endphp
-                                    <div class="col-md-3">
-                                        <label>{{trans('web_string.category')}}</label>
-                                        <div class="category">
-                                            <select class="form-select" name="category" id="category"
-                                                    aria-label="Default select example">
-                                                <option value="">{{trans('web_string.select_category')}}</option>
-                                                @foreach($v_categories as $v_category) @endforeach
-                                                <option value="{{$v_category->id}}"
-                                                        @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
-                                            </select>
-                                        </div>
+                    @if(!is_null(Auth::user()))
+                        @if(Auth::user()->is_corporate_seller == 1)
+                            <form id="sellerFilterForm">
+                                <div class="filter-pop">
+                                    <div class="f-head">
+                                        <p>Filters</p>
+                                        <input type="hidden" name="user_id" id="user_id" value="{{Auth::user()->id}}">
+                                        <a href="{{route('seller',Auth::user()->id)}}">{{trans('web_string.reset_all')}}</a>
+                                        <button type="button" id="seller_filterData">{{trans('web_string.submit')}}</button>
+                                        <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
                                     </div>
+                                    <div class="f-body">
+                                        <div class="row">
+                                            {{--                                    <div class="col-md-3">--}}
+                                            {{--                                        <label>Vehicle Condition</label>--}}
+                                            {{--                                        <div class="checkbox-group">--}}
+                                            {{--                                            <div class="form-check">--}}
+                                            {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
+                                            {{--                                                       name="condition" id="used">--}}
+                                            {{--                                                <label class="form-check-label" for="used">--}}
+                                            {{--                                                    Used--}}
+                                            {{--                                                </label>--}}
+                                            {{--                                            </div>--}}
+                                            {{--                                            <div class="form-check">--}}
+                                            {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
+                                            {{--                                                       name="condition" id="new">--}}
+                                            {{--                                                <label class="form-check-label" for="new">--}}
+                                            {{--                                                    New--}}
+                                            {{--                                                </label>--}}
+                                            {{--                                            </div>--}}
+                                            {{--                                        </div>--}}
+                                            {{--                                    </div>--}}
+                                            @php
+                                                $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                                if(request()->get('min_amount')){
+                                                   $min = request()->get('min_amount');
+                                                }else{
+                                                $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
+                                                }
+                                                 if(request()->get('max_amount')){
+                                                   $max = request()->get('max_amount');
+                                                 }else{
+                                                $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                                 }
+                                                $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
+                                                $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
+                                            @endphp
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.category')}}</label>
+                                                <div class="category">
+                                                    <select class="form-select" name="category" id="category"
+                                                            aria-label="Default select example">
+                                                        <option value="">{{trans('web_string.select_category')}}</option>
+                                                        @foreach($v_categories as $v_category)
+                                                            <option value="{{$v_category->id}}"
+                                                                    @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
 
-                                    {{--                                    <div class="col-md-3">--}}
-                                    {{--                                        <div class="price-range-slider">--}}
-                                    {{--                                            <p class="range-value">--}}
-                                    {{--                                                Price Range--}}
-                                    {{--                                                <input type="text" id="year" readonly>--}}
-                                    {{--                                            </p>--}}
-                                    {{--                                            <div id="year-range" class="range-bar"></div>--}}
-                                    {{--                                        </div>--}}
-                                    {{--                                    </div>--}}
-                                    <div class="col-md-3">
-                                        <label>{{trans('web_string.model')}}</label>
-                                        <div class="model">
-                                            <input type="text" class="form-control" name="model" id="model"
-                                                   value="{{request()->get('model')}}">
+                                            {{--                                    <div class="col-md-3">--}}
+                                            {{--                                        <div class="price-range-slider">--}}
+                                            {{--                                            <p class="range-value">--}}
+                                            {{--                                                Price Range--}}
+                                            {{--                                                <input type="text" id="year" readonly>--}}
+                                            {{--                                            </p>--}}
+                                            {{--                                            <div id="year-range" class="range-bar"></div>--}}
+                                            {{--                                        </div>--}}
+                                            {{--                                    </div>--}}
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.model')}}</label>
+                                                <div class="model">
+                                                    <input type="text" class="form-control" name="model" id="model"
+                                                           value="{{request()->get('model')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.make')}}</label>
+                                                <div class="make">
+                                                    <input type="text" class="form-control" name="make" id="make"
+                                                           value="{{request()->get('make')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.body_type')}}</label>
+                                                <div class="category">
+                                                    <input type="text" class="form-control" name="body_type" id="body_type"
+                                                           value="{{request()->get('body_type')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="price-range-slider">
+                                                    <p class="range-value">
+                                                        {{trans('web_string.price_range')}}
+                                                        <input type="text" id="amount" name="price_range" readonly>
+                                                        <input type="hidden" id="min_amount" name="min_amount"
+                                                               value="{{request()->get('min_amount')}}" readonly>
+                                                        <input type="hidden" id="max_amount" name="max_amount"
+                                                               value="{{request()->get('max_amount')}}" readonly>
+                                                    </p>
+                                                    <div id="slider-range-price" class="range-bar"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>{{trans('web_string.exterior_type')}}</label>
+                                                <div class="checkbox-group color-check">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="white" id="white"
+                                                               @if(in_array('white',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="white">
+                                                            White
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="black" id="black"
+                                                               @if(in_array('black',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="black">
+                                                            Black
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="grey" id="grey"
+                                                               @if(in_array('grey',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="grey">
+                                                            Grey
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="silver" id="silver"
+                                                               @if(in_array('silver',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="silver">
+                                                            Silver
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>{{trans('web_string.exterior_type')}}</label>
+                                                <div class="checkbox-group color-check">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="warranty"
+                                                               id="warranty"
+                                                               @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="warranty">
+                                                            Warranty Available
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="warranty"
+                                                               id="history"
+                                                               @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="history">
+                                                            History Available
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="price-range-slider">
+                                                    <p class="range-value">
+                                                        {{trans('web_string.seller_ratings')}}
+                                                        <input type="text" id="ratings" name="ratting" readonly>
+                                                        <input type="hidden" id="min_ratting" name="min_ratting" readonly>
+                                                        <input type="hidden" id="max_ratting" name="max_ratting" readonly>
+                                                    </p>
+                                                    <div id="ratings-range" class="range-bar"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{trans('web_string.make')}}</label>
-                                        <div class="make">
-                                            <input type="text" class="form-control" name="make" id="make"
-                                                   value="{{request()->get('make')}}">
+                                </div>
+                            </form>
+                        @else
+                            <form id="filterForm">
+                                <div class="filter-pop">
+                                    <div class="f-head">
+                                        <p>Filters</p>
+                                        <a href="{{route('/')}}">{{trans('web_string.reset_all')}}</a>
+                                        <button type="button" id="filterData">{{trans('web_string.submit')}}</button>
+                                        <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
+                                    </div>
+                                    <div class="f-body">
+                                        <div class="row">
+                                            {{--                                    <div class="col-md-3">--}}
+                                            {{--                                        <label>Vehicle Condition</label>--}}
+                                            {{--                                        <div class="checkbox-group">--}}
+                                            {{--                                            <div class="form-check">--}}
+                                            {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
+                                            {{--                                                       name="condition" id="used">--}}
+                                            {{--                                                <label class="form-check-label" for="used">--}}
+                                            {{--                                                    Used--}}
+                                            {{--                                                </label>--}}
+                                            {{--                                            </div>--}}
+                                            {{--                                            <div class="form-check">--}}
+                                            {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
+                                            {{--                                                       name="condition" id="new">--}}
+                                            {{--                                                <label class="form-check-label" for="new">--}}
+                                            {{--                                                    New--}}
+                                            {{--                                                </label>--}}
+                                            {{--                                            </div>--}}
+                                            {{--                                        </div>--}}
+                                            {{--                                    </div>--}}
+                                            @php
+                                                $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                                if(request()->get('min_amount')){
+                                                   $min = request()->get('min_amount');
+                                                }else{
+                                                $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
+                                                }
+                                                 if(request()->get('max_amount')){
+                                                   $max = request()->get('max_amount');
+                                                 }else{
+                                                $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                                 }
+                                                $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
+                                                $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
+                                            @endphp
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.category')}}</label>
+                                                <div class="category">
+                                                    <select class="form-select" name="category" id="category"
+                                                            aria-label="Default select example">
+                                                        <option value="">{{trans('web_string.select_category')}}</option>
+                                                        @foreach($v_categories as $v_category)
+                                                            <option value="{{$v_category->id}}"
+                                                                    @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            {{--                                    <div class="col-md-3">--}}
+                                            {{--                                        <div class="price-range-slider">--}}
+                                            {{--                                            <p class="range-value">--}}
+                                            {{--                                                Price Range--}}
+                                            {{--                                                <input type="text" id="year" readonly>--}}
+                                            {{--                                            </p>--}}
+                                            {{--                                            <div id="year-range" class="range-bar"></div>--}}
+                                            {{--                                        </div>--}}
+                                            {{--                                    </div>--}}
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.model')}}</label>
+                                                <div class="model">
+                                                    <input type="text" class="form-control" name="model" id="model"
+                                                           value="{{request()->get('model')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.make')}}</label>
+                                                <div class="make">
+                                                    <input type="text" class="form-control" name="make" id="make"
+                                                           value="{{request()->get('make')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.body_type')}}</label>
+                                                <div class="category">
+                                                    <input type="text" class="form-control" name="body_type" id="body_type"
+                                                           value="{{request()->get('body_type')}}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="price-range-slider">
+                                                    <p class="range-value">
+                                                        {{trans('web_string.price_range')}}
+                                                        <input type="text" id="amount" name="price_range" readonly>
+                                                        <input type="hidden" id="min_amount" name="min_amount"
+                                                               value="{{request()->get('min_amount')}}" readonly>
+                                                        <input type="hidden" id="max_amount" name="max_amount"
+                                                               value="{{request()->get('max_amount')}}" readonly>
+                                                    </p>
+                                                    <div id="slider-range-price" class="range-bar"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>{{trans('web_string.exterior_type')}}</label>
+                                                <div class="checkbox-group color-check">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="white" id="white"
+                                                               @if(in_array('white',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="white">
+                                                            White
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="black" id="black"
+                                                               @if(in_array('black',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="black">
+                                                            Black
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="grey" id="grey"
+                                                               @if(in_array('grey',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="grey">
+                                                            Grey
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="silver" id="silver"
+                                                               @if(in_array('silver',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="silver">
+                                                            Silver
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>{{trans('web_string.exterior_type')}}</label>
+                                                <div class="checkbox-group color-check">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="warranty"
+                                                               id="warranty"
+                                                               @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="warranty">
+                                                            Warranty Available
+                                                        </label>
+                                                    </div>
+                                                    <span class="hr"></span>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="exterior"
+                                                               value="warranty"
+                                                               id="history"
+                                                               @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                        <label class="form-check-label" for="history">
+                                                            History Available
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="price-range-slider">
+                                                    <p class="range-value">
+                                                        {{trans('web_string.seller_ratings')}}
+                                                        <input type="text" id="ratings" name="ratting" readonly>
+                                                        <input type="hidden" id="min_ratting" name="min_ratting" readonly>
+                                                        <input type="hidden" id="max_ratting" name="max_ratting" readonly>
+                                                    </p>
+                                                    <div id="ratings-range" class="range-bar"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label>{{trans('web_string.body_type')}}</label>
-                                        <div class="category">
-                                            <input type="text" class="form-control" name="body_type" id="body_type"
-                                                   value="{{request()->get('body_type')}}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="price-range-slider">
-                                            <p class="range-value">
-                                                {{trans('web_string.price_range')}}
-                                                <input type="text" id="amount" name="price_range" readonly>
-                                                <input type="hidden" id="min_amount" name="min_amount"
-                                                       value="{{request()->get('min_amount')}}" readonly>
-                                                <input type="hidden" id="max_amount" name="max_amount"
-                                                       value="{{request()->get('max_amount')}}" readonly>
-                                            </p>
-                                            <div id="slider-range-price" class="range-bar"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>{{trans('web_string.exterior_type')}}</label>
-                                        <div class="checkbox-group color-check">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="exterior"
-                                                       value="white" id="white"
-                                                       @if(in_array('white',explode(',',request()->get('exterior')))) checked @endif>
-                                                <label class="form-check-label" for="white">
-                                                    White
-                                                </label>
-                                            </div>
-                                            <span class="hr"></span>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="exterior"
-                                                       value="black" id="black"
-                                                       @if(in_array('black',explode(',',request()->get('exterior')))) checked @endif>
-                                                <label class="form-check-label" for="black">
-                                                    Black
-                                                </label>
-                                            </div>
-                                            <span class="hr"></span>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="exterior"
-                                                       value="grey" id="grey"
-                                                       @if(in_array('grey',explode(',',request()->get('exterior')))) checked @endif>
-                                                <label class="form-check-label" for="grey">
-                                                    Grey
-                                                </label>
-                                            </div>
-                                            <span class="hr"></span>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="exterior"
-                                                       value="silver" id="silver"
-                                                       @if(in_array('silver',explode(',',request()->get('exterior')))) checked @endif>
-                                                <label class="form-check-label" for="silver">
-                                                    Silver
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>{{trans('web_string.exterior_type')}}</label>
-                                        <div class="checkbox-group color-check">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="exterior"
-                                                       value="warranty"
-                                                       id="warranty"
-                                                       @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
-                                                <label class="form-check-label" for="warranty">
-                                                    Warranty Available
-                                                </label>
-                                            </div>
-                                            <span class="hr"></span>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="exterior"
-                                                       value="warranty"
-                                                       id="history"
-                                                       @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
-                                                <label class="form-check-label" for="history">
-                                                    History Available
-                                                </label>
+                                </div>
+                            </form>
+                        @endif
+                    @else
+                        <form id="filterForm">
+                            <div class="filter-pop">
+                                <div class="f-head">
+                                    <p>Filters</p>
+                                    <a href="{{route('/')}}">{{trans('web_string.reset_all')}}</a>
+                                    <button type="button" id="filterData">{{trans('web_string.submit')}}</button>
+                                    <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
+                                </div>
+                                <div class="f-body">
+                                    <div class="row">
+                                        {{--                                    <div class="col-md-3">--}}
+                                        {{--                                        <label>Vehicle Condition</label>--}}
+                                        {{--                                        <div class="checkbox-group">--}}
+                                        {{--                                            <div class="form-check">--}}
+                                        {{--                                                <input class="form-check-input" type="checkbox" value="used"--}}
+                                        {{--                                                       name="condition" id="used">--}}
+                                        {{--                                                <label class="form-check-label" for="used">--}}
+                                        {{--                                                    Used--}}
+                                        {{--                                                </label>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                            <div class="form-check">--}}
+                                        {{--                                                <input class="form-check-input" type="checkbox" value="new"--}}
+                                        {{--                                                       name="condition" id="new">--}}
+                                        {{--                                                <label class="form-check-label" for="new">--}}
+                                        {{--                                                    New--}}
+                                        {{--                                                </label>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </div>--}}
+                                        {{--                                    </div>--}}
+                                        @php
+                                            $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                            if(request()->get('min_amount')){
+                                               $min = request()->get('min_amount');
+                                            }else{
+                                            $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
+                                            }
+                                             if(request()->get('max_amount')){
+                                               $max = request()->get('max_amount');
+                                             }else{
+                                            $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                             }
+                                            $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
+                                            $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
+                                        @endphp
+                                        <div class="col-md-3">
+                                            <label>{{trans('web_string.category')}}</label>
+                                            <div class="category">
+                                                <select class="form-select" name="category" id="category"
+                                                        aria-label="Default select example">
+                                                    <option value="">{{trans('web_string.select_category')}}</option>
+                                                    @foreach($v_categories as $v_category)
+                                                        <option value="{{$v_category->id}}"
+                                                                @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="price-range-slider">
-                                            <p class="range-value">
-                                                {{trans('web_string.seller_ratings')}}
-                                                <input type="text" id="ratings" name="ratting" readonly>
-                                                <input type="hidden" id="min_ratting" name="min_ratting" readonly>
-                                                <input type="hidden" id="max_ratting" name="max_ratting" readonly>
-                                            </p>
-                                            <div id="ratings-range" class="range-bar"></div>
+
+                                        {{--                                    <div class="col-md-3">--}}
+                                        {{--                                        <div class="price-range-slider">--}}
+                                        {{--                                            <p class="range-value">--}}
+                                        {{--                                                Price Range--}}
+                                        {{--                                                <input type="text" id="year" readonly>--}}
+                                        {{--                                            </p>--}}
+                                        {{--                                            <div id="year-range" class="range-bar"></div>--}}
+                                        {{--                                        </div>--}}
+                                        {{--                                    </div>--}}
+                                        <div class="col-md-3">
+                                            <label>{{trans('web_string.model')}}</label>
+                                            <div class="model">
+                                                <input type="text" class="form-control" name="model" id="model"
+                                                       value="{{request()->get('model')}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>{{trans('web_string.make')}}</label>
+                                            <div class="make">
+                                                <input type="text" class="form-control" name="make" id="make"
+                                                       value="{{request()->get('make')}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>{{trans('web_string.body_type')}}</label>
+                                            <div class="category">
+                                                <input type="text" class="form-control" name="body_type" id="body_type"
+                                                       value="{{request()->get('body_type')}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="price-range-slider">
+                                                <p class="range-value">
+                                                    {{trans('web_string.price_range')}}
+                                                    <input type="text" id="amount" name="price_range" readonly>
+                                                    <input type="hidden" id="min_amount" name="min_amount"
+                                                           value="{{request()->get('min_amount')}}" readonly>
+                                                    <input type="hidden" id="max_amount" name="max_amount"
+                                                           value="{{request()->get('max_amount')}}" readonly>
+                                                </p>
+                                                <div id="slider-range-price" class="range-bar"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>{{trans('web_string.exterior_type')}}</label>
+                                            <div class="checkbox-group color-check">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="exterior"
+                                                           value="white" id="white"
+                                                           @if(in_array('white',explode(',',request()->get('exterior')))) checked @endif>
+                                                    <label class="form-check-label" for="white">
+                                                        White
+                                                    </label>
+                                                </div>
+                                                <span class="hr"></span>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="exterior"
+                                                           value="black" id="black"
+                                                           @if(in_array('black',explode(',',request()->get('exterior')))) checked @endif>
+                                                    <label class="form-check-label" for="black">
+                                                        Black
+                                                    </label>
+                                                </div>
+                                                <span class="hr"></span>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="exterior"
+                                                           value="grey" id="grey"
+                                                           @if(in_array('grey',explode(',',request()->get('exterior')))) checked @endif>
+                                                    <label class="form-check-label" for="grey">
+                                                        Grey
+                                                    </label>
+                                                </div>
+                                                <span class="hr"></span>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="exterior"
+                                                           value="silver" id="silver"
+                                                           @if(in_array('silver',explode(',',request()->get('exterior')))) checked @endif>
+                                                    <label class="form-check-label" for="silver">
+                                                        Silver
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>{{trans('web_string.exterior_type')}}</label>
+                                            <div class="checkbox-group color-check">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="exterior"
+                                                           value="warranty"
+                                                           id="warranty"
+                                                           @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                    <label class="form-check-label" for="warranty">
+                                                        Warranty Available
+                                                    </label>
+                                                </div>
+                                                <span class="hr"></span>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="exterior"
+                                                           value="warranty"
+                                                           id="history"
+                                                           @if(in_array('warranty',explode(',',request()->get('exterior')))) checked @endif>
+                                                    <label class="form-check-label" for="history">
+                                                        History Available
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="price-range-slider">
+                                                <p class="range-value">
+                                                    {{trans('web_string.seller_ratings')}}
+                                                    <input type="text" id="ratings" name="ratting" readonly>
+                                                    <input type="hidden" id="min_ratting" name="min_ratting" readonly>
+                                                    <input type="hidden" id="max_ratting" name="max_ratting" readonly>
+                                                </p>
+                                                <div id="ratings-range" class="range-bar"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    @endif
+
                 </div>
             </div>
         </div>

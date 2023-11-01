@@ -1,24 +1,20 @@
 @extends('website.layouts.master')
 @section('title')
-    {{trans('web_string.home')}}
+    {{trans('web_string.corporate_seller')}}
 @endsection
 @section('content')
     <section id="vehicles" class="featured-vehicles">
         <div class="container" id="filter-part">
-            @if($car_for_sell_count > 0)
+            @if(count($sell_vehicles) > 0)
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
                             <h1>{{trans('web_string.car_for_sell')}}</h1>
-                            @if($car_for_sell_count > 3)
-                                <a href="{{route('car-for-sell','car_for_sell')}}">{{trans('web_string.common_view_all')}}</a>
-                            @endif
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-12">
                         @foreach($sell_vehicles as $sell_vehicle)
-
                             @if(Auth::user())
                                 @php
                                     $count = DB::table('wish_lists')->where('vehicle_id', $sell_vehicle->id)->where('user_id', Auth::user()->id)->count()
@@ -110,14 +106,11 @@
                     </div>
                 </div>
             @endif
-            @if($featured_vehicle_count > 0)
+            @if(count($featured_vehicles) > 0)
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
                             <h1>{{trans('web_string.featured_vehicles')}}</h1>
-                            @if($featured_vehicle_count > 3)
-                                <a href="{{route('type-wise-car','is_featured')}}">{{trans('web_string.common_view_all')}}</a>
-                            @endif
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -263,14 +256,11 @@
                     </div>
                 </div>
             @endif
-            @if($popular_vehicle_count > 0)
+            @if(count($popular_vehicles) > 0)
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
                             <h1>{{trans('web_string.popular_vehicles')}}</h1>
-                            @if($popular_vehicle_count > 3)
-                                <a href="{{route('type-wise-car','is_popular')}}">{{trans('web_string.common_view_all')}}</a>
-                            @endif
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -415,14 +405,11 @@
                     </div>
                 </div>
             @endif
-            @if($hot_deal_count > 0)
+            @if(count($hot_deal_vehicles) > 0)
                 <div class="row">
                     <div class="col-md-12">
                         <div class="heading">
                             <h1>{{trans('web_string.hot_deals')}}</h1>
-                            @if($hot_deal_count > 3)
-                                <a href="{{route('type-wise-car','is_hot_deal')}}">{{trans('web_string.common_view_all')}}</a>
-                            @endif
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -567,127 +554,6 @@
                     </div>
                 </div>
             @endif
-        </div>
-    </section>
-    <section id="howworks">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="title">
-                        <h1>{{trans('web_string.how_it_works')}}</h1>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-4">
-                    <div class="work-box">
-                        <span>1</span>
-                        <h2>{{trans('web_string.register')}}</h2>
-                        <p>{{trans('web_string.sign_up_for_a')}}</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="work-box">
-                        <span>2</span>
-                        <h2>{{trans('web_string.find')}}</h2>
-                        <p>{{trans('web_string.search_out_range')}}</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="work-box">
-                        <span>3</span>
-                        <h2>{{trans('web_string.bid')}}</h2>
-                        <p>{{trans('web_string.bid_in_our_online')}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="testimonial">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="title">
-                        <h1>{{trans('web_string.testimonial')}}</h1>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="testimonial">
-                        <div class="container">
-                            <div class="testimonial__inner">
-                                <div class="testimonial-slider">
-                                    @foreach($testimonials as $testimonial)
-                                        <div class="testimonial-slide">
-                                            <div class="testimonial_box">
-                                                <div class="testimonial_box-inner">
-                                                    <div class="testimonial_box-top">
-                                                        <div class="testimonial_box-icon">
-                                                            <img src="{{asset('web/assets/images/quotes.svg')}}">
-                                                        </div>
-                                                        <div class="testimonial_box-text">
-                                                            <p>{!! $testimonial->description !!}</p>
-                                                        </div>
-                                                        <div class="testimonial_box-name">
-                                                            <h4>{{$testimonial->title}}</h4>
-                                                        </div>
-                                                        <div class="testimonial_box-job">
-                                                            <p>{{$testimonial->role}}</p>
-                                                        </div>
-                                                        <div class="testimonial_box-img">
-                                                            <img src="{{asset($testimonial->image)}}" alt="profile">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="news">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="title ">
-                        <h1 class="text-white">{{trans('web_string.news')}}</h1>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="testimonial">
-                        <div class="container">
-                            <div class="testimonial__inner">
-                                <div class="testimonial-slider">
-                                    @foreach($news as $new)
-                                        <div class="testimonial-slide">
-                                            <div class="testimonial_box">
-                                                <div class="testimonial_box-inner">
-                                                    <div class="testimonial_box-top">
-                                                        <div class="testimonial_box-text">
-                                                            <div class="date">
-                                                                <span>{{Carbon\Carbon::parse($new->created_at)->format('M d ,Y')}}</span>
-                                                            </div>
-                                                            <h1>{{$new->title}}</h1>
-                                                            <p>{{$new->description}}</p>
-                                                            <a href="#">{{trans('web_string.read_now')}}</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </section>
     <div class="clearfix"></div>

@@ -40,7 +40,6 @@ Route::group(['middleware' => ['websiteLanguageCheck']], function () {
     Route::get('vehicle-bid-modal/{id}', [HomeController::class, 'vehicleBid'])->name('vehicle-bid-modal');
     Route::get('type-wise-car/{flag}', [HomeController::class, 'typeWiseCar'])->name('type-wise-car');
     Route::get('car-for-sell/{flag}', [HomeController::class, 'carForSell'])->name('car-for-sell');
-    Route::get('corporate-user', [HomeController::class, 'corporateUser'])->name('corporate-user');
     Route::get('seller/{id}', [HomeController::class, 'seller'])->name('seller');
 //Route::get('socialAccount', [SocialLoginController::class,'socialAccount'])->name('socialAccount');
     Route::get('googleCallback', [SocialLoginCOntroller::class, 'googleCallback'])->name('googleCallback');

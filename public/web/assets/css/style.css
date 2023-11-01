@@ -55,8 +55,11 @@ body.rtl .noti-img {
     font-style: normal;
     font-display: swap;
 }
-*{
-	font-family: 'Nizar Cocon Kurdish';
+body{
+    font-family: 'Roboto', sans-serif!important;
+}
+body.rtl{
+	font-family: 'Nizar Cocon Kurdish'!important;
 }
 .main-nav{
 	background-color: #149B9E33;
@@ -80,12 +83,20 @@ body.rtl .noti-img {
 }
 .steps-box h4{
 	color: #fff;
-	font: normal normal bold 20px/42px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    line-height: 42px;
+    font-family: inherit;
 	margin: 0;
 }
 .steps-box p{
 	color: #fff;
-	font: normal normal normal 14px/17px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    font-family: inherit;
 	margin: 0;
 }
 .steps-box span{
@@ -109,7 +120,11 @@ body.rtl .noti-img {
     width: 100%;
 }
 .heading h1 {
-    font: normal normal bold 58px/70px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 58px;
+    line-height: 70px;
+    font-family: inherit;
     color: #fff;
     margin-bottom: 10px;
 }
@@ -125,7 +140,7 @@ body.rtl .noti-img {
     line-height: 16px;
     color: #fff;
     font-weight: 500;
-    letter-spacing: -0.5px;
+    letter-spacing: 0.5px;
 }
 .navbar-light .navbar-nav .nav-link span {
 	color: #C2C2C2;
@@ -220,7 +235,7 @@ body.rtl .noti-img {
 }
 .reg-btn button {
 	font-weight: 500;
-    padding: 6px 24px;
+    padding: 6px 24px;	
     background: #673AAA;
     color: #fff;
 }
@@ -261,14 +276,22 @@ body.rtl .noti-img {
 }
 .f-head p {
     text-align: left;
-    font: normal normal bold 16px/19px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #FFFFFF;
     opacity: 1;
     margin: 0;
 }
 .f-head a {
-    font: normal normal normal 14px/17px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #60D6D6;
     text-decoration: none;
@@ -329,7 +352,11 @@ body.rtl .noti-img {
     min-height: auto;
 }
 .checkbox-group .form-check label {
-    font: normal normal bold 14px/16px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #C2C2C2;
 }
@@ -426,7 +453,11 @@ section#vehicles .heading {
     justify-content: space-between;
 }
 section#vehicles .heading h1{
-	font: normal normal bold 32px/42px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 42px;
+    font-family: inherit;
 	color: #2C2C2C;
 	margin: 0;
 }
@@ -516,7 +547,7 @@ section#vehicles .heading a {
     padding: 9px 6px;
 }
 .car-price {
-    width: 29%;
+    width: 29%;	
     padding: 6px 10px 6px 20px;
 }
 span.cat-tags {
@@ -555,20 +586,32 @@ a.like i.lar.la-heart {
     color: #fff;
 }
 .car-name .names h3 {
-    font: normal normal bold 22px/27px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #2C2C2C;
     margin: 0;
     margin-bottom: 10px;
 }
 .car-name .names p {
-    font: normal normal bold 16px/19px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #2C2C2C;
     margin-bottom: 0;
 }
 .car-price span {
-    font: normal normal normal 12px/10px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 10px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #673AAA;
 }
@@ -576,7 +619,11 @@ a.like i.lar.la-heart {
     font-weight: 700;
 }
 .initial-price-box h3 {
-    font: normal normal bold 20px/17px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 17px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #673AAA;
     margin: 0;
@@ -626,7 +673,11 @@ section#howworks {
     background: #fff;
 }
 .title h1 {
-    font: normal normal bold 48px/42px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 42px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #2C2C2C;
     margin: 0;
@@ -652,7 +703,11 @@ section#howworks {
     background: transparent linear-gradient(270deg, #B596E2 0%, #673AAA 100%) 0% 0% no-repeat padding-box;
     box-shadow: 0px 10px 20px #00000029;
     border-radius: 50%;
-    font: normal normal bold 38px/42px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 38px;
+    line-height: 42px;
+    font-family: inherit;
     color: #fff;
     line-height: 60px;
 }
@@ -808,13 +863,21 @@ button.slick-arrow:focus:before{
     font-weight: 500;
 }
 .testimonial_box-text h1 {
-    font: normal normal bold 20px/26px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 26px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #673AAA;
     margin-bottom: 20px;
 }
 #news .testimonial_box-text p {
-    font: normal normal normal 16px/22px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    font-family: inherit;
     color: #414042;
     margin-bottom: 20px;
 }
@@ -854,7 +917,11 @@ footer .row{
 .link p {
     position: absolute;
     top: -40px;
-    font: normal normal bold 16px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #FFFFFF;
 }
@@ -1015,7 +1082,7 @@ footer hr {
 .car-dtlist .dtl-box .value p {
     color: #2C2C2C;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 500;    
 }
 .bid-model {
     background: rgb(96 214 214 / 94%);
@@ -1028,7 +1095,11 @@ footer hr {
     margin-bottom: 10px;
 }
 .carnm h2 {
-    font: normal normal bold 22px/27px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #2C2C2C;
     margin-top: 0;
@@ -1055,7 +1126,11 @@ footer hr {
     font-size: 16px;
 }
 .ini-price p span {
-    font: normal normal bold 18px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #673AAA;
 }
@@ -1092,7 +1167,11 @@ a.place-bid-blue:hover {
     color: #fff;
 }
 .auction-details h3 {
-    font: normal normal bold 18px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: inherit;
     color: #2C2C2C;
     margin-bottom: 10px;
 }
@@ -1126,11 +1205,19 @@ a.place-bid-blue:hover {
 }
 .dates p {
     margin-bottom: 4px;
-    font: normal normal normal 16px/22px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    font-family: inherit;
     color: #673AAA;
 }
 .dates b {
-    font: normal normal bold 16px/14px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 14px;
+    font-family: inherit;
     color: #2C2C2C;
 }
 .time-temain {
@@ -1161,7 +1248,7 @@ div#getting-started6{
     align-items: center;
     justify-content: space-around;
     gap: 10px;
-    padding-left: 32px;
+    padding-left: 32px;    
 }
 
 .time-temain>span {
@@ -1187,7 +1274,11 @@ div#getting-started6 span {
     text-align: center;
     padding: 8px 20px;
     border-radius: 6px;
-    font: normal normal medium 14px/13px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: medium;
+    font-size: 14px;
+    line-height: 13px;
+    font-family: inherit;
     color: #673AAA;
 }
 div#getting-started span strong,
@@ -1198,7 +1289,11 @@ div#getting-started4 span strong,
 div#getting-started5 span strong,
 div#getting-started6 span strong {
     display: block;
-    font: normal normal bold 24px/28px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    font-family: inherit;
     color: #2C2C2C;
 }
 .time-temain.time-close>span{
@@ -1220,7 +1315,11 @@ div#getting-started6 span strong {
     color: #149B9E;
 }
 .notes p {
-    font: normal normal normal 16px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: inherit;
     color: #414042;
     margin: 0;
 }
@@ -1256,7 +1355,11 @@ div#slider-incamount span:nth-of-type(2) {
     border-color: #149B9E;
 }
 .auto-inc .form-check label {
-    font: normal normal bold 14px/16px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #6B6B6B;
 }
@@ -1335,7 +1438,11 @@ div#slider-incamount span:nth-of-type(2) {
     border: none;
 }
 .login-model .modal-header h5 {
-    font: normal normal bold 24px/32px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: inherit;
     color: #2C2C2C;
 }
 .login-model .modal-body {
@@ -1680,7 +1787,11 @@ li.nav-item.language .form-check.form-switch.chked label.form-check-label {
     font-weight: 500;
 }
 .my-bid-box h3 {
-    font: normal normal bold 20px/17px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 17px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #149B9E;
     margin: 0;
@@ -1701,7 +1812,11 @@ li.nav-item.language .form-check.form-switch.chked label.form-check-label {
     font-weight: 500;
 }
 .current-highest-bid-box h3 {
-    font: normal normal bold 20px/17px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 17px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #E41F11;
     margin: 0;
@@ -1767,7 +1882,11 @@ li.nav-item.language .form-check.form-switch.chked label.form-check-label {
     margin-bottom: 30px;
 }
 .likely-Unlikely p {
-    font: normal normal normal 14px/18px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #414042;
     margin: 0;
@@ -1785,7 +1904,11 @@ div#feedback .modal-header {
     padding-bottom: 0;
 }
 .login-model .modal-header p {
-    font: normal normal normal 14px/22px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #585858;
     margin-bottom: 0;
@@ -1829,17 +1952,29 @@ div#feedback .modal-header {
     margin-bottom: 14px;
 }
 .noti-heading h2 {
-    font: normal normal bold 26px/36px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 36px;
+    font-family: inherit;
     color: #2C2C2C;
     margin: 0;
 }
 .noti-heading span {
-    font: normal normal normal 18px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: inherit;
     color: #C2C2C2;
 }
 .noti-details p {
     margin: 0;
-    font: normal normal normal 18px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: inherit;
     color: #2C2C2C;
 }
 .win-car-details .car-images {
@@ -1867,7 +2002,11 @@ div#feedback .modal-header {
 }
 .car-opt h4{
     text-align: center;
-    font: normal normal bold 24px/32px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: inherit;
     color: #149B9E;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -1879,12 +2018,20 @@ div#feedback .modal-header {
     padding: 60px 0;
 }
 .win-heading h1 {
-    font: normal normal bold 34px/46px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 46px;
+    font-family: inherit;
     color: #149B9E;
     margin: 0;
 }
 .win-heading h2 {
-    font: normal normal normal 34px/46px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 34px;
+    line-height: 46px;
+    font-family: inherit;
     color: #2C2C2C;
     margin: 0;
 }
@@ -1894,18 +2041,30 @@ div#feedback .modal-header {
     border-radius: 6px;
 }
 .win-info h2{
-    font: normal normal bold 24px/32px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    font-family: inherit;
     color: #2C2C2C;
     margin-bottom: 10px;
 }
 .win-info p{
-    font: normal normal normal 18px/24px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    font-family: inherit;
     color: #2C2C2C;
     margin-bottom: 0;
 }
 .cong-text h3 {
     text-align: center;
-    font: normal normal bold 26px/27px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 27px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #149B9E;
     margin: 40px;
@@ -1922,14 +2081,14 @@ div#feedback .modal-header {
     padding-top: 60px;
     padding-bottom: 20px;
 }
-.profile-box .head,
+.profile-box .head, 
 .notification-setting .head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
-.profile-box .head .place-bid-blue,
+.profile-box .head .place-bid-blue, 
 .notification-setting .head .place-bid-blue{
     padding: 10px 40px;
 }
@@ -2191,11 +2350,19 @@ span.ongoing{
 .auction-details-model h3,
 .auctions-list.bid-list h3{
     color: #2C2C2C;
-    font: normal normal bold 26px/32px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 32px;
+    font-family: inherit;
 }
 .auction-details-model h3, .auctions-list.bid-list h3 {
     color: #2C2C2C;
-    font: normal normal bold 26px/32px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 32px;
+    font-family: inherit;
     margin-bottom: 10px;
     margin-top: 20px;
 }
@@ -2236,7 +2403,7 @@ section#vehicles .heading.auction-detailss{
     width: 42%;
 }
 .auction-detailss .add-car .edate{
-    width: 42%;
+    width: 42%;    
 }
 .auction-detailss .add-car .action-btn {
     width: 152px;
@@ -2270,7 +2437,11 @@ section#vehicles .heading.auction-detailss{
     height: 40px;
 }
 section#vehicles .heading.auction-detailss h1 {
-    font: normal normal bold 32px/42px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 42px;
+    font-family: inherit;
     color: #2C2C2C;
     margin: 0;
     margin-bottom: 20px;
@@ -2411,7 +2582,11 @@ section#vehicles .heading.auction-detailss form h1 {
     height: 40px;
 }
 .f-heading h3 {
-    font: normal normal bold 22px/27px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    font-family: inherit;
     letter-spacing: 0px;
     color: #2C2C2C;
     margin-bottom: 30px;
@@ -2422,7 +2597,11 @@ section#vehicles .heading.auction-detailss form h1 {
     border-top: 1px solid #F3F3F3;
 }
 #ask-question .modal-header p {
-    font: normal normal normal 16px/18px Nizar Cocon Kurdish;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 18px;
+    font-family: inherit;
     color: #585858;
     margin-bottom: 0;
 }
@@ -2490,7 +2669,7 @@ section#vehicles .heading.auction-detailss form h1 {
     }
     .noti-img {
         display: inline-block;
-        position: unset;
+        position: unset; 
         width: 100%;
         text-align: center;
     }
@@ -2535,7 +2714,11 @@ section#vehicles .heading.auction-detailss form h1 {
         justify-content: space-between;
     }
     .heading h1 {
-        font: normal normal bold 44px/52px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 44px;
+        line-height: 52px;
+        font-family: inherit;
     }
     .heading p {
         font-size: 18px;
@@ -2564,7 +2747,11 @@ section#vehicles .heading.auction-detailss form h1 {
         padding: 6px;
     }
     section#vehicles .heading h1 {
-        font: normal normal bold 24px/42px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 42px;
+        font-family: inherit;
     }
     section#vehicles .heading a {
         padding: 10px 20px;
@@ -2573,17 +2760,29 @@ section#vehicles .heading.auction-detailss form h1 {
         text-align: center;
     }
     .car-name .names h3 {
-        font: normal normal bold 18px/22px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 22px;
+        font-family: inherit;
     }
     .car-name .names {
         padding: 10px;
     }
     .car-name .names h3 {
-        font: normal normal bold 16px/22px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+        font-family: inherit;
         margin-bottom: 4px;
     }
     .car-name .names p {
-        font: normal normal bold 12px/16px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 16px;
+        font-family: inherit;
     }
     span.cat-tags img {
         width: 14px;
@@ -2599,13 +2798,21 @@ section#vehicles .heading.auction-detailss form h1 {
         font-size: 14px;
     }
     .initial-price-box h3, .my-bid-box h3, .current-highest-bid-box h3 {
-        font: normal normal bold 16px/18px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 18px;
+        font-family: inherit;
     }
     .work-box {
         padding: 60px 20px 30px 20px;
     }
     .title h1 {
-        font: normal normal bold 24px/28px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 28px;
+        font-family: inherit;
     }
     #news .testimonial_box-text a {
         padding: 10px 20px;
@@ -2688,10 +2895,18 @@ section#vehicles .heading.auction-detailss form h1 {
         line-height: 30px;
     }
     .dates p {
-        font: normal normal normal 14px/20px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: inherit;
     }
     .dates b {
-        font: normal normal bold 14px/12px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 12px;
+        font-family: inherit;
     }
     div#getting-started span,
     div#getting-started1 span,
@@ -2833,7 +3048,7 @@ section#vehicles .heading.auction-detailss form h1 {
     }
     .noti-img {
         display: inline-block;
-        position: unset;
+        position: unset; 
         width: 100%;
         text-align: center;
     }
@@ -2886,10 +3101,18 @@ section#vehicles .heading.auction-detailss form h1 {
         line-height: 30px;
     }
     .dates p {
-        font: normal normal normal 14px/20px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        font-family: inherit;
     }
     .dates b {
-        font: normal normal bold 14px/12px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 12px;
+        font-family: inherit;
     }
     div#getting-started span,
     div#getting-started1 span,
@@ -2918,7 +3141,11 @@ section#vehicles .heading.auction-detailss form h1 {
         margin-top: 4px;
     }
     .title h1 {
-        font: normal normal bold 28px/34px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 28px;
+        line-height: 34px;
+        font-family: inherit;
     }
     .details-box {
         height: auto;
@@ -2985,7 +3212,11 @@ section#vehicles .heading.auction-detailss form h1 {
         flex-wrap: wrap;
     }
     .heading h1 {
-        font: normal normal bold 48px/58px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 58px;
+        font-family: inherit;
     }
     .car-rating {
         margin-bottom: 30px;
@@ -3095,7 +3326,11 @@ section#vehicles .heading.auction-detailss form h1 {
         padding: 20px 7px;
     }
     .heading h1 {
-        font: normal normal bold 58px/58px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 58px;
+        line-height: 58px;
+        font-family: inherit;
     }
     .car-img {
         top: 50%;
@@ -3103,10 +3338,18 @@ section#vehicles .heading.auction-detailss form h1 {
         transform: translateY(-50%);
     }
     .car-name .names h3 {
-        font: normal normal bold 18px/27px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 27px;
+        font-family: inherit;
     }
     .car-name .names p {
-        font: normal normal bold 14px/19px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 19px;
+        font-family: inherit;
     }
     .car-dt {
         margin-right: 6px;
@@ -3115,7 +3358,11 @@ section#vehicles .heading.auction-detailss form h1 {
         font-size: 13px;
     }
     .initial-price-box h3 {
-        font: normal normal bold 14px/17px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 17px;
+        font-family: inherit;
     }
     .car-price a.place-bid-blue {
         padding: 8px 10px;
@@ -3140,7 +3387,7 @@ section#vehicles .heading.auction-detailss form h1 {
     }
     .noti-img {
         display: inline-block;
-        position: unset;
+        position: unset; 
         width: 260px;
         text-align: center;
     }
@@ -3178,10 +3425,18 @@ section#vehicles .heading.auction-detailss form h1 {
         margin-right: 0px;
     }
     .car-name .names h3 {
-        font: normal normal bold 22px/27px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 22px;
+        line-height: 27px;
+        font-family: inherit;
     }
     .car-name .names p {
-        font: normal normal bold 16px/19px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+        font-family: inherit;
     }
     .logo-icon {
         padding: 15px;
@@ -3292,10 +3547,18 @@ section#vehicles .heading.auction-detailss form h1 {
         line-height: 39px;
     }
     .dates p {
-        font: normal normal normal 16px/22px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 22px;
+        font-family: inherit;
     }
     .dates b {
-        font: normal normal bold 16px/14px Nizar Cocon Kurdish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 14px;
+        font-family: inherit;
     }
     div#getting-started span,
     div#getting-started1 span,
