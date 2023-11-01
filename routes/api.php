@@ -20,16 +20,6 @@ use App\Http\Controllers\Api\V1\VehicleDocumentController;
 use App\Http\Controllers\Api\V1\WishListController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
 
 Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguageCheck']], function () {
     Route::post('login', [LoginController::class,'login'])->name('login');
