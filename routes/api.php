@@ -44,25 +44,23 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::post('search', [SearchController::class, 'index'])->name('search');
     Route::get('language-string', [LanguageStringController::class, 'index'])->name('language-string');
     Route::post('ask-question', [QuestionController::class, 'index'])->name('ask-question');
+    Route::get('contact-us', [ContactusController::class, 'index'])->name('contact-us');
+    Route::post('contact-us-submit', [ContactusController::class, 'store'])->name('contact-us-submit');
+    Route::get('get-vehicle', [VehicleController::class, 'index'])->name('get-vehicle');
+    Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
+    Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
         Route::post('updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
-        Route::post('contact-us-submit', [ContactusController::class, 'store'])->name('contact-us-submit');
-        Route::get('contact-us', [ContactusController::class, 'index'])->name('contact-us');
-
         Route::post('store-vehicle-category', [VehicleCategoryController::class, 'store'])->name('store-vehicle-category');
         Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
         Route::delete('delete-vehicle-category/{id}', [VehicleCategoryController::class, 'destroy'])->name('delete-vehicle-category');
-
         Route::post('store-vehicle', [VehicleController::class, 'store'])->name('store-vehicle');
-        Route::get('get-vehicle', [VehicleController::class, 'index'])->name('get-vehicle');
-        Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
         Route::post('change-status-vehicle/{id}', [VehicleController::class, 'changeStatus'])->name('change-status-vehicle');
         Route::delete('delete-vehicle/{id}', [VehicleController::class, 'destroy'])->name('delete-vehicle');
-
-        Route::post('vehicle-document-upload', [VehicleDocumentController::class, 'documentUpload'])->name('vehicle-document-upload');
-        Route::get('vehicle-document-remove/{id}', [VehicleDocumentController::class, 'removeDocument'])->name('vehicle-document-remove');
+        Route::get('vehicle-document-remove/{id}', [VehicleController::class, 'removeDocument'])->name('vehicle-document-remove');
+        Route::get('vehicle-image-remove/{id}', [VehicleController::class, 'removeImage'])->name('vehicle-image-remove');
         Route::get('bid', [BidController::class, 'index'])->name('bid');
         Route::get('my-bid', [BidController::class, 'myBid'])->name('my-bid');
         Route::get('my-wining', [BidController::class, 'myWining'])->name('my-wining');

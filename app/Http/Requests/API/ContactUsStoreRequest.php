@@ -26,10 +26,10 @@ class ContactUsStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'contact_number' => 'required',
-            'address' => 'required',
-            'subject' => 'required',
+            'first_name' => 'required',
+            'mobile_no' => ['required', 'regex:/^[0-9]{10}$/'],
+            'last_name' => 'required',
+            'email' => 'required|email:rfc,dns',
             'message' => 'required',
         ];
     }

@@ -17,8 +17,7 @@ class ContactusController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $user = $request->user();
-        $contact_us = ContactUs::where('user_id',$user->id)->get();
+        $contact_us = ContactUs::whereNull('deleted_at')->get();
         $result = ContactUsResource::collection($contact_us);
         return response()->json([
             'status' => true,
@@ -28,25 +27,24 @@ class ContactusController extends Controller
 
     public function store(ContactUsStoreRequest $request)
     {
-        $user = $request->user();
         $contact_us = new ContactUs();
-        $contact_us->name = $request->name;
-        $contact_us->user_id = $user->id;
-        $contact_us->contact_number = $request->contact_number;
-        $contact_us->address = $request->address;
-        $contact_us->subject = $request->subject;
+        $contact_us->first_name = $request->first_name;
+        $contact_us->last_name = $request->last_name;
+        $contact_us->name = $request->first_name . ' ' . $request->last_name;
+        $contact_us->email = $request->email;
+        $contact_us->contact_number = $request->mobile_no;
         $contact_us->message = $request->message;
+        $contact_us->subject = 'contact_us';
         $contact_us->save();
         $array = [
-            'name' => $user->name,
-            'full_name' => $request->name,
-            'contact_number' => $contact_us->contact_number,
-            'address' => $contact_us->address,
+            'name' => $request->first_name,
+            'full_name' => $request->first_name . ' ' . $request->last_name,
+            'contact_number' => $request->mobile_no,
             'mail_title' => 'Contact Us',
-            'subject' => $contact_us->subject,
-            'message' => $contact_us->message,
+            'subject' => 'Contact Us',
+            'message' => $request->message,
         ];
-        Mail::to($user->email)->send(new ContactUsMail($array));
+        Mail::to($request->email)->send(new ContactUsMail($array));
         return response()->json([
             'status' => true,
             'message' => 'Mail Sent Successfully',
