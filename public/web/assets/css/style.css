@@ -71,6 +71,14 @@ body.rtl{
     background-position: center center;
     padding-top: 140px;
     padding-bottom: 80px;
+    min-height: 105vh;
+}
+.filter-fix {
+    position: fixed;
+    bottom: 30px;
+    width: 80%;
+    margin: 0 auto;
+    z-index: 9999;
 }
 .steps-box {
     background: transparent linear-gradient(90deg, rgb(20 155 158 / 70%) 0%, rgb(103 58 170 / 70%) 100%) 0% 0% no-repeat padding-box;
@@ -3494,11 +3502,12 @@ body.rtl .form-check .form-check-input {
     .filter-pop {
         background: #414042;
         position: absolute;
-        top: 0;
+        top: auto;
+        bottom: 90px;
         left: 0;
         right: 0;
         z-index: 0;
-        border-radius: 6px;
+        border-radius: 6px 6px 0px 0px;
         visibility: hidden;
         width: auto;
         transform: unset;

@@ -128,7 +128,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div class="col-md-12">
+            <div class="col-md-12 filter-fix">
                 <div class="filter">
                     <div class="logo-icon">
                         <img src="{{asset('web/assets/images/icon.png')}}">
