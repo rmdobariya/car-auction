@@ -133,4 +133,13 @@ div.my-auction-counter span strong {
     color: #9D9D9D !important;
     text-decoration:none;
 }
+.btn-view-all {
+    color: #fff;
+    font-weight: 600;
+    background: #673AAA;
+}
+.btn-view-all:hover {
+    background: #fff;
+    color: #673AAA;
+}
 

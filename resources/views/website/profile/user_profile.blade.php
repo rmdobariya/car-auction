@@ -57,7 +57,7 @@
                     <div class="notification-setting">
                         @if($user->is_corporate_seller == 1)
                             <p class="corporate_seller_text">{{trans('web_string.you_are_a_corporate_seller')}} <a
-                                    href="{{route('seller',$user->id)}}"><u>{{trans('web_string.collection')}}</u></a></p>
+                                    href="{{route('seller',encrypt($user->id))}}"><u>{{trans('web_string.collection')}}</u></a></p>
                         @endif
                         {{--                                        <div class="head">--}}
                         {{--                                            <h3>Notification Settings</h3>--}}

@@ -569,6 +569,49 @@
             @endif
         </div>
     </section>
+
+    <section id="testimonial">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="title">
+                        <h1>{{trans('web_string.corporate_seller')}}</h1>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="testimonial">
+                        <div class="container">
+                            <div class="testimonial__inner">
+                                <div class="testimonial-slider">
+                                    @foreach($corporate_sellers as $corporate_seller)
+                                        <div class="testimonial-slide">
+                                            <div class="testimonial_box">
+                                                <div class="testimonial_box-inner">
+                                                    <div class="testimonial_box-top">
+                                                        <div>
+                                                            <img class="img-fluid" src="{{asset($corporate_seller->image)}}" alt="profile">
+                                                        </div>
+                                                        <div class="testimonial_box-name">
+                                                            <h4>{{$corporate_seller->name}}</h4>
+                                                        </div>
+                                                        <div class="testimonial_box-name">
+                                                            <a href="{{route('seller',encrypt($corporate_seller->id))}}" class="btn btn-view-all">View Car</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="howworks">
         <div class="container">
             <div class="row">
