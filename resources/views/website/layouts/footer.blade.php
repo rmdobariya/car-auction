@@ -40,7 +40,7 @@
                 <hr>
                 <div class="copyright">
                     <div class="copy">
-                        <p>{{trans('web_string.copyright')}} © {{date('Y')}}  <a href="https://promarcreative.com" target="_blank" class="text-gray-800 text-hover-primary">Crafted by ProMar Creative</a>.</p>
+                        <p> © {{trans('web_string.copyright')}} {{date('Y')}} Zodha.  <a href="https://promarcreative.com" target="_blank" class="textWhite text-hover-primary">Crafted by ProMar Creative</a>.</p>
                     </div>
                     <div class="pagelink">
                         <a href="{{route('page',['terms-conditions'])}}">{{trans('web_string.terms_and_conditions')}}</a>
