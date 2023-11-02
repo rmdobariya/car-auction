@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 {
@@ -109,6 +110,12 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->count();
 
+        $corporate_sellers = DB::table('users')
+            ->where('is_corporate_seller', 1)
+            ->where('user_type', 'seller')
+            ->whereNull('deleted_at')
+            ->get();
+
         return view('website.home.index', [
             'featured_vehicles' => $featured_vehicles,
             'popular_vehicles' => $popular_vehicles,
@@ -120,12 +127,15 @@ class HomeController extends Controller
             'popular_vehicle_count' => $popular_vehicle_count,
             'hot_deal_count' => $hot_deal_count,
             'car_for_sell_count' => $car_for_sell_count,
+            'corporate_sellers' => $corporate_sellers,
         ]);
     }
 
     public function seller(Request $request, $id)
     {
-        if (Auth::user()->is_corporate_seller == 1) {
+        $id = decrypt($id);
+        $user = DB::table('users')->where('id', $id)->first();
+        if ($user->is_corporate_seller == 1) {
             $featured_vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
                 ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
@@ -744,6 +754,12 @@ class HomeController extends Controller
             ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
             ->get();
 
+        $corporate_sellers = DB::table('users')
+            ->where('is_corporate_seller', 1)
+            ->where('user_type', 'seller')
+            ->whereNull('deleted_at')
+            ->get();
+
         return view('website.home.index', [
             'featured_vehicles' => $featured_vehicles,
             'popular_vehicles' => $popular_vehicles,
@@ -755,6 +771,7 @@ class HomeController extends Controller
             'popular_vehicle_count' => $popular_vehicle_count,
             'hot_deal_count' => $hot_deal_count,
             'car_for_sell_count' => $car_for_sell_count,
+            'corporate_sellers' => $corporate_sellers,
         ]);
     }
 

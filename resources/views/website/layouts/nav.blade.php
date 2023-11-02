@@ -181,16 +181,23 @@
                     <div class="reg-btn">
                         <button class="btn btn-register" data-bs-toggle="modal" data-bs-target="#signup">Registration</button>
                     </div> -->
-                    @if(!is_null(Auth::user()))
-                        @if(Auth::user()->is_corporate_seller == 1)
+                    @if(request()->segment(1) == 'seller')
+                        @php
+                            $id = decrypt(request()->segment(2));
+                                $user = DB::table('users')->where('id',$id)->first();
+                        @endphp
+                        @if($user->is_corporate_seller == 1)
                             <form id="sellerFilterForm">
                                 <div class="filter-pop">
                                     <div class="f-head">
                                         <p>Filters</p>
-                                        <input type="hidden" name="user_id" id="user_id" value="{{Auth::user()->id}}">
-                                        <a href="{{route('seller',Auth::user()->id)}}">{{trans('web_string.reset_all')}}</a>
-                                        <button type="button" id="seller_filterData">{{trans('web_string.submit')}}</button>
-                                        <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
+                                        <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
+                                        <input type="hidden" name="encrypt_user_id" id="encrypt_user_id" value="{{encrypt($id)}}">
+                                        <a href="{{route('seller',encrypt($id))}}">{{trans('web_string.reset_all')}}</a>
+                                        <button type="button"
+                                                id="seller_filterData">{{trans('web_string.submit')}}</button>
+                                        <a href="javascript:void(0)" class="close-filter"><i
+                                                class="las la-times"></i></a>
                                     </div>
                                     <div class="f-body">
                                         <div class="row">
@@ -233,7 +240,8 @@
                                                 <div class="category">
                                                     <select class="form-select" name="category" id="category"
                                                             aria-label="Default select example">
-                                                        <option value="">{{trans('web_string.select_category')}}</option>
+                                                        <option
+                                                            value="">{{trans('web_string.select_category')}}</option>
                                                         @foreach($v_categories as $v_category)
                                                             <option value="{{$v_category->id}}"
                                                                     @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
@@ -268,7 +276,8 @@
                                             <div class="col-md-3">
                                                 <label>{{trans('web_string.body_type')}}</label>
                                                 <div class="category">
-                                                    <input type="text" class="form-control" name="body_type" id="body_type"
+                                                    <input type="text" class="form-control" name="body_type"
+                                                           id="body_type"
                                                            value="{{request()->get('body_type')}}">
                                                 </div>
                                             </div>
@@ -354,8 +363,10 @@
                                                     <p class="range-value">
                                                         {{trans('web_string.seller_ratings')}}
                                                         <input type="text" id="ratings" name="ratting" readonly>
-                                                        <input type="hidden" id="min_ratting" name="min_ratting" readonly>
-                                                        <input type="hidden" id="max_ratting" name="max_ratting" readonly>
+                                                        <input type="hidden" id="min_ratting" name="min_ratting"
+                                                               readonly>
+                                                        <input type="hidden" id="max_ratting" name="max_ratting"
+                                                               readonly>
                                                     </p>
                                                     <div id="ratings-range" class="range-bar"></div>
                                                 </div>
@@ -371,7 +382,8 @@
                                         <p>Filters</p>
                                         <a href="{{route('/')}}">{{trans('web_string.reset_all')}}</a>
                                         <button type="button" id="filterData">{{trans('web_string.submit')}}</button>
-                                        <a href="javascript:void(0)" class="close-filter"><i class="las la-times"></i></a>
+                                        <a href="javascript:void(0)" class="close-filter"><i
+                                                class="las la-times"></i></a>
                                     </div>
                                     <div class="f-body">
                                         <div class="row">
@@ -414,7 +426,8 @@
                                                 <div class="category">
                                                     <select class="form-select" name="category" id="category"
                                                             aria-label="Default select example">
-                                                        <option value="">{{trans('web_string.select_category')}}</option>
+                                                        <option
+                                                            value="">{{trans('web_string.select_category')}}</option>
                                                         @foreach($v_categories as $v_category)
                                                             <option value="{{$v_category->id}}"
                                                                     @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
@@ -449,7 +462,8 @@
                                             <div class="col-md-3">
                                                 <label>{{trans('web_string.body_type')}}</label>
                                                 <div class="category">
-                                                    <input type="text" class="form-control" name="body_type" id="body_type"
+                                                    <input type="text" class="form-control" name="body_type"
+                                                           id="body_type"
                                                            value="{{request()->get('body_type')}}">
                                                 </div>
                                             </div>
@@ -535,8 +549,10 @@
                                                     <p class="range-value">
                                                         {{trans('web_string.seller_ratings')}}
                                                         <input type="text" id="ratings" name="ratting" readonly>
-                                                        <input type="hidden" id="min_ratting" name="min_ratting" readonly>
-                                                        <input type="hidden" id="max_ratting" name="max_ratting" readonly>
+                                                        <input type="hidden" id="min_ratting" name="min_ratting"
+                                                               readonly>
+                                                        <input type="hidden" id="max_ratting" name="max_ratting"
+                                                               readonly>
                                                     </p>
                                                     <div id="ratings-range" class="range-bar"></div>
                                                 </div>
