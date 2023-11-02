@@ -28,13 +28,13 @@
                             <img src="{{asset('web/assets/images/app-store.png')}}" alt="app-store"></a>
                     </div>
                     <div class="link">
-                        <span>{{trans('web_string.inquiry')}}: <a href="mailto:{{$email}}">{{$email}}</a></span>
+                        <span>{{trans('web_string.inquiry')}}<br> <a href="mailto:{{$email}}">{{$email}}</a></span>
                     </div>
                     <div class="link">
-                        <span>{{trans('web_string.support')}}: <a href="mailto:{{$email}}">{{$email}}</a></span>
+                        <span>{{trans('web_string.support')}}<br> <a href="mailto:{{$email}}">{{$email}}</a></span>
                     </div>
                     <div class="link">
-                        <span>{{trans('web_string.phone')}}: <a href="tel:{{$contact_no}}">{{$contact_no}}</a></span>
+                        <span>{{trans('web_string.phone')}}<br> <a href="tel:{{$contact_no}}">{{$contact_no}}</a></span>
                     </div>
                 </div>
                 <hr>
