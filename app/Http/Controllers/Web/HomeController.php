@@ -299,6 +299,7 @@ class HomeController extends Controller
                 'popular_vehicles' => $popular_vehicles,
                 'hot_deal_vehicles' => $hot_deal_vehicles,
                 'sell_vehicles' => $sell_vehicles,
+                'user' => $user,
             ]);
         }
         abort(404);

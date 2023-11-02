@@ -206,4 +206,5 @@
   'you_are_a_corporate_seller' => 'أنت بائع شركة.عرض الخاص بك',
   'collection' => 'مجموعة',
   'you_can_not_add_your_car_to_the_wish_list' => 'لا يمكنك إضافة سيارتك إلى قائمة الرغبات',
+  'has_not_added_any_cars_yet' => 'لم يتم إضافة أي سيارات حتى الآن.',
 );

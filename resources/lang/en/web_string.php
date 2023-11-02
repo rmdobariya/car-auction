@@ -206,4 +206,5 @@
   'you_are_a_corporate_seller' => 'You are a corporate seller.view your',
   'collection' => 'collection',
   'you_can_not_add_your_car_to_the_wish_list' => 'You cannot add your car to the wish list',
+  'has_not_added_any_cars_yet' => 'has not added any cars yet.',
 );
