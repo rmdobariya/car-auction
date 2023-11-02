@@ -56,11 +56,11 @@
                                     <div class="names">
                                         <h3>{{$sell_vehicle->vehicle_name}}</h3>
                                         <p>{{$sell_vehicle->category_name}}</p>
-                                        <div class="feedback" style="visibility: hidden">
-                                            <i class="las la-comments"></i>
-                                            <a href="javascript:void(0)" data-bs-toggle="modal"
-                                               data-bs-target="#feedback">Feedbacks</a>
-                                        </div>
+{{--                                        <div class="feedback" style="visibility: hidden">--}}
+{{--                                            <i class="las la-comments"></i>--}}
+{{--                                            <a href="javascript:void(0)" data-bs-toggle="modal"--}}
+{{--                                               data-bs-target="#feedback">Feedbacks</a>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                                 <div class="car-specifation">

@@ -76,9 +76,11 @@ body.rtl{
 .filter-fix {
     position: fixed;
     bottom: 30px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     z-index: 9999;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .steps-box {
     background: transparent linear-gradient(90deg, rgb(20 155 158 / 70%) 0%, rgb(103 58 170 / 70%) 100%) 0% 0% no-repeat padding-box;
@@ -3424,6 +3426,15 @@ body.rtl .form-check .form-check-input {
     }
 }
 @media only screen and (min-width: 992px) {
+    .filter-fix {
+        position: fixed;
+        bottom: 30px;
+        width: 90%;
+        margin: 0 auto;
+        z-index: 9999;
+        left: 50%;
+        transform: translateX(-50%);
+    }
     .auctions-filter {
         flex-direction: unset;
     }
@@ -3519,6 +3530,17 @@ body.rtl .form-check .form-check-input {
     }
     .car-dt {
         width: 50px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .filter-fix {
+        position: unset;
+        bottom: unset;
+        width: auto;
+        margin: 0 auto;
+        z-index: auto;
+        left: unset;
+        transform: unset;
     }
 }
 @media only screen and (min-width: 1200px) {
