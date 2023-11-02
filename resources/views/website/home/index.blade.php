@@ -56,11 +56,11 @@
                                     <div class="names">
                                         <h3>{{$sell_vehicle->vehicle_name}}</h3>
                                         <p>{{$sell_vehicle->category_name}}</p>
-{{--                                        <div class="feedback" style="visibility: hidden">--}}
-{{--                                            <i class="las la-comments"></i>--}}
-{{--                                            <a href="javascript:void(0)" data-bs-toggle="modal"--}}
-{{--                                               data-bs-target="#feedback">Feedbacks</a>--}}
-{{--                                        </div>--}}
+                                        {{--                                        <div class="feedback" style="visibility: hidden">--}}
+                                        {{--                                            <i class="las la-comments"></i>--}}
+                                        {{--                                            <a href="javascript:void(0)" data-bs-toggle="modal"--}}
+                                        {{--                                               data-bs-target="#feedback">Feedbacks</a>--}}
+                                        {{--                                        </div>--}}
                                     </div>
                                 </div>
                                 <div class="car-specifation">
@@ -377,7 +377,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                <div
+                                    class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -529,7 +530,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                <div
+                                    class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -589,13 +591,16 @@
                                                 <div class="testimonial_box-inner">
                                                     <div class="testimonial_box-top">
                                                         <div>
-                                                            <img class="img-fluid" src="{{asset($corporate_seller->image)}}" alt="profile">
+                                                            <img class="img-fluid"
+                                                                 src="{{asset($corporate_seller->image)}}"
+                                                                 alt="profile">
                                                         </div>
                                                         <div class="testimonial_box-name">
-                                                            <h4>{{$corporate_seller->name}}</h4>
+                                                            <h4>{{$corporate_seller->full_name}}</h4>
                                                         </div>
                                                         <div class="testimonial_box-name">
-                                                            <a href="{{route('seller',encrypt($corporate_seller->id))}}" class="btn btn-view-all">View Car</a>
+                                                            <a href="{{route('seller',encrypt($corporate_seller->id))}}"
+                                                               class="btn btn-view-all">{{trans('web_string.view_auction')}}</a>
                                                         </div>
                                                     </div>
                                                 </div>
