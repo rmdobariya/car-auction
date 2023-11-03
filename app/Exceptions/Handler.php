@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Request;
 use Throwable;
@@ -33,7 +34,10 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof AuthenticationException) {
             if (Request::is('api/*')) {
-                return response()->json(['message' => 'Token invalid'], 401);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Token invalid'
+                ], 401);
             }
         }
         return parent::render($request, $exception);
