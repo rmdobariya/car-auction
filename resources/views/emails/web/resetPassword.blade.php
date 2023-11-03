@@ -1,8 +1,8 @@
 @component('mail::message')
 # Hello {{ $details['name'] }},
-Password Reset
+{{$details['mail_title']}}
 @component('mail::button', ['url' => $details['actionUrl']])
-Reset Button
+Reset Password
 @endcomponent
 Thanks
 @endcomponent

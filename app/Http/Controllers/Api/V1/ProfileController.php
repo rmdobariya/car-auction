@@ -106,4 +106,14 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function deleteAccount(Request $request)
+    {
+        $user = $request->user();
+        User::where('id', $user->id)->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Account Delete Successfully',
+        ]);
+    }
+
 }
