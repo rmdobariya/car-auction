@@ -64,7 +64,7 @@ class ContactUsController extends Controller
                 ->addColumn('check', function ($contact_us) {
                     return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $contact_us->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $contact_us->id . ' id="single_select">
                     </div>
                 </td>';
                 })

@@ -207,4 +207,7 @@
   'collection' => 'مجموعة',
   'you_can_not_add_your_car_to_the_wish_list' => 'لا يمكنك إضافة سيارتك إلى قائمة الرغبات',
   'has_not_added_any_cars_yet' => 'لم يتم إضافة أي سيارات حتى الآن.',
+  'notification_delete' => 'حذف الإخطار ?',
+  'are_you_sure_this_record_delete' => 'هل أنت متأكد من حذف هذا السجل',
+  'notification_delete_successfully' => 'تم حذف الإشعار بنجاح',
 );

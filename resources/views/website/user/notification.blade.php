@@ -24,47 +24,12 @@
                             <div class="noti-heading">
                                 <h2>{{trans('web_string.car_inquiry')}}</h2>
                                 <span>{{Carbon\Carbon::parse($notification->created_at)->format('h:i A | l  d F Y')}}</span>
+                                <span><a href="#" class="notification_delete" data-id="{{$notification->id}}"> <i class="fa fa-trash" style="color: red"></i></a></span>
                             </div>
                             <p>{!! $notification->message !!}</p>
                         </div>
                     </div>
                     @endforeach
-{{--                    <div class="notification-box">--}}
-{{--                        <div class="noti-img">--}}
-{{--                            <img src="images/car.jpg" alt="car">--}}
-{{--                        </div>--}}
-{{--                        <div class="noti-details">--}}
-{{--                            <div class="noti-heading">--}}
-{{--                                <h2>Auction Ended!</h2>--}}
-{{--                                <span>12:16 am | Wednesday, 6 September 2023</span>--}}
-{{--                            </div>--}}
-{{--                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="notification-box">--}}
-{{--                        <div class="noti-img">--}}
-{{--                            <img src="images/car.jpg" alt="car">--}}
-{{--                        </div>--}}
-{{--                        <div class="noti-details">--}}
-{{--                            <div class="noti-heading">--}}
-{{--                                <h2>Congratulations!</h2>--}}
-{{--                                <span>12:16 am | Wednesday, 6 September 2023</span>--}}
-{{--                            </div>--}}
-{{--                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="notification-box">--}}
-{{--                        <div class="noti-img">--}}
-{{--                            <img src="images/car.jpg" alt="car">--}}
-{{--                        </div>--}}
-{{--                        <div class="noti-details">--}}
-{{--                            <div class="noti-heading">--}}
-{{--                                <h2>New Listing</h2>--}}
-{{--                                <span>12:16 am | Wednesday, 6 September 2023</span>--}}
-{{--                            </div>--}}
-{{--                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                 </div>
                 @else
                     <h3>{{trans('web_string.no_new_notification')}}</h3>
@@ -73,4 +38,11 @@
         </div>
     </section>
     <div class="clearfix"></div>
+@endsection
+@section('custom-script')
+    <script>
+        var delete_title = '{{trans('web_string.notification_delete')}}';
+        var delete_text = '{{trans('web_string.are_you_sure_this_record_delete')}}';
+    </script>
+    <script src="{{asset('web/assets/custom/notification/notification.js')}}?v={{time()}}"></script>
 @endsection

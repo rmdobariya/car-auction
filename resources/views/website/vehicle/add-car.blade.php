@@ -31,7 +31,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <div class="mb-1 col-md-4">
+                                    <div class="mb-1 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label
                                                 class="required fs-6 fw-bold mb-2">{{trans('web_string.vehicle_category')}}</label>
@@ -46,7 +46,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-4">
+                                    <div class="mb-1 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="year">
                                                 {{trans('web_string.year')}}
@@ -56,7 +56,7 @@
                                                    placeholder="{{trans('web_string.year')}}"/>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-4">
+                                    <div class="mb-1 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="kms_driven">
                                                 {{trans('web_string.kms_driven')}}
@@ -67,7 +67,7 @@
                                                    placeholder="{{trans('web_string.kms_driven')}}"/>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-4">
+                                    <div class="mb-1 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="owners">
                                                 {{trans('web_string.no_of_owners')}}
@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_make"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.make')}}
@@ -94,7 +94,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_model"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.model')}}
@@ -109,7 +109,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_trim"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.trim')}}
@@ -124,7 +124,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_transmission"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
@@ -140,7 +140,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_fuel_type"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.fuel_type')}}
@@ -155,7 +155,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_body_type"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.body_type')}}
@@ -170,7 +170,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_registration"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.registration')}}
@@ -185,7 +185,7 @@
                                         </div>
                                     @endforeach
                                         @foreach($languages as $language)
-                                            <div class="mb-1 col-md-4">
+                                            <div class="mb-1 col-md-6">
                                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                                     <label for="{{ $language['language_code'] }}_mileage"
                                                            class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.mileage')}}
@@ -200,7 +200,7 @@
                                             </div>
                                         @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_color"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.exterior_color')}}
@@ -215,7 +215,7 @@
                                         </div>
                                     @endforeach
                                     @foreach($languages as $language)
-                                        <div class="mb-1 col-md-4">
+                                        <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_car_type"
                                                        class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.car_type')}}

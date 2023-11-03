@@ -50,13 +50,13 @@
                                 </a>
                             </li>
 
-                            {{--                            <li class="nav-item">--}}
-                            {{--                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"--}}
-                            {{--                                   data-bs-toggle="tab" href="#social_media_setting">--}}
-                            {{--                                    <i class="ki-duotone ki-home fs-2 me-2"></i>--}}
-                            {{--                                    Social Media--}}
-                            {{--                                </a>--}}
-                            {{--                            </li>--}}
+                                                        <li class="nav-item">
+                                                            <a class="nav-link text-active-primary d-flex align-items-center pb-5"
+                                                               data-bs-toggle="tab" href="#social_media_setting">
+                                                                <i class="ki-duotone ki-home fs-2 me-2"></i>
+                                                                Social Media
+                                                            </a>
+                                                        </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">

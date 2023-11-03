@@ -2676,7 +2676,10 @@ body.rtl .form-check .form-check-input {
         padding-right: 32px;
     }
     body.rtl div.my-auction-counter span {
-        padding: 8px 18px!important;
+        padding: 8px 12px!important;
+    }
+    div.my-auction-counter span{
+        padding: 8px 12px!important;   
     }
     body.rtl span.cat-tags {
         left: unset;
@@ -2785,6 +2788,7 @@ body.rtl .form-check .form-check-input {
         width: 40%;
         height: 70px;
         margin-bottom: 20px;
+        overflow: hidden;
     }
     .car-name {
         width: 60%;
@@ -3026,12 +3030,13 @@ body.rtl .form-check .form-check-input {
         width: 50%;
         transform: unset;
         top: 0;
-        height: 180px;
+        height: 130px;
+        margin-bottom: 0;
     }
     .bid-details-box .car-name {
         width: 50%;
         padding-left: 10px;
-        height: 180px;
+        height: 130px;
     }
     .bid-details-box {
         height: auto;
@@ -3536,7 +3541,7 @@ body.rtl .form-check .form-check-input {
     .filter-fix {
         position: unset;
         bottom: unset;
-        width: auto;
+        width: 100%;
         margin: 0 auto;
         z-index: auto;
         left: unset;

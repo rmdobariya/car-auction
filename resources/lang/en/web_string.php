@@ -207,4 +207,7 @@
   'collection' => 'collection',
   'you_can_not_add_your_car_to_the_wish_list' => 'You cannot add your car to the wish list',
   'has_not_added_any_cars_yet' => 'has not added any cars yet.',
+  'notification_delete' => 'Notification Delete ?',
+  'are_you_sure_this_record_delete' => 'Are You Sure Delete This Record',
+  'notification_delete_successfully' => 'Notification Delete Successfully',
 );
