@@ -28,7 +28,12 @@ class VehicleController extends Controller
         if ($user) {
             $user = User::where('id', Auth::user())->where('user_type', 'seller')->first();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
-            $vehicle_categories = VehicleCategory::where('status', 'active')->whereNull('deleted_at')->get();
+            $vehicle_categories = DB::table('categories')
+                ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                ->where('categories.status','active')
+                ->where('category_translations.locale',App::getLocale())
+                ->whereNull('deleted_at')
+                ->get();
             return view('website.vehicle.add-car', [
                 'user' => $user,
                 'languages' => $languages,
@@ -45,7 +50,12 @@ class VehicleController extends Controller
         if ($user) {
             $user = User::where('id', Auth::user()->id)->where('user_type', 'seller')->first();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
-            $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
+            $vehicle_categories = DB::table('categories')
+                ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                ->where('categories.status','active')
+                ->where('category_translations.locale',App::getLocale())
+                ->whereNull('deleted_at')
+                ->get();
             $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
             $vehicleDocuments = VehicleDocument::where('vehicle_id', $id)->get();
             $vehicle = Vehicle::where('id', $id)->first();

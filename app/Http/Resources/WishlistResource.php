@@ -15,6 +15,7 @@ class WishlistResource extends JsonResource
             'wishlist_id' => $this->wishlist_id,
             'wishlist_vehicle_id' => $this->wishlist_vehicle_id,
             'vehicle_name' => $this->name,
+            'vehicle_category_name' => $this->vehicle_category_name,
             'short_description' => $this->short_description,
             'description' => $this->description,
             'id' => $this->id,

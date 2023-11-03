@@ -36,17 +36,17 @@
                                     @endforeach
                                 </div>
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class=" fs-6 fw-bold mb-2"
-                                           for="image">Image
-                                    </label><br>
-                                    @include('admin.layouts2.components.image-selection',
-                                      [
-                                      'id'=>'image',
-                                      'description_string'=>'',
-                                      'image'=>asset($category->image),
-                                      ])
-                                </div>
+{{--                                <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+{{--                                    <label class=" fs-6 fw-bold mb-2"--}}
+{{--                                           for="image">Image--}}
+{{--                                    </label><br>--}}
+{{--                                    @include('admin.layouts2.components.image-selection',--}}
+{{--                                      [--}}
+{{--                                      'id'=>'image',--}}
+{{--                                      'description_string'=>'',--}}
+{{--                                      'image'=>asset($category->image),--}}
+{{--                                      ])--}}
+{{--                                </div>--}}
 
                             </div>
 

@@ -81,7 +81,6 @@
                                 </th>
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Image</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -116,7 +115,6 @@
                 {data: 'check', name: 'check', orderable: false, searchable: false},
                 {data: 'id', name: 'categories.id'},
                 {data: 'name', name: 'categories.name'},
-                {data: 'image', name: 'image'},
                 {data: 'status', name: 'categories.status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],

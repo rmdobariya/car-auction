@@ -46,7 +46,12 @@ class VehicleController extends Controller
     public function create()
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        $vehicle_categories = VehicleCategory::where('status', 'active')->whereNull('deleted_at')->get();
+        $vehicle_categories = DB::table('categories')
+            ->leftjoin('category_translations','categories.id','category_translations.category_id')
+            ->where('categories.status','active')
+            ->where('category_translations.locale',App::getLocale())
+            ->whereNull('deleted_at')
+            ->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         return view('admin.vehicle.create', [
             'vehicle_categories' => $vehicle_categories,
@@ -58,7 +63,12 @@ class VehicleController extends Controller
     public function edit($id)
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        $vehicle_categories = VehicleCategory::whereNull('deleted_at')->get();
+        $vehicle_categories = DB::table('categories')
+            ->leftjoin('category_translations','categories.id','category_translations.category_id')
+            ->where('categories.status','active')
+            ->where('category_translations.locale',App::getLocale())
+            ->whereNull('deleted_at')
+            ->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
         $vehicle = Vehicle::where('id', $id)->first();
@@ -183,12 +193,13 @@ class VehicleController extends Controller
         $vehicle = DB::table('vehicles')
             ->leftJoin('users', 'vehicles.user_id', 'users.id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
             ->leftjoin('roles', 'model_has_roles.role_id', 'roles.id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
-            ->select('vehicles.*', 'users.name as user_name', 'vehicle_categories.name as category_name', 'roles.name as role_name', 'vehicle_translations.*')
+            ->select('vehicles.*', 'users.name as user_name', 'category_translations.name as category_name', 'roles.name as role_name', 'vehicle_translations.*')
             ->first();
         $vehicle_images = VehicleImage::where('vehicle_id', $id)->get();
         $vehicle_documents = VehicleDocument::where('vehicle_id', $id)->get();

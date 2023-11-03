@@ -16,7 +16,6 @@ use App\Http\Controllers\Api\V1\SettingController;
 use App\Http\Controllers\Api\V1\TestimonialController;
 use App\Http\Controllers\Api\V1\VehicleCategoryController;
 use App\Http\Controllers\Api\V1\VehicleController;
-use App\Http\Controllers\Api\V1\VehicleDocumentController;
 use App\Http\Controllers\Api\V1\WishListController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,13 +38,11 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('get-vehicle', [VehicleController::class, 'index'])->name('get-vehicle');
     Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
     Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
+    Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
         Route::post('updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
-        Route::post('store-vehicle-category', [VehicleCategoryController::class, 'store'])->name('store-vehicle-category');
-        Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
-        Route::delete('delete-vehicle-category/{id}', [VehicleCategoryController::class, 'destroy'])->name('delete-vehicle-category');
         Route::post('store-vehicle', [VehicleController::class, 'store'])->name('store-vehicle');
         Route::post('change-status-vehicle/{id}', [VehicleController::class, 'changeStatus'])->name('change-status-vehicle');
         Route::delete('delete-vehicle/{id}', [VehicleController::class, 'destroy'])->name('delete-vehicle');

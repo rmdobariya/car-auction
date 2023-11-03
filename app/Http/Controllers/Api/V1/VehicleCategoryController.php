@@ -8,52 +8,24 @@ use App\Http\Resources\VehicleCategoryResource;
 use App\Models\VehicleCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class VehicleCategoryController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $user = $request->user();
-        $vehicle_category = VehicleCategory::where('user_id', $user->id)->whereNull('deleted_at')->get();
+        $vehicle_category = DB::table('categories')
+            ->leftjoin('category_translations','categories.id','category_translations.category_id')
+            ->where('categories.status','active')
+            ->where('category_translations.locale',App::getLocale())
+            ->whereNull('deleted_at')
+            ->select('categories.*','category_translations.name as vehicle_category_name')
+            ->get();
         $result = VehicleCategoryResource::collection($vehicle_category);
         return response()->json([
             'status' => true,
             'data' => ['vehicle_category' => $result],
-        ]);
-    }
-
-    public function store(VehicleCategoryStoreRequest $request): JsonResponse
-    {
-        $user = $request->user();
-        $validated = $request->validated();
-        if ((int)$validated['edit_value'] === 0) {
-            $vehicle_category = new VehicleCategory();
-            $vehicle_category->user_id = $user->id;
-            $vehicle_category->name = $request->name;
-            $vehicle_category->save();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Vehicle Category Insert Successfully',
-            ]);
-        }
-        $vehicle_category = VehicleCategory::find($validated['edit_value']);
-        $vehicle_category->user_id = $user->id;
-        $vehicle_category->name = $request->name;
-        $vehicle_category->save();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Vehicle Category Updated Successfully',
-        ]);
-    }
-
-    public function destroy($id): JsonResponse
-    {
-        VehicleCategory::where('id', $id)->delete();
-        return response()->json([
-            'status' => true,
-            'message' => 'Vehicle Category Delete Successfully'
         ]);
     }
 }

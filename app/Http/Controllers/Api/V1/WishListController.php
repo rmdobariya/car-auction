@@ -21,9 +21,11 @@ class WishListController extends Controller
         $wishlist = DB::table('wish_lists')
             ->leftJoin('vehicles', 'wish_lists.vehicle_id', 'vehicles.id')
             ->leftJoin('vehicle_translations', 'wish_lists.vehicle_id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('wish_lists.user_id', $user->id)
-            ->select('wish_lists.id as wishlist_id','wish_lists.vehicle_id as wishlist_vehicle_id', 'vehicle_translations.*', 'vehicles.*')
+            ->select('wish_lists.id as wishlist_id','wish_lists.vehicle_id as wishlist_vehicle_id', 'vehicle_translations.*', 'vehicles.*','category_translations.name as vehicle_category_name')
             ->get();
         $result = WishlistResource::collection($wishlist);
         return response()->json([

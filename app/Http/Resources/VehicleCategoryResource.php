@@ -10,7 +10,7 @@ class VehicleCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->vehicle_category_name,
         ];
     }
 }

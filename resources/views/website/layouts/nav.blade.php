@@ -221,7 +221,12 @@
                                             {{--                                        </div>--}}
                                             {{--                                    </div>--}}
                                             @php
-                                                $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                                $v_categories = DB::table('categories')
+                                                ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                                                ->where('categories.status','active')
+                                                ->where('category_translations.locale',App::getLocale())
+                                                ->whereNull('deleted_at')
+                                                ->get();
                                                 if(request()->get('min_amount')){
                                                    $min = request()->get('min_amount');
                                                 }else{
@@ -407,7 +412,12 @@
                                             {{--                                        </div>--}}
                                             {{--                                    </div>--}}
                                             @php
-                                                $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                                $v_categories = DB::table('categories')
+                                                ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                                                ->where('categories.status','active')
+                                                ->where('category_translations.locale',App::getLocale())
+                                                ->whereNull('deleted_at')
+                                                ->get();
                                                 if(request()->get('min_amount')){
                                                    $min = request()->get('min_amount');
                                                 }else{
@@ -593,7 +603,12 @@
                                         {{--                                        </div>--}}
                                         {{--                                    </div>--}}
                                         @php
-                                            $v_categories = DB::table('vehicle_categories')->whereNull('deleted_at')->get();
+                                            $v_categories = DB::table('categories')
+                                                ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                                                ->where('categories.status','active')
+                                                ->where('category_translations.locale',App::getLocale())
+                                                ->whereNull('deleted_at')
+                                                ->get();
                                             if(request()->get('min_amount')){
                                                $min = request()->get('min_amount');
                                             }else{

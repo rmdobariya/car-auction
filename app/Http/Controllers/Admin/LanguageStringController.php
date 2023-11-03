@@ -211,7 +211,7 @@ class LanguageStringController extends Controller
                         'id' => $languageStrings->id,
                         'actions' => [
                             'edit' => route('admin.language-string.edit', [$languageStrings->id]),
-                            'delete' => '',
+//                            'delete' => '',
                         ]
                     ];
                     return AdminDataTableButtonHelper::actionButtonDropdown($array);

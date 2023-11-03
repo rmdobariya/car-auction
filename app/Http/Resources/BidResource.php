@@ -17,6 +17,7 @@ class BidResource extends JsonResource
             'bid_vehicle_id' => $this->bid_vehicle_id,
             'bid_amount' => $this->bid_amount,
             'vehicle_name' => $this->vehicle_name,
+            'vehicle_category_name' => $this->vehicle_category_name,
             'short_description' => $this->short_description,
             'description' => $this->description,
             'user_name' => $this->user_name,

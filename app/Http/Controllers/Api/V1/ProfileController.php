@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\ChangePasswordStoreRequest;
 use App\Http\Requests\API\ForgotPasswordRequest;
@@ -37,6 +38,10 @@ class ProfileController extends Controller
     {
 
         $user = User::where('id', $request->user()->id)->first();
+        if ($request->hasfile('image')) {
+            $image = ImageUploadHelper::imageUpload($request->file('image'), 'profile');
+            $user->image = $image;
+        }
         $user->name = $request['first_name'];
         $user->last_name = $request['last_name'];
         $user->contact_no = $request['contact_no'];

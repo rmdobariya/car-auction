@@ -23,10 +23,11 @@ class VehicleController extends Controller
     public function index(Request $request): JsonResponse
     {
         $vehicle = DB::table('vehicles')
-            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
 //            ->where('vehicles.user_id', $user->id)
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->whereNull('vehicles.deleted_at')
             ->orderBy('vehicles.id', 'desc');
         if (!is_null($request->name)) {
@@ -46,7 +47,7 @@ class VehicleController extends Controller
         if (!is_null($request->vehicle_category_id)) {
             $vehicle = $vehicle->where('vehicles.vehicle_category_id', 'like', '%' . $request->vehicle_category_id . '%');
         }
-        $vehicle = $vehicle->select('vehicles.*', 'vehicle_categories.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
+        $vehicle = $vehicle->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
             'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
         $result = VehicleResource::collection($vehicle);
@@ -59,13 +60,14 @@ class VehicleController extends Controller
     public function pendingVehicle(Request $request): JsonResponse
     {
         $vehicle = DB::table('vehicles')
-            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->whereNull('vehicles.deleted_at')
             ->where('vehicles.status', 'pending')
             ->orderBy('vehicles.id', 'desc')
-            ->select('vehicles.*', 'vehicle_categories.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
+            ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
         $result = VehicleResource::collection($vehicle);
@@ -275,14 +277,15 @@ class VehicleController extends Controller
     {
         $user = $request->user();
         $vehicle = DB::table('vehicles')
-            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
 //            ->where('vehicles.user_id', $user->id)
             ->whereNull('vehicles.deleted_at')
-            ->select('vehicles.*', 'vehicle_categories.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
+            ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->get();
         $result = VehicleResource::collection($vehicle);
         return response()->json([
