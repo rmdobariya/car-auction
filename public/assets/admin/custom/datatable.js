@@ -206,6 +206,7 @@ $(function () {
     }
 
     $(document).on('click', '#all_selected', function () {
+        console.log(123);
         if ($(this).prop('checked')) {
             $('.all_selected').prop('checked', true)
             $(".all_selected:checked").each(function (e, i) {

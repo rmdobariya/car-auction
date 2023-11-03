@@ -72,8 +72,7 @@
                                 <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" aria-label=""
                                     style="width: 29.8906px;">
                                     <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                               data-kt-check-target="#basic-1 .form-check-input" value="1">
+                                        <input class="form-check-input" id="all_selected" type="checkbox" value="">
                                     </div>
                                 </th>
                                 <th>Name</th>
@@ -96,6 +95,8 @@
         const sweetalert_delete_text = "Are You Sure Delete This Contact Us"
         const sweetalert_restore_title = "Contact Us Restore?"
         const sweetalert_restore_text = "Are You Sure Restore This Contact Us"
+        const multiple_select_title = "Selected Record Delete ?"
+        const multiple_select_text = "Are You Sure Selected Record Delete"
         const cancel_button_text = "Cancel"
         const delete_button_text = "Delete"
         const sweetalert_change_status = "Contact Us Status Change"
@@ -105,7 +106,8 @@
         const datatable_url = '/get-contact-us-list'
         const restore_url = '/restore-contact-us'
         const hard_delete_url = '/contact-us-hard-delete'
-
+        const multiple_delete_url = '/multiple-contact-us-delete'
+        var arr = [];
 
         $.extend(true, $.fn.dataTable.defaults, {
             columns: [
@@ -117,60 +119,6 @@
             ],
             order: [[0, 'DESC']],
         })
-    </script>
-    <script>
-        var checkedValues = [];
-        $(document).on('change', 'tbody .form-check-input', function () {
-            var checkedCount = $('tbody .form-check-input:checked').length;
-
-            if ($(this).prop('checked')) {
-                checkedValues.push($(this).val());
-                $('#select_delete_btn').removeClass('d-none');
-                $('#selected_count').text(checkedCount)
-                console.log(checkedValues)
-            } else {
-                $('#select_delete_btn').addClass('d-none');
-                $('#selected_count').text()
-            }
-        })
-
-        $(document).on('click', '#multiple_record_delete', function () {
-            console.log(checkedValues)
-            Swal.fire({
-                title: 'Selected Contact Us Delete ?',
-                text: 'Are You Sure Selected Record Delete',
-                icon: 'warning',
-                showCancelButton: !0,
-                buttonsStyling: !1,
-                confirmButtonText: delete_button_text,
-                cancelButtonText: cancel_button_text,
-                customClass: {
-                    confirmButton: 'btn fw-bold btn-danger',
-                    cancelButton: 'btn fw-bold btn-active-light-primary'
-                }
-            }).then((function (t) {
-                if (t.isConfirmed) {
-                    multipleDeleteRecord(checkedValues)
-                }
-            }))
-        })
-
-        function multipleDeleteRecord(checkedValues) {
-            loaderView()
-            axios
-                .post(APP_URL + '/multiple-contact-us-delete', {
-                    ids: checkedValues
-                })
-                .then(function (response) {
-                    notificationToast(response.data.message, 'success')
-                    loaderHide()
-                })
-                .catch(function (error) {
-                    notificationToast(error.response.data.message, 'warning')
-                    loaderHide()
-                })
-
-        }
     </script>
     <script src="{{URL::asset('assets/admin/custom/datatable.js')}}?v={{ time() }}"></script>
 @endsection

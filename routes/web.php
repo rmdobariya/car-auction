@@ -73,6 +73,7 @@ Route::group(['middleware' => ['websiteLanguageCheck']], function () {
     Route::post('search-car', [AuctionController::class, 'searchCar'])->name('search-car');
     Route::get('updated-bid/{id}', [BidController::class, 'updatedBid'])->name('updated-bid');
     Route::get('notification', [NotificationController::class, 'index'])->name('notification');
+    Route::get('notification-delete/{id}', [NotificationController::class, 'destroy'])->name('notification-delete');
 
     Route::post('send-mail', [LoginController::class, 'sendMail'])->name('send-mail');
     Route::get('reset-password/{token}', [LoginController::class, 'resetPassword'])->name('reset-password');

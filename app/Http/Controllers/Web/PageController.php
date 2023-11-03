@@ -27,6 +27,11 @@ class PageController extends Controller
         $address_2 = DB::table('site_settings')->where('setting_key', 'ADDRESS_2')->first()->setting_value;
         $email = DB::table('site_settings')->where('setting_key', 'FROM_EMAIL')->first()->setting_value;
         $address_google_map = DB::table('site_settings')->where('setting_key', 'ADDRESS_GOOGLE_MAP')->first()->setting_value;
+        $facebook_link = DB::table('site_settings')->where('setting_key', 'FACEBOOK_LINK')->first()->setting_value;
+        $instagram_ink = DB::table('site_settings')->where('setting_key', 'INSTAGRAM_LINK')->first()->setting_value;
+        $twitter_link = DB::table('site_settings')->where('setting_key', 'TWITTER_LINK')->first()->setting_value;
+        $pinterest_link = DB::table('site_settings')->where('setting_key', 'PINTEREST_LINK')->first()->setting_value;
+        $dribble_link = DB::table('site_settings')->where('setting_key', 'DRIBBLE_LINK')->first()->setting_value;
         return view('website.page.contact_us', [
             'mobile_no' => $mobile_no,
             'whatsapp_mobile_no' => $whatsapp_mobile_no,
@@ -34,6 +39,11 @@ class PageController extends Controller
             'address_2' => $address_2,
             'email' => $email,
             'address_google_map' => $address_google_map,
+            'facebook_link' => $facebook_link,
+            'instagram_ink' => $instagram_ink,
+            'twitter_link' => $twitter_link,
+            'pinterest_link' => $pinterest_link,
+            'dribble_link' => $dribble_link,
         ]);
     }
 

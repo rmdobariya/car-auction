@@ -59,7 +59,7 @@
                                                 <option value="">Select Option</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}"
-                                                            @if((int)$vehicle->user_id === $user->id) selected @endif>{{$user->name .' ' . $user->last_name}}</option>
+                                                            @if((int)$vehicle->user_id === $user->id) selected @endif>{{$user->name .' ' . $user->last_name}} ({{$user->email .'/' . $user->contact_no}})</option>
                                                 @endforeach
                                             </select>
                                         </div>
