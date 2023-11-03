@@ -14,12 +14,12 @@ class SearchController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $user = $request->user();
         $vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-            ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->whereNull('vehicles.deleted_at')
-            ->where('vehicle_translations.locale', App::getLocale());
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale());
 //            ->where('vehicles.status', 'approve');
         //        if (!is_null($request->condition)){
 //
@@ -41,13 +41,13 @@ class SearchController extends Controller
 
         }
         if (!is_null($request->model)) {
-            $vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+            $vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->body_type)) {
-            $vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+            $vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
-            $vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+            $vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
             $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -55,7 +55,8 @@ class SearchController extends Controller
                 ->where('vehicles.ratting', '<=', $rat[1]);
         }
         $vehicles = $vehicles->orderBy('vehicles.id', 'desc')
-            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name','vehicle_translations.short_description','vehicle_translations.description', 'vehicle_categories.name as vehicle_category_name')
+            ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->get();
         $result = VehicleResource::collection($vehicles);
         return response()->json([

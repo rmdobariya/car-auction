@@ -23,10 +23,12 @@ class BidController extends Controller
         $bids = DB::table('vehicle_bids')
             ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
             ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('vehicle_bids.user_id', $user->id)
-            ->select('vehicle_bids.id as bid_id','vehicle_bids.user_id as bid_user_id','vehicle_bids.amount as bid_amount','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name',
+            ->select('vehicle_bids.id as bid_id','vehicle_bids.user_id as bid_user_id','vehicle_bids.amount as bid_amount','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name','category_translations.name as vehicle_category_name',
                 'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
         $result = BidResource::collection($bids);
@@ -41,11 +43,13 @@ class BidController extends Controller
         $bids = DB::table('vehicle_bids')
             ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
             ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('vehicle_bids.user_id', $user->id)
             ->where('vehicle_bids.id', $id)
-            ->select('vehicle_bids.id as bid_id','vehicle_bids.amount','vehicle_bids.user_id as bid_user_id','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name',
+            ->select('vehicle_bids.id as bid_id','vehicle_bids.amount','vehicle_bids.user_id as bid_user_id','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name','category_translations.name as vehicle_category_name',
                 'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
         $result = BidDetailResource::collection($bids);
@@ -60,11 +64,13 @@ class BidController extends Controller
         $bids = DB::table('vehicle_bids')
             ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
             ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('vehicle_bids.user_id', $user->id)
             ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
-            ->select('vehicle_bids.id as bid_id','vehicle_bids.amount as bid_amount','vehicle_bids.user_id as bid_user_id','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name',
+            ->select('vehicle_bids.id as bid_id','vehicle_bids.amount as bid_amount','vehicle_bids.user_id as bid_user_id','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name','category_translations.name as vehicle_category_name',
                 'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
         $result = BidResource::collection($bids);
@@ -79,18 +85,20 @@ class BidController extends Controller
         $bids = DB::table('vehicle_bids')
             ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
             ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
             ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
             ->where('vehicle_bids.user_id', $user->id)
             ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
             ->where('vehicle_bids.is_winner', 1)
-            ->select('vehicle_bids.id as bid_id','vehicle_bids.amount as bid_amount','vehicle_bids.user_id as bid_user_id','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name',
+            ->select('vehicle_bids.id as bid_id','vehicle_bids.amount as bid_amount','vehicle_bids.user_id as bid_user_id','vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name','category_translations.name as vehicle_category_name',
                 'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
         $result = BidResource::collection($bids);
         return response()->json([
             'status' => true,
-            'data' => ['My-Bid' => $result],
+            'data' => ['My-Winning' => $result],
         ]);
     }
 

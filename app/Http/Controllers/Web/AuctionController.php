@@ -18,13 +18,14 @@ class AuctionController extends Controller
             $user = User::where('id', $user_id)->where('user_type', 'seller')->first();
             $vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-                ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+                ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
                 ->whereNull('vehicles.deleted_at')
                 ->where('vehicle_translations.locale', App::getLocale())
+                ->where('category_translations.locale', App::getLocale())
                 ->where('vehicles.user_id', $user->id)
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name',
-                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
 
             return view('website.auction.add-auction', [
@@ -71,25 +72,27 @@ class AuctionController extends Controller
         if (!empty($request->name)) {
             $vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-                ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+                ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
                 ->whereNull('vehicles.deleted_at')
                 ->where('vehicle_translations.locale', App::getLocale())
+                ->where('category_translations.locale', App::getLocale())
                 ->where('vehicles.user_id', $user->id)
                 ->where('vehicle_translations.name', 'LIKE', '%' . $request->name . '%')
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
         } else {
             $vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
-                ->leftJoin('vehicle_categories', 'vehicles.vehicle_category_id', 'vehicle_categories.id')
+                ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
                 ->whereNull('vehicles.deleted_at')
                 ->where('vehicle_translations.locale', App::getLocale())
+                ->where('category_translations.locale', App::getLocale())
                 ->where('vehicles.user_id', $user->id)
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'vehicle_categories.name as category_name')
+                    'vehicle_translations.description','vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
         }
         $view = view('website.auction.search_car', [

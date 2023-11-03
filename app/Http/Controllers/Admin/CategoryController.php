@@ -164,11 +164,11 @@ class CategoryController extends Controller
                     </div>
                 </td>';
                 })
-                ->addColumn('image', function ($category) {
-
-                    return '<img src="' . asset($category->image) . '" style="width:50px">';
-                })
-                ->rawColumns(['action', 'status', 'check', 'image'])
+//                ->addColumn('image', function ($category) {
+//
+//                    return '<img src="' . asset($category->image) . '" style="width:50px">';
+//                })
+                ->rawColumns(['action', 'status', 'check'])
                 ->make(true);
         }
     }
