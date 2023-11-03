@@ -24,15 +24,15 @@
                                         <option value="">Select Option</option>
                                         <option value="admin"
                                                 @if($languageString->app_or_panel== 'admin') selected @endif>
-                                            {{ trans('admin_string.admin_panel') }}
+                                            Admin Panel
                                         </option>
                                         <option value="web"
                                                 @if($languageString->app_or_panel== 'web') selected @endif >
-                                            {{ trans('admin_string.web_store') }}
+                                            Web
                                         </option>
                                         <option value="app"
                                                 @if($languageString->app_or_panel== 'app') selected @endif >
-                                            {{ trans('admin_string.application') }}
+                                            Application
                                         </option>
                                     </select>
                                 </div>
