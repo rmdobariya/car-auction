@@ -11,6 +11,14 @@ class BidResource extends JsonResource
     {
         $vehicle_image = DB::table('vehicle_images')->where('vehicle_id',$this->bid_vehicle_id)->get();
         $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id',$this->bid_vehicle_id)->get();
+        $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->count();
+        $my_bid_amount = 0;
+        $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$this->bid_vehicle_id)->max('amount');
+        if (!is_null($request->user())) {
+            $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
+            $my_bid_amount = $my_bid->amount;
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$this->bid_vehicle_id)->where('user_id',$request->user()->id)->max('amount');
+        }
         return [
             'bid_id' => $this->bid_id,
             'bid_user_id' => $this->bid_user_id,
@@ -49,6 +57,9 @@ class BidResource extends JsonResource
             'is_auction_awarded' => $this->is_auction_awarded,
             'auction_start_date' => $this->auction_start_date,
             'auction_end_date' => $this->auction_end_date,
+            'people_are_interested' => $bid_count,
+            'my_bid_amount' => $my_bid_amount,
+            'height_bid' => $height_bid,
             'created_at' => $this->created_at,
         ];
     }

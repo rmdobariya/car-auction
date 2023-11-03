@@ -73,8 +73,8 @@ class LoginController extends Controller
             $array = [
                 'name' => $user->name,
                 'actionUrl' => route('reset-password', [$token]),
-                'mail_title' => 'Password Reset',
-                'reset_password_subject' => 'Password Reset',
+                'mail_title' => 'Please Click on the following link to reset your password.',
+                'reset_password_subject' => 'Forgot Your Password',
                 'main_title_text' => 'Forgot Your Password',
                 'subject' => 'Password Reset',
             ];
