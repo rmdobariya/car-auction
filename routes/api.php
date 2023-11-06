@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestionController;
 use App\Http\Controllers\Api\V1\SearchController;
 use App\Http\Controllers\Api\V1\SettingController;
+use App\Http\Controllers\Api\V1\SocialLoginController;
 use App\Http\Controllers\Api\V1\TestimonialController;
 use App\Http\Controllers\Api\V1\VehicleCategoryController;
 use App\Http\Controllers\Api\V1\VehicleController;
@@ -26,7 +27,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::post('forgotPassword', [ProfileController::class, 'forgotPassword'])->name('forgotPassword');
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('page', [PageController::class, 'index'])->name('page');
-    Route::get('pageDetail/{id}', [PageController::class, 'show'])->name('pageDetail');
+    Route::get('page/{slug}', [PageController::class, 'show'])->name('page');
     Route::get('faq', [FaqController::class, 'index'])->name('faq');
     Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial');
     Route::get('blog', [BlogController::class, 'index'])->name('blog');
@@ -39,6 +40,9 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
     Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
     Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
+//    Route::get('googleCallback', [SocialLoginController::class, 'googleCallback'])->name('googleCallback');
+//    Route::get('facebookCallback', [SocialLoginController::class, 'facebookCallback'])->name('facebookCallback');
+//    Route::get('socialLogin/{type}', [SocialLoginController::class, 'socialLogin'])->name('socialLogin');
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
