@@ -79,7 +79,6 @@
                                         <input class="form-check-input" id="all_selected" type="checkbox" value="">
                                     </div>
                                 </th>
-                                <th>#</th>
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
@@ -114,7 +113,7 @@
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
                 {data: 'id', name: 'pages.id'},
-                {data: 'name', name: 'pages.name'},
+                {data: 'name', name: 'page_translations.name'},
                 {data: 'status', name: 'pages.status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
