@@ -21,7 +21,7 @@ class SocialLoginController extends Controller
         $user_type = $request->user_type;
         $user = User::where('google_id', $request->google_id)->first();
         if (!is_null($user)) {
-            DB::table('users')->where('id',$user->id)->update([
+            DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
             ]);
             $u = User::where('id', $user->id)->first();
@@ -35,15 +35,15 @@ class SocialLoginController extends Controller
             ]);
 
         } else {
-            $user = User::create([
-                'name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'full_name' => $request->first_name . ' ' . $request->last_name,
-                'user_type' => $user_type,
-                'google_id' => $request->google_id,
-                'contact_no' => $request->contact_no,
-                'email' => $request->email,
-            ]);
+            $user = new User();
+            $user->name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->full_name = $request->first_name . ' ' . $request->last_name;
+            $user->user_type = $request->user_type;
+            $user->google_id = $request->google_id;
+            $user->contact_no = $request->contact_no;
+            $user->email = $request->email;
+            $user->save();
 
             $tokenResult = $user->createToken('authToken')->plainTextToken;
             $this->addDeviceToken($user->id, $request->device_type, $request->device_token);
@@ -62,7 +62,7 @@ class SocialLoginController extends Controller
         $user_type = $request->user_type;
         $user = User::where('facebook_id', $request->facebook_id)->first();
         if (!is_null($user)) {
-            DB::table('users')->where('id',$user->id)->update([
+            DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
             ]);
             $u = User::where('id', $user->id)->first();
@@ -75,15 +75,16 @@ class SocialLoginController extends Controller
                 'data' => ['user_info' => new UserResource($u)]
             ]);
         } else {
-            $user = User::create([
-                'name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'full_name' => $request->first_name . ' ' . $request->last_name,
-                'user_type' => $user_type,
-                'facebook_id' => $request->facebook_id,
-                'contact_no' => $request->contact_no,
-                'email' => $request->email,
-            ]);
+            $user = new User();
+            $user->name = $request->first_name;
+            $user->last_name = $request->last_name;
+            $user->full_name = $request->first_name . ' ' . $request->last_name;
+            $user->user_type = $request->user_type;
+            $user->facebook_id = $request->facebook_id;
+            $user->contact_no = $request->contact_no;
+            $user->email = $request->email;
+            $user->save();
+
             $tokenResult = $user->createToken('authToken')->plainTextToken;
             $this->addDeviceToken($user->id, $request->device_type, $request->device_token);
             return response()->json([
