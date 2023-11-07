@@ -40,9 +40,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
     Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
     Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
-//    Route::get('googleCallback', [SocialLoginController::class, 'googleCallback'])->name('googleCallback');
-//    Route::get('facebookCallback', [SocialLoginController::class, 'facebookCallback'])->name('facebookCallback');
-//    Route::get('socialLogin/{type}', [SocialLoginController::class, 'socialLogin'])->name('socialLogin');
+    Route::post('socialGoogle', [SocialLoginController::class, 'socialGoogle'])->name('socialGoogle');
+    Route::post('socialFacebook', [SocialLoginController::class, 'socialFacebook'])->name('socialFacebook');
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
