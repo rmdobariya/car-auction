@@ -74,7 +74,6 @@ class SocialLoginController extends Controller
     {
         $user_type = $request->user_type;
         $user = User::where('facebook_id', $request->facebook_id)->where('email', $request->email)->whereNull('deleted_at')->first();
-        $check = DB::table('users')->where('email', '!=', $user->email)->count();
         if (!is_null($user)) {
             DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
