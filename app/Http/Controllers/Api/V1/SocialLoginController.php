@@ -12,14 +12,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
     public function socialGoogle(GoogleLoginRequest $request)
     {
         $user_type = $request->user_type;
-        $user = User::where('google_id', $request->google_id)->first();
+        $user = User::where('google_id', $request->google_id)->where('email', $request->email)->whereNull('deleted_at')->first();
+
         if (!is_null($user)) {
             DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
@@ -60,7 +60,7 @@ class SocialLoginController extends Controller
     public function socialFacebook(FacebookRequest $request)
     {
         $user_type = $request->user_type;
-        $user = User::where('facebook_id', $request->facebook_id)->first();
+        $user = User::where('facebook_id', $request->facebook_id)->where('email', $request->email)->whereNull('deleted_at')->first();
         if (!is_null($user)) {
             DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
