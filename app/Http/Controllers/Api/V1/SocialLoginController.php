@@ -9,8 +9,8 @@ use App\Http\Requests\API\GoogleLoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Device;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 class SocialLoginController extends Controller
@@ -19,7 +19,6 @@ class SocialLoginController extends Controller
     {
         $user_type = $request->user_type;
         $user = User::where('google_id', $request->google_id)->where('email', $request->email)->whereNull('deleted_at')->first();
-
         if (!is_null($user)) {
             DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
@@ -35,6 +34,20 @@ class SocialLoginController extends Controller
             ]);
 
         } else {
+            $validator = Validator::make($request->all(), [
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users', 'email')->whereNull('deleted_at'),
+                ],
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validator->errors()
+                ]);
+            }
             $user = new User();
             $user->name = $request->first_name;
             $user->last_name = $request->last_name;
@@ -61,6 +74,7 @@ class SocialLoginController extends Controller
     {
         $user_type = $request->user_type;
         $user = User::where('facebook_id', $request->facebook_id)->where('email', $request->email)->whereNull('deleted_at')->first();
+        $check = DB::table('users')->where('email', '!=', $user->email)->count();
         if (!is_null($user)) {
             DB::table('users')->where('id', $user->id)->update([
                 'user_type' => $user_type
@@ -75,6 +89,20 @@ class SocialLoginController extends Controller
                 'data' => ['user_info' => new UserResource($u)]
             ]);
         } else {
+            $validator = Validator::make($request->all(), [
+                'email' => [
+                    'required',
+                    'email',
+                    Rule::unique('users', 'email')->whereNull('deleted_at'),
+                ],
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validator->errors()
+                ]);
+            }
             $user = new User();
             $user->name = $request->first_name;
             $user->last_name = $request->last_name;
