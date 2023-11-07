@@ -103,7 +103,7 @@
                             <a href="#" id="forgot_password">{{trans('web_string.forgot_password')}}</a>
                         </div>
                         <input type="submit" class="place-bid-blue" name="submit"
-                               value="{{trans('web_string.sign_In')}}">
+                               value="{{trans('web_string.sign_in')}}">
                     </form>
                     <p>{{trans('web_string.dont_have_an_account')}} <a href="javascript:void(0)" id="closelogin"
                                                                        data-toggle="modal"
