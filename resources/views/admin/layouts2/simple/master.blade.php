@@ -3,13 +3,18 @@
 <!--begin::Head-->
 <head>
     <base href="../">
-    <title>Admin Template</title>
+    @php
+    $title = DB::table('site_settings')->where('setting_key','SITE_TITLE')->first()->setting_value;
+    $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
+    $favicon = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
+        @endphp
+    <title>{{$title}}</title>
     <meta charset="utf-8"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="canonical" href="https://preview.keenthemes.com/metronic8"/>
-    <link rel="icon" href="{{ asset('assets/default/sample.jpg')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{  asset('assets/default/sample.jpg')}}"
+    <link rel="icon" href="{{ asset($logo)}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{  asset($logo)}}"
           type="image/x-icon">
 
     @include('admin.layouts2.simple.css')

@@ -86,6 +86,26 @@
                                                 </div>
                                             </div>
                                         @endif
+                                            @if((string)$setting->setting_key === 'SITE_TITLE')
+                                                <div class="row fv-row mb-7">
+                                                    <div class="col-md-3 text-md-end">
+                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span
+                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                            <span class="ms-1" data-bs-toggle="tooltip"
+                                                                  title="Set the name of the store">
+	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
+            class="path2"></span><span class="path3"></span></i></span> </label>
+                                                    </div>
+
+                                                    <div class="col-md-9">
+                                                        <input type="text" class="form-control form-control-solid"
+                                                               name="setting_key[{{$setting->setting_key}}]"
+                                                               id="{{$setting->setting_key}}"
+                                                               value="{{$setting->setting_value}}"/>
+                                                    </div>
+                                                </div>
+                                            @endif
                                     @endforeach
 
                                     <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">

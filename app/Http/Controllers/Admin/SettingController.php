@@ -50,6 +50,11 @@ class SettingController extends Controller
                 'setting_value' => $favicon_icon
             ]);
         }
+        if ($request->setting_key['SITE_TITLE']) {
+            DB::table('site_settings')->where('setting_key', 'SITE_TITLE')->update([
+                'setting_value' => $request->setting_key['SITE_TITLE']
+            ]);
+        }
 
         return response()->json(['message' => 'General Setting Update Successfully',]);
     }
