@@ -32,8 +32,8 @@ return [
     ],
 
     'facebook' => [
-    'client_id' => '1416154012575565', //Facebook API
-    'client_secret' => '5cf82c96715bdaed0b2846911ffe5619', //Facebook Secret
+    'client_id' => '715913560051898', //Facebook API
+    'client_secret' => '54aa5b3b530d6d1488b0950f1c360273', //Facebook Secret
     'redirect' => 'https://car-auction.projectdemo.click/facebookCallback',
 //    'redirect' => 'http://127.0.0.1:8000/facebookCallback',
     ],
