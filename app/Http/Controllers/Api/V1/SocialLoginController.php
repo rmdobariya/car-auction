@@ -45,7 +45,7 @@ class SocialLoginController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
-                    'message' => $validator->errors()
+                    'message' => 'The email has already been taken.'
                 ]);
             }
             $user = new User();
@@ -99,7 +99,7 @@ class SocialLoginController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
-                    'message' => $validator->errors()
+                    'message' => 'The email has already been taken.'
                 ]);
             }
             $user = new User();
