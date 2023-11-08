@@ -44,7 +44,7 @@
                                     <input type="text" class="form-control form-control-solid"
                                            name="name_key" id="name_key"
                                            value="{{ $languageString->name_key }}"
-                                           placeholder="Key" required />
+                                           placeholder="Key" required readonly/>
                                 </div>
 
                                 @foreach($languages as $language)

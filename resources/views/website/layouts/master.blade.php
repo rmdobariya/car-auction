@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    @php
+        $logo = DB::table('site_settings')->where('setting_key','LOGO_IMG')->first()->setting_value;
+        $favicon = DB::table('site_settings')->where('setting_key','FAVICON_IMG')->first()->setting_value;
+    @endphp
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{trans('web_string.zodha')}} - @yield('title')</title>
+    <link rel="icon" href="{{ asset($logo)}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{  asset($logo)}}"
+          type="image/x-icon">
     @include('website.layouts.css')
 </head>
 <body class="@if(App::getLocale() == 'en') rtl @endif">
