@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BlogResource;
 use App\Http\Resources\VehicleResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -58,10 +57,19 @@ class SearchController extends Controller
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->get();
-        $result = VehicleResource::collection($vehicles);
-        return response()->json([
-            'status' => true,
-            'data' => ['Vehicle' => $result],
-        ]);
+        if (count($vehicles) > 0) {
+            $result = VehicleResource::collection($vehicles);
+            return response()->json([
+                'status' => true,
+                'data' => ['Vehicle' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not  Found',
+                'data' => [],
+            ]);
+        }
+
     }
 }

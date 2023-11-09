@@ -10,29 +10,31 @@ class BidResource extends JsonResource
 {
     public function toArray($request)
     {
-        $vehicle_image = DB::table('vehicle_images')->where('vehicle_id',$this->bid_vehicle_id)->get();
-        $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id',$this->bid_vehicle_id)->get();
+        $vehicle_image = DB::table('vehicle_images')->where('vehicle_id', $this->bid_vehicle_id)->get();
+        $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id', $this->bid_vehicle_id)->get();
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->count();
         $my_bid_amount = 0;
-        $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$this->bid_vehicle_id)->max('amount');
+        $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->max('amount');
         if (!is_null($request->user())) {
             $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
-            $my_bid_amount = $my_bid->amount;
-            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$this->bid_vehicle_id)->where('user_id',$request->user()->id)->max('amount');
+            if (!is_null($my_bid)) {
+                $my_bid_amount = $my_bid->amount;
+            }
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->max('amount');
         }
-        if (!is_null($this->auction_end_date)){
+        if (!is_null($this->auction_end_date)) {
             $current_date = Carbon::now();
             $end_date = Carbon::createFromFormat('Y-m-d', $this->auction_end_date)->endOfDay();
             $diff = $current_date->diff($end_date);
-            $days= $diff->days;
-            $hours= $diff->h;
-            $minute= $diff->i;
-            $second= $diff->s;
-        }else{
-            $days= 0;
-            $hours= 0;
-            $minute= 0;
-            $second= 0;
+            $days = $diff->days;
+            $hours = $diff->h;
+            $minute = $diff->i;
+            $second = $diff->s;
+        } else {
+            $days = 0;
+            $hours = 0;
+            $minute = 0;
+            $second = 0;
         }
         return [
             'bid_id' => $this->bid_id,
@@ -68,7 +70,7 @@ class BidResource extends JsonResource
             'main_image' => ENV('APP_URL') . $this->main_image,
             'day' => $days,
             'hours' => $hours,
-            'minute' =>  $minute,
+            'minute' => $minute,
             'second' => $second,
             'other_image' => VehicleImageResource::collection($vehicle_image),
             'vehicle_documents' => VehicleDocumentResource::collection($vehicle_document),

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\WishListStoreRequest;
-use App\Http\Resources\FaqResource;
 use App\Http\Resources\WishlistResource;
-use App\Models\Faq;
 use App\Models\WishList;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,20 +23,28 @@ class WishListController extends Controller
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('category_translations.locale', App::getLocale())
             ->where('wish_lists.user_id', $user->id)
-            ->select('wish_lists.id as wishlist_id','wish_lists.vehicle_id as wishlist_vehicle_id', 'vehicle_translations.*', 'vehicles.*','category_translations.name as vehicle_category_name')
+            ->select('wish_lists.id as wishlist_id', 'wish_lists.vehicle_id as wishlist_vehicle_id', 'vehicle_translations.*', 'vehicles.*', 'category_translations.name as vehicle_category_name')
             ->get();
-        $result = WishlistResource::collection($wishlist);
-        return response()->json([
-            'status' => true,
-            'data' => ['Wishlist' => $result],
-        ]);
+        if (count($wishlist) > 0) {
+            $result = WishlistResource::collection($wishlist);
+            return response()->json([
+                'status' => true,
+                'data' => ['Wishlist' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
     }
 
     public function store(WishListStoreRequest $request)
     {
         $user = $request->user();
-        $vehicle_user_id =  DB::table('vehicles')->where('id', $request->vehicle_id)->first()->user_id;
-        if ($user->id != $vehicle_user_id){
+        $vehicle_user_id = DB::table('vehicles')->where('id', $request->vehicle_id)->first()->user_id;
+        if ($user->id != $vehicle_user_id) {
             $count = DB::table('wish_lists')->where('vehicle_id', $request->vehicle_id)->where('user_id', $user->id)->count();
             if ($count > 0) {
                 DB::table('wish_lists')->where('vehicle_id', $request->vehicle_id)->where('user_id', $user->id)->delete();
@@ -58,12 +64,11 @@ class WishListController extends Controller
                     'message' => trans('web_string.add_in_wishlist_successfully'),
                 ]);
             }
-        }else{
+        } else {
             return response()->json([
                 'success' => false,
                 'message' => trans('web_string.you_can_not_add_your_car_to_the_wish_list'),
             ]);
         }
-
     }
 }

@@ -44,7 +44,7 @@
   'forgot_password' => 'Forgot User ID/Password',
   'email' => 'Email',
   'password' => 'Password',
-  'sign_In' => 'Sign In',
+  'sign_in' => 'Sign In',
   'dont_have_an_account' => 'Don’t have an account?',
   'sign_up' => 'Sign Up',
   'sign_in_with' => 'Sign in with',

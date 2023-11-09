@@ -50,11 +50,19 @@ class VehicleController extends Controller
         $vehicle = $vehicle->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
             'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
-        $result = VehicleResource::collection($vehicle);
-        return response()->json([
-            'status' => true,
-            'data' => ['vehicle' => $result],
-        ]);
+        if (count($vehicle) > 0) {
+            $result = VehicleResource::collection($vehicle);
+            return response()->json([
+                'status' => true,
+                'data' => ['vehicle' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
     }
 
     public function pendingVehicle(Request $request): JsonResponse
@@ -70,11 +78,19 @@ class VehicleController extends Controller
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
-        $result = VehicleResource::collection($vehicle);
-        return response()->json([
-            'status' => true,
-            'data' => ['vehicle' => $result],
-        ]);
+        if (count($vehicle) > 0) {
+            $result = VehicleResource::collection($vehicle);
+            return response()->json([
+                'status' => true,
+                'data' => ['vehicle' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
     }
 
     public function store(VehicleStoreRequest $request): JsonResponse
@@ -275,7 +291,6 @@ class VehicleController extends Controller
 
     public function show($id, Request $request): JsonResponse
     {
-        $user = $request->user();
         $vehicle = DB::table('vehicles')
             ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -304,6 +319,7 @@ class VehicleController extends Controller
             'message' => 'Vehicle Document Delete Successfully',
         ]);
     }
+
     public function removeImage($id)
     {
         $vehicle_image = DB::table('vehicle_images')->where('id', $id)->first();

@@ -12,14 +12,23 @@ class SettingController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-            $setting = DB::table('site_settings')
-                ->where('setting_key', '!=', 'FAVICON_IMG')
-                ->where('setting_key', '!=', 'FROM_EMAIL')
-                ->get();
+        $setting = DB::table('site_settings')
+            ->where('setting_key', '!=', 'FAVICON_IMG')
+            ->where('setting_key', '!=', 'FROM_EMAIL')
+            ->get();
+        if (count($setting) > 0) {
             $result = SettingResource::collection($setting);
             return response()->json([
                 'status' => true,
                 'data' => ['setting' => $result],
             ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
+
     }
 }
