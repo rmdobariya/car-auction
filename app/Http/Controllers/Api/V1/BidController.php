@@ -31,8 +31,8 @@ class BidController extends Controller
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
+        $result = BidResource::collection($bids);
         if (count($bids) > 0) {
-            $result = BidResource::collection($bids);
             return response()->json([
                 'status' => true,
                 'data' => ['bid' => $result],
@@ -41,7 +41,7 @@ class BidController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => []
+                'data' => ['bid' => $result]
             ]);
         }
     }
@@ -61,8 +61,8 @@ class BidController extends Controller
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
+        $result = BidDetailResource::collection($bids);
         if (count($bids) > 0) {
-            $result = BidDetailResource::collection($bids);
             return response()->json([
                 'status' => true,
                 'data' => ['bid' => $result],
@@ -71,7 +71,7 @@ class BidController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => []
+                'data' => ['bid' => $result]
             ]);
         }
 
@@ -92,8 +92,8 @@ class BidController extends Controller
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
+        $result = BidResource::collection($bids);
         if (count($bids) > 0) {
-            $result = BidResource::collection($bids);
             return response()->json([
                 'status' => true,
                 'data' => ['My-Bid' => $result],
@@ -102,7 +102,7 @@ class BidController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => []
+                'data' => ['My-Bid' => $result]
             ]);
         }
 
@@ -124,8 +124,8 @@ class BidController extends Controller
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
+        $result = BidResource::collection($bids);
         if (count($bids) > 0) {
-            $result = BidResource::collection($bids);
             return response()->json([
                 'status' => true,
                 'data' => ['My-Winning' => $result],
@@ -134,10 +134,9 @@ class BidController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => []
+                'data' => ['My-Winning' => $result]
             ]);
         }
-
     }
 
     public function placeBid(BidStoreRequest $request)
