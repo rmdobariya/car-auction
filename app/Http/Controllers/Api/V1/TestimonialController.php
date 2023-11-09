@@ -20,8 +20,8 @@ class TestimonialController extends Controller
             ->where('testimonial_translations.locale', App::getLocale())
             ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.role', 'testimonial_translations.description')
             ->get();
+        $result = TestimonialResource::collection($testimonial);
         if (count($testimonial) > 0) {
-            $result = TestimonialResource::collection($testimonial);
             return response()->json([
                 'status' => true,
                 'data' => ['testimonial' => $result],
@@ -30,7 +30,7 @@ class TestimonialController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['testimonial' => $result],
             ]);
         }
     }

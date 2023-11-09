@@ -14,8 +14,8 @@ class NotificationController extends Controller
     {
         $user = $request->user();
         $notification = Notification::where('user_id', $user->id)->get();
+        $result = NotificationResource::collection($notification);
         if (count($notification) > 0) {
-            $result = NotificationResource::collection($notification);
             return response()->json([
                 'status' => true,
                 'data' => ['Notification' => $result],
@@ -24,9 +24,8 @@ class NotificationController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['Notification' => $result],
             ]);
         }
-
     }
 }

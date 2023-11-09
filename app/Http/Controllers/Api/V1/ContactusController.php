@@ -18,8 +18,8 @@ class ContactusController extends Controller
     public function index(Request $request): JsonResponse
     {
         $contact_us = ContactUs::whereNull('deleted_at')->get();
+        $result = ContactUsResource::collection($contact_us);
         if (count($contact_us) > 0) {
-            $result = ContactUsResource::collection($contact_us);
             return response()->json([
                 'status' => true,
                 'data' => ['contact_us' => $result],
@@ -28,7 +28,7 @@ class ContactusController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['contact_us' => $result],
             ]);
         }
 

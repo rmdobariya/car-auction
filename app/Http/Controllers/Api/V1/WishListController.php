@@ -25,8 +25,8 @@ class WishListController extends Controller
             ->where('wish_lists.user_id', $user->id)
             ->select('wish_lists.id as wishlist_id', 'wish_lists.vehicle_id as wishlist_vehicle_id', 'vehicle_translations.*', 'vehicles.*', 'category_translations.name as vehicle_category_name')
             ->get();
+        $result = WishlistResource::collection($wishlist);
         if (count($wishlist) > 0) {
-            $result = WishlistResource::collection($wishlist);
             return response()->json([
                 'status' => true,
                 'data' => ['Wishlist' => $result],
@@ -35,7 +35,7 @@ class WishListController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['Wishlist' => $result],
             ]);
         }
     }

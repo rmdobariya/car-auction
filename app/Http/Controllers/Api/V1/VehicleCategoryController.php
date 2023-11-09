@@ -20,8 +20,8 @@ class VehicleCategoryController extends Controller
             ->whereNull('deleted_at')
             ->select('categories.*', 'category_translations.name as vehicle_category_name')
             ->get();
+        $result = VehicleCategoryResource::collection($vehicle_category);
         if (count($vehicle_category) > 0) {
-            $result = VehicleCategoryResource::collection($vehicle_category);
             return response()->json([
                 'status' => true,
                 'data' => ['vehicle_category' => $result],
@@ -30,7 +30,7 @@ class VehicleCategoryController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['vehicle_category' => $result],
             ]);
         }
     }

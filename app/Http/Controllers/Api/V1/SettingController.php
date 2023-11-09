@@ -16,8 +16,8 @@ class SettingController extends Controller
             ->where('setting_key', '!=', 'FAVICON_IMG')
             ->where('setting_key', '!=', 'FROM_EMAIL')
             ->get();
+        $result = SettingResource::collection($setting);
         if (count($setting) > 0) {
-            $result = SettingResource::collection($setting);
             return response()->json([
                 'status' => true,
                 'data' => ['setting' => $result],
@@ -26,9 +26,8 @@ class SettingController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['setting' => $result],
             ]);
         }
-
     }
 }

@@ -13,8 +13,8 @@ class FaqController extends Controller
     public function index(Request $request): JsonResponse
     {
         $faq = Faq::where('status', 'active')->get();
+        $result = FaqResource::collection($faq);
         if (count($faq) > 0) {
-            $result = FaqResource::collection($faq);
             return response()->json([
                 'status' => true,
                 'data' => ['faq' => $result],
@@ -23,7 +23,7 @@ class FaqController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['faq' => $result],
             ]);
         }
 
