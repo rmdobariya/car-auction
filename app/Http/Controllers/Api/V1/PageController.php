@@ -19,8 +19,8 @@ class PageController extends Controller
             ->where('pages.status', 'active')
             ->select('pages.*', 'page_translations.name', 'page_translations.description')
             ->get();
+        $result = PageResource::collection($page);
         if (count($page) > 0) {
-            $result = PageResource::collection($page);
             return response()->json([
                 'status' => true,
                 'data' => ['page' => $result],
@@ -29,7 +29,7 @@ class PageController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['page' => $result],
             ]);
         }
 
@@ -44,8 +44,8 @@ class PageController extends Controller
             ->where('pages.slug', $slug)
             ->select('pages.*', 'page_translations.name', 'page_translations.description')
             ->get();
+        $result = PageResource::collection($page);
         if (!is_null($page)) {
-            $result = PageResource::collection($page);
             return response()->json([
                 'status' => true,
                 'data' => ['page_detail' => $result],
@@ -53,7 +53,8 @@ class PageController extends Controller
         }
         return response()->json([
             'status' => true,
-            'data' => ['page_detail' => 'Not Found'],
+            'message' => 'Data Not Found',
+            'data' => ['page_detail' => $result],
         ]);
     }
 }

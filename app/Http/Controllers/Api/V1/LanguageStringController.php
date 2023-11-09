@@ -18,8 +18,8 @@ class LanguageStringController extends Controller
             ->where('language_string_translations.locale', App::getLocale())
             ->select('language_strings.*', 'language_string_translations.name as name')
             ->get();
+        $result = LanguageStringResource::collection($language_string);
         if (count($language_string) > 0) {
-            $result = LanguageStringResource::collection($language_string);
             return response()->json([
                 'status' => true,
                 'data' => ['Language String' => $result],
@@ -28,7 +28,7 @@ class LanguageStringController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['Language String' => $result],
             ]);
         }
 

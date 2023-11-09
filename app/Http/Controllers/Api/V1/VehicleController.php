@@ -50,8 +50,8 @@ class VehicleController extends Controller
         $vehicle = $vehicle->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
             'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
+        $result = VehicleResource::collection($vehicle);
         if (count($vehicle) > 0) {
-            $result = VehicleResource::collection($vehicle);
             return response()->json([
                 'status' => true,
                 'data' => ['vehicle' => $result],
@@ -60,7 +60,7 @@ class VehicleController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['vehicle' => $result],
             ]);
         }
     }
@@ -78,8 +78,8 @@ class VehicleController extends Controller
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
+        $result = VehicleResource::collection($vehicle);
         if (count($vehicle) > 0) {
-            $result = VehicleResource::collection($vehicle);
             return response()->json([
                 'status' => true,
                 'data' => ['vehicle' => $result],
@@ -88,7 +88,7 @@ class VehicleController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Data Not Found',
-                'data' => [],
+                'data' => ['vehicle' => $result],
             ]);
         }
     }
