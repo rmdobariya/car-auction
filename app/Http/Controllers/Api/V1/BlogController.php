@@ -14,10 +14,19 @@ class BlogController extends Controller
     {
         $user = $request->user();
         $blog = Blog::where('status', 'active')->get();
-        $result = BlogResource::collection($blog);
-        return response()->json([
-            'status' => true,
-            'data' => ['blog' => $result],
-        ]);
+        if (count($blog) > 0) {
+            $result = BlogResource::collection($blog);
+            return response()->json([
+                'status' => true,
+                'data' => ['blog' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
+
     }
 }

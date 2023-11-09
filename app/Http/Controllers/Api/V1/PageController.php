@@ -16,14 +16,23 @@ class PageController extends Controller
         $page = DB::table('pages')
             ->leftJoin('page_translations', 'pages.id', 'page_translations.page_id')
             ->where('page_translations.locale', App::getLocale())
-            ->where('pages.status','active')
+            ->where('pages.status', 'active')
             ->select('pages.*', 'page_translations.name', 'page_translations.description')
             ->get();
-        $result = PageResource::collection($page);
-        return response()->json([
-            'status' => true,
-            'data' => ['page' => $result],
-        ]);
+        if (count($page) > 0) {
+            $result = PageResource::collection($page);
+            return response()->json([
+                'status' => true,
+                'data' => ['page' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
+
     }
 
     public function show($slug): JsonResponse
@@ -32,10 +41,10 @@ class PageController extends Controller
             ->leftJoin('page_translations', 'pages.id', 'page_translations.page_id')
             ->where('page_translations.locale', App::getLocale())
             ->where('pages.status', 'active')
-            ->where('pages.slug',$slug)
+            ->where('pages.slug', $slug)
             ->select('pages.*', 'page_translations.name', 'page_translations.description')
             ->get();
-        if (!is_null($page)){
+        if (!is_null($page)) {
             $result = PageResource::collection($page);
             return response()->json([
                 'status' => true,

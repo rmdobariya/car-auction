@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PageResource;
 use App\Http\Resources\TestimonialResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,10 +20,18 @@ class TestimonialController extends Controller
             ->where('testimonial_translations.locale', App::getLocale())
             ->select('testimonials.*', 'testimonial_translations.title', 'testimonial_translations.role', 'testimonial_translations.description')
             ->get();
-        $result = TestimonialResource::collection($testimonial);
-        return response()->json([
-            'status' => true,
-            'data' => ['testimonial' => $result],
-        ]);
+        if (count($testimonial) > 0) {
+            $result = TestimonialResource::collection($testimonial);
+            return response()->json([
+                'status' => true,
+                'data' => ['testimonial' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => 'Data Not Found',
+                'data' => [],
+            ]);
+        }
     }
 }

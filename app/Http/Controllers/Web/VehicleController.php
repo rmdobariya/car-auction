@@ -33,6 +33,7 @@ class VehicleController extends Controller
                 ->where('categories.status','active')
                 ->where('category_translations.locale',App::getLocale())
                 ->whereNull('deleted_at')
+                ->select('categories.*','category_translations.name')
                 ->get();
             return view('website.vehicle.add-car', [
                 'user' => $user,
