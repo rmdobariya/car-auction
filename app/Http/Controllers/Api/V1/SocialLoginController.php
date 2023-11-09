@@ -34,20 +34,6 @@ class SocialLoginController extends Controller
             ]);
 
         } else {
-            $validator = Validator::make($request->all(), [
-                'email' => [
-                    'required',
-                    'email',
-                    Rule::unique('users', 'email')->whereNull('deleted_at'),
-                ],
-            ]);
-
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'The email has already been taken.'
-                ]);
-            }
             $user = new User();
             $user->name = $request->first_name;
             $user->last_name = $request->last_name;
