@@ -61,5 +61,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
         Route::get('get-wish-list', [WishListController::class, 'index'])->name('get-wish-list');
         Route::get('notification', [NotificationController::class, 'index'])->name('notification');
         Route::get('delete-account', [ProfileController::class, 'deleteAccount'])->name('delete-account');
+        Route::post('car-inquiry', [QuestionController::class, 'carInquiry'])->name('car-inquiry');
     });
 });
