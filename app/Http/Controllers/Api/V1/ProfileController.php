@@ -66,7 +66,7 @@ class ProfileController extends Controller
                     return response()->json([
                         'status' => false,
                         'message' => 'Old Password Is Wrong',
-                    ], 422);
+                    ], 200);
                 }
                 $user->password = Hash::make($request->new_password);
                 $user->save();
