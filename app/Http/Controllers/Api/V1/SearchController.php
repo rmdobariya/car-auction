@@ -23,6 +23,9 @@ class SearchController extends Controller
         //        if (!is_null($request->condition)){
 //
 //        }
+        if (!is_null($request->user_id)) {
+            $vehicles->where('vehicles.user_id', $request->user_id);
+        }
         if (!is_null($request->is_product)) {
             $vehicles->where('vehicles.is_product', $request->is_product);
         }
@@ -37,7 +40,6 @@ class SearchController extends Controller
         }
         if (!is_null($request->max_amount)) {
             $vehicles->where('vehicles.price', '<=', $request->max_amount);;
-
         }
         if (!is_null($request->model)) {
             $vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
