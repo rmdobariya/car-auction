@@ -122,7 +122,7 @@
 
                     <div class="menu-sub menu-sub-accordion menu-active-bg">
                         <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'blog') ? 'active' : '' }}"
+                            <a class="menu-link {{ (request()->segment(2) == 'news') ? 'active' : '' }}"
                                href="{{ route('admin.news.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
