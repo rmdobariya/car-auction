@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\BidController;
+use App\Http\Controllers\Api\V1\CityController;
 use App\Http\Controllers\Api\V1\ContactusController;
 use App\Http\Controllers\Api\V1\LanguageStringController;
 use App\Http\Controllers\Api\V1\MyAuctionController;
@@ -27,6 +28,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::post('forgotPassword', [ProfileController::class, 'forgotPassword'])->name('forgotPassword');
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('page', [PageController::class, 'index'])->name('page');
+    Route::get('city', [CityController::class, 'index'])->name('city');
     Route::get('page/{slug}', [PageController::class, 'show'])->name('page');
     Route::get('faq', [FaqController::class, 'index'])->name('faq');
     Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial');
