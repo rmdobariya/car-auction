@@ -101,6 +101,7 @@ class VehicleController extends Controller
             $vehicle = new Vehicle();
             $vehicle->user_id = $user->id;
             $vehicle->vehicle_category_id = $request->vehicle_category_id;
+            $vehicle->city_id = $request->city_id;
             $vehicle->year = $request->year;
             $vehicle->kms_driven = $request->kms_driven;
             $vehicle->owners = $request->owners;
@@ -182,6 +183,7 @@ class VehicleController extends Controller
         $vehicle = Vehicle::find($validated['edit_value']);
         $vehicle->user_id = $user->id;
         $vehicle->vehicle_category_id = $request->vehicle_category_id;
+        $vehicle->city_id = $request->city_id;
         $vehicle->year = $request->year;
         $vehicle->kms_driven = $request->kms_driven;
         $vehicle->owners = $request->owners;
