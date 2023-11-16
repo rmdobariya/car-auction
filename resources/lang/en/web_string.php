@@ -210,4 +210,6 @@
   'notification_delete' => 'Notification Delete ?',
   'are_you_sure_this_record_delete' => 'Are You Sure Delete This Record',
   'notification_delete_successfully' => 'Notification Delete Successfully',
+  'city' => 'Cities',
+  'select_city' => 'Select City',
 );

@@ -26,6 +26,9 @@ class SearchController extends Controller
         if (!is_null($request->user_id)) {
             $vehicles->where('vehicles.user_id', $request->user_id);
         }
+        if (!is_null($request->city_id)) {
+            $vehicles->where('vehicles.city_id', $request->city_id);
+        }
         if (!is_null($request->is_product)) {
             $vehicles->where('vehicles.is_product', $request->is_product);
         }
