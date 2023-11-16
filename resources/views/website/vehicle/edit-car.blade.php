@@ -32,7 +32,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <div class="mb-1 col-md-6">
+                                    <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label
                                                 class="required fs-6 fw-bold mb-2">{{trans('web_string.vehicle_category')}}</label>
@@ -48,7 +48,23 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-6">
+                                    <div class="mb-1 col-md-4">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label
+                                                class="required fs-6 fw-bold mb-2">{{trans('web_string.city')}}</label>
+                                            <select class="form-select form-select-solid fw-bold"
+                                                    name="city"
+                                                    id="city">
+                                                <option value="">{{trans('web_string.select_option')}}</option>
+                                                @foreach($cities as $city)
+                                                    <option
+                                                        value="{{$city->id}}"
+                                                        @if((int)$vehicle->city_id === $city->id) selected @endif>{{$city->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="year">
                                                 {{trans('web_string.year')}}

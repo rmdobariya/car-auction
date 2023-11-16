@@ -192,7 +192,8 @@
                                     <div class="f-head">
                                         <p>Filters</p>
                                         <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}">
-                                        <input type="hidden" name="encrypt_user_id" id="encrypt_user_id" value="{{encrypt($id)}}">
+                                        <input type="hidden" name="encrypt_user_id" id="encrypt_user_id"
+                                               value="{{encrypt($id)}}">
                                         <a href="{{route('seller',encrypt($id))}}">{{trans('web_string.reset_all')}}</a>
                                         <button type="button"
                                                 id="seller_filterData">{{trans('web_string.submit')}}</button>
@@ -222,23 +223,31 @@
                                             {{--                                    </div>--}}
                                             @php
                                                 $v_categories = DB::table('categories')
-                                                ->leftjoin('category_translations','categories.id','category_translations.category_id')
-                                                ->where('categories.status','active')
-                                                ->where('category_translations.locale',App::getLocale())
-                                                ->whereNull('deleted_at')
-                                                ->get();
-                                                if(request()->get('min_amount')){
-                                                   $min = request()->get('min_amount');
-                                                }else{
-                                                $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
-                                                }
-                                                 if(request()->get('max_amount')){
-                                                   $max = request()->get('max_amount');
+                                                 ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                                                 ->where('categories.status','active')
+                                                 ->where('category_translations.locale',App::getLocale())
+                                                 ->whereNull('deleted_at')
+                                                 ->select('categories.*','category_translations.name')
+                                                 ->get();
+                                              $cities = DB::table('cities')
+                                                 ->leftjoin('city_translations','cities.id','city_translations.city_id')
+                                                 ->where('cities.status','active')
+                                                 ->where('city_translations.locale',App::getLocale())
+                                                 ->whereNull('cities.deleted_at')
+                                                 ->select('cities.*','city_translations.name')
+                                                 ->get();
+                                                 if(request()->get('min_amount')){
+                                                    $min = request()->get('min_amount');
                                                  }else{
-                                                $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                                 $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
                                                  }
-                                                $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
-                                                $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
+                                                  if(request()->get('max_amount')){
+                                                    $max = request()->get('max_amount');
+                                                  }else{
+                                                 $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                                  }
+                                                 $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
+                                                 $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
                                             @endphp
                                             <div class="col-md-3">
                                                 <label>{{trans('web_string.category')}}</label>
@@ -250,6 +259,20 @@
                                                         @foreach($v_categories as $v_category)
                                                             <option value="{{$v_category->id}}"
                                                                     @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.city')}}</label>
+                                                <div class="city">
+                                                    <select class="form-select" name="city" id="city"
+                                                            aria-label="Default select example">
+                                                        <option
+                                                            value="">{{trans('web_string.select_city')}}</option>
+                                                        @foreach($cities as $city)
+                                                            <option value="{{$city->id}}"
+                                                                    @if(request()->get('city') == $city->id) selected @endif>{{$city->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -413,23 +436,31 @@
                                             {{--                                    </div>--}}
                                             @php
                                                 $v_categories = DB::table('categories')
-                                                ->leftjoin('category_translations','categories.id','category_translations.category_id')
-                                                ->where('categories.status','active')
-                                                ->where('category_translations.locale',App::getLocale())
-                                                ->whereNull('deleted_at')
-                                                ->get();
-                                                if(request()->get('min_amount')){
-                                                   $min = request()->get('min_amount');
-                                                }else{
-                                                $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
-                                                }
-                                                 if(request()->get('max_amount')){
-                                                   $max = request()->get('max_amount');
+                                                 ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                                                 ->where('categories.status','active')
+                                                 ->where('category_translations.locale',App::getLocale())
+                                                 ->whereNull('deleted_at')
+                                                 ->select('categories.*','category_translations.name')
+                                                 ->get();
+                                              $cities = DB::table('cities')
+                                                 ->leftjoin('city_translations','cities.id','city_translations.city_id')
+                                                 ->where('cities.status','active')
+                                                 ->where('city_translations.locale',App::getLocale())
+                                                 ->whereNull('cities.deleted_at')
+                                                 ->select('cities.*','city_translations.name')
+                                                 ->get();
+                                                 if(request()->get('min_amount')){
+                                                    $min = request()->get('min_amount');
                                                  }else{
-                                                $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                                 $min = DB::table('vehicles')->whereNull('deleted_at')->min('price');
                                                  }
-                                                $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
-                                                $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
+                                                  if(request()->get('max_amount')){
+                                                    $max = request()->get('max_amount');
+                                                  }else{
+                                                 $max = DB::table('vehicles')->whereNull('deleted_at')->max('price');
+                                                  }
+                                                 $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
+                                                 $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
                                             @endphp
                                             <div class="col-md-3">
                                                 <label>{{trans('web_string.category')}}</label>
@@ -441,6 +472,20 @@
                                                         @foreach($v_categories as $v_category)
                                                             <option value="{{$v_category->id}}"
                                                                     @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label>{{trans('web_string.city')}}</label>
+                                                <div class="city">
+                                                    <select class="form-select" name="city" id="city"
+                                                            aria-label="Default select example">
+                                                        <option
+                                                            value="">{{trans('web_string.select_city')}}</option>
+                                                        @foreach($cities as $city)
+                                                            <option value="{{$city->id}}"
+                                                                    @if(request()->get('city') == $city->id) selected @endif>{{$city->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -608,6 +653,14 @@
                                                 ->where('categories.status','active')
                                                 ->where('category_translations.locale',App::getLocale())
                                                 ->whereNull('deleted_at')
+                                                ->select('categories.*','category_translations.name')
+                                                ->get();
+                                             $cities = DB::table('cities')
+                                                ->leftjoin('city_translations','cities.id','city_translations.city_id')
+                                                ->where('cities.status','active')
+                                                ->where('city_translations.locale',App::getLocale())
+                                                ->whereNull('cities.deleted_at')
+                                                ->select('cities.*','city_translations.name')
                                                 ->get();
                                             if(request()->get('min_amount')){
                                                $min = request()->get('min_amount');
@@ -631,6 +684,19 @@
                                                     @foreach($v_categories as $v_category)
                                                         <option value="{{$v_category->id}}"
                                                                 @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>{{trans('web_string.city')}}</label>
+                                            <div class="category">
+                                                <select class="form-select" name="city" id="city"
+                                                        aria-label="Default select example">
+                                                    <option value="">{{trans('web_string.select_city')}}</option>
+                                                    @foreach($cities as $city)
+                                                        <option value="{{$city->id}}"
+                                                                @if(request()->get('city') == $city->id) selected @endif>{{$city->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

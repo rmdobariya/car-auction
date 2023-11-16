@@ -31,7 +31,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <div class="mb-1 col-md-6">
+                                    <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label
                                                 class="required fs-6 fw-bold mb-2">{{trans('web_string.vehicle_category')}}</label>
@@ -46,7 +46,22 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="mb-1 col-md-6">
+                                    <div class="mb-1 col-md-4">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label
+                                                class="required fs-6 fw-bold mb-2">{{trans('web_string.city')}}</label>
+                                            <select class="form-select form-select-solid fw-bold"
+                                                    name="city"
+                                                    id="city">
+                                                <option value="">{{trans('web_string.select_option')}}</option>
+                                                @foreach($cities as $city)
+                                                    <option
+                                                        value="{{$city->id}}">{{$city->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 col-md-4">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="year">
                                                 {{trans('web_string.year')}}
@@ -184,21 +199,21 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                        @foreach($languages as $language)
-                                            <div class="mb-1 col-md-6">
-                                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                    <label for="{{ $language['language_code'] }}_mileage"
-                                                           class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.mileage')}}
-                                                    </label>
-                                                    <input type="text" class="form-control form-control-solid"
-                                                           name="{{ $language['language_code'] }}_mileage"
-                                                           id="{{ $language['language_code'] }}_mileage"
-                                                           @if($language['is_rtl']==1) dir="rtl" @endif
-                                                           placeholder="{{ $language['name'] }} {{trans('web_string.mileage')}}"
-                                                           required/>
-                                                </div>
+                                    @foreach($languages as $language)
+                                        <div class="mb-1 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label for="{{ $language['language_code'] }}_mileage"
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.mileage')}}
+                                                </label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="{{ $language['language_code'] }}_mileage"
+                                                       id="{{ $language['language_code'] }}_mileage"
+                                                       @if($language['is_rtl']==1) dir="rtl" @endif
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.mileage')}}"
+                                                       required/>
                                             </div>
-                                        @endforeach
+                                        </div>
+                                    @endforeach
                                     @foreach($languages as $language)
                                         <div class="mb-1 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">

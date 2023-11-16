@@ -29,16 +29,24 @@ class VehicleController extends Controller
             $user = User::where('id', Auth::user())->where('user_type', 'seller')->first();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
             $vehicle_categories = DB::table('categories')
-                ->leftjoin('category_translations','categories.id','category_translations.category_id')
-                ->where('categories.status','active')
-                ->where('category_translations.locale',App::getLocale())
+                ->leftjoin('category_translations', 'categories.id', 'category_translations.category_id')
+                ->where('categories.status', 'active')
+                ->where('category_translations.locale', App::getLocale())
                 ->whereNull('deleted_at')
                 ->select('categories.*','category_translations.name')
+                ->get();
+            $cities = DB::table('cities')
+                ->leftjoin('city_translations', 'cities.id', 'city_translations.city_id')
+                ->where('cities.status', 'active')
+                ->where('city_translations.locale', App::getLocale())
+                ->whereNull('cities.deleted_at')
+                ->select('cities.*','city_translations.name')
                 ->get();
             return view('website.vehicle.add-car', [
                 'user' => $user,
                 'languages' => $languages,
                 'vehicle_categories' => $vehicle_categories,
+                'cities' => $cities,
             ]);
         }
         abort(404);
@@ -52,10 +60,18 @@ class VehicleController extends Controller
             $user = User::where('id', Auth::user()->id)->where('user_type', 'seller')->first();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
             $vehicle_categories = DB::table('categories')
-                ->leftjoin('category_translations','categories.id','category_translations.category_id')
-                ->where('categories.status','active')
-                ->where('category_translations.locale',App::getLocale())
+                ->leftjoin('category_translations', 'categories.id', 'category_translations.category_id')
+                ->where('categories.status', 'active')
+                ->where('category_translations.locale', App::getLocale())
                 ->whereNull('deleted_at')
+                ->select('categories.*','category_translations.name')
+                ->get();
+            $cities = DB::table('cities')
+                ->leftjoin('city_translations', 'cities.id', 'city_translations.city_id')
+                ->where('cities.status', 'active')
+                ->where('city_translations.locale', App::getLocale())
+                ->whereNull('cities.deleted_at')
+                ->select('cities.*','city_translations.name')
                 ->get();
             $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
             $vehicleDocuments = VehicleDocument::where('vehicle_id', $id)->get();
@@ -67,6 +83,7 @@ class VehicleController extends Controller
                 'vehicle' => $vehicle,
                 'vehicleImages' => $vehicleImages,
                 'vehicleDocuments' => $vehicleDocuments,
+                'cities' => $cities,
             ]);
         }
         abort(404);
@@ -85,6 +102,7 @@ class VehicleController extends Controller
                 $vehicle->kms_driven = $request->kms_driven;
                 $vehicle->owners = $request->owners;
                 $vehicle->price = $request->price;
+                $vehicle->city_id = $request->city;
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
@@ -143,6 +161,7 @@ class VehicleController extends Controller
                 $vehicle->kms_driven = $request->kms_driven;
                 $vehicle->owners = $request->owners;
                 $vehicle->price = $request->price;
+                $vehicle->city_id = $request->city;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
                 $vehicle->bid_increment = $request->bid_increment;

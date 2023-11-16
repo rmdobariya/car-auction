@@ -153,9 +153,10 @@ $('#filterData').on('click',function (){
    var make = $('#make').val();
     var body_type = $('#body_type').val();
    var ratting = $('#ratings').val();
+   var city = $('#city').val();
     var exterior = $.map($('input[name="exterior"]:checked'), function(c){return c.value; })
     window.location.href = '/filter?category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
-    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting;
+    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
 
 })
 $('#seller_filterData').on('click',function (){
@@ -170,9 +171,10 @@ $('#seller_filterData').on('click',function (){
    var encrypt_user_id = $('#encrypt_user_id').val();
     var body_type = $('#body_type').val();
    var ratting = $('#ratings').val();
+    var city = $('#city').val();
     var exterior = $.map($('input[name="exterior"]:checked'), function(c){return c.value; })
     window.location.href = '/seller/' + encrypt_user_id + '?' + 'category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
-    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting;
+    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
 
 })
 let $askQuestionForm = $('#askQuestionForm')

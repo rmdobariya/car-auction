@@ -155,6 +155,9 @@ class HomeController extends Controller
             if (!is_null($request->category)) {
                 $featured_vehicles->where('vehicles.vehicle_category_id', $request->category);
             }
+            if (!is_null($request->city)) {
+                $featured_vehicles->where('vehicles.city_id', $request->city);
+            }
             if (!is_null($request->price_range)) {
                 $featured_vehicles->where('vehicles.price', '>=', $request->min_amount)
                     ->where('vehicles.price', '<=', $request->max_amount);
@@ -197,6 +200,9 @@ class HomeController extends Controller
             if (!is_null($request->category)) {
                 $popular_vehicles->where('vehicles.vehicle_category_id', $request->category);
             }
+            if (!is_null($request->city)) {
+                $popular_vehicles->where('vehicles.city_id', $request->city);
+            }
             if (!is_null($request->price_range)) {
                 $popular_vehicles->where('vehicles.price', '>=', $request->min_amount)
                     ->where('vehicles.price', '<=', $request->max_amount);;
@@ -238,6 +244,9 @@ class HomeController extends Controller
             if (!is_null($request->category)) {
                 $hot_deal_vehicles->where('vehicles.vehicle_category_id', $request->category);
             }
+            if (!is_null($request->city)) {
+                $hot_deal_vehicles->where('vehicles.city_id', $request->city);
+            }
             if (!is_null($request->price_range)) {
                 $hot_deal_vehicles->where('vehicles.price', '>=', $request->min_amount)
                     ->where('vehicles.price', '<=', $request->max_amount);
@@ -275,6 +284,9 @@ class HomeController extends Controller
                 ->where('vehicles.is_vehicle_type', 'car_for_sell');
             if (!is_null($request->category)) {
                 $sell_vehicles->where('vehicles.vehicle_category_id', $request->category);
+            }
+            if (!is_null($request->city)) {
+                $sell_vehicles->where('vehicles.city_id', $request->city);
             }
             if (!is_null($request->price_range)) {
                 $sell_vehicles->where('vehicles.price', '>=', $request->min_amount)
@@ -606,6 +618,9 @@ class HomeController extends Controller
         if (!is_null($request->category)) {
             $featured_vehicles->where('vehicles.vehicle_category_id', $request->category);
         }
+        if (!is_null($request->city)) {
+            $featured_vehicles->where('vehicles.city_id', $request->city);
+        }
         if (!is_null($request->price_range)) {
             $featured_vehicles->where('vehicles.price', '>=', $request->min_amount)
                 ->where('vehicles.price', '<=', $request->max_amount);
@@ -647,6 +662,9 @@ class HomeController extends Controller
         if (!is_null($request->category)) {
             $popular_vehicles->where('vehicles.vehicle_category_id', $request->category);
         }
+        if (!is_null($request->city)) {
+            $popular_vehicles->where('vehicles.city_id', $request->city);
+        }
         if (!is_null($request->price_range)) {
             $popular_vehicles->where('vehicles.price', '>=', $request->min_amount)
                 ->where('vehicles.price', '<=', $request->max_amount);;
@@ -687,6 +705,9 @@ class HomeController extends Controller
         if (!is_null($request->category)) {
             $hot_deal_vehicles->where('vehicles.vehicle_category_id', $request->category);
         }
+        if (!is_null($request->city)) {
+            $hot_deal_vehicles->where('vehicles.city_id', $request->city);
+        }
         if (!is_null($request->price_range)) {
             $hot_deal_vehicles->where('vehicles.price', '>=', $request->min_amount)
                 ->where('vehicles.price', '<=', $request->max_amount);
@@ -723,6 +744,9 @@ class HomeController extends Controller
             ->where('vehicles.is_vehicle_type', 'car_for_sell');
         if (!is_null($request->category)) {
             $sell_vehicles->where('vehicles.vehicle_category_id', $request->category);
+        }
+        if (!is_null($request->city)) {
+            $sell_vehicles->where('vehicles.city_id', $request->city);
         }
         if (!is_null($request->price_range)) {
             $sell_vehicles->where('vehicles.price', '>=', $request->min_amount)

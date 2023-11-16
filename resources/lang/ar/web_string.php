@@ -210,4 +210,6 @@
   'notification_delete' => 'حذف الإخطار ?',
   'are_you_sure_this_record_delete' => 'هل أنت متأكد من حذف هذا السجل',
   'notification_delete_successfully' => 'تم حذف الإشعار بنجاح',
+  'city' => 'المدن',
+  'select_city' => 'اختر المدينة',
 );
