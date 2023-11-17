@@ -16,16 +16,21 @@ class VehicleResource extends JsonResource
         $my_bid_amount = 0;
         $is_wishlist = 0;
         $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->max('amount');
-        if (!is_null($request->user())) {
-            $wishlist = DB::table('wish_lists')->where('vehicle_id', $this->id)->where('user_id', $request->user()->id)->first();
+        if (!is_null($request->user_id)) {
+            $wishlist = DB::table('wish_lists')->where('vehicle_id', $this->id)->where('user_id', $request->user_id)->first();
             if (!is_null($wishlist)) {
                 $is_wishlist = 1;
             } else {
                 $is_wishlist = 0;
             }
-            $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
-            $my_bid_amount = $my_bid->amount;
-            $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->where('user_id', $request->user()->id)->max('amount');
+            $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->where('user_id', $request->user_id)->orderBy('id', 'desc')->first();
+            if (!is_null($my_bid)){
+                $my_bid_amount = $my_bid->amount;
+            }else{
+                $my_bid_amount = 0;
+            }
+
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->where('user_id', $request->user_id)->max('amount');
         }
         if (!is_null($this->auction_end_date)) {
             $current_date = Carbon::now();
