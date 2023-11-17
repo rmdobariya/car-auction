@@ -79,7 +79,7 @@ class BidController extends Controller
             ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('vehicle_bids.vehicle_id', $vehicle_id)
-            ->select('vehicle_bids.*', 'vehicle_translations.name as vehicle_name', 'vehicles.auction_start_date', 'vehicles.auction_end_date', 'vehicles.minimum_bid_increment_price', 'users.full_name as user_name', 'vehicles.bid_increment')
+            ->select('vehicle_bids.*', 'vehicle_translations.name as vehicle_name', 'vehicles.auction_start_date', 'vehicles.auction_end_date', 'users.full_name as user_name', 'vehicles.bid_increment')
             ->get();
         $vehicle = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
