@@ -14,26 +14,40 @@ class VehicleResource extends JsonResource
         $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id', $this->id)->get();
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->count();
         $my_bid_amount = 0;
-        $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$this->id)->max('amount');
+        $is_wishlist = 0;
+        $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->max('amount');
         if (!is_null($request->user())) {
+            $wishlist = DB::table('wish_lists')->where('vehicle_id', $this->id)->where('user_id', $request->user()->id)->first();
+            if (!is_null($wishlist)) {
+                $is_wishlist = 1;
+            } else {
+                $is_wishlist = 0;
+            }
             $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
             $my_bid_amount = $my_bid->amount;
-            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$this->id)->where('user_id',$request->user()->id)->max('amount');
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->where('user_id', $request->user()->id)->max('amount');
         }
-        if (!is_null($this->auction_end_date)){
+        if (!is_null($this->auction_end_date)) {
             $current_date = Carbon::now();
-            $end_date = Carbon::createFromFormat('Y-m-d', $this->auction_end_date)->endOfDay();
-            $diff = $current_date->diff($end_date);
-            $days= $diff->days;
-            $hours= $diff->h;
-            $minute= $diff->i;
-            $second= $diff->s;
-        }else{
-            $days= 0;
-            $hours= 0;
-            $minute= 0;
-            $second= 0;
-    }
+            if ($this->auction_end_date > $current_date) {
+                $end_date = Carbon::createFromFormat('Y-m-d', $this->auction_end_date)->endOfDay();
+                $diff = $current_date->diff($end_date);
+                $days = $diff->days;
+                $hours = $diff->h;
+                $minute = $diff->i;
+                $second = $diff->s;
+            } else {
+                $days = 0;
+                $hours = 0;
+                $minute = 0;
+                $second = 0;
+            }
+        } else {
+            $days = 0;
+            $hours = 0;
+            $minute = 0;
+            $second = 0;
+        }
 
         return [
             'id' => $this->id,
@@ -68,8 +82,9 @@ class VehicleResource extends JsonResource
             'height_bid' => !is_null($height_bid) ? $height_bid : 0,
             'day' => $days,
             'hours' => $hours,
-            'minute' =>  $minute,
+            'minute' => $minute,
             'second' => $second,
+            'is_wishlist' => $is_wishlist,
             'other_image' => VehicleImageResource::collection($vehicle_image),
             'vehicle_documents' => VehicleDocumentResource::collection($vehicle_document)
         ];
