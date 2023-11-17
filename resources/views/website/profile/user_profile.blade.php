@@ -44,10 +44,12 @@
                                     <input type="email" class="form-control" name="email" value="{{$user->email}}"
                                            readonly>
                                 </div>
-                                <div class="emails">
-                                    <a href="#" data-bs-toggle="modal"
-                                       data-bs-target="#change_password">{{trans('web_string.change_password')}}</a>
-                                </div>
+                                @if(!is_null($user->password))
+                                    <div class="emails">
+                                        <a href="#" data-bs-toggle="modal"
+                                           data-bs-target="#change_password">{{trans('web_string.change_password')}}</a>
+                                    </div>
+                                @endif
                             </div>
 
                         </div>
@@ -57,7 +59,8 @@
                     <div class="notification-setting">
                         @if($user->is_corporate_seller == 1)
                             <p class="corporate_seller_text">{{trans('web_string.you_are_a_corporate_seller')}} <a
-                                    href="{{route('seller',encrypt($user->id))}}"><u>{{trans('web_string.collection')}}</u></a></p>
+                                    href="{{route('seller',encrypt($user->id))}}"><u>{{trans('web_string.collection')}}</u></a>
+                            </p>
                         @endif
                         {{--                                        <div class="head">--}}
                         {{--                                            <h3>Notification Settings</h3>--}}
