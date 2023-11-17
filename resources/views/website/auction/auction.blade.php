@@ -49,7 +49,7 @@
                                     @endif</span>
                                 @if(!is_null(Auth::user()))
                                     @if($vehicle->user_id != Auth::user()->id)
-                                        <a class="like" data-id="{{$vehicle->id}}"
+                                        <a class="like" href="#" data-id="{{$vehicle->id}}"
                                            data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
                                             @if($count == 0)
                                                 <i class="lar la-heart"></i>
@@ -59,7 +59,7 @@
                                         </a>
                                     @endif
                                 @else
-                                    <a class="like" data-id="{{$vehicle->id}}"
+                                    <a class="like" href="#" data-id="{{$vehicle->id}}"
                                        data-user-id="{{Auth::user() ? Auth::user()->id : 0}}">
                                         <i class="lar la-heart"></i>
                                     </a>
