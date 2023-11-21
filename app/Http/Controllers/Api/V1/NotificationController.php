@@ -28,4 +28,12 @@ class NotificationController extends Controller
             ]);
         }
     }
+
+    public function destroy($id)
+    {
+        Notification::where('id', $id)->delete();
+        return response()->json([
+            'message' => trans('web_string.notification_delete_successfully')
+        ]);
+    }
 }

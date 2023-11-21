@@ -114,8 +114,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div
-                                    class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
+                                <div class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($winner_bid->price)}}</h3>
@@ -172,3 +171,4 @@
         });
     </script>
 @endsection
+

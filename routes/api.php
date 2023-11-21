@@ -41,6 +41,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('get-vehicle', [VehicleController::class, 'index'])->name('get-vehicle');
     Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
     Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
+    Route::get('edit-vehicle-detail/{id}', [VehicleController::class, 'editVehicleResponse'])->name('edit-vehicle-detail');
     Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
     Route::post('socialGoogle', [SocialLoginController::class, 'socialGoogle'])->name('socialGoogle');
     Route::post('socialFacebook', [SocialLoginController::class, 'socialFacebook'])->name('socialFacebook');
@@ -62,6 +63,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
         Route::post('add-wish-list', [WishListController::class, 'store'])->name('add-wish-list');
         Route::get('get-wish-list', [WishListController::class, 'index'])->name('get-wish-list');
         Route::get('notification', [NotificationController::class, 'index'])->name('notification');
+        Route::get('delete-notification/{id}', [NotificationController::class, 'destroy'])->name('delete-notification');
         Route::get('delete-account', [ProfileController::class, 'deleteAccount'])->name('delete-account');
         Route::post('car-inquiry', [QuestionController::class, 'carInquiry'])->name('car-inquiry');
     });
