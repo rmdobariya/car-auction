@@ -7,6 +7,7 @@ use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\VehicleChangeStatusStoreRequest;
 use App\Http\Requests\API\VehicleStoreRequest;
+use App\Http\Resources\EditVehicleResource;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use App\Models\VehicleDocument;
@@ -305,6 +306,25 @@ class VehicleController extends Controller
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->get();
         $result = VehicleResource::collection($vehicle);
+        return response()->json([
+            'status' => true,
+            'data' => ['vehicle_detail' => $result],
+        ]);
+    }
+    public function editVehicleResponse($id, Request $request): JsonResponse
+    {
+        $vehicle = DB::table('vehicles')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.id', $id)
+//            ->where('vehicles.user_id', $user->id)
+            ->whereNull('vehicles.deleted_at')
+            ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+            ->get();
+        $result = EditVehicleResource::collection($vehicle);
         return response()->json([
             'status' => true,
             'data' => ['vehicle_detail' => $result],
