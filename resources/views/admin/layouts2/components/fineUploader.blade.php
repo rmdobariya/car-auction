@@ -1,10 +1,6 @@
-<html>
-<head>
     <link href="{{asset('assets/libs/fine-uploader/fine-uploader-new.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/libs/fine-uploader/fine-uploader-gallery.css')}}" rel="stylesheet"
           type="text/css"/>
-</head>
-<body>
 
 <!-- The element where Fine Uploader will exist. -->
 
@@ -72,5 +68,3 @@
         </dialog>
     </div>
 </script>
-</body>
-</html>

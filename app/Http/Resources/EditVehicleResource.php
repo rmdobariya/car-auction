@@ -26,6 +26,7 @@ class EditVehicleResource extends JsonResource
         $ar_short_description = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->short_description;
         $ar_description = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->description;
         $ar_vc_name = DB::table('category_translations')->where('category_id', $this->vehicle_category_id)->where('locale','ar')->first()->name;
+        $ar_city_name = DB::table('city_translations')->where('city_id', $this->city_id)->where('locale','ar')->first()->name;
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $this->id)->count();
         $my_bid_amount = 0;
         $is_wishlist = 0;
@@ -71,8 +72,12 @@ class EditVehicleResource extends JsonResource
             'id' => $this->id,
             'name' => $this->vehicle_name,
             'ar_name' => $ar_name,
-            'vehicle_category_name' => $this->vehicle_category_name,
+            'vehicle_category_id' => $this->vehicle_category_id,
             'ar_vehicle_category_name' => $ar_vc_name,
+            'vehicle_category_name' => $this->vehicle_category_name,
+            'city_id' => $this->city_id,
+            'city_name' => $this->city_name,
+            'ar_city_name' => $ar_city_name,
             'year' => $this->year,
             'make' => $this->make,
             'ar_make' => $ar_make,

@@ -316,13 +316,19 @@ class VehicleController extends Controller
         $vehicle = DB::table('vehicles')
             ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('city_translations', 'vehicles.city_id', 'city_translations.city_id')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('category_translations.locale', App::getLocale())
+            ->where('city_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
 //            ->where('vehicles.user_id', $user->id)
             ->whereNull('vehicles.deleted_at')
-            ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+            ->select('vehicles.*', 'category_translations.name as vehicle_category_name','category_translations.category_id as vehicle_category_id','city_translations.name as city_name','city_translations.city_id as city_id', 'vehicle_translations.name  as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make',
+                'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission',
+                'vehicle_translations.fuel_type', 'vehicle_translations.body_type',
+                'vehicle_translations.registration', 'vehicle_translations.color',
+                'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->get();
         $result = EditVehicleResource::collection($vehicle);
         return response()->json([
