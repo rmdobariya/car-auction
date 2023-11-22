@@ -168,7 +168,7 @@ class BidController extends Controller
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => trans('web_string.enter_an_amount_greater_than')
+                    'message' => trans('web_string.enter_an_amount_greater_than') . $amount
                 ]);
             }
         } else {
@@ -186,7 +186,7 @@ class BidController extends Controller
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => trans('web_string.enter_an_amount_greater_than')
+                    'message' => trans('web_string.enter_an_amount_greater_than') . $amount
                 ]);
             }
         }

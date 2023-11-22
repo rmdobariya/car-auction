@@ -171,7 +171,7 @@
   'edit_car' => 'تحرير السيارة',
   'update_car' => 'تحديث السيارة',
   'bid_update_successfully' => 'تم تحديث عرض الأسعار بنجاح',
-  'enter_an_amount_greater_than' => 'أدخل مبلغا أكبر من المبلغ الأخير',
+  'enter_an_amount_greater_than' => 'أدخل مبلغا أكبر من المبلغ الأخير هو:',
   'bid_add_successfully' => 'إضافة المزايدة بنجاح',
   'car_inquiry_is_already_added' => 'تم إضافة استفسار السيارة بالفعل',
   'add_car_inquiry_successfully' => 'إضافة استفسار عن السيارة بنجاح',
@@ -212,4 +212,5 @@
   'notification_delete_successfully' => 'تم حذف الإشعار بنجاح',
   'city' => 'المدن',
   'select_city' => 'اختر المدينة',
+  'last_amount_is' => 'المبلغ الأخير هو:',
 );
