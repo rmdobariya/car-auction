@@ -171,7 +171,7 @@
   'edit_car' => 'Edit Car',
   'update_car' => 'Update Car',
   'bid_update_successfully' => 'Bid Update Successfully',
-  'enter_an_amount_greater_than' => 'Enter an amount greater than the last amount',
+  'enter_an_amount_greater_than' => 'Enter an amount greater than the last amount is :',
   'bid_add_successfully' => 'Bid Add Successfully',
   'car_inquiry_is_already_added' => 'Car Inquiry Is Already Added',
   'add_car_inquiry_successfully' => 'Add Car Inquiry Successfully',
@@ -212,4 +212,5 @@
   'notification_delete_successfully' => 'Notification Delete Successfully',
   'city' => 'Cities',
   'select_city' => 'Select City',
+  'last_amount_is' => 'Last Amount Is:',
 );
