@@ -11,6 +11,7 @@ class VehicleDocumentResource extends JsonResource
         return [
             'id' => $this->id,
             'document' => ENV('APP_URL') .$this->document,
+            'file_name' => pathinfo($this->document, PATHINFO_BASENAME),
         ];
     }
 }
