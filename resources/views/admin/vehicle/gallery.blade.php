@@ -7,7 +7,7 @@
                 <div class="btn btn-list pl-0 pb-0">
                     <a href="javascript:void(0)" data-id="{{$image->id}}" data-vehicle-id="{{$image->vehicle_id}}"
                        class="delete-vehicle-image btn btn-danger waves-effect waves-light" data-toggle="tooltip" data-placement="top" title="Delete">Delete</a>
-                </div>
+                </div> 
             </div>
         </div>
     @endforeach
