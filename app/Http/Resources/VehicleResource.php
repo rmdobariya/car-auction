@@ -76,6 +76,7 @@ class VehicleResource extends JsonResource
             'is_product' => $this->is_product,
             'is_vehicle_type' => $this->is_vehicle_type,
             'main_image' => ENV('APP_URL') . $this->main_image,
+            'file_name' => pathinfo($this->main_image, PATHINFO_BASENAME),
             'status' => $this->status,
             'auction_start_date' => $this->auction_start_date,
             'auction_end_date' => $this->auction_end_date,
