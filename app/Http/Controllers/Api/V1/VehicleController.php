@@ -178,7 +178,6 @@ class VehicleController extends Controller
                 'message' => 'Vehicle Insert Successfully',
             ]);
         }
-
         $vehicle = Vehicle::find($validated['edit_value']);
         $vehicle->user_id = $user->id;
         $vehicle->vehicle_category_id = $request->vehicle_category_id;
@@ -245,26 +244,26 @@ class VehicleController extends Controller
                 $vehicle_image->image = $image;
                 $vehicle_image->save();
             }
-            if ($request->hasfile('document')) {
+        }
+        if ($request->hasfile('document')) {
 //                $images = DB::table('vehicle_documents')->where('vehicle_id', $vehicle->id)->get();
 //                foreach ($images as $image) {
 //                    ImageUploadHelper::deleteDocument($image->document);
 //                }
-                foreach ($request->file('document') as $document) {
-                    $image_path = 'vehicle-document';
-                    if (!File::exists(public_path() . "/" . $image_path)) {
-                        File::makeDirectory(public_path() . "/" . $image_path, 0777, true);
-                    }
-                    $image_name = $document->getClientOriginalName();
-                    $destination_path = public_path() . '/' . $image_path;
-                    $file_name = uniqid() . '-' . $image_name;
-                    $document->move($destination_path, $file_name);
-                    $image = $image_path . '/' . $file_name;
-                    $vehicle_document = new VehicleDocument();
-                    $vehicle_document->vehicle_id = $vehicle->id;
-                    $vehicle_document->document = $image;
-                    $vehicle_document->save();
+            foreach ($request->file('document') as $document) {
+                $image_path = 'vehicle-document';
+                if (!File::exists(public_path() . "/" . $image_path)) {
+                    File::makeDirectory(public_path() . "/" . $image_path, 0777, true);
                 }
+                $image_name = $document->getClientOriginalName();
+                $destination_path = public_path() . '/' . $image_path;
+                $file_name = uniqid() . '-' . $image_name;
+                $document->move($destination_path, $file_name);
+                $image = $image_path . '/' . $file_name;
+                $vehicle_document = new VehicleDocument();
+                $vehicle_document->vehicle_id = $vehicle->id;
+                $vehicle_document->document = $image;
+                $vehicle_document->save();
             }
         }
 
