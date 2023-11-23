@@ -178,9 +178,7 @@ class VehicleController extends Controller
                 'message' => 'Vehicle Insert Successfully',
             ]);
         }
-        if ($request->hasfile('main_image')) {
-            $main_image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
-        }
+
         $vehicle = Vehicle::find($validated['edit_value']);
         $vehicle->user_id = $user->id;
         $vehicle->vehicle_category_id = $request->vehicle_category_id;
@@ -194,6 +192,10 @@ class VehicleController extends Controller
         $vehicle->bid_increment = $request->bid_increment;
         $vehicle->ratting = $request->ratting;
         $vehicle->is_vehicle_type = $request['is_vehicle_type'];
+        if ($request->hasfile('main_image')) {
+            $main_image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
+            $vehicle->main_image = $main_image;
+        }
         $vehicle->save();
 
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
@@ -223,11 +225,11 @@ class VehicleController extends Controller
         }
 
         if ($request->hasfile('other_image')) {
-            $images = DB::table('vehicle_images')->where('vehicle_id', $vehicle->id)->get();
-            foreach ($images as $image) {
-                ImageUploadHelper::deleteImage($image->image);
-            }
-            DB::table('vehicle_images')->where('vehicle_id', $vehicle->id)->delete();
+//            $images = DB::table('vehicle_images')->where('vehicle_id', $vehicle->id)->get();
+//            foreach ($images as $image) {
+//                ImageUploadHelper::deleteImage($image->image);
+//            }
+//            DB::table('vehicle_images')->where('vehicle_id', $vehicle->id)->delete();
             foreach ($request->file('other_image') as $files) {
                 $image_path = 'vehicle';
                 if (!File::exists(public_path() . "/" . $image_path)) {
@@ -244,10 +246,10 @@ class VehicleController extends Controller
                 $vehicle_image->save();
             }
             if ($request->hasfile('document')) {
-                $images = DB::table('vehicle_documents')->where('vehicle_id', $vehicle->id)->get();
-                foreach ($images as $image) {
-                    ImageUploadHelper::deleteDocument($image->document);
-                }
+//                $images = DB::table('vehicle_documents')->where('vehicle_id', $vehicle->id)->get();
+//                foreach ($images as $image) {
+//                    ImageUploadHelper::deleteDocument($image->document);
+//                }
                 foreach ($request->file('document') as $document) {
                     $image_path = 'vehicle-document';
                     if (!File::exists(public_path() . "/" . $image_path)) {
