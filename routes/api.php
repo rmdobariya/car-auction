@@ -23,8 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguageCheck']], function () {
-    Route::post('login', [LoginController::class,'login'])->name('login');
-    Route::post('register', [LoginController::class,'register'])->name('register');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::post('register', [LoginController::class, 'register'])->name('register');
     Route::post('forgotPassword', [ProfileController::class, 'forgotPassword'])->name('forgotPassword');
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('page', [PageController::class, 'index'])->name('page');
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
         Route::get('vehicle-document-remove/{id}', [VehicleController::class, 'removeDocument'])->name('vehicle-document-remove');
         Route::get('vehicle-image-remove/{id}', [VehicleController::class, 'removeImage'])->name('vehicle-image-remove');
         Route::get('bid', [BidController::class, 'index'])->name('bid');
+        Route::get('vehicle-wise-bid/{id}', [BidController::class, 'vehicleWiseBid'])->name('vehicle-wise-bid');
         Route::get('my-bid', [BidController::class, 'myBid'])->name('my-bid');
         Route::get('my-wining', [BidController::class, 'myWining'])->name('my-wining');
         Route::post('place-bid', [BidController::class, 'placeBid'])->name('place-bid');

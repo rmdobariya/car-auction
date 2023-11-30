@@ -70,6 +70,7 @@ class EditVehicleResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'user_id' => $this->user_id,
             'name' => $this->vehicle_name,
             'ar_name' => $ar_name,
             'vehicle_category_id' => $this->vehicle_category_id,
