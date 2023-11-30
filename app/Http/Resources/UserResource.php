@@ -16,6 +16,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'contact_no' => $this->contact_no,
             'user_type' => $this->user_type,
+            'is_corporate_seller' => $this->is_corporate_seller,
             'image' => env('APP_URL') . $this->image
         ];
     }

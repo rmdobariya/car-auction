@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminCheck
 {
-
     public function handle($request, Closure $next)
     {
         if (Auth::guard('admin')->user() &&
@@ -25,6 +24,5 @@ class AdminCheck
         $locale = 'en';
 
         return redirect()->route('admin.login');
-
     }
 }
