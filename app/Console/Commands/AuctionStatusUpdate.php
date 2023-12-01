@@ -43,6 +43,16 @@ class AuctionStatusUpdate extends Command
                 DB::table('vehicles')->where('id', $vehicle->id)->update([
                     'status' => 'ongoing'
                 ]);
+            } else {
+                if ($vehicle->auction_start_date > date('Y-m-d')) {
+                    DB::table('vehicles')->where('id', $vehicle->id)->update([
+                        'status' => 'pending'
+                    ]);
+                } else {
+                    DB::table('vehicles')->where('id', $vehicle->id)->update([
+                        'status' => 'auction_close'
+                    ]);
+                }
             }
         }
     }
