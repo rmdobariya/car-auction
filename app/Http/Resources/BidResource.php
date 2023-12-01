@@ -21,7 +21,7 @@ class BidResource extends JsonResource
             if (!is_null($my_bid)) {
                 $my_bid_amount = $my_bid->amount;
             }
-            $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->max('amount');
+            $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->max('amount');
             $wishlist = DB::table('wish_lists')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->first();
             if (!is_null($wishlist)) {
                 $is_wishlist = 1;
