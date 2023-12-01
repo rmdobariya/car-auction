@@ -14,6 +14,7 @@ class BidResource extends JsonResource
         $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id', $this->bid_vehicle_id)->get();
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->count();
         $my_bid_amount = 0;
+        $is_wishlist = 0;
         $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->max('amount');
         if (!is_null($request->user())) {
             $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
@@ -21,6 +22,12 @@ class BidResource extends JsonResource
                 $my_bid_amount = $my_bid->amount;
             }
             $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->max('amount');
+            $wishlist = DB::table('wish_lists')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->first();
+            if (!is_null($wishlist)) {
+                $is_wishlist = 1;
+            } else {
+                $is_wishlist = 0;
+            }
         }
         if (!is_null($this->auction_end_date)) {
             $current_date = Carbon::now();
@@ -68,6 +75,7 @@ class BidResource extends JsonResource
             'is_product' => $this->is_product,
             'is_vehicle_type' => $this->is_vehicle_type,
             'main_image' => ENV('APP_URL') . $this->main_image,
+            'is_wishlist' => $is_wishlist,
             'day' => $days,
             'hours' => $hours,
             'minute' => $minute,
