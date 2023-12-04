@@ -12,6 +12,21 @@ class WishlistResource extends JsonResource
     {
         $vehicle_image = DB::table('vehicle_images')->where('vehicle_id',$this->wishlist_vehicle_id)->get();
         $vehicle_document = DB::table('vehicle_documents')->where('vehicle_id',$this->wishlist_vehicle_id)->get();
+        $my_bid_amount = 0;
+        $is_wishlist = 0;
+        $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->wishlist_vehicle_id)->max('amount');
+        if (!is_null($request->user())) {
+            $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->wishlist_vehicle_id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
+            if (!is_null($my_bid)) {
+                $my_bid_amount = $my_bid->amount;
+            }
+            $wishlist = DB::table('wish_lists')->where('vehicle_id', $this->wishlist_vehicle_id)->where('user_id', $request->user()->id)->first();
+            if (!is_null($wishlist)) {
+                $is_wishlist = 1;
+            } else {
+                $is_wishlist = 0;
+            }
+        }
         if (!is_null($this->auction_end_date)){
             $current_date = Carbon::now();
             $end_date = Carbon::createFromFormat('Y-m-d', $this->auction_end_date)->endOfDay();
@@ -54,6 +69,9 @@ class WishlistResource extends JsonResource
             'ratting' => $this->ratting,
             'is_product' => $this->is_product,
             'is_vehicle_type' => $this->is_vehicle_type,
+            'height_bid' => !is_null($height_bid) ? $height_bid : 0,
+            'my_bid' => $my_bid_amount,
+            'is_wishlist' => $is_wishlist,
             'main_image' => ENV('APP_URL') . $this->main_image,
             'day' => $days,
             'hours' => $hours,

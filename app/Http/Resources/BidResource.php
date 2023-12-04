@@ -15,6 +15,7 @@ class BidResource extends JsonResource
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->count();
         $my_bid_amount = 0;
         $is_wishlist = 0;
+
         $height_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->max('amount');
         if (!is_null($request->user())) {
             $my_bid = DB::table('vehicle_bids')->where('vehicle_id', $this->bid_vehicle_id)->where('user_id', $request->user()->id)->orderBy('id', 'desc')->first();
