@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\WishListStoreRequest;
 use App\Http\Resources\WishlistResource;
 use App\Models\WishList;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -45,12 +46,39 @@ class WishListController extends Controller
         $user = $request->user();
         $vehicle_user_id = DB::table('vehicles')->where('id', $request->vehicle_id)->first()->user_id;
         if ($user->id != $vehicle_user_id) {
+            $vehicle = DB::table('vehicles')->where('id', $request->vehicle_id)->first();
+            if (!is_null($vehicle->auction_end_date)) {
+                $current_date = Carbon::now();
+                if ($vehicle->auction_end_date > $current_date) {
+                    $end_date = Carbon::createFromFormat('Y-m-d', $vehicle->auction_end_date)->endOfDay();
+                    $diff = $current_date->diff($end_date);
+                    $days = $diff->days;
+                    $hours = $diff->h;
+                    $minute = $diff->i;
+                    $second = $diff->s;
+                } else {
+                    $days = 0;
+                    $hours = 0;
+                    $minute = 0;
+                    $second = 0;
+                }
+            } else {
+                $days = 0;
+                $hours = 0;
+                $minute = 0;
+                $second = 0;
+            }
             $count = DB::table('wish_lists')->where('vehicle_id', $request->vehicle_id)->where('user_id', $user->id)->count();
             if ($count > 0) {
+
                 DB::table('wish_lists')->where('vehicle_id', $request->vehicle_id)->where('user_id', $user->id)->delete();
                 return response()->json([
                     'success' => true,
                     'is_wishlist' => 0,
+                    'days' => $days,
+                    'hours' => $hours,
+                    'minute' => $minute,
+                    'second' => $second,
                     'message' => trans('web_string.remove_in_wishlist_successfully'),
                 ]);
             } else {
@@ -61,6 +89,10 @@ class WishListController extends Controller
                 return response()->json([
                     'success' => true,
                     'is_wishlist' => 1,
+                    'days' => $days,
+                    'hours' => $hours,
+                    'minute' => $minute,
+                    'second' => $second,
                     'message' => trans('web_string.add_in_wishlist_successfully'),
                 ]);
             }
