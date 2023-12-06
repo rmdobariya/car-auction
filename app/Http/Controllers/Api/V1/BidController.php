@@ -172,9 +172,9 @@ class BidController extends Controller
         $vehicle = DB::table('vehicles')->where('id', $request->vehicle_id)->first();
         $amount = $vehicle->price + $vehicle->bid_increment;
         $user_id = $request->user()->id;
-        $bid = DB::table('vehicle_bids')->where('user_id', $user_id)->where('vehicle_id', $request->vehicle_id)->first();
+        $bid = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->max('amount');
         if (!is_null($bid)) {
-            $amount = $bid->amount + $vehicle->bid_increment;
+            $amount = $bid + $vehicle->bid_increment;
             if ($amount < $request->amount) {
                 DB::table('vehicle_bids')
                     ->where('user_id', $user_id)
