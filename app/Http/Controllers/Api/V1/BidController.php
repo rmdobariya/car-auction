@@ -173,7 +173,8 @@ class BidController extends Controller
         $amount = $vehicle->price + $vehicle->bid_increment;
         $user_id = $request->user()->id;
         $bid = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->max('amount');
-        if (!is_null($bid)) {
+        $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->where('user_id', $user_id)->count();
+        if ($bid_count > 0) {
             $amount = $bid + $vehicle->bid_increment;
             if ($amount < $request->amount) {
                 DB::table('vehicle_bids')
@@ -183,6 +184,9 @@ class BidController extends Controller
                         'amount' => $request->amount
                     ]);
                 $maxValue = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->max('amount');
+                DB::table('vehicle_bids')
+                    ->where('vehicle_id', $request->vehicle_id)
+                    ->update(['is_winner' => 0]);
                 DB::table('vehicle_bids')
                     ->where('vehicle_id', $request->vehicle_id)
                     ->where('amount', $maxValue)
@@ -201,6 +205,9 @@ class BidController extends Controller
             }
         } else {
             if ($amount < $request->amount) {
+                DB::table('vehicle_bids')
+                    ->where('vehicle_id', $request->vehicle_id)
+                    ->update(['is_winner' => 0]);
                 $bid = new VehicleBid();
                 $bid->user_id = $user_id;
                 $bid->vehicle_id = $request->vehicle_id;
