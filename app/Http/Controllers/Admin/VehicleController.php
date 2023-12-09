@@ -47,10 +47,11 @@ class VehicleController extends Controller
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
         $vehicle_categories = DB::table('categories')
-            ->leftjoin('category_translations','categories.id','category_translations.category_id')
-            ->where('categories.status','active')
-            ->where('category_translations.locale',App::getLocale())
+            ->leftjoin('category_translations', 'categories.id', 'category_translations.category_id')
+            ->where('categories.status', 'active')
+            ->where('category_translations.locale', App::getLocale())
             ->whereNull('deleted_at')
+            ->select('categories.*', 'category_translations.name')
             ->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         return view('admin.vehicle.create', [
@@ -64,10 +65,11 @@ class VehicleController extends Controller
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
         $vehicle_categories = DB::table('categories')
-            ->leftjoin('category_translations','categories.id','category_translations.category_id')
-            ->where('categories.status','active')
-            ->where('category_translations.locale',App::getLocale())
+            ->leftjoin('category_translations', 'categories.id', 'category_translations.category_id')
+            ->where('categories.status', 'active')
+            ->where('category_translations.locale', App::getLocale())
             ->whereNull('deleted_at')
+            ->select('categories.*', 'category_translations.name')
             ->get();
         $users = User::where('id', '!=', 1)->whereNull('deleted_at')->get();
         $vehicleImages = VehicleImage::where('vehicle_id', $id)->get();
