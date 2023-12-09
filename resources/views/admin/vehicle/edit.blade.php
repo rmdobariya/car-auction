@@ -324,7 +324,7 @@
                                             <input type="date" class="form-control form-control-solid"
                                                    name="auction_start_date"
                                                    id="auction_start_date"
-                                                   value="{{$vehicle->auction_strat_date}}"
+                                                   value="{{$vehicle->auction_start_date}}"
                                                    placeholder="Auction Start Date"/>
                                         </div>
                                     </div>
