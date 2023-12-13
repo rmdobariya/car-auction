@@ -163,16 +163,16 @@ class HomeController extends Controller
                     ->where('vehicles.price', '<=', $request->max_amount);
             }
             if (!is_null($request->model)) {
-                $featured_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+                $featured_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
             }
             if (!is_null($request->make)) {
-                $featured_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+                $featured_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
             }
             if (!is_null($request->body_type)) {
-                $featured_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+                $featured_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
             }
             if (!is_null($request->exterior)) {
-                $featured_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+                $featured_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
             }
             if (!is_null($request->ratting)) {
                 $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -208,16 +208,16 @@ class HomeController extends Controller
                     ->where('vehicles.price', '<=', $request->max_amount);;
             }
             if (!is_null($request->model)) {
-                $popular_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+                $popular_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
             }
             if (!is_null($request->make)) {
-                $popular_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+                $popular_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
             }
             if (!is_null($request->body_type)) {
-                $popular_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+                $popular_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
             }
             if (!is_null($request->exterior)) {
-                $popular_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+                $popular_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
             }
             if (!is_null($request->ratting)) {
                 $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -252,16 +252,16 @@ class HomeController extends Controller
                     ->where('vehicles.price', '<=', $request->max_amount);
             }
             if (!is_null($request->model)) {
-                $hot_deal_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+                $hot_deal_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
             }
             if (!is_null($request->make)) {
-                $hot_deal_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+                $hot_deal_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
             }
             if (!is_null($request->body_type)) {
-                $hot_deal_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+                $hot_deal_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
             }
             if (!is_null($request->exterior)) {
-                $hot_deal_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+                $hot_deal_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
             }
             if (!is_null($request->ratting)) {
                 $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -293,16 +293,16 @@ class HomeController extends Controller
                     ->where('vehicles.price', '<=', $request->max_amount);;
             }
             if (!is_null($request->model)) {
-                $sell_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+                $sell_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
             }
             if (!is_null($request->make)) {
-                $sell_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+                $sell_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
             }
             if (!is_null($request->body_type)) {
-                $sell_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+                $sell_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
             }
             if (!is_null($request->exterior)) {
-                $sell_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+                $sell_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
             }
             if (!is_null($request->ratting)) {
                 $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -626,16 +626,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);
         }
         if (!is_null($request->model)) {
-            $featured_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+            $featured_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->make)) {
-            $featured_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+            $featured_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
         }
         if (!is_null($request->body_type)) {
-            $featured_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+            $featured_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
-            $featured_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+            $featured_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
             $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -670,16 +670,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);;
         }
         if (!is_null($request->model)) {
-            $popular_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+            $popular_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->make)) {
-            $popular_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+            $popular_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
         }
         if (!is_null($request->body_type)) {
-            $popular_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+            $popular_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
-            $popular_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+            $popular_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
             $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -713,16 +713,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);
         }
         if (!is_null($request->model)) {
-            $hot_deal_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+            $hot_deal_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->make)) {
-            $hot_deal_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+            $hot_deal_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
         }
         if (!is_null($request->body_type)) {
-            $hot_deal_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+            $hot_deal_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
-            $hot_deal_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+            $hot_deal_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
             $rat = explode('-', str_replace(' ', '', $request->ratting));
@@ -753,16 +753,16 @@ class HomeController extends Controller
                 ->where('vehicles.price', '<=', $request->max_amount);;
         }
         if (!is_null($request->model)) {
-            $sell_vehicles->where('vehicles.model', 'LIKE', '%' . $request->model . '%');
+            $sell_vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
         }
         if (!is_null($request->make)) {
-            $sell_vehicles->where('vehicles.make', 'LIKE', '%' . $request->make . '%');
+            $sell_vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
         }
         if (!is_null($request->body_type)) {
-            $sell_vehicles->where('vehicles.body_type', 'LIKE', '%' . $request->body_type . '%');
+            $sell_vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');
         }
         if (!is_null($request->exterior)) {
-            $sell_vehicles->whereIn('vehicles.color', explode(',', $request->exterior));
+            $sell_vehicles->whereIn('vehicle_translations.color', explode(',', $request->exterior));
         }
         if (!is_null($request->ratting)) {
             $rat = explode('-', str_replace(' ', '', $request->ratting));
