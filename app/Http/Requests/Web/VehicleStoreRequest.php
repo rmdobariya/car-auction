@@ -33,6 +33,8 @@ class VehicleStoreRequest extends FormRequest
             'minimumBidIncrement' => ['required_if:is_vehicle_type,=,car_for_auction|integer'],
             'auction_start_date' => ['required_if:is_vehicle_type,=,car_for_auction'],
             'auction_end_date' => ['required_if:is_vehicle_type,=,car_for_auction'],
+            'auction_start_time' => ['required_if:is_vehicle_type,=,car_for_auction'],
+            'auction_end_time' => ['required_if:is_vehicle_type,=,car_for_auction'],
             'main_image' => 'required_if:edit_value,=,0',
             'color_*' => 'required',
             'car_type_*' => 'required',

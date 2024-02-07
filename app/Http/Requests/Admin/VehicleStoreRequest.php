@@ -37,6 +37,8 @@ class VehicleStoreRequest extends FormRequest
             'bid_increment' => 'required',
             'short_description_*' => 'required',
             'description_*' => 'required',
+            'auction_start_time' => 'required',
+            'auction_end_time' => 'required',
             'name_*' => 'required',
         ];
     }

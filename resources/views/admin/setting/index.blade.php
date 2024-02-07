@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Settings'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.settings')])
             </div>
         </div>
 
@@ -16,7 +16,7 @@
                                 <a class="nav-link text-active-primary d-flex align-items-center pb-5 active"
                                    data-bs-toggle="tab" href="#general_setting">
                                     <i class="ki-duotone ki-home fs-2 me-2"></i>
-                                    General
+                                    {{trans('admin_string.general')}}
                                 </a>
                             </li>
 
@@ -30,7 +30,7 @@
                                         <span class="path4"></span>
                                         <span class="path5"></span>
                                     </i>
-                                    Email
+                                    {{trans('admin_string.email')}}
                                 </a>
                             </li>
 
@@ -38,7 +38,7 @@
                                 <a class="nav-link text-active-primary d-flex align-items-center pb-5"
                                    data-bs-toggle="tab" href="#app_setting">
                                     <i class="ki-duotone ki-home fs-2 me-2"></i>
-                                    App
+                                    {{trans('admin_string.app')}}
                                 </a>
                             </li>
 
@@ -46,17 +46,17 @@
                                 <a class="nav-link text-active-primary d-flex align-items-center pb-5"
                                    data-bs-toggle="tab" href="#contact_info">
                                     <i class="ki-duotone ki-home fs-2 me-2"></i>
-                                    Contact Info
+                                    {{trans('admin_string.contact_info')}}
                                 </a>
                             </li>
 
-                                                        <li class="nav-item">
-                                                            <a class="nav-link text-active-primary d-flex align-items-center pb-5"
-                                                               data-bs-toggle="tab" href="#social_media_setting">
-                                                                <i class="ki-duotone ki-home fs-2 me-2"></i>
-                                                                Social Media
-                                                            </a>
-                                                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"
+                                   data-bs-toggle="tab" href="#social_media_setting">
+                                    <i class="ki-duotone ki-home fs-2 me-2"></i>
+                                    {{trans('admin_string.social_media')}}
+                                </a>
+                            </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
@@ -64,7 +64,7 @@
                                 <form id="general_setting_form" class="form" action="#">
                                     <div class="row mb-7">
                                         <div class="col-md-9 offset-md-3">
-                                            <h2>General Settings</h2>
+                                            <h2>General Settings {{trans('admin_string.general_settings')}}</h2>
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
@@ -86,35 +86,35 @@
                                                 </div>
                                             </div>
                                         @endif
-                                            @if((string)$setting->setting_key === 'SITE_TITLE')
-                                                <div class="row fv-row mb-7">
-                                                    <div class="col-md-3 text-md-end">
-                                                        <label class="fs-6 fw-semibold form-label mt-3">
+                                        @if((string)$setting->setting_key === 'SITE_TITLE')
+                                            <div class="row fv-row mb-7">
+                                                <div class="col-md-3 text-md-end">
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
                                                             class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
-                                                            <span class="ms-1" data-bs-toggle="tooltip"
-                                                                  title="Set the name of the store">
+                                                        <span class="ms-1" data-bs-toggle="tooltip"
+                                                              title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
             class="path2"></span><span class="path3"></span></i></span> </label>
-                                                    </div>
-
-                                                    <div class="col-md-9">
-                                                        <input type="text" class="form-control form-control-solid"
-                                                               name="setting_key[{{$setting->setting_key}}]"
-                                                               id="{{$setting->setting_key}}"
-                                                               value="{{$setting->setting_value}}"/>
-                                                    </div>
                                                 </div>
-                                            @endif
+
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control form-control-solid"
+                                                           name="setting_key[{{$setting->setting_key}}]"
+                                                           id="{{$setting->setting_key}}"
+                                                           value="{{$setting->setting_value}}"/>
+                                                </div>
+                                            </div>
+                                        @endif
                                     @endforeach
 
                                     <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
                                         <button class="btn btn-primary me-3" type="submit">
-                                            Submit
+                                            {{trans('admin_string.common_submit')}}
                                         </button>
                                         <a href="#">
                                             <button class="btn btn-secondary" type="button">
-                                                Cancel
+                                                {{trans('admin_string.common_cancel')}}
                                             </button>
                                         </a>
                                     </div>
@@ -125,7 +125,7 @@
                                 <form id="email_setting_form" class="form" action="#">
                                     <div class="row mb-7">
                                         <div class="col-md-9 offset-md-3">
-                                            <h2>Email Settings</h2>
+                                            <h2>{{trans('admin_string.email_settings')}}</h2>
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
@@ -154,7 +154,7 @@
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
-                                                        <span class="required">SMTP Scheme</span>
+                                                        <span class="required">{{trans('admin_string.smtp_scheme')}}</span>
                                                     </label>
                                                 </div>
 
@@ -163,14 +163,14 @@
                                                             class="form-select form-select-solid fw-bolder"
                                                             name="setting_key[{{$setting->setting_key}}]"
                                                             data-parsley-errors-container="#smtp_scheme_error">
-                                                        <option value="">Select Option</option>
+                                                        <option value="">{{trans('admin_string.select_option')}}</option>
                                                         <option value="SSL"
                                                                 @if((string)$setting->setting_value === 'SSL') selected @endif>
-                                                            SSL
+                                                            {{trans('admin_string.ssl')}}
                                                         </option>
                                                         <option value="TLS"
                                                                 @if((string)$setting->setting_value === 'TLS') selected @endif>
-                                                            TLS
+                                                            {{trans('admin_string.tls')}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -180,11 +180,11 @@
 
                                     <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
                                         <button class="btn btn-primary me-3" type="submit">
-                                            Submit
+                                            {{trans('admin_string.common_submit')}}
                                         </button>
                                         <a href="#">
                                             <button class="btn btn-secondary" type="button">
-                                                Cancel
+                                                {{trans('admin_string.common_cancel')}}
                                             </button>
                                         </a>
                                     </div>
@@ -195,7 +195,7 @@
                                 <form id="app_setting_form" class="form" action="#">
                                     <div class="row mb-7">
                                         <div class="col-md-9 offset-md-3">
-                                            <h2>App Settings</h2>
+                                            <h2>{{trans('admin_string.app_settings')}}</h2>
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
@@ -256,14 +256,14 @@
                                                             class="form-select form-select-solid fw-bolder"
                                                             name="setting_key[{{$setting->setting_key}}]"
                                                             data-parsley-errors-container="#smtp_scheme_error">
-                                                        <option value="">Select Option</option>
+                                                        <option value="">{{trans('admin_string.select_option')}}</option>
                                                         <option value="1"
                                                                 @if((int)$setting->setting_value === 1) selected @endif>
-                                                            Yes
+                                                            {{trans('admin_string.yes')}}
                                                         </option>
                                                         <option value="0"
                                                                 @if((int)$setting->setting_value === 0) selected @endif>
-                                                            No
+                                                            {{trans('admin_string.no')}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -273,11 +273,11 @@
 
                                     <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
                                         <button class="btn btn-primary me-3" type="submit">
-                                            Submit
+                                            {{trans('admin_string.common_submit')}}
                                         </button>
                                         <a href="#">
                                             <button class="btn btn-secondary" type="button">
-                                                Cancel
+                                                {{trans('admin_string.common_cancel')}}
                                             </button>
                                         </a>
                                     </div>
@@ -287,7 +287,7 @@
                                 <form id="contact_info_form" class="form" action="#">
                                     <div class="row mb-7">
                                         <div class="col-md-9 offset-md-3">
-                                            <h2>Contact Info Settings</h2>
+                                            <h2>{{trans('admin_string.contact_info_settings')}}</h2>
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
@@ -326,7 +326,9 @@
                                                 </div>
 
                                                 <div class="col-md-9">
-                                                        <textarea type="text" class="form-control form-control-solid" name="setting_key[{{$setting->setting_key}}]" id="{{$setting->setting_key}}">{{ $setting->setting_value }}</textarea>
+                                                    <textarea type="text" class="form-control form-control-solid"
+                                                              name="setting_key[{{$setting->setting_key}}]"
+                                                              id="{{$setting->setting_key}}">{{ $setting->setting_value }}</textarea>
                                                 </div>
                                             </div>
 
@@ -404,11 +406,11 @@
 
                                     <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
                                         <button class="btn btn-primary me-3" type="submit">
-                                            Submit
+                                            {{trans('admin_string.common_submit')}}
                                         </button>
                                         <a href="#">
                                             <button class="btn btn-secondary" type="button">
-                                                Cancel
+                                                {{trans('admin_string.common_cancel')}}
                                             </button>
                                         </a>
                                     </div>
@@ -418,7 +420,7 @@
                                 <form id="social_media_form" class="form" action="#">
                                     <div class="row mb-7">
                                         <div class="col-md-9 offset-md-3">
-                                            <h2>Social Media Settings</h2>
+                                            <h2>{{trans('admin_string.social_media_settings')}}</h2>
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
@@ -446,11 +448,11 @@
 
                                     <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
                                         <button class="btn btn-primary me-3" type="submit">
-                                            Submit
+                                            {{trans('admin_string.common_submit')}}
                                         </button>
                                         <a href="#">
                                             <button class="btn btn-secondary" type="button">
-                                                Cancel
+                                                {{trans('admin_string.common_cancel')}}
                                             </button>
                                         </a>
                                     </div>

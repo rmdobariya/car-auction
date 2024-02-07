@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Customer'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_customer')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -19,12 +19,14 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2">Roles</label>
+                                            <label class="required fs-6 fw-bold mb-2">{{trans('admin_string.roles')}}</label>
                                             <select class="form-select form-select-solid fw-bold" name="role_id"
                                                     id="role_id">
-                                                <option value="">Select Option</option>
+                                                <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($roles as $role)
-                                                    <option value="{{$role->id}}">{{$role->name}}</option>
+                                                    @if($role->name == 'Buyer' || $role->name == 'Seller')
+                                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -32,7 +34,7 @@
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="contact_no">
-                                                Contact No
+                                                {{trans('admin_string.contact_no')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="contact_no"
@@ -47,7 +49,7 @@
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="first_name">
-                                                First Name
+                                                {{trans('admin_string.first_name')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="first_name"
@@ -58,7 +60,7 @@
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="last_name">
-                                                Last Name
+                                                {{trans('admin_string.last_name')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
                                                    name="last_name"
@@ -72,7 +74,7 @@
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="email">
-                                                Email
+                                                {{trans('admin_string.email')}}
                                             </label>
                                             <input type="email" class="form-control form-control-solid"
                                                    name="email"
@@ -83,7 +85,7 @@
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="password">
-                                                Password
+                                                {{trans('admin_string.password')}}
                                             </label>
                                             <input type="password" class="form-control form-control-solid"
                                                    name="password"
@@ -97,7 +99,7 @@
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="is_corporate_seller">
-                                                Corporate Seller
+                                                {{trans('admin_string.corporate_seller')}}
                                             </label>
                                             <input type="checkbox" class="form-check"
                                                    name="is_corporate_seller"
@@ -110,11 +112,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.customer.index') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

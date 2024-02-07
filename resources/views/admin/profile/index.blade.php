@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'My Profile'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.my_profile')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -20,16 +20,16 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label for="name" class="required fs-6 fw-bold mb-2">
-                                       Name
+                                        {{trans('admin_string.name')}}
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                            name="name" id="name" value="{{ Auth::guard('admin')->user()->name }}"
-                                           placeholder="Name" required/>
+                                           placeholder="{{trans('admin_string.name')}}" required/>
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label for="email" class="required fs-6 fw-bold mb-2">
-                                       Email
+                                        {{trans('admin_string.email')}}
                                     </label>
                                     <input type="email" class="form-control form-control-solid"
                                            name="email" readonly id="email"
@@ -52,11 +52,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.dashboard') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>
@@ -69,10 +69,10 @@
 @endsection
 @section('custom-script')
     <script>
-        const default_message = "Drag and drop a file to upload"
-        const replace_message = "Drag and drop a file to replace"
-        const file_remove = "Remove"
-        const file_error_message = "Something went  wrong!"
+        const default_message = '{{trans('admin_string.drag_and_drop_a_file_to_upload')}}';
+        const replace_message = '{{trans('admin_string.drag_and_drop_a_file_to_replace')}}';
+        const file_remove = '{{trans('admin_string.remove')}}';
+        const file_error_message = '{{trans('admin_string.something_went_wrong')}}'
 
         var form_url = '/updateProfile'
         var redirect_url = '/my-profile'

@@ -106,6 +106,8 @@ class VehicleController extends Controller
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
+                $vehicle->auction_start_time = isset($request->auction_start_time) ?$request->auction_start_time : null;
+                $vehicle->auction_end_time = isset($request->auction_end_time) ? $request->auction_end_time : null;
                 $vehicle->ratting = $request->ratingvalue;
                 $vehicle->is_vehicle_type = $request['is_vehicle_type'];
                 if ($request->hasfile('main_image')) {
@@ -164,6 +166,8 @@ class VehicleController extends Controller
                 $vehicle->city_id = $request->city;
                 $vehicle->auction_start_date = $request->auction_start_date;
                 $vehicle->auction_end_date = $request->auction_end_date;
+                $vehicle->auction_start_time = isset($request->auction_start_time) ?$request->auction_start_time : null;
+                $vehicle->auction_end_time = isset($request->auction_end_time) ? $request->auction_end_time : null;
                 $vehicle->bid_increment = $request->bid_increment;
                 $vehicle->ratting = $request->ratingvalue;
                 $vehicle->is_vehicle_type = $request['is_vehicle_type'];

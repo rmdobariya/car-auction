@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Vehicle Detail'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.vehicle_detail')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
-                            <h2>Details</h2>
+                            <h2>{{trans('admin_string.details')}}</h2>
                         </div>
                     </div>
                     <div class="card-body pt-0">
@@ -19,7 +19,7 @@
                             <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
                                 <tbody class="fw-semibold">
                                 <tr>
-                                    <th class="fw-bold" scope="row">Image</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.image')}}</th>
                                     <td>
                                         <a href="{{asset($vehicle->main_image)}}" target="_blank">
                                             <img src="{{asset($vehicle->main_image)}}" style="width: 100px">
@@ -27,59 +27,59 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Name</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.name')}}</th>
                                     <td>{{ $vehicle->name }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Vehicle Category</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.vehicle_category')}}</th>
                                     <td>{{ $vehicle->category_name }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Model</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.model')}}</th>
                                     <td>({{ $vehicle->model }})</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Year</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.year')}}</th>
                                     <td>{{ $vehicle->year }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Make</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.make')}}</th>
                                     <td>{{ $vehicle->make }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Trim</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.trim')}}</th>
                                     <td>{{ $vehicle->trim }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">KMS Driven</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.kms_driven')}}</th>
                                     <td>{{ $vehicle->kms_driven }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Owners</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.no_of_owners')}}</th>
                                     <td>{{ $vehicle->owners }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Transmission</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.transmission')}}</th>
                                     <td>{{ $vehicle->transmission }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Fuel Type</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.fuel')}}</th>
                                     <td>{{ $vehicle->fuel_type }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Body Type</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.body_type')}}</th>
                                     <td>{{ $vehicle->body_type }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Registration</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.registration')}}</th>
                                     <td>{{ $vehicle->registration }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Color</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.exterior_color')}}</th>
                                     <td>{{ $vehicle->color }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Price</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.price')}}</th>
                                     <td>{{ number_format($vehicle->price) }}</td>
                                 </tr>
 {{--                                <tr>--}}
@@ -87,36 +87,36 @@
 {{--                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>--}}
 {{--                                </tr>--}}
                                 <tr>
-                                    <th class="fw-bold" scope="row">Mileage</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.mileage')}}</th>
                                     <td>{{ $vehicle->mileage }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Vehicle Type</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.car_type')}}</th>
                                     <td>{{ $vehicle->car_type }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Short Description</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.short_description')}}</th>
 
                                     <td>{{ $vehicle->short_description }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Description</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.description')}}</th>
 
                                     <td>{{ $vehicle->description }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="fw-bold" scope="row">Status</th>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.status')}}</th>
                                     <td>
                                         @if ((string)$vehicle->status === 'pending')
-                                            <div class="badge badge-light-warning">Pending</div>
+                                            <div class="badge badge-light-warning">{{trans('admin_string.pending')}}</div>
                                         @elseif((string)$vehicle->status === 'approve')
-                                            <div class="badge badge-light-success">Approve</div>
+                                            <div class="badge badge-light-success">{{trans('admin_string.approve')}}</div>
                                         @elseif((string)$vehicle->status === 'auction_close')
-                                            <div class="badge badge-light-danger">Auction Close</div>
+                                            <div class="badge badge-light-danger">{{trans('admin_string.auction_close')}}</div>
                                         @elseif((string)$vehicle->status === 'ongoing')
-                                            <div class="badge badge-light-success">Ongoing</div>
+                                            <div class="badge badge-light-success">{{trans('admin_string.ongoing')}}</div>
                                         @else
-                                            <div class="badge badge-light-danger">Reject</div>
+                                            <div class="badge badge-light-danger">{{trans('admin_string.reject')}}</div>
                                         @endif
                                     </td>
                                 </tr>
@@ -129,7 +129,7 @@
                     <!--begin::Card header-->
                     <div class="card-header">
                         <div class="card-title">
-                            <h2>Vehicle Image</h2>
+                            <h2>{{trans('admin_string.vehicle_image')}}</h2>
                         </div>
                     </div>
                     <div class="card-body pt-0">
@@ -149,7 +149,7 @@
                     <!--begin::Card header-->
                     <div class="card-header">
                         <div class="card-title">
-                            <h2>Vehicle Document</h2>
+                            <h2>{{trans('admin_string.vehicle_document')}}</h2>
                         </div>
                     </div>
                     <div class="card-body pt-0">

@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Banner'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_banner')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -18,7 +18,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2" for="title">
-                                        Title
+                                        {{trans('admin_string.title')}}
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                            name="title"
@@ -28,7 +28,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2"
-                                           for="image">Image
+                                           for="image">{{trans('admin_string.image')}}
                                     </label><br>
                                     @include('admin.layouts2.components.image-selection',
                                       [
@@ -41,11 +41,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.banner.index') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

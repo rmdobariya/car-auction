@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add New'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_blog')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -21,7 +21,8 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_title"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Title
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                    {{trans('admin_string.title')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_title"
@@ -36,7 +37,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2"
-                                           for="image">Image
+                                           for="image">{{trans('admin_string.image')}}
                                     </label><br>
                                     @include('admin.layouts2.components.image-selection',
                                       [
@@ -47,7 +48,7 @@
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                         <label for="{{ $language['language_code'] }}_title"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Description
+                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.description')}}
                                         </label>
                                         <textarea class="form-control"
                                                   name="{{ $language['language_code'] }}_description"
@@ -61,11 +62,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.news.index') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

@@ -49,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button"
-                        data-bs-dismiss="modal">Close
+                        data-bs-dismiss="modal">{{trans('admin_string.close')}}Close
                 </button>
             </div>
         </div>

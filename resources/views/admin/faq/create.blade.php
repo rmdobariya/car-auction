@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Faq'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_faq')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -18,7 +18,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2" for="question">
-                                        Question
+                                        {{trans('admin_string.question')}}
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                            name="question"
@@ -26,7 +26,7 @@
                                            placeholder="Question"/>
                                 </div>
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">Answer</label>
+                                    <label class="form-label">{{trans('admin_string.answer')}}</label>
                                     <textarea class="ckeditor form-control" name="answer" id="answer"></textarea>
                                 </div>
 
@@ -34,11 +34,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.faq.index') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

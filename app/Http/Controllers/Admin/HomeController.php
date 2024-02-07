@@ -15,4 +15,11 @@ class HomeController extends Controller
         User::where('id', Auth::guard('admin')->user()->id)->update(['panel_mode' => $mode]);
         return redirect()->back();
     }
+
+    public function changeLocale($locale): RedirectResponse
+    {
+        User::where('id', Auth::guard('admin')->user()->id)->update(['locale' => $locale]);
+        App::setLocale($locale);
+        return redirect()->back();
+    }
 }

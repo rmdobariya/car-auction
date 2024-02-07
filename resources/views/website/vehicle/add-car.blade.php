@@ -378,7 +378,28 @@
                                         </div>
                                     </div>
 
+                                    <div class="mb-1 col-md-3">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                {{trans('web_string.start_time')}}
+                                            </label>
+                                            <input type="time" name="auction_start_time" class="form-control"
+                                                   placeholder="{{trans('web_string.start_time')}}">
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 col-md-3">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                {{trans('web_string.end_time')}}
+                                            </label>
+                                            <input type="time" name="auction_end_time" class="form-control"
+                                                   placeholder=" {{trans('web_string.end_time')}}">
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12 text-center">

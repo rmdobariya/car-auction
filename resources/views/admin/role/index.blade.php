@@ -3,8 +3,10 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Roles'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.roles')])
+                @if(Auth::user()->can('role-create'))
                 @include('admin.layouts2.components.create-button',['url'=>route('admin.role.create')])
+                @endif
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -18,9 +20,9 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="basic-1">
                             <thead>
                             <tr class="text-start text-dark-400 fw-bolder fs-7 text-uppercase gs-0">
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Action</th>
+                                <th>{{trans('admin_string.id')}}</th>
+                                <th>{{trans('admin_string.name')}}</th>
+                                <th>{{trans('admin_string.action')}}</th>
                             </tr>
                             </thead>
                             <tbody class="fw-bold text-gray-600"></tbody>
@@ -33,13 +35,13 @@
 @endsection
 @section('custom-script')
     <script>
-        const sweetalert_delete_title = "Role Delete?"
-        const sweetalert_delete_text = "Are You Sure Delete This Role"
-        const cancel_button_text = "Cancel"
-        const delete_button_text = "Delete"
-        const sweetalert_change_status = "Role Status Change"
-        const sweetalert_change_status_text = "Are You Sure Change Status This Role"
-        const yes_change_it = "Yes"
+        const sweetalert_delete_title = '{{trans('admin_string.role_delete')}}';
+        const sweetalert_delete_text = '{{trans('admin_string.are_you_sure_delete_this_record')}}';
+        const cancel_button_text = '{{trans('admin_string.cancel')}}';
+        const delete_button_text = '{{trans('admin_string.delete')}}';
+        const sweetalert_change_status = '{{trans('admin_string.role_status_change')}}';
+        const sweetalert_change_status_text = '{{trans('admin_string.are_you_sure_status_change_this_record')}}';
+        const yes_change_it = '{{trans('admin_string.yes')}}';
         const form_url = '/role'
         const datatable_url = '/get-role-list'
 

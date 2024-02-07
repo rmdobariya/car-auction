@@ -7,9 +7,9 @@
                 data-placeholder="Status"
                 data-kt-ecommerce-product-filter="Status">
             <option></option>
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="inActive">Inactive</option>
+            <option value="all">{{trans('admin_string.all')}}</option>
+            <option value="active">{{trans('admin_string.active')}}</option>
+            <option value="inActive">{{trans('admin_string.inactive')}}</option>
         </select>
     </div>
 </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\SubAdminController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\VehicleController;
 use Illuminate\Support\Facades\Route;
@@ -46,7 +47,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::get('change-panel-mode/{id}', [HomeController::class, 'changePanelMode'])->name('change-panel-mode');
     Route::get('/change-password', [PasswordController::class, 'index'])->name('change-password');
     Route::post('update-password', [PasswordController::class, 'updatePassword'])->name('update-password');
-
+    Route::get('change-locale/{id}', [HomeController::class, 'changeLocale'])->name('change-locale');
     Route::resource('setting', SettingController::class);
     Route::post('general-setting-store', [SettingController::class, 'generalSettingStore'])->name('general-setting-store');
     Route::post('email-setting-store', [SettingController::class, 'emailSettingStore'])->name('email-setting-store');
@@ -65,6 +66,13 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::post('multiple-user-delete', [CustomerController::class, 'multipleUserDelete'])->name('multiple-user-delete');
     Route::get('restore-customer/{id}', [CustomerController::class, 'restoreCustomer'])->name('restore-customer');
     Route::delete('customer-hard-delete/{id}', [CustomerController::class, 'hardDelete'])->name('customer-hard-delete');
+
+    Route::resource('sub-admin', SubAdminController::class);
+    Route::get('get-sub-admin-list', [SubAdminController::class, 'getSubAdminList'])->name('get-sub-admin-list');
+    Route::get('sub-admin/status/{id}/{status}', [SubAdminController::class, 'changeStatus'])->name('sub-admin.status.change');
+    Route::post('multiple-sub-admin-delete', [SubAdminController::class, 'multipleSubAdminDelete'])->name('multiple-sub-admin-delete');
+    Route::get('restore-sub-admin/{id}', [SubAdminController::class, 'restoreSubAdmin'])->name('restore-sub-admin');
+    Route::delete('sub-admin-hard-delete/{id}', [SubAdminController::class, 'hardDelete'])->name('sub-admin-hard-delete');
 
     Route::resource('faq', FaqController::class);
     Route::get('get-faq-list', [FaqController::class, 'getFaqList'])->name('get-faq-list');

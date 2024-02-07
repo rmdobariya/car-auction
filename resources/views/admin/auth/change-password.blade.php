@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Change Password'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.change_password')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -18,7 +18,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label for="current_password" class="required fs-6 fw-bold mb-2">
-                                        Current Password
+                                        {{trans('admin_string.current_password')}}
                                     </label>
                                     <input type="password" class="form-control form-control-solid"
                                            name="current_password" id="current_password"
@@ -28,7 +28,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label for="new_password" class="required fs-6 fw-bold mb-2">
-                                        New Password
+                                        {{trans('admin_string.new_password')}}
                                     </label>
                                     <input type="password" class="form-control form-control-solid"
                                            name="new_password" id="new_password"
@@ -38,7 +38,7 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label for="confirm_password" class="required fs-6 fw-bold mb-2">
-                                        Confirm Password
+                                        {{trans('admin_string.confirm_password')}}
                                     </label>
                                     <input type="password" class="form-control form-control-solid"
                                            name="confirm_password" id="confirm_password"
@@ -49,11 +49,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.dashboard') }}">
                                     <button class="btn btn-secondary" type="button">
-                                       Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

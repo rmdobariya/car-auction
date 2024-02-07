@@ -1,5 +1,5 @@
 @extends('admin.layouts2.authentication.master')
-@section('title', 'Login')
+@section('title', 'Forgot-Password')
 @section('content')
     <div class="d-flex flex-column flex-root">
         <div class="d-flex flex-column flex-lg-row flex-column-fluid">
@@ -19,7 +19,7 @@
                         <form id="addEditForm">
                             @csrf
                             <div class="text-center mb-10">
-                                <h1 class="text-dark mb-3">Forgot Password</h1>
+                                <h1 class="text-dark mb-3">{{trans('admin_string.forgot_password')}}</h1>
                             </div>
                             <input type="hidden" id="email" value="{{ $email }}"
                                    name="email">
@@ -27,7 +27,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <label for="name" class="required fs-6 fw-bold">
-                                        New Password
+                                        {{trans('admin_string.new_password')}}
                                     </label>
                                     <input type="text" class="form-control"
                                            name="new_password" id="new_password"
@@ -38,7 +38,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <label for="confirm_password" class="required fs-6 fw-bold">
-                                        Confirm Password
+                                        {{trans('admin_string.confirm_password')}}
                                     </label>
                                     <input type="text" class="form-control"
                                            name="confirm_password" id="confirm_password"
@@ -47,7 +47,7 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
-                                    <span class="indicator-label">Submit</span>
+                                    <span class="indicator-label"> {{trans('admin_string.common_submit')}}</span>
                                 </button>
                             </div>
                         </form>

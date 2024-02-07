@@ -44,15 +44,59 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="menu-item px-5" data-kt-menu-trigger="hover"
+                             data-kt-menu-placement="left-start">
+                            <a href="#" class="menu-link px-5">
+                                <span class="menu-title position-relative">{{ trans('admin_string.language') }}
+                                    <span
+                                        class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
+                                        @if(Auth::guard('admin')->user()->locale=='en')
+                                            English
+                                            <img class="w-15px h-15px rounded-1 ms-2"
+                                                 src="{{ asset('assets/media/flags/united-states.svg') }}"
+                                                 alt=""/>
+                                        @else
+                                            عربى
+                                            <img class="rounded-1"
+                                                 src="{{ asset('assets/media/flags/united-arab-emirates.svg') }}"
+                                                 alt=""/>
+                                        @endif
+                                    </span>
+                                </span>
+                            </a>
+                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                <div class="menu-item px-3">
+                                    <a href="{{ route('admin.change-locale',['en']) }}"
+                                       class="menu-link d-flex px-5 @if(Auth::guard('admin')->user()->locale=='en') active @endif">
+                                        <span class="symbol symbol-20px me-4">
+                                            <img class="rounded-1"
+                                                 src="{{ asset('assets/media/flags/united-states.svg') }}"
+                                                 alt=""/>
+                                        </span>English
+                                    </a>
+                                </div>
+                                <div class="menu-item px-3">
+                                    <a href="{{ route('admin.change-locale',['ar']) }}"
+                                       class="menu-link d-flex px-5 @if(Auth::guard('admin')->user()->locale=='ar') active @endif">
+                                        <span class="symbol symbol-20px me-4">
+                                            <img class="rounded-1"
+                                                 src="{{ asset('assets/media/flags/united-arab-emirates.svg') }}" alt=""/>
+                                        </span>عربى
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="separator my-2"></div>
 
                         <div class="menu-item px-5">
                             <a href="{{ route('admin.my-profile') }}"
-                               class="menu-link px-5">My Profile</a>
+                               class="menu-link px-5">{{trans('admin_string.my_profile')}}</a>
                         </div>
                         <div class="menu-item px-5">
                             <a href="{{ route('admin.change-password') }}" class="menu-link px-5">
-                                <span class="menu-text">Change Password</span>
+                                <span class="menu-text">{{trans('admin_string.change_password')}}</span>
                             </a>
                         </div>
 
@@ -60,7 +104,7 @@
 
                         <div class="menu-item px-5">
                             <a href="{{ route('admin.logout') }}"
-                               class="menu-link px-5">Logout</a>
+                               class="menu-link px-5">{{trans('admin_string.logout')}}</a>
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">

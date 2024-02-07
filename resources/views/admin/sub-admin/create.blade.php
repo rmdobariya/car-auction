@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.edit_customer')])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_sub_admin')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -13,21 +13,19 @@
                         <form method="POST" data-parsley-validate="" id="addEditForm" role="form">
                             @csrf
                             <div class="card-body">
-                                <input type="hidden" id="edit_value" value="{{$user->id}}" name="edit_value">
+                                <input type="hidden" id="edit_value" value="0" name="edit_value">
 
                                 <input type="hidden" id="form-method" value="add">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2">{{trans('admin_string.roles')}}</label>
+                                            <label class="required fs-6 fw-bold mb-2">Roles</label>
                                             <select class="form-select form-select-solid fw-bold" name="role_id"
                                                     id="role_id">
                                                 <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($roles as $role)
-                                                    @if($role->name == 'Buyer' || $role->name == 'Seller')
-                                                    <option
-                                                        value="{{$role->id}}"
-                                                        @if($user->user_type == strtolower($role->name)) selected @endif>{{$role->name}}</option>
+                                                    @if($role->name != 'Buyer' && $role->name != 'Seller')
+                                                    <option value="{{$role->id}}">{{$role->name}}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -41,7 +39,6 @@
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="contact_no"
                                                    id="contact_no"
-                                                   value="{{$user->contact_no}}"
                                                    placeholder="Contact No"/>
                                         </div>
                                     </div>
@@ -57,8 +54,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="first_name"
                                                    id="first_name"
-                                                   value="{{$user->name}}"
-                                                   placeholder="First Name"/>
+                                                   placeholder="{{trans('admin_string.first_name')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -69,8 +65,7 @@
                                             <input type="text" class="form-control form-control-solid"
                                                    name="last_name"
                                                    id="last_name"
-                                                   value="{{$user->last_name}}"
-                                                   placeholder="Last Name"/>
+                                                   placeholder="{{trans('admin_string.last_name')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +79,7 @@
                                             <input type="email" class="form-control form-control-solid"
                                                    name="email"
                                                    id="email"
-                                                   value="{{$user->email}}"
-                                                   placeholder="Email"/>
+                                                   placeholder="{{trans('admin_string.email')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -96,11 +90,11 @@
                                             <input type="password" class="form-control form-control-solid"
                                                    name="password"
                                                    id="password"
-                                                   placeholder="Password"/>
+                                                   placeholder="{{trans('admin_string.password')}}"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row @if($user->user_type != 'seller') d-none @endif"
+                                <div class="row d-none"
                                      id="corporate_seller_part">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -110,8 +104,7 @@
                                             <input type="checkbox" class="form-check"
                                                    name="is_corporate_seller"
                                                    value="0"
-                                                   id="is_corporate_seller"
-                                                   @if($user->is_corporate_seller == 1) checked @endif/>
+                                                   id="is_corporate_seller"/>
                                         </div>
                                     </div>
                                 </div>
@@ -136,8 +129,8 @@
 @endsection
 @section('custom-script')
     <script>
-        var form_url = '/customer'
-        var redirect_url = '/customer'
+        var form_url = '/sub-admin'
+        var redirect_url = '/sub-admin'
     </script>
     <script>
         $('#role_id').on('change', function () {
@@ -150,7 +143,6 @@
                 $('#is_corporate_seller').val(0)
             }
         })
-
     </script>
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
 @endsection

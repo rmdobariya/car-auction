@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Permission'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_permission')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -17,24 +17,24 @@
                                 <input type="hidden" id="form-method" value="add">
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2"
-                                           for="module_name">Module Name
+                                           for="module_name"> {{trans('admin_string.module_name')}}
                                     </label>
                                     <input type="text" class="form-control form-control-solid" required
                                            name="module_name" data-parsley-pattern="/^[A-Za-z ]+$/"
                                            id="module_name"
-                                           placeholder="admin"/>
+                                           placeholder="{{trans('admin_string.module_name')}}"/>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-group form-control-solid">
                                         <label class="required fs-6 fw-bold mb-2"
-                                               for="name">Choose Permission
+                                               for="name">{{trans('admin_string.choose_permission')}}
                                         </label><br>
 
                                         <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
                                             <input class="form-check-input" id="all" name="all" type="checkbox">
                                             <label class="form-check-label"
-                                                   for="all">Select All</label>
+                                                   for="all">{{trans('admin_string.select_all')}}</label>
                                         </div>
                                         @foreach($array as $value)
                                             <div class="form-check form-check-inline checkbox checkbox-dark mb-0">
@@ -52,11 +52,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                   Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.role.index') }}">
                                     <button class="btn btn-secondary " type="button">
-                                       Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

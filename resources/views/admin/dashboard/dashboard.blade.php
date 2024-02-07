@@ -6,7 +6,7 @@
                 <div data-kt-swapper="true" data-kt-swapper-mode="prepend"
                      data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                      class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
-                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard</h1>
+                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{trans('admin_string.dashboard')}}</h1>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                 </div>
@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <div class="text-white fw-bolder fs-1">{{$seller_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Sellers
+                                    class="text-white fw-bolder fs-3">{{trans('admin_string.sellers')}}
                                 </div>
                             </div>
                         </a>
@@ -33,7 +33,7 @@
                             <div class="card-body">
                                 <div class="text-white fw-bolder fs-1">{{$buyer_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Buyers
+                                    class="text-white fw-bolder fs-3">{{trans('admin_string.buyers')}}
                                 </div>
                             </div>
                         </a>
@@ -55,7 +55,7 @@
                             <div class="card-body">
                                 <div class="text-white fw-bolder fs-1">{{$category_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Categories
+                                    class="text-white fw-bolder fs-3">{{trans('admin_string.categories')}}
                                 </div>
                             </div>
                         </a>
@@ -66,7 +66,7 @@
                             <div class="card-body">
                                 <div class="text-white fw-bolder fs-1">{{$pending_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Pending Vehicles
+                                    class="text-white fw-bolder fs-3">{{trans('admin_string.pending_vehicles')}}
                                 </div>
                             </div>
                         </a>
@@ -77,7 +77,7 @@
                             <div class="card-body">
                                 <div class="text-white fw-bolder fs-1">{{$approve_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Approved Vehicles
+                                    class="text-white fw-bolder fs-3">{{trans('admin_string.approved_vehicles')}}
                                 </div>
                             </div>
                         </a>
@@ -88,7 +88,7 @@
                             <div class="card-body">
                                 <div class="text-white fw-bolder fs-1">{{$reject_count}}</div>
                                 <div
-                                    class="text-white fw-bolder fs-3">Reject Vehicles
+                                    class="text-white fw-bolder fs-3">{{trans('admin_string.reject_vehicles')}}
                                 </div>
                             </div>
                         </a>

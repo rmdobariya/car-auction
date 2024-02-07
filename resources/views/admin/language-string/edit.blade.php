@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Edit Language String'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_String.edit_language_string')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -18,53 +18,53 @@
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2" for="app_or_panel">
-                                        App Or Panel
+                                        {{trans('admin_string.app_or_panel')}}
                                     </label>
                                     <select class="form-control form-control-solid select2" id="app_or_panel" name="app_or_panel" required>
-                                        <option value="">Select Option</option>
+                                        <option value="">{{trans('admin_string.select_option')}}</option>
                                         <option value="admin"
                                                 @if($languageString->app_or_panel== 'admin') selected @endif>
-                                            Admin Panel
+                                            {{trans('admin_string.admin')}}
                                         </option>
                                         <option value="web"
                                                 @if($languageString->app_or_panel== 'web') selected @endif >
-                                            Web
+                                            {{trans('admin_string.web_store')}}
                                         </option>
                                         <option value="app"
                                                 @if($languageString->app_or_panel== 'app') selected @endif >
-                                            Application
+                                            {{trans('admin_string.application')}}
                                         </option>
                                     </select>
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2" for="name_key">
-                                        Name Key
+                                        {{trans('admin_string.name_key')}}
                                     </label>
                                     <input type="text" class="form-control form-control-solid"
                                            name="name_key" id="name_key"
                                            value="{{ $languageString->name_key }}"
-                                           placeholder="Key" required readonly/>
+                                           placeholder=" {{trans('admin_string.name_key')}}" required readonly/>
                                 </div>
 
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                         <label class="required fs-6 fw-bold mb-2" for="{{ $language['language_code'] }}_name">
-                                            {{ $language['name'] }} Name </label>
+                                            {{ $language['name'] }} {{trans('admin_string.name')}} </label>
                                         <textarea class="form-control form-control-solid" name="{{ $language['language_code'] }}_name"
                                                   id="{{ $language['language_code'] }}_name" rows="3" column="5"
-                                                  placeholder="{{ $language['name'] }} Name" required
+                                                  placeholder="{{ $language['name'] }} {{trans('admin_string.name')}}" required
                                                   @if($language['is_rtl'] == 1) dir="rtl" @endif>{{ $languageString->translateOrNew($language['language_code'])->name }}</textarea>
                                     </div>
                                 @endforeach
                             </div>
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.language-string.index') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

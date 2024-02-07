@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Category'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_category')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -21,13 +21,13 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_name"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} Name
+                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.name')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_name"
                                                        id="{{ $language['language_code'] }}_name"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.common_name') }}"
+                                                       placeholder="{{ $language['name'] }} {{ trans('admin_string.name') }}"
                                                        required/>
                                             </div>
                                         </div>
@@ -49,11 +49,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{ trans('admin_string.common_submit') }}
                                 </button>
                                 <a href="{{ route('admin.category.index') }}">
                                     <button class="btn btn-secondary" type="button">
-                                        Cancel
+                                        {{ trans('admin_string.common_cancel') }}
                                     </button>
                                 </a>
                             </div>

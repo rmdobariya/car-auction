@@ -59,14 +59,14 @@
                                 <span data-feather="grid"></span>
                              </span>
                         </span>
-                        <span class="menu-title">Dashboard</span>
+                        <span class="menu-title">{{trans('admin_string.dashboard')}}</span>
                     </a>
                 </div>
 
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">
-                            Setting Management
+                           {{trans('admin_string.setting_management')}}
                         </span>
                     </div>
                 </div>
@@ -80,21 +80,23 @@
                              </span>
                         </span>
 					</span>
-                    <span class="menu-title">Setting</span>
+                    <span class="menu-title"> {{trans('admin_string.setting')}}</span>
                     <span class="menu-arrow"></span>
                 </span>
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'setting') ? 'active' : '' }}"
-                               href="{{ route('admin.setting.index') }}">
+                    @if(Auth::user()->can('setting-read') )
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
+                                <a class="menu-link {{ (request()->segment(2) == 'setting') ? 'active' : '' }}"
+                                   href="{{ route('admin.setting.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Setting</span>
-                            </a>
+                                    <span class="menu-title">{{trans('admin_string.setting')}}</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-{{--                    @if(Auth::user()->can('page-read') )--}}
+                    @endif
+                    @if(Auth::user()->can('page-read') )
                         <div class="menu-sub menu-sub-accordion menu-active-bg">
                             <div class="menu-item">
                                 <a class="menu-link {{ (request()->segment(2) == 'page') ? 'active' : '' }}"
@@ -102,11 +104,11 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                    <span class="menu-title">Page</span>
+                                    <span class="menu-title"> {{trans('admin_string.page')}}</span>
                                 </a>
                             </div>
                         </div>
-{{--                    @endif--}}
+                    @endif
 
                     {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
                     {{--                        <div class="menu-item">--}}
@@ -115,34 +117,36 @@
                     {{--                                <span class="menu-bullet">--}}
                     {{--                                    <span class="bullet bullet-dot"></span>--}}
                     {{--                                </span>--}}
-                    {{--                                <span class="menu-title">Faq</span>--}}
+                    {{--                                <span class="menu-title"> {{trans('admin_string.faq')}}</span>--}}
                     {{--                            </a>--}}
                     {{--                        </div>--}}
                     {{--                    </div>--}}
-
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'news') ? 'active' : '' }}"
-                               href="{{ route('admin.news.index') }}">
+                    @if(Auth::user()->can('news-read') )
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
+                                <a class="menu-link {{ (request()->segment(2) == 'news') ? 'active' : '' }}"
+                                   href="{{ route('admin.news.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title"> News</span>
-                            </a>
+                                    <span class="menu-title">{{trans('admin_string.news')}}</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="menu-sub menu-sub-accordion menu-active-bg">
-                        <div class="menu-item">
-                            <a class="menu-link {{ (request()->segment(2) == 'testimonial') ? 'active' : '' }}"
-                               href="{{ route('admin.testimonial.index') }}">
+                    @endif
+                    @if(Auth::user()->can('testimonial-read') )
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
+                                <a class="menu-link {{ (request()->segment(2) == 'testimonial') ? 'active' : '' }}"
+                                   href="{{ route('admin.testimonial.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title"> Testimonial</span>
-                            </a>
+                                    <span class="menu-title">  {{trans('admin_string.testimonial')}}</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
                     {{--                        <div class="menu-item">--}}
@@ -151,122 +155,141 @@
                     {{--                                <span class="menu-bullet">--}}
                     {{--                                    <span class="bullet bullet-dot"></span>--}}
                     {{--                                </span>--}}
-                    {{--                                <span class="menu-title">Banner</span>--}}
+                    {{--                                <span class="menu-title">{{trans('admin_string.banner')}}</span>--}}
                     {{--                            </a>--}}
                     {{--                        </div>--}}
                     {{--                    </div>--}}
                 </div>
-
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'customer') ? 'active' : '' }}"
-                       href="{{ route('admin.customer.index') }}">
+                @if(Auth::user()->can('customer-read') )
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'customer') ? 'active' : '' }}"
+                           href="{{ route('admin.customer.index') }}">
                                <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <span data-feather="user"></span>
                              </span>
                         </span>
-                        <span class="menu-title"> Customer</span>
-                    </a>
+                            <span class="menu-title">  {{trans('admin_string.customer')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('sub-admin-read') )
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'sub-admin') ? 'active' : '' }}"
+                           href="{{ route('admin.sub-admin.index') }}">
+                               <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="user"></span>
+                             </span>
+                        </span>
+                            <span class="menu-title">  {{trans('admin_string.sub_admin')}}</span>
+                        </a>
+                    </div>
+                @endif
+                <div data-kt-menu-trigger="click"
+                     class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} ">
+                <span class="menu-link">
+                    <span class="menu-icon">
+						<span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                                <span data-feather="settings"></span>
+                             </span>
+                        </span>
+					</span>
+                    <span class="menu-title">  {{trans('admin_string.administrator')}}</span>
+                    <span class="menu-arrow"></span>
+                </span>
+                    @if(Auth::user()->can('role-read') )
+                        <div class="menu-sub menu-sub-accordion menu-active-bg">
+                            <div class="menu-item">
+                                <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"
+                                   href="{{ route('admin.role.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                    <span class="menu-title"> {{trans('admin_string.role')}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                    {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+                    {{--                        <div class="menu-item">--}}
+                    {{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
+                    {{--                               href="{{ route('admin.permission.create') }}">--}}
+                    {{--                                                    <span class="menu-bullet">--}}
+                    {{--                                                        <span class="bullet bullet-dot"></span>--}}
+                    {{--                                                    </span>--}}
+                    {{--                                <span class="menu-title"> {{trans('admin_string.permission')}}</span>--}}
+                    {{--                            </a>--}}
+                    {{--                        </div>--}}
+                    {{--                    </div>--}}
+
                 </div>
-{{--                <div data-kt-menu-trigger="click"--}}
-{{--                     class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} ">--}}
-{{--                <span class="menu-link">--}}
-{{--                    <span class="menu-icon">--}}
-{{--						<span class="menu-icon">--}}
-{{--                            <span class="svg-icon svg-icon-2">--}}
-{{--                                <span data-feather="settings"></span>--}}
-{{--                             </span>--}}
-{{--                        </span>--}}
-{{--					</span>--}}
-{{--                    <span class="menu-title">Administrator</span>--}}
-{{--                    <span class="menu-arrow"></span>--}}
-{{--                </span>--}}
-{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
-{{--                        <div class="menu-item">--}}
-{{--                            <a class="menu-link {{ (request()->segment(2) == 'role') ? 'active' : '' }}"--}}
-{{--                               href="{{ route('admin.role.index') }}">--}}
-{{--                                <span class="menu-bullet">--}}
-{{--                                    <span class="bullet bullet-dot"></span>--}}
-{{--                                </span>--}}
-{{--                                <span class="menu-title">Role</span>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
-{{--                        <div class="menu-item">--}}
-{{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
-{{--                               href="{{ route('admin.permission.create') }}">--}}
-{{--                                                    <span class="menu-bullet">--}}
-{{--                                                        <span class="bullet bullet-dot"></span>--}}
-{{--                                                    </span>--}}
-{{--                                <span class="menu-title">Permission</span>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                </div>--}}
-
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'contact-us') ? 'active' : '' }}"
-                       href="{{ route('admin.contact-us.index') }}">
+                @if(Auth::user()->can('contact-us-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'contact-us') ? 'active' : '' }}"
+                           href="{{ route('admin.contact-us.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <span data-feather="command"></span>
                              </span>
                         </span>
-                        <span class="menu-title">Contact Us</span>
-                    </a>
-                </div>
-
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'question') ? 'active' : '' }}"
-                       href="{{ route('admin.question.index') }}">
+                            <span class="menu-title"> {{trans('admin_string.contact_us')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('question-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'question') ? 'active' : '' }}"
+                           href="{{ route('admin.question.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <span data-feather="help-circle"></span>
                              </span>
                         </span>
-                        <span class="menu-title">Question</span>
-                    </a>
-                </div>
-
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'category') ? 'active' : '' }}"
-                       href="{{ route('admin.category.index') }}">
+                            <span class="menu-title"> {{trans('admin_string.question')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('category-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'category') ? 'active' : '' }}"
+                           href="{{ route('admin.category.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <span data-feather="box"></span>
                              </span>
                         </span>
-                        <span class="menu-title">Category</span>
-                    </a>
-                </div>
-
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'vehicle') ? 'active' : '' }}"
-                       href="{{ route('admin.vehicle.index') }}">
+                            <span class="menu-title"> {{trans('admin_string.category')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('vehicle-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'vehicle') ? 'active' : '' }}"
+                           href="{{ route('admin.vehicle.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <span data-feather="shopping-bag"></span>
                              </span>
                         </span>
-                        <span class="menu-title">Vehicle</span>
-                    </a>
-                </div>
-
-                <div class="menu-item">
-                    <a class="menu-link {{ (request()->segment(2) == 'language-string') ? 'active' : '' }}"
-                       href="{{ route('admin.language-string.index') }}">
+                            <span class="menu-title"> {{trans('admin_string.vehicle')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('language-string-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'language-string') ? 'active' : '' }}"
+                           href="{{ route('admin.language-string.index') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                <span data-feather="globe"></span>
                             </span>
                         </span>
-                        <span class="menu-title">Language String</span>
-                    </a>
-                </div>
-
+                            <span class="menu-title"> {{trans('admin_string.language_string')}}</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -275,7 +298,7 @@
         <a href="#"
            target="_blank"
            class="btn btn-custom btn-primary w-100">
-            <span class="btn-label text-white">Visit Website</span>
+            <span class="btn-label text-white"> {{trans('admin_string.visit_website')}}</span>
         </a>
     </div>
 

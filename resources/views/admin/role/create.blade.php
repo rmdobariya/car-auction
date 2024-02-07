@@ -4,7 +4,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>'Add Role'])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.add_role')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -18,18 +18,18 @@
                                 <input type="hidden" id="form-method" value="add">
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="required fs-6 fw-bold mb-2"
-                                           for="name">Name
+                                           for="name">{{trans('admin_string.name')}}
                                     </label>
                                     <input type="text" class="form-control form-control-solid" required
                                            name="name"
                                            id="name"
-                                           placeholder="Name"/>
+                                           placeholder="{{trans('admin_string.name')}}"/>
                                 </div>
                                 <div class="col-xl-12">
                                     <div class="card mg-b-20">
                                         <div class="card-header pb-0">
                                             <div class="d-flex justify-content-between"><h4 class="card-title mg-b-0">
-                                                   Permission</h4>
+                                                    {{trans('admin_string.permission')}}</h4>
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -71,11 +71,11 @@
 
                             <div class="card-footer text-end p-3 btn-showcase">
                                 <button class="btn btn-primary" type="submit">
-                                    Submit
+                                    {{trans('admin_string.common_submit')}}
                                 </button>
                                 <a href="{{ route('admin.role.index') }}">
                                     <button class="btn btn-secondary " type="button">
-                                       Cancel
+                                        {{trans('admin_string.common_cancel')}}
                                     </button>
                                 </a>
                             </div>

@@ -5,17 +5,17 @@
       type="text/css"/>
 <link href="{{ asset('assets/custom/custom.css') }}" rel="stylesheet" type="text/css"/>
 
-@if((int)Auth::guard('admin')->user()->panel_mode===1)
+@if((int)Auth::guard('admin')->user()->panel_mode===1 && Auth::guard('admin')->user()->locale=='en')
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css"/>
-@elseif((int)Auth::guard('admin')->user()->panel_mode===2)
+@elseif((int)Auth::guard('admin')->user()->panel_mode===2 && Auth::guard('admin')->user()->locale=='en')
     <link href="{{ asset('assets/plugins/global/plugins.dark.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/style.dark.bundle.css') }}" rel="stylesheet" type="text/css"/>
-@elseif((int)Auth::guard('admin')->user()->panel_mode===1)
+@elseif((int)Auth::guard('admin')->user()->panel_mode===1 && Auth::guard('admin')->user()->locale=='ar')
     <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.rtl.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.rtl.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/style.bundle.rtl.css') }}" rel="stylesheet" type="text/css"/>
-@elseif((int)Auth::guard('admin')->user()->panel_mode===2)
+@elseif((int)Auth::guard('admin')->user()->panel_mode===2 && Auth::guard('admin')->user()->locale=='ar')
     <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.rtl.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/global/plugins.dark.bundle.rtl.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/style.dark.bundle.rtl.css') }}" rel="stylesheet" type="text/css"/>
