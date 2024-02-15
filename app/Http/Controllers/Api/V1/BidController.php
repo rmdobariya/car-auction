@@ -40,7 +40,7 @@ class BidController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['bid' => $result]
             ]);
         }
@@ -161,7 +161,7 @@ class BidController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['My-Winning' => $result]
             ]);
         }
@@ -195,12 +195,12 @@ class BidController extends Controller
                     ]);
                 return response()->json([
                     'success' => true,
-                    'message' => trans('web_string.bid_update_successfully')
+                    'message' => trans('app_string.bid_update_successfully')
                 ]);
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => trans('web_string.enter_an_amount_greater_than') . $amount
+                    'message' => trans('app_string.enter_an_amount_greater_than') . $amount
                 ]);
             }
         } else {
@@ -216,12 +216,12 @@ class BidController extends Controller
                 $bid->save();
                 return response()->json([
                     'success' => true,
-                    'message' => trans('web_string.bid_add_successfully')
+                    'message' => trans('app_string.bid_add_successfully')
                 ]);
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => trans('web_string.enter_an_amount_greater_than') . $amount
+                    'message' => trans('app_string.enter_an_amount_greater_than') . $amount
                 ]);
             }
         }

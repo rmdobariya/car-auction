@@ -14,6 +14,7 @@ use App\Models\TestimonialTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,10 +23,12 @@ class TestimonialController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:testimonial-read|testimonial-create|testimonial-update|testimonial-delete', ['only' => ['index']]);
+        $this->middleware('permission:testimonial-read|testimonial-create|testimonial-update|testimonial-delete|testimonial-restore|testimonial-status', ['only' => ['index']]);
         $this->middleware('permission:testimonial-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:testimonial-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:testimonial-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:testimonial-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:testimonial-delete', ['only' => ['destroy','multipleTestimonialDelete','hardDelete']]);
+        $this->middleware('permission:testimonial-restore', ['only' => ['restore']]);
+        $this->middleware('permission:testimonial-status', ['only' => ['changeStatus']]);
     }
 
     public function index()
@@ -62,7 +65,7 @@ class TestimonialController extends Controller
                 ]);
             }
             return response()->json([
-                'message' => 'Testimonial Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -90,7 +93,7 @@ class TestimonialController extends Controller
                     ]);
             }
             return response()->json([
-                'message' => 'Testimonial Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -109,7 +112,7 @@ class TestimonialController extends Controller
     {
         Testimonial::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Testimonial Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -144,6 +147,9 @@ class TestimonialController extends Controller
                                 'edit' => route('admin.testimonial.edit', [$testimonial->id]),
                                 'delete' => $testimonial->id,
                                 'status' => $testimonial->status,
+                                'edit_permission' => Auth::user()->can('testimonial-update'),
+                                'delete_permission' => Auth::user()->can('testimonial-delete'),
+                                'status_permission' => Auth::user()->can('testimonial-status'),
                             ]
                         ];
                     } else {
@@ -152,6 +158,8 @@ class TestimonialController extends Controller
                             'actions' => [
                                 'hard-delete' => $testimonial->id,
                                 'restore' => $testimonial->id,
+                                'delete_permission' => Auth::user()->can('testimonial-delete'),
+                                'restore_permission' => Auth::user()->can('testimonial-restore'),
                             ]
                         ];
 
@@ -184,7 +192,7 @@ class TestimonialController extends Controller
     {
         Testimonial::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -194,7 +202,7 @@ class TestimonialController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Testimonial Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -206,7 +214,7 @@ class TestimonialController extends Controller
         }
         DB::table('testimonials')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Testimonial Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -224,7 +232,7 @@ class TestimonialController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

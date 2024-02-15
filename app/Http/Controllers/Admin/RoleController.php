@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\RoleStoreRequest;
 use App\Models\ModelHasRole;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -20,7 +21,7 @@ class RoleController extends Controller
     {
         $this->middleware('permission:role-read|role-create|role-update|role-delete', ['only' => ['index']]);
         $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:role-update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-update', ['only' => ['edit', 'update','store']]);
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
@@ -43,6 +44,8 @@ class RoleController extends Controller
                         'actions' => [
                             'edit' => route('admin.role.edit', [$roles->id]),
                             'delete' => '',
+                            'edit_permission' => Auth::user()->can('role-update'),
+                            'delete_permission' => Auth::user()->can('role-delete'),
                         ]
                     ];
                     return AdminDataTableButtonHelper::actionButtonDropdown($array);
@@ -73,7 +76,7 @@ class RoleController extends Controller
             $role->syncPermissions($request->input('permission'));
             return response()->json([
                 'success' => true,
-                'message' => 'Role Added Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
         }
         $role = Role::find($validated['edit_value']);
@@ -83,7 +86,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
         return response()->json([
             'success' => true,
-            'message' => 'Role Updated Successfully'
+            'message' => trans('admin_string.record_update_successfully')
         ]);
     }
 
@@ -107,14 +110,14 @@ class RoleController extends Controller
         $count = ModelHasRole::where('role_id', $id)->count();
         if ($count > 0) {
             return response()->json([
-                'message' => 'This Role Already Use In'
+                'message' => trans('admin_string.this_role_already_use_in')
             ], 422);
         }
 
         Role::where('id', $id)->delete();
         return response()->json([
             'success' => true,
-            'message' => 'Role Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

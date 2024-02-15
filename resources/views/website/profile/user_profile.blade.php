@@ -17,7 +17,7 @@
                                 <img src="{{asset($user->image)}}" id="displayedImage" alt="profile">
                                 <input type="file" id="imgupload" name="image" accept="image/*"
                                        onchange="loadFile(event)" style="display:none"/>
-                                <a href="javascript:void(0)" onClick="openSelect('#imgupload')" class="edit-profile">
+                                <a href="javascript:void(0)" onClick="openSelect('#imgupload')" class="edit-profile" data-bs-toggle="tooltip" title="Allowed max 2MB and only JPG, PNG, GIF files are allowed.">
 
                                     <i class="las la-pen"></i>
                                 </a>

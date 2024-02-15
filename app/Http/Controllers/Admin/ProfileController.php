@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $user->email = $request->email;
         $user->save();
         return response()->json([
-            'message' => 'Profile Updated Successfully'
+            'message' => trans('admin_string.profile_update_successfully')
         ]);
     }
 }

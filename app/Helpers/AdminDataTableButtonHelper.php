@@ -18,42 +18,42 @@ class AdminDataTableButtonHelper
         $action_button_dropdown .= '</a>';
         $action_button_dropdown .= '<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">';
         foreach ($array['actions'] as $key => $value) {
-            if ((string)$key === 'edit') {
+            if ((string)$key === 'edit' && $array['actions']['edit_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="' . $value . '" class="menu-link px-3">Edit</a>';
                 $action_button_dropdown .= '</div>';
-            } else if ((string)$key === 'detail-page') {
+            } else if ((string)$key === 'detail-page' && $array['actions']['detail_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="' . $value . '" class="menu-link px-3">Detail</a>';
                 $action_button_dropdown .= '</div>';
-            } else if ((string)$key === 'delete') {
+            } else if ((string)$key === 'delete' && $array['actions']['delete_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)"   data-id="' . $array['id'] . '" class="menu-link px-3 delete-single">Delete</a>';
                 $action_button_dropdown .= '</div>';
-            } else if ((string)$key === 'hard-delete') {
+            } else if ((string)$key === 'hard-delete' && $array['actions']['delete_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)"   data-id="' . $array['id'] . '" class="menu-link px-3 hard-delete-single">Hard Delete</a>';
                 $action_button_dropdown .= '</div>';
-            } else if ((string)$key === 'restore') {
+            } else if ((string)$key === 'restore'  && $array['actions']['restore_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)"   data-id="' . $array['id'] . '" class="menu-link px-3 restore">Restore</a>';
                 $action_button_dropdown .= '</div>';
-            } else if ((string)$key === 'status' && (string)$value === 'active') {
+            } else if ((string)$key === 'status' && (string)$value === 'active' && $array['actions']['status_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)"  data-status="inActive" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Inactive</a>';
                 $action_button_dropdown .= '</div>';
-            } else if ((string)$key === 'status' && (string)$value === 'inActive') {
+            } else if ((string)$key === 'status' && (string)$value === 'inActive' && $array['actions']['status_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="active" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Active</a>';
                 $action_button_dropdown .= '</div>';
-            }else if ((string)$key === 'vehicle-status' && (string)$value === 'pending') {
+            }else if ((string)$key === 'vehicle-status' && (string)$value === 'pending'  && $array['actions']['status_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="approve" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Approve</a>';
                 $action_button_dropdown .= '</div>';
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Reject</a>';
                 $action_button_dropdown .= '</div>';
-            }else if ((string)$key === 'vehicle-status' && (string)$value === 'approve') {
+            }else if ((string)$key === 'vehicle-status' && (string)$value === 'approve'  && $array['actions']['status_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">Reject</a>';
                 $action_button_dropdown .= '</div>';

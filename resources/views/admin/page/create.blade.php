@@ -47,10 +47,19 @@
                                     </div>
                                 </div>
 
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class="form-label">{{ trans('admin_string.description') }}</label>
-                                    <textarea class="summernote form-control" name="description" id="description"></textarea>
-                                </div>
+                                @foreach($languages as $language)
+                                    <div class="mb-3 col-md-12">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label for="{{ $language['language_code'] }}_slug"
+                                                   class="required fs-6 fw-bold mb-2">{{ $language['name'] }}  {{ trans('admin_string.description') }}
+                                            </label>
+                                            <textarea class="summernote form-control"
+                                                      name="{{ $language['language_code'] }}_description"
+                                                      id="{{ $language['language_code'] }}_description"
+                                                      @if($language['is_rtl']==1) dir="rtl" @endif></textarea>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
 
                             <div class="card-footer text-end p-3 btn-showcase">

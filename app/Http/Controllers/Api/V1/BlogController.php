@@ -30,7 +30,7 @@ class BlogController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['blog' => $result],
             ]);
         }

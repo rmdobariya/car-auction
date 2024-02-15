@@ -20,10 +20,15 @@ class SettingController extends Controller
 
     function __construct()
     {
-        $this->middleware('permission:setting-read|setting-create|setting-update|setting-delete', ['only' => ['index']]);
+        $this->middleware('permission:setting-read|setting-create|setting-update|setting-delete|setting-general', ['only' => ['index']]);
         $this->middleware('permission:setting-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:setting-update', ['only' => ['edit', 'update']]);
         $this->middleware('permission:setting-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:setting-general', ['only' => ['generalSettingStore']]);
+        $this->middleware('permission:setting-email', ['only' => ['emailSettingStore']]);
+        $this->middleware('permission:setting-app', ['only' => ['appSettingStore']]);
+        $this->middleware('permission:setting-contact', ['only' => ['contactInfoStore']]);
+        $this->middleware('permission:setting-social', ['only' => ['socialMediaStore']]);
     }
 
     public function index()
@@ -56,7 +61,7 @@ class SettingController extends Controller
             ]);
         }
 
-        return response()->json(['message' => 'General Setting Update Successfully',]);
+        return response()->json(['message' => trans('admin_string.general_setting_update_successfully'),]);
     }
 
     public function emailSettingStore(EmailSettingStoreRequest $request)
@@ -69,7 +74,7 @@ class SettingController extends Controller
             Config::set([$key => $setting_value]);
         }
         return response()->json([
-            'message' => 'Email Setting Update Successfully',
+            'message' => trans('admin_string.email_setting_update_successfully'),
         ]);
     }
 
@@ -83,7 +88,7 @@ class SettingController extends Controller
 
         }
         return response()->json([
-            'message' => 'App Setting Update Successfully',
+            'message' => trans('admin_string.app_setting_update_successfully'),
         ]);
     }
 
@@ -97,7 +102,7 @@ class SettingController extends Controller
         }
 
         return response()->json([
-            'message' => 'Contact Info Update Successfully',
+            'message' => trans('admin_string.contact_info_update_successfully'),
         ]);
     }
 
@@ -111,7 +116,7 @@ class SettingController extends Controller
         }
 
         return response()->json([
-            'message' => 'Social Media Update Successfully',
+            'message' => trans('admin_string.social_media_update_successfully'),
         ]);
     }
 

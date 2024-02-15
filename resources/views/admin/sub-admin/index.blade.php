@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.sub_admins')])
                 @if(Auth::user()->can('sub-admin-create'))
                     @include('admin.layouts2.components.create-button',['url'=>route('admin.sub-admin.create')])
                 @endif

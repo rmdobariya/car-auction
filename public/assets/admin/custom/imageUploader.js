@@ -39,8 +39,5 @@ $(function () {
         retry: {
             enableAuto: false
         },
-
-
     });
-
 });

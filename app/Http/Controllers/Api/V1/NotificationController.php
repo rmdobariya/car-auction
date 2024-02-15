@@ -23,7 +23,7 @@ class NotificationController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['Notification' => $result],
             ]);
         }
@@ -33,7 +33,7 @@ class NotificationController extends Controller
     {
         Notification::where('id', $id)->delete();
         return response()->json([
-            'message' => trans('web_string.notification_delete_successfully')
+            'message' => trans('app_string.notification_delete_successfully')
         ]);
     }
 }

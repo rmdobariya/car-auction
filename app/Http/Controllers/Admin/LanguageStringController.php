@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
@@ -22,6 +23,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class LanguageStringController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:language-string-read|language-string-create|language-string-update|language-string-delete|language-string-restore', ['only' => ['index']]);
+        $this->middleware('permission:language-string-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:language-string-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:language-string-delete', ['only' => ['destroy','hardDelete','multipleBlogDelete']]);
+        $this->middleware('permission:language-string-restore', ['only' => ['restore']]);
+    }
     public function index()
     {
         CacheClearHelper::languageStringCacheClear();
@@ -86,7 +95,7 @@ class LanguageStringController extends Controller
 //                Http::get('https://127.0.0.1:8000/admin/create-language-string-file');
 //                CacheClearHelper::languageStringCacheClear();
                 return response()->json([
-                    'message' => 'Added Successfully'
+                    'message' => trans('admin_string.record_add_successfully')
                 ]);
             } catch (Exception $exception) {
                 DB::rollback();
@@ -122,7 +131,7 @@ class LanguageStringController extends Controller
                 CacheClearHelper::languageStringCacheClear();
 
                 return response()->json([
-                    'message' => 'Language String Update Successfully'
+                    'message' => trans('admin_string.record_update_successfully')
                 ]);
             } catch (Exception $exception) {
                 DB::rollback();
@@ -150,7 +159,7 @@ class LanguageStringController extends Controller
 
         return response()->json([
             'success' => true, 'status_code' => 200,
-            'message' => trans('admin_string.language_string_deleted')
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -161,7 +170,7 @@ class LanguageStringController extends Controller
             ->update(['status' => $status]);
 
         return response()->json([
-            'message' => trans('admin_string.change_status_message'),
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -212,6 +221,7 @@ class LanguageStringController extends Controller
                         'actions' => [
                             'edit' => route('admin.language-string.edit', [$languageStrings->id]),
 //                            'delete' => '',
+                            'edit_permission' => Auth::user()->can('language-string-update'),
                         ]
                     ];
                     return AdminDataTableButtonHelper::actionButtonDropdown($array);

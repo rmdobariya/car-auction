@@ -12,6 +12,7 @@ use App\Http\Requests\Admin\PageStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Page;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,11 +21,13 @@ class PageController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:page-read|page-create|page-update|page-delete', ['only' => ['index']]);
+        $this->middleware('permission:page-read|page-create|page-update|page-delete|page-status', ['only' => ['index']]);
         $this->middleware('permission:page-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:page-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:page-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:page-update', ['only' => ['edit', 'update', 'store']]);
+        $this->middleware('permission:page-delete', ['only' => ['destroy', 'multiplePageDelete']]);
+        $this->middleware('permission:page-status', ['only' => ['changeStatus']]);
     }
+
     public function index()
     {
         return view('admin.page.index');
@@ -33,7 +36,7 @@ class PageController extends Controller
     public function create()
     {
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
-        return view('admin.page.create',[
+        return view('admin.page.create', [
             'languages' => $languages
         ]);
     }
@@ -55,7 +58,7 @@ class PageController extends Controller
                 ]);
             }
             return response()->json([
-                'message' => 'Page Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -77,7 +80,7 @@ class PageController extends Controller
                     ]);
             }
             return response()->json([
-                'message' => 'Page Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -96,7 +99,7 @@ class PageController extends Controller
     {
         Page::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Page Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -107,7 +110,7 @@ class PageController extends Controller
                 ->leftJoin('page_translations', 'pages.id', 'page_translations.page_id')
                 ->where('page_translations.locale', App::getLocale())
                 ->orderBy('id', 'desc')
-                ->select('pages.*','page_translations.name');
+                ->select('pages.*', 'page_translations.name');
             if (!empty($request->status) && $request->status !== 'all') {
                 $pages->where('pages.status', $request->status);
             }
@@ -119,11 +122,13 @@ class PageController extends Controller
                             'edit' => route('admin.page.edit', [$pages->id]),
 //                            'delete' => $pages->id,
 //                            'status' => $pages->status,
+                            'edit_permission' => Auth::user()->can('page-update'),
+                            'delete_permission' => Auth::user()->can('page-delete'),
+                            'status_permission' => Auth::user()->can('page-status'),
                         ]
                     ];
                     return AdminDataTableButtonHelper::actionButtonDropdown($array);
                 })
-
                 ->addColumn('status', function ($pages) {
                     $array['status'] = $pages->status;
                     return AdminDataTableButtonHelper::statusBadge($array);
@@ -136,7 +141,7 @@ class PageController extends Controller
                     </div>
                 </td>';
                 })
-                ->rawColumns(['action', 'status','check'])
+                ->rawColumns(['action', 'status', 'check'])
                 ->make(true);
         }
     }
@@ -145,7 +150,7 @@ class PageController extends Controller
     {
         Page::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -160,7 +165,7 @@ class PageController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

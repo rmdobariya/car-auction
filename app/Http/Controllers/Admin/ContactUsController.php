@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ContactUs;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -15,10 +16,12 @@ class ContactUsController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:contact-us-read|contact-us-create|contact-us-update|contact-us-delete', ['only' => ['index']]);
+        $this->middleware('permission:contact-us-read|contact-us-create|contact-us-update|contact-us-delete|contact-us-detail', ['only' => ['index']]);
         $this->middleware('permission:contact-us-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:contact-us-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:contact-us-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:contact-us-detail', ['only' => ['show']]);
+        $this->middleware('permission:contact-us-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:contact-us-delete', ['only' => ['destroy','hardDelete','multipleContactUsDelete']]);
+        $this->middleware('permission:contact-us-restore', ['only' => ['restore']]);
     }
 
     public function index()
@@ -48,6 +51,10 @@ class ContactUsController extends Controller
                             'actions' => [
                                 'delete' => $contact_us->id,
                                 'detail-page' => route('admin.contact-us.show', $contact_us->id),
+                                'edit_permission' => Auth::user()->can('contact-us-update'),
+                                'delete_permission' => Auth::user()->can('contact-us-delete'),
+                                'detail_permission' => Auth::user()->can('contact-us-detail'),
+                                'status_permission' => false,
                             ]
                         ];
                     } else {
@@ -56,6 +63,8 @@ class ContactUsController extends Controller
                             'actions' => [
                                 'hard-delete' => $contact_us->id,
                                 'restore' => $contact_us->id,
+                                'delete_permission' => Auth::user()->can('contact-us-delete'),
+                                'restore_permission' => Auth::user()->can('contact-us-restore'),
                             ]
                         ];
                     }
@@ -77,7 +86,7 @@ class ContactUsController extends Controller
     {
         ContactUs::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Contact Us Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -87,7 +96,7 @@ class ContactUsController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Contact Us Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -95,7 +104,7 @@ class ContactUsController extends Controller
     {
         DB::table('contact_us')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Contact Us Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -110,7 +119,7 @@ class ContactUsController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Contact Us Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 

@@ -314,14 +314,15 @@
                                         <label class="required fs-6 fw-bold mb-2" for="main_image">
                                             {{trans('web_string.main_image')}}
                                         </label>
-                                        <input type="file" name="main_image" id="file" class="dropify">
+                                        <input type="file" name="main_image" data-bs-toggle="tooltip" title="Allowed max 2MB and only JPG, PNG, GIF files are allowed."
+                                               data-placement="top" id="file" class="dropify">
                                     </div>
                                 </div>
-                                <h1>{{trans('web_string.car_images')}}</h1>
+                                <b style="font-size: 32px">{{trans('web_string.car_images')}} </b>({{trans('admin_string.allow_max')}})
                                 <div class="row">
                                     <div id="fine-uploader"></div>
                                 </div>
-                                <h1>{{trans('web_string.car_documents')}}</h1>
+                                <b style="font-size: 32px">{{trans('web_string.car_documents')}}</b>({{trans('web_string.allow_document')}})
                                 <div class="row">
                                     <div class="row">
                                         <div id="fine-uploader-document"></div>
@@ -419,7 +420,15 @@
 @endsection
 @section('custom-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var label = document.querySelector("label[for='main_image']").textContent;
+            var tooltipMessage = "Allowed max 2MB and only JPG, PNG, GIF files are allowed.";
+            var tooltipTitle =  tooltipMessage;
+            var inputElement = document.querySelector("input[name='main_image']");
+            inputElement.setAttribute("title", tooltipTitle);
+        });
+    </script>
     <script>
         var IMAGE_UPLOAD_URL = '/vehicle-image-upload'
         var IMAGE_DELETE_URL = '/vehicle-image-delete'

@@ -12,6 +12,7 @@ use App\Models\BlogTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,10 +21,12 @@ class BlogController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:blog-read|blog-create|blog-update|blog-delete', ['only' => ['index']]);
-        $this->middleware('permission:blog-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:blog-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:blog-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:news-read|news-create|news-update|news-delete|news-restore|news-status', ['only' => ['index']]);
+        $this->middleware('permission:news-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:news-update', ['only' => ['edit','store']]);
+        $this->middleware('permission:news-delete', ['only' => ['destroy','hardDelete','multipleBlogDelete']]);
+        $this->middleware('permission:news-restore', ['only' => ['restore']]);
+        $this->middleware('permission:news-status', ['only' => ['changeStatus']]);
     }
 
     public function index()
@@ -59,7 +62,7 @@ class BlogController extends Controller
                 ]);
             }
             return response()->json([
-                'message' => 'Blog Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -86,7 +89,7 @@ class BlogController extends Controller
                     ]);
             }
             return response()->json([
-                'message' => 'Blog Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -105,7 +108,7 @@ class BlogController extends Controller
     {
         Blog::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Blog Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -140,6 +143,9 @@ class BlogController extends Controller
                                 'edit' => route('admin.news.edit', [$blog->id]),
                                 'delete' => $blog->id,
                                 'status' => $blog->status,
+                                'edit_permission' => Auth::user()->can('news-update'),
+                                'delete_permission' => Auth::user()->can('news-delete'),
+                                'status_permission' => Auth::user()->can('news-status'),
                             ]
                         ];
                     } else {
@@ -148,6 +154,8 @@ class BlogController extends Controller
                             'actions' => [
                                 'hard-delete' => $blog->id,
                                 'restore' => $blog->id,
+                                'delete_permission' => Auth::user()->can('news-delete'),
+                                'restore_permission' => Auth::user()->can('news-restore'),
                             ]
                         ];
 
@@ -180,7 +188,7 @@ class BlogController extends Controller
     {
         Blog::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -190,7 +198,7 @@ class BlogController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Blog Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -202,7 +210,7 @@ class BlogController extends Controller
         }
         DB::table('blogs')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Blog Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -220,7 +228,7 @@ class BlogController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

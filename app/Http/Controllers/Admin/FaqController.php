@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\FaqStoreRequest;
 use App\Models\Faq;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -18,8 +19,10 @@ class FaqController extends Controller
     {
         $this->middleware('permission:faq-read|faq-create|faq-update|faq-delete', ['only' => ['index']]);
         $this->middleware('permission:faq-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:faq-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:faq-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:faq-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:faq-delete', ['only' => ['destroy','hardDelete','multipleFaqDelete']]);
+        $this->middleware('permission:faq-restore', ['only' => ['restore']]);
+        $this->middleware('permission:faq-status', ['only' => ['changeStatus']]);
     }
 
     public function index()
@@ -42,7 +45,7 @@ class FaqController extends Controller
             $faq->save();
 
             return response()->json([
-                'message' => 'Faq Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -52,7 +55,7 @@ class FaqController extends Controller
             $faq->save();
 
             return response()->json([
-                'message' => 'Faq Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -69,7 +72,7 @@ class FaqController extends Controller
     {
         Faq::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Faq Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -102,6 +105,9 @@ class FaqController extends Controller
                                 'edit' => route('admin.faq.edit', [$faq->id]),
                                 'delete' => $faq->id,
                                 'status' => $faq->status,
+                                'edit_permission' => Auth::user()->can('faq-update'),
+                                'delete_permission' => Auth::user()->can('faq-delete'),
+                                'status_permission' => Auth::user()->can('faq-status'),
                             ]
                         ];
                     } else {
@@ -110,6 +116,8 @@ class FaqController extends Controller
                             'actions' => [
                                 'hard-delete' => $faq->id,
                                 'restore' => $faq->id,
+                                'delete_permission' => Auth::user()->can('faq-delete'),
+                                'restore_permission' => Auth::user()->can('faq-restore'),
                             ]
                         ];
 
@@ -140,7 +148,7 @@ class FaqController extends Controller
     {
         Faq::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -150,7 +158,7 @@ class FaqController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Faq Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -158,7 +166,7 @@ class FaqController extends Controller
     {
         DB::table('faqs')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Faq Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -173,7 +181,7 @@ class FaqController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

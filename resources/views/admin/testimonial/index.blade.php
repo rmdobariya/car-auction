@@ -98,7 +98,7 @@
         const sweetalert_delete_title = '{{trans('admin_string.testimonial_delete')}}';
         const sweetalert_delete_text = '{{trans('admin_string.are_you_sure_delete_this_record')}}';
         const sweetalert_restore_title = '{{trans('admin_string.testimonial_restore')}}'
-        const sweetalert_restore_text = "'{{trans('admin_string.are_you_sure_restore_this_record')}}';
+        const sweetalert_restore_text = '{{trans('admin_string.are_you_sure_restore_this_record')}}';
         const cancel_button_text = '{{trans('admin_string.cancel')}}';
         const delete_button_text = '{{trans('admin_string.delete')}}';
         const sweetalert_change_status = '{{trans('admin_string.testimonial_stats_change')}}'

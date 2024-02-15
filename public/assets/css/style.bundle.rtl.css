@@ -5292,7 +5292,7 @@ textarea.form-control-lg {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #FF5757;
+    background-color: #673aaa;
     border-color: transparent
 }
 
@@ -20354,7 +20354,7 @@ textarea.form-control-lg {
     }
 
     .flex-lg-grow-1 {
-        flex-grow: 1 !important
+        flex-grow: 0 !important
     }
 
     .flex-lg-shrink-0 {
@@ -34603,7 +34603,9 @@ a:hover {
     flex: 0 0 100%;
     padding: .65rem 1rem;
     transition: none;
-    outline: 0 !important
+    outline: 0 !important;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
 }
 
 .menu-item .menu-link .menu-icon {
@@ -34612,7 +34614,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     width: 2rem;
-    margin-left: .5rem
+    margin-left: 0px;
 }
 
 .menu-item .menu-link .menu-icon .svg-icon {
@@ -34631,9 +34633,12 @@ a:hover {
 .menu-item .menu-link .menu-title {
     display: flex;
     align-items: center;
-    flex-grow: 1
+    flex-grow: 1;
+    justify-content: flex-end;
 }
-
+.menu-content {
+    text-align: right!important;
+}
 .menu-item .menu-link .menu-badge {
     flex-shrink: 0;
     margin-right: .5rem
@@ -38746,8 +38751,8 @@ a:hover {
 
 .btn.btn-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757
+    border-color: #673aaa;
+    background-color: #673aaa;
 }
 
 .btn.btn-primary i {
@@ -38769,8 +38774,8 @@ a:hover {
 
 .btn-check:active + .btn.btn-primary, .btn-check:checked + .btn.btn-primary, .btn.btn-primary.active, .btn.btn-primary.show, .btn.btn-primary:active:not(.btn-active), .btn.btn-primary:focus:not(.btn-active), .btn.btn-primary:hover:not(.btn-active), .show > .btn.btn-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757 !important
+    border-color: #673aaa;
+    background-color: #673aaa !important;
 }
 
 .btn-check:active + .btn.btn-primary i, .btn-check:checked + .btn.btn-primary i, .btn.btn-primary.active i, .btn.btn-primary.show i, .btn.btn-primary:active:not(.btn-active) i, .btn.btn-primary:focus:not(.btn-active) i, .btn.btn-primary:hover:not(.btn-active) i, .show > .btn.btn-primary i {
@@ -38791,8 +38796,8 @@ a:hover {
 }
 
 .btn.btn-light-primary {
-    color: #FF5757;
-    border-color: #f1faff;
+    color: #673aaa;
+    border-color: #673aaa;
     background-color: #f1faff
 }
 
@@ -38815,8 +38820,8 @@ a:hover {
 
 .btn-check:active + .btn.btn-light-primary, .btn-check:checked + .btn.btn-light-primary, .btn.btn-light-primary.active, .btn.btn-light-primary.show, .btn.btn-light-primary:active:not(.btn-active), .btn.btn-light-primary:focus:not(.btn-active), .btn.btn-light-primary:hover:not(.btn-active), .show > .btn.btn-light-primary {
     color: #fff;
-    border-color: #FF5757;
-    background-color: #FF5757 !important
+    border-color: #673aaa;
+    background-color: #673aaa !important
 }
 
 .btn-check:active + .btn.btn-light-primary i, .btn-check:checked + .btn.btn-light-primary i, .btn.btn-light-primary.active i, .btn.btn-light-primary.show i, .btn.btn-light-primary:active:not(.btn-active) i, .btn.btn-light-primary:focus:not(.btn-active) i, .btn.btn-light-primary:hover:not(.btn-active) i, .show > .btn.btn-light-primary i {
@@ -51339,7 +51344,8 @@ body {
         justify-content: space-between;
         align-items: center;
         height: 65px;
-        padding: 0 25px
+        padding: 0 25px;
+        flex-direction: row-reverse;
     }
 
     .aside .aside-menu {
@@ -51509,7 +51515,8 @@ body {
 }
 
 .aside-dark .menu .menu-item .menu-link .menu-title {
-    color: #9899ac
+    color: #9899ac;
+    margin-right: 10px;
 }
 
 .aside-dark .menu .menu-item .menu-link .menu-icon i {
@@ -51538,12 +51545,12 @@ body {
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here), .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #FF5757;
-    color: #fff
+    background-color: #f2f2f2;
+    color: #000;
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-title, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
-    color: #fff
+    color: #000
 }
 
 .aside-dark .menu .menu-item.hover:not(.here) > .menu-link:not(.disabled):not(.active):not(.here) .menu-icon i, .aside-dark .menu .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-icon i {
@@ -51606,8 +51613,8 @@ body {
 
 .aside-dark .menu .menu-item.show > .menu-link {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #FF5757;
-    color: #fff
+    background-color: #673aaa;
+    color: #fff;
 }
 
 .aside-dark .menu .menu-item.show > .menu-link .menu-title {
@@ -51640,7 +51647,6 @@ body {
 
 .aside-dark .menu .menu-item .menu-link.active {
     transition: color .2s ease, background-color .2s ease;
-    background-color: #FF5757;
     color: #fff
 }
 
@@ -51857,4 +51863,24 @@ body {
 .card.card-docs {
     background-color: #fff;
     border: 0
+}
+.card-dash {
+    background: linear-gradient(-26deg, #673aaa 65.12%, #149b9e 42.49%, #673aaa 103.38%);
+}
+.aside-dark .menu .menu-item .menu-link.active .menu-title {
+    color: #673aaa;
+}
+.aside-dark .menu .menu-item .menu-link.active {
+    transition: color .2s ease, background-color .2s ease;
+    color: #673aaa;
+    font-weight: bold;
+}
+.me-3{
+    margin-right: 0.75rem !important;
+}
+span.svg-icon.svg-icon-1.position-absolute.ms-6 {
+    right: 0;
+}
+*{
+    text-align: right;
 }

@@ -70,6 +70,7 @@
                         </span>
                     </div>
                 </div>
+                @if(Auth::user()->can('setting-read') || Auth::user()->can('page-read')|| Auth::user()->can('news-read')|| Auth::user()->can('testimonial-read'))
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion  {{ (request()->segment(2) == 'setting' || (request()->segment(2) == 'page')) ? 'show' : '' }} ">
                 <span class="menu-link">
@@ -160,6 +161,7 @@
                     {{--                        </div>--}}
                     {{--                    </div>--}}
                 </div>
+                @endif
                 @if(Auth::user()->can('customer-read') )
                     <div class="menu-item">
                         <a class="menu-link {{ (request()->segment(2) == 'customer') ? 'active' : '' }}"
@@ -186,6 +188,7 @@
                         </a>
                     </div>
                 @endif
+                @if(Auth::user()->can('role-read'))
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion  {{ (request()->segment(2) == 'role' || (request()->segment(2) == 'customer')) ? 'show' : '' }} ">
                 <span class="menu-link">
@@ -212,19 +215,20 @@
                             </div>
                         </div>
                     @endif
-                    {{--                    <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
-                    {{--                        <div class="menu-item">--}}
-                    {{--                            <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
-                    {{--                               href="{{ route('admin.permission.create') }}">--}}
-                    {{--                                                    <span class="menu-bullet">--}}
-                    {{--                                                        <span class="bullet bullet-dot"></span>--}}
-                    {{--                                                    </span>--}}
-                    {{--                                <span class="menu-title"> {{trans('admin_string.permission')}}</span>--}}
-                    {{--                            </a>--}}
-                    {{--                        </div>--}}
-                    {{--                    </div>--}}
+{{--                                        <div class="menu-sub menu-sub-accordion menu-active-bg">--}}
+{{--                                            <div class="menu-item">--}}
+{{--                                                <a class="menu-link {{ (request()->segment(2) == 'permission') ? 'active' : '' }}"--}}
+{{--                                                   href="{{ route('admin.permission.create') }}">--}}
+{{--                                                                        <span class="menu-bullet">--}}
+{{--                                                                            <span class="bullet bullet-dot"></span>--}}
+{{--                                                                        </span>--}}
+{{--                                                    <span class="menu-title"> {{trans('admin_string.permission')}}</span>--}}
+{{--                                                </a>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
 
                 </div>
+                @endif
                 @if(Auth::user()->can('contact-us-read'))
                     <div class="menu-item">
                         <a class="menu-link {{ (request()->segment(2) == 'contact-us') ? 'active' : '' }}"

@@ -28,7 +28,7 @@ class QuestionController extends Controller
         $question->save();
         return response()->json([
             'status' => true,
-            'message' => trans('web_string.question_save_successfully')
+            'message' => trans('app_string.question_save_successfully')
         ]);
     }
     public function carInquiry(CarInquiryStoreRequest $request)
@@ -37,7 +37,7 @@ class QuestionController extends Controller
         if ($inquiry_count > 0) {
             return response()->json([
                 'success' => false,
-                'message' => trans('web_string.car_inquiry_is_already_added'),
+                'message' => trans('app_string.car_inquiry_is_already_added'),
             ]);
         }
         $vehicle = DB::table('vehicles')
@@ -77,14 +77,14 @@ class QuestionController extends Controller
             'email' => $user->email,
             'mobile_no' => $request->mobile_no,
             'request_msg' => $request->message,
-            'mail_title' => 'Car Inquiry',
+            'mail_title' => trans('app_string.car_inquiry'),
             'message' => 'You have received new Inquiry for your car' . ' ' . $vehicle->vehicle_name . ' ' . 'as follows.',
-            'subject' => 'Car Inquiry',
+            'subject' => trans('app_string.car_inquiry'),
         ];
         Mail::to($user->email)->send(new CarInquiryMail($array));
         return response()->json([
             'success' => true,
-            'message' => trans('web_string.add_car_inquiry_successfully'),
+            'message' => trans('app_string.add_car_inquiry_successfully'),
         ]);
     }
 }

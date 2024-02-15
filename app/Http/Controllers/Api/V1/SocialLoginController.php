@@ -28,7 +28,7 @@ class SocialLoginController extends Controller
             $this->addDeviceToken($u->id, $request->device_type, $request->device_token);
             return response()->json([
                 'status' => true,
-                'message' => 'User Login successfully',
+                'message' => trans('app_string.user_login_successfully'),
                 'token' => $tokenResult,
                 'data' => ['user_info' => new UserResource($u)]
             ]);
@@ -48,7 +48,7 @@ class SocialLoginController extends Controller
             $this->addDeviceToken($user->id, $request->device_type, $request->device_token);
             return response()->json([
                 'status' => true,
-                'message' => 'User registration successfully',
+                'message' => trans('app_string.user_registration_successfully'),
                 'token' => $tokenResult,
                 'data' => ['user_info' => new UserResource($user)]
             ]);
@@ -69,7 +69,7 @@ class SocialLoginController extends Controller
             $this->addDeviceToken($u->id, $request->device_type, $request->device_token);
             return response()->json([
                 'status' => true,
-                'message' => 'User Login successfully',
+                'message' => trans('app_string.user_login_successfully'),
                 'token' => $tokenResult,
                 'data' => ['user_info' => new UserResource($u)]
             ]);
@@ -85,7 +85,7 @@ class SocialLoginController extends Controller
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'The email has already been taken.'
+                    'message' => trans('app_string.the_email_is_already_be_taken')
                 ]);
             }
             $user = new User();
@@ -102,7 +102,7 @@ class SocialLoginController extends Controller
             $this->addDeviceToken($user->id, $request->device_type, $request->device_token);
             return response()->json([
                 'status' => true,
-                'message' => 'User registration successfully',
+                'message' => trans('app_string.user_registration_successfully'),
                 'token' => $tokenResult,
                 'data' => ['user_info' => new UserResource($user)]
             ]);

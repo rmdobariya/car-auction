@@ -24,6 +24,7 @@ use App\Models\VehicleTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -32,10 +33,13 @@ class VehicleController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:vehicle-read|vehicle-create|vehicle-update|vehicle -delete', ['only' => ['index']]);
+        $this->middleware('permission:vehicle-read|vehicle-create|vehicle-update|vehicle-delete|vehicle-restore|vehicle-status|vehicle-detail', ['only' => ['index']]);
         $this->middleware('permission:vehicle-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:vehicle-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:vehicle-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:vehicle-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:vehicle-delete', ['only' => ['destroy','hardDelete','multipleVehicleDelete']]);
+        $this->middleware('permission:vehicle-restore', ['only' => ['restore']]);
+        $this->middleware('permission:vehicle-status', ['only' => ['changeStatus']]);
+        $this->middleware('permission:vehicle-detail', ['only' => ['show']]);
     }
 
     public function index()
@@ -88,7 +92,7 @@ class VehicleController extends Controller
     {
         Vehicle::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Vehicle Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -126,6 +130,10 @@ class VehicleController extends Controller
                                 'detail-page' => route('admin.vehicle.show', [$vehicle->id]),
                                 'delete' => $vehicle->id,
                                 'vehicle-status' => $vehicle->status,
+                                'edit_permission' => Auth::user()->can('vehicle-update'),
+                                'delete_permission' => Auth::user()->can('vehicle-delete'),
+                                'status_permission' => Auth::user()->can('vehicle-status'),
+                                'detail_permission' => Auth::user()->can('vehicle-detail'),
                             ]
                         ];
                     } else {
@@ -134,6 +142,8 @@ class VehicleController extends Controller
                             'actions' => [
                                 'hard-delete' => $vehicle->id,
                                 'restore' => $vehicle->id,
+                                'delete_permission' => Auth::user()->can('vehicle-delete'),
+                                'restore_permission' => Auth::user()->can('vehicle-restore'),
                             ]
                         ];
                     }
@@ -164,7 +174,7 @@ class VehicleController extends Controller
     {
         Vehicle::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -174,7 +184,7 @@ class VehicleController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Vehicle Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -186,7 +196,7 @@ class VehicleController extends Controller
         }
         DB::table('vehicles')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Vehicle Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -226,7 +236,7 @@ class VehicleController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -304,7 +314,7 @@ class VehicleController extends Controller
 
                 TempImage::where('temp_time', $request->temp_time)->delete();
                 DB::commit();
-                return response()->json(['message' => "Vehicle Added Successfully"]);
+                return response()->json(['message' => trans('admin_string.record_add_successfully')]);
             } catch
             (\Exception $exception) {
                 DB::rollback();
@@ -362,7 +372,7 @@ class VehicleController extends Controller
                 TempImage::where('temp_time', $request->temp_time)->delete();
 
                 DB::commit();
-                return response()->json(['message' => 'Vehicle Updated Successfully']);
+                return response()->json(['message' => trans('admin_string.record_update_successfully')]);
             } catch
             (\Exception $exception) {
                 DB::rollback();
@@ -393,7 +403,7 @@ class VehicleController extends Controller
             ImageUploadHelper::deleteImage($image->image);
             VehicleImage::where('id', $id)->delete();
         }
-        return response()->json(['success' => true, 'message' => 'Image Delete Successfully']);
+        return response()->json(['success' => true, 'message' => trans('admin_string.image_delete_successfully')]);
 
     }
 

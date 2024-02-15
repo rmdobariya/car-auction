@@ -35,7 +35,7 @@ class PasswordController extends Controller
         User::where('id', $id)->update([
             'password' => bcrypt($new_password),
         ]);
-        return response()->json(['message' => 'Password Change Successfully']);
+        return response()->json(['message' => trans('admin_string.password_change_successfully')]);
     }
 
     public function sendMail(Request $request): \Illuminate\Http\JsonResponse
@@ -46,18 +46,18 @@ class PasswordController extends Controller
             $array = [
                 'name' => $user->name,
                 'actionUrl' => route('admin.reset-password', [$token]),
-                'mail_title' => 'Password Reset',
-                'reset_password_subject' => 'Password Reset',
-                'main_title_text' => 'Forgot Your Password',
-                'subject' => 'Password Reset',
+                'mail_title' => trans('admin_string.password_reset'),
+                'reset_password_subject' => trans('admin_string.password_reset'),
+                'main_title_text' => trans('admin_string.forgot_your_password'),
+                'subject' => trans('admin_string.password_reset'),
             ];
             Mail::to($request->input('email'))->send(new ForgotPasswordMail($array));
             return response()->json([
-                'message' => 'Please Check Your Mail',
+                'message' => trans('admin_string.please_check_your_mail'),
             ], 200);
         }
         return response()->json([
-            'message' => 'Email Not Found',
+            'message' => trans('admin_string.email_not_found'),
         ], 400);
     }
 
@@ -92,11 +92,11 @@ class PasswordController extends Controller
 
                 DB::table('password_reset_tokens')->where('email', $request['email'])->delete();
             } else {
-                return response()->json(['message' => 'Email not found'], 422);
+                return response()->json(['message' => trans('admin_string.email_not_found')], 422);
             }
-            return response()->json(['message' => 'Password reset successfully!']);
+            return response()->json(['message' => trans('admin_string.password_reset_successfully')]);
         }
-        return response()->json(['message' => 'Email not found'], 422);
+        return response()->json(['message' => trans('admin_string.email_not_found')], 422);
     }
 
 }

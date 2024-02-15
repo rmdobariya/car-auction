@@ -5,7 +5,7 @@
 <!-- The element where Fine Uploader will exist. -->
 
 <!-- Fine Uploader -->
-<script src="{{asset('assets/libs/fine-uploader/fine-uploader.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/libs/fine-uploader/fine-uploader.min.js')}}?v={{time()}}" type="text/javascript"></script>
 
 <script type="text/template" id="qq-template">
     <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -16,7 +16,7 @@
         <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
             <span class="qq-upload-drop-area-text-selector"></span>
         </div>
-        <div class="qq-upload-button-selector qq-upload-button">
+        <div class="qq-upload-button-selector qq-upload-button" title="Upload a file" id="uploadButton">
             <div>Upload a file</div>
         </div>
         <span class="qq-drop-processing-selector qq-drop-processing">
@@ -68,3 +68,9 @@
         </dialog>
     </div>
 </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var uploadButton = document.getElementById("uploadButton");
+            uploadButton.setAttribute("title", "Upload a file");
+        });
+    </script>

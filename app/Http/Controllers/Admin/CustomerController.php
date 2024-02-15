@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Admin\PageStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Page;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Illuminate\Support\Facades\Hash;
@@ -20,10 +21,12 @@ class CustomerController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:customer-read|customer-create|customer-update|customer-delete', ['only' => ['index']]);
+        $this->middleware('permission:customer-read|customer-create|customer-update|customer-delete|customer-restore|customer-status', ['only' => ['index']]);
         $this->middleware('permission:customer-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:customer-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:customer-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:customer-delete', ['only' => ['destroy','hardDelete','multipleUserDelete']]);
+        $this->middleware('permission:customer-restore', ['only' => ['restoreCustomer']]);
+        $this->middleware('permission:customer-status', ['only' => ['changeStatus']]);
     }
 
     public function index()
@@ -34,7 +37,7 @@ class CustomerController extends Controller
 
     public function create()
     {
-        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
+        $roles = \Spatie\Permission\Models\Role::where('name', '!=', 'Admin')->get();
         return view('admin.customer.create', [
             'roles' => $roles
         ]);
@@ -56,7 +59,7 @@ class CustomerController extends Controller
             $user->save();
             $user->assignRole($validated['role_id']);
             return response()->json([
-                'message' => 'Customer Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -75,7 +78,7 @@ class CustomerController extends Controller
             DB::table('model_has_roles')->where('model_id', $validated['edit_value'])->delete();
             $user->assignRole($validated['role_id']);
             return response()->json([
-                'message' => 'Customer Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -88,7 +91,9 @@ class CustomerController extends Controller
             ->select('users.*', 'model_has_roles.role_id')
             ->first();
 
-        $roles = \Spatie\Permission\Models\Role::where('admin_id', \Auth::guard('admin')->user()->id)->where('name', '!=', 'Admin')->get();
+        $roles = \Spatie\Permission\Models\Role::
+//        where('admin_id', \Auth::guard('admin')->user()->id)->
+        where('name', '!=', 'Admin')->get();
         return view('admin.customer.edit', [
             'user' => $user,
             'roles' => $roles,
@@ -99,7 +104,7 @@ class CustomerController extends Controller
     {
         User::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Customer Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -114,7 +119,7 @@ class CustomerController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Customer Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -124,7 +129,7 @@ class CustomerController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Customer Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -132,7 +137,7 @@ class CustomerController extends Controller
     {
         DB::table('users')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Customer Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -168,6 +173,9 @@ class CustomerController extends Controller
                                 'edit' => route('admin.customer.edit', [$user->id]),
 //                                'delete' => $user->id,
                                 'status' => $user->status,
+                                'edit_permission' => Auth::user()->can('customer-update'),
+                                'status_permission' => Auth::user()->can('customer-status'),
+
                             ]
                         ];
                     } else {
@@ -178,6 +186,9 @@ class CustomerController extends Controller
                                     'edit' => route('admin.customer.edit', [$user->id]),
                                     'delete' => $user->id,
                                     'status' => $user->status,
+                                    'edit_permission' => Auth::user()->can('customer-update'),
+                                    'delete_permission' => Auth::user()->can('customer-delete'),
+                                    'status_permission' => Auth::user()->can('customer-status'),
                                 ]
                             ];
                         } else {
@@ -186,6 +197,8 @@ class CustomerController extends Controller
                                 'actions' => [
                                     'hard-delete' => $user->id,
                                     'restore' => $user->id,
+                                    'delete_permission' => Auth::user()->can('customer-delete'),
+                                    'restore_permission' => Auth::user()->can('customer-restore'),
                                 ]
                             ];
                         }
@@ -225,7 +238,7 @@ class CustomerController extends Controller
     {
         user::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 }

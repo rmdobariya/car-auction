@@ -21,6 +21,9 @@ class PermissionController extends Controller
             'read'   => 'read',
             'update' => 'update',
             'delete' => 'delete',
+            'restore' => 'restore',
+            'status' => 'status',
+            'detail' => 'detail',
         ];
         return view('admin.permission.create', ['array' => $array]);
     }
@@ -33,6 +36,9 @@ class PermissionController extends Controller
             'read'   => 'read',
             'update' => 'update',
             'delete' => 'delete',
+            'restore' => 'restore',
+            'status' => 'status',
+            'detail' => 'detail',
         ];
         foreach ($array as $value) {
             if ($request->input($value)) {
@@ -46,6 +52,6 @@ class PermissionController extends Controller
             }
         }
         Permission::insert($permission);
-        return response()->json(['message' => 'Permission Added Successfully'], 200);
+        return response()->json(['message' => trans('admin_string.record_add_successfully')], 200);
     }
 }

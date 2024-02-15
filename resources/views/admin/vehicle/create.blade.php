@@ -461,7 +461,7 @@
 
                                 <div class="form-group">
                                     <label class="required fs-6 fw-bold"
-                                           for="image">{{trans('admin_string.multiple_image')}}
+                                           for="image">{{trans('admin_string.multiple_image')}} ({{trans('admin_string.allow_max')}})
                                         <span
                                             class="error"></span></label><br>
                                     <div id="fine-uploader"></div>

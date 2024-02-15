@@ -60,7 +60,7 @@ class VehicleController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['vehicle' => $result],
             ]);
         }
@@ -88,7 +88,7 @@ class VehicleController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['vehicle' => $result],
             ]);
         }
@@ -110,6 +110,8 @@ class VehicleController extends Controller
             $vehicle->bid_increment = $request->bid_increment;
             $vehicle->auction_start_date = $request->auction_start_date;
             $vehicle->auction_end_date = $request->auction_end_date;
+            $vehicle->auction_start_time = $request->auction_start_time;
+            $vehicle->auction_end_time = $request->auction_end_time;
             $vehicle->ratting = $request->ratting;
             $vehicle->is_vehicle_type = $request['is_vehicle_type'];
             if ($request->hasfile('main_image')) {
@@ -175,7 +177,7 @@ class VehicleController extends Controller
             }
             return response()->json([
                 'status' => true,
-                'message' => 'Vehicle Insert Successfully',
+                'message' => trans('app_string.vehicle_insert_successfully'),
             ]);
         }
         $vehicle = Vehicle::find($validated['edit_value']);
@@ -188,6 +190,8 @@ class VehicleController extends Controller
         $vehicle->price = $request->price;
         $vehicle->auction_start_date = $request->auction_start_date;
         $vehicle->auction_end_date = $request->auction_end_date;
+        $vehicle->auction_start_time = $request->auction_start_time;
+        $vehicle->auction_end_time = $request->auction_end_time;
         $vehicle->bid_increment = $request->bid_increment;
         $vehicle->ratting = $request->ratting;
         $vehicle->is_vehicle_type = $request['is_vehicle_type'];
@@ -269,7 +273,7 @@ class VehicleController extends Controller
 
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle Updated Successfully',
+            'message' => trans('app_string.vehicle_update_successfully'),
         ]);
     }
 
@@ -278,7 +282,7 @@ class VehicleController extends Controller
         Vehicle::where('id', $id)->delete();
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle Delete Successfully'
+            'message' => trans('app_string.vehicle_delete_successfully')
         ]);
     }
 
@@ -289,7 +293,7 @@ class VehicleController extends Controller
         ]);
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle Status Change Successfully'
+            'message' => trans('app_string.vehicle_status_change_successfully')
         ]);
     }
 
@@ -345,7 +349,7 @@ class VehicleController extends Controller
         DB::table('vehicle_documents')->where('id', $id)->delete();
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle Document Delete Successfully',
+            'message' => trans('app_string.vehicle_document_delete_successfully'),
         ]);
     }
 
@@ -356,7 +360,7 @@ class VehicleController extends Controller
         DB::table('vehicle_images')->where('id', $id)->delete();
         return response()->json([
             'status' => true,
-            'message' => 'Vehicle Image Delete Successfully',
+            'message' => trans('app_string.vehicle_image_delete_successfully'),
         ]);
     }
 }

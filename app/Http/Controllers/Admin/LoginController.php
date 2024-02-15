@@ -32,12 +32,12 @@ class LoginController extends Controller
             ], 401);
         } else if (!Hash::check($validated['password'], $admin->password)) {
             return response()->json([
-                'message' => 'Invalid Password',
+                'message' => trans('admin_string.invalid_password'),
             ], 401);
         } else {
             Auth::guard('admin')->login($admin);
             return response()->json([
-                'message' => 'Login Successfully',
+                'message' => trans('admin_string.login_successfully'),
             ]);
         }
     }

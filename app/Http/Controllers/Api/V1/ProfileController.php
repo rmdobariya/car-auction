@@ -52,7 +52,7 @@ class ProfileController extends Controller
         DB::commit();
         return response()->json([
             'status' => true,
-            'message' => 'Profile Update Successfully',
+            'message' => trans('app_string.profile_update_successfully'),
         ]);
     }
 
@@ -65,7 +65,7 @@ class ProfileController extends Controller
                 if (!Hash::check($request->old_password, $user->password)) {
                     return response()->json([
                         'status' => false,
-                        'message' => 'Old Password Is Wrong',
+                        'message' => trans('app_string.old_password_is_wrong'),
                     ], 200);
                 }
                 $user->password = Hash::make($request->new_password);
@@ -73,7 +73,7 @@ class ProfileController extends Controller
 
                 return response()->json([
                     'status' => true,
-                    'message' => 'Password Update Successfully',
+                    'message' => trans('app_string.password_update_successfully'),
                 ]);
             }
             return response()->json([
@@ -91,18 +91,18 @@ class ProfileController extends Controller
             $array = [
                 'name' => $user->name,
                 'actionUrl' => route('reset-password', [$token]),
-                'reset_password_subject' => 'Forgot password',
-                'reset_password_body' => 'Reset Password',
+                'reset_password_subject' => trans('app_string.forgot_password'),
+                'reset_password_body' => trans('app_string.reset_password'),
             ];
             Mail::to($request['email'])->send(new ResetPasswordMail($array));
             return response()->json([
                 'status' => true,
-                'message' => 'Please Check Your Mail',
+                'message' => trans('app_string.please_check_your_mail'),
             ]);
         }
         return response()->json([
             'status' => false,
-            'message' => trans('messages.email_not_register'),
+            'message' => trans('app_string.email_not_register'),
         ]);
     }
 
@@ -112,7 +112,7 @@ class ProfileController extends Controller
         User::where('id', $user->id)->delete();
         return response()->json([
             'status' => true,
-            'message' => 'Account Delete Successfully',
+            'message' => trans('app_string.account_delete_successfully'),
         ]);
     }
 

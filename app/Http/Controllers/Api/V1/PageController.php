@@ -28,7 +28,7 @@ class PageController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['page' => $result],
             ]);
         }
@@ -53,7 +53,7 @@ class PageController extends Controller
         }
         return response()->json([
             'status' => true,
-            'message' => 'Data Not Found',
+            'message' => trans('app_string.data_not_found'),
             'data' => ['page_detail' => $result],
         ]);
     }

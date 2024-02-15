@@ -35,7 +35,7 @@ class WishListController extends Controller
         } else {
             return response()->json([
                 'status' => true,
-                'message' => 'Data Not Found',
+                'message' => trans('app_string.data_not_found'),
                 'data' => ['Wishlist' => $result],
             ]);
         }
@@ -79,7 +79,7 @@ class WishListController extends Controller
                     'hours' => $hours,
                     'minute' => $minute,
                     'second' => $second,
-                    'message' => trans('web_string.remove_in_wishlist_successfully'),
+                    'message' => trans('app_string.remove_in_wishlist_successfully'),
                 ]);
             } else {
                 $wish_list = new WishList();
@@ -93,13 +93,13 @@ class WishListController extends Controller
                     'hours' => $hours,
                     'minute' => $minute,
                     'second' => $second,
-                    'message' => trans('web_string.add_in_wishlist_successfully'),
+                    'message' => trans('app_string.add_in_wishlist_successfully'),
                 ]);
             }
         } else {
             return response()->json([
                 'success' => false,
-                'message' => trans('web_string.you_can_not_add_your_car_to_the_wish_list'),
+                'message' => trans('app_string.you_can_not_add_your_car_to_the_wish_list'),
             ]);
         }
     }

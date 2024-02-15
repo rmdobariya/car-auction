@@ -22,7 +22,7 @@ class LoginController extends Controller
             if (!Auth::attempt($credentials)) {
                 $response_array = array(
                     'status' => false,
-                    'message' => 'Please enter correct username or password',
+                    'message' => trans('app_string.please_enter_correct_username_or_password'),
                     'data' => null
                 );
                 return response()->json($response_array);
@@ -44,7 +44,7 @@ class LoginController extends Controller
             }
             $response_array = array(
                 'status' => false,
-                'message' => 'Account Is Inactive',
+                'message' => trans('app_string.account_is_inactive'),
                 'data' => null
             );
             return response()->json($response_array);
@@ -72,7 +72,7 @@ class LoginController extends Controller
         $this->addDeviceToken($user->id, $request->device_type, $request->device_token);
         return response()->json([
             'status' => true,
-            'message' => 'User registration successfully',
+            'message' => trans('app_string.user_registration_successfully'),
             'token' => $tokenResult,
             'data' => ['user_info' => new UserResource($user)]
         ]);

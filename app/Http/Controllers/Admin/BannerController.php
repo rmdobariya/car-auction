@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\BannerStoreRequest;
 use App\Models\Banner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -17,10 +18,12 @@ class  BannerController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:banner-read|banner-create|banner-update|category-delete', ['only' => ['index']]);
+        $this->middleware('permission:banner-read|banner-create|banner-update|banner-delete|banner-status', ['only' => ['index']]);
         $this->middleware('permission:banner-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:banner-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:banner-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:banner-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:banner-delete', ['only' => ['destroy','hardDelete','multipleBannerDelete']]);
+        $this->middleware('permission:banner-status', ['only' => ['changeStatus']]);
+        $this->middleware('permission:banner-restore', ['only' => ['restore']]);
     }
 
     public function index()
@@ -45,7 +48,7 @@ class  BannerController extends Controller
             }
             $banner->save();
             return response()->json([
-                'message' => 'Record Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -60,7 +63,7 @@ class  BannerController extends Controller
             $banner->save();
 
             return response()->json([
-                'message' => 'Record Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -77,7 +80,7 @@ class  BannerController extends Controller
     {
         Banner::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -110,6 +113,9 @@ class  BannerController extends Controller
                                 'edit' => route('admin.banner.edit', [$banner->id]),
                                 'delete' => $banner->id,
                                 'status' => $banner->status,
+                                'edit_permission' => Auth::user()->can('banner-update'),
+                                'delete_permission' => Auth::user()->can('banner-delete'),
+                                'status_permission' => Auth::user()->can('banner-status'),
                             ]
                         ];
                     } else {
@@ -118,6 +124,8 @@ class  BannerController extends Controller
                             'actions' => [
                                 'hard-delete' => $banner->id,
                                 'restore' => $banner->id,
+                                'delete_permission' => Auth::user()->can('banner-delete'),
+                                'restore_permission' => Auth::user()->can('banner-restore'),
                             ]
                         ];
                     }
@@ -148,7 +156,7 @@ class  BannerController extends Controller
     {
         Banner::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully')
         ]);
     }
 
@@ -158,7 +166,7 @@ class  BannerController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Record Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -170,7 +178,7 @@ class  BannerController extends Controller
         }
         DB::table('banners')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -188,7 +196,7 @@ class  BannerController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

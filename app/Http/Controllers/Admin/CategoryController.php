@@ -13,6 +13,7 @@ use App\Models\VehicleTranslation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -21,10 +22,12 @@ class CategoryController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:category-read|category-create|category-update|category-delete', ['only' => ['index']]);
+        $this->middleware('permission:category-read|category-create|category-update|category-delete|category-restore|category-status', ['only' => ['index']]);
         $this->middleware('permission:category-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:category-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:category-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:category-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:category-delete', ['only' => ['destroy','multipleCategoryDelete','hardDelete']]);
+        $this->middleware('permission:category-restore', ['only' => ['restore']]);
+        $this->middleware('permission:category-status', ['only' => ['changeStatus']]);
     }
 
     public function index()
@@ -60,7 +63,7 @@ class CategoryController extends Controller
                 ]);
             }
             return response()->json([
-                'message' => 'Record Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -85,7 +88,7 @@ class CategoryController extends Controller
                     ]);
             }
             return response()->json([
-                'message' => 'Record Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -104,7 +107,7 @@ class CategoryController extends Controller
     {
         Category::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -139,6 +142,9 @@ class CategoryController extends Controller
                                 'edit' => route('admin.category.edit', [$category->id]),
                                 'delete' => $category->id,
                                 'status' => $category->status,
+                                'edit_permission' => Auth::user()->can('category-update'),
+                                'delete_permission' => Auth::user()->can('category-delete'),
+                                'status_permission' => Auth::user()->can('category-status'),
                             ]
                         ];
                     } else {
@@ -147,6 +153,8 @@ class CategoryController extends Controller
                             'actions' => [
                                 'hard-delete' => $category->id,
                                 'restore' => $category->id,
+                                'delete_permission' => Auth::user()->can('category-delete'),
+                                'restore_permission' => Auth::user()->can('category-restore'),
                             ]
                         ];
                     }
@@ -177,7 +185,7 @@ class CategoryController extends Controller
     {
         Category::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 
@@ -187,7 +195,7 @@ class CategoryController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Record Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -199,7 +207,7 @@ class CategoryController extends Controller
         }
         DB::table('categories')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -217,7 +225,7 @@ class CategoryController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Record Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 }

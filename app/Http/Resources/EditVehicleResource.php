@@ -112,6 +112,8 @@ class EditVehicleResource extends JsonResource
             'status' => $this->status,
             'auction_start_date' => $this->auction_start_date,
             'auction_end_date' => $this->auction_end_date,
+            'auction_start_time' => $this->auction_start_time,
+            'auction_end_time' => $this->auction_end_time,
             'short_description' => $this->short_description,
             'ar_short_description' => $ar_short_description,
             'description' => $this->description,

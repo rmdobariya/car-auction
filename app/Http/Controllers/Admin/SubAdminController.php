@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Admin\PageStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Page;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Illuminate\Support\Facades\Hash;
@@ -20,10 +21,12 @@ class SubAdminController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:sub-admin-read|sub-admin-create|sub-admin-update|sub-admin-delete', ['only' => ['index']]);
+        $this->middleware('permission:sub-admin-read|sub-admin-create|sub-admin-update|sub-admin-delete|sub-admin-restore|sub-admin-status', ['only' => ['index']]);
         $this->middleware('permission:sub-admin-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:sub-admin-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:sub-admin-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:sub-admin-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:sub-admin-delete', ['only' => ['destroy','hardDelete','multipleSubAdminDelete']]);
+        $this->middleware('permission:sub-admin-restore', ['only' => ['restoreSubAdmin']]);
+        $this->middleware('permission:sub-admin-status', ['only' => ['changeStatus']]);
     }
 
     public function index()
@@ -59,7 +62,7 @@ class SubAdminController extends Controller
             $user->save();
             $user->assignRole($validated['role_id']);
             return response()->json([
-                'message' => 'Sub Admin Add Successfully'
+                'message' => trans('admin_string.record_add_successfully')
             ]);
 
         } else {
@@ -79,7 +82,7 @@ class SubAdminController extends Controller
             DB::table('model_has_roles')->where('model_id', $validated['edit_value'])->delete();
             $user->assignRole($validated['role_id']);
             return response()->json([
-                'message' => 'sub Admin Update Successfully'
+                'message' => trans('admin_string.record_update_successfully')
             ]);
         }
     }
@@ -103,7 +106,7 @@ class SubAdminController extends Controller
     {
         User::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Sub Admin Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -118,7 +121,7 @@ class SubAdminController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Sub Admin Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -128,7 +131,7 @@ class SubAdminController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Sub Admin Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -136,7 +139,7 @@ class SubAdminController extends Controller
     {
         DB::table('users')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Sub Admin Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -183,6 +186,9 @@ class SubAdminController extends Controller
                                     'edit' => route('admin.sub-admin.edit', [$user->id]),
                                     'delete' => $user->id,
                                     'status' => $user->status,
+                                    'edit_permission' => Auth::user()->can('sub-admin-update'),
+                                    'delete_permission' => Auth::user()->can('sub-admin-delete'),
+                                    'status_permission' => Auth::user()->can('sub-admin-status'),
                                 ]
                             ];
                         } else {
@@ -191,6 +197,8 @@ class SubAdminController extends Controller
                                 'actions' => [
                                     'hard-delete' => $user->id,
                                     'restore' => $user->id,
+                                    'delete_permission' => Auth::user()->can('sub-admin-delete'),
+                                    'restore_permission' => Auth::user()->can('sub-admin-restore'),
                                 ]
                             ];
                         }
@@ -204,7 +212,7 @@ class SubAdminController extends Controller
                     return AdminDataTableButtonHelper::statusBadge($array);
                 })
                 ->addColumn('role', function ($user) {
-                    return $user->user_type;
+                    return str_replace('_',' ',ucfirst($user->user_type));
                 })
                 ->addColumn('full_name', function ($user) {
                     return $user->name . ' ' . $user->last_name;
@@ -230,7 +238,7 @@ class SubAdminController extends Controller
     {
         user::where('id', $id)->update(['status' => $status]);
         return response()->json([
-            'message' => 'Status Change Successfully',
+            'message' => trans('admin_string.status_change_successfully'),
         ]);
     }
 }

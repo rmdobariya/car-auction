@@ -8,6 +8,7 @@ use App\Models\ContactUs;
 use App\Models\Question;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,10 +17,12 @@ class QuestionController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:question-read|question-create|question-update|question-delete', ['only' => ['index']]);
+        $this->middleware('permission:question-read|question-create|question-update|question-delete|question-detail|question-restore', ['only' => ['index']]);
         $this->middleware('permission:question-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:question-update', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:question-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:question-update', ['only' => ['edit', 'update','store']]);
+        $this->middleware('permission:question-delete', ['only' => ['destroy','hardDelete','multipleQuestionDelete']]);
+        $this->middleware('permission:question-detail', ['only' => ['show']]);
+        $this->middleware('permission:question-restore', ['only' => ['restore']]);
     }
 
     public function index()
@@ -49,6 +52,8 @@ class QuestionController extends Controller
                             'actions' => [
                                 'delete' => $question->id,
                                 'detail-page' => route('admin.question.show',$question->id),
+                                'delete_permission' => Auth::user()->can('news-delete'),
+                                'detail_permission' => Auth::user()->can('news-detail'),
                             ]
                         ];
                     } else {
@@ -57,6 +62,8 @@ class QuestionController extends Controller
                             'actions' => [
                                 'hard-delete' => $question->id,
                                 'restore' => $question->id,
+                                'delete_permission' => Auth::user()->can('news-delete'),
+                                'restore_permission' => Auth::user()->can('news-restore'),
                             ]
                         ];
                     }
@@ -78,7 +85,7 @@ class QuestionController extends Controller
     {
         Question::where('id', $id)->delete();
         return response()->json([
-            'message' => 'Question Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
     public function restore($id): JsonResponse
@@ -87,7 +94,7 @@ class QuestionController extends Controller
             'deleted_at' => null
         ]);
         return response()->json([
-            'message' => 'Question Restore Successfully'
+            'message' => trans('admin_string.record_restore_successfully')
         ]);
     }
 
@@ -95,7 +102,7 @@ class QuestionController extends Controller
     {
         DB::table('questions')->where('id', $id)->delete();
         return response()->json([
-            'message' => 'Question Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
 
@@ -110,7 +117,7 @@ class QuestionController extends Controller
             }
         }
         return response()->json([
-            'message' => 'Question Delete Successfully'
+            'message' => trans('admin_string.record_delete_successfully')
         ]);
     }
     public function show($id)

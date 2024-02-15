@@ -70,7 +70,7 @@
 @section('custom-script')
     <script>
         var form_url = '/permission'
-        var redirect_url = '/permission'
+        var redirect_url = '/permission/create'
 
         $('#all').click(function () {
             if ($(this).is(':checked')) {
@@ -78,11 +78,17 @@
                 $("#update").attr('checked', true);
                 $("#read").attr('checked', true);
                 $("#delete").attr('checked', true);
+                $("#restore").attr('checked', true);
+                $("#status").attr('checked', true);
+                $("#detail").attr('checked', true);
             } else {
                 $("#create").attr('checked', false);
                 $("#update").attr('checked', false);
                 $("#read").attr('checked', false);
                 $("#delete").attr('checked', false);
+                $("#restore").attr('checked', false);
+                $("#status").attr('checked', false);
+                $("#detail").attr('checked', false);
             }
         });
     </script>
