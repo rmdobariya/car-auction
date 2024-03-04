@@ -45,8 +45,8 @@
                                                 <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($vehicle_categories as $vehicle_category)
                                                     <option
-                                                        value="{{$vehicle_category->id}}"
-                                                        @if((int)$vehicle->vehicle_category_id === $vehicle_category->id) selected @endif>{{$vehicle_category->name}}</option>
+                                                            value="{{$vehicle_category->id}}"
+                                                            @if((int)$vehicle->vehicle_category_id === $vehicle_category->id) selected @endif>{{$vehicle_category->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -59,7 +59,9 @@
                                                 <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($users as $user)
                                                     <option value="{{$user->id}}"
-                                                            @if((int)$vehicle->user_id === $user->id) selected @endif>{{$user->name .' ' . $user->last_name}} ({{$user->email .'/' . $user->contact_no}})</option>
+                                                            @if((int)$vehicle->user_id === $user->id) selected @endif>{{$user->name .' ' . $user->last_name}}
+                                                        ({{$user->email .'/' . $user->contact_no}})
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -312,6 +314,27 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-2">
+                                    <label class="required fs-6 fw-bold mb-2" for="advance_payment">
+                                        {{trans('admin_string.advance_payment')}}
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" aria-label="Advance Payment"
+                                               name="advance_payment" value="{{$vehicle->advance_payment}}" required>
+                                        <select class="form-select form-select-solid fw-bold"
+                                                name="advance_payment_type"
+                                                id="advance_payment_type">
+                                            <option value="fix"
+                                                    @if($vehicle->advance_payment_type == 'fix') selected @endif>Fix
+                                            </option>
+                                            <option value="percentage"
+                                                    @if($vehicle->advance_payment_type == 'percentage') selected @endif>
+                                                Percentage
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -383,11 +406,11 @@
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
-                                                class="form-check-input h-20px w-20px"
-                                                value="1" name="is_product"
-                                                id="is_product"
-                                                type="radio" data-bs-original-title=""
-                                                title="" @if($vehicle->is_product == 'is_featured') checked @endif>
+                                                    class="form-check-input h-20px w-20px"
+                                                    value="1" name="is_product"
+                                                    id="is_product"
+                                                    type="radio" data-bs-original-title=""
+                                                    title="" @if($vehicle->is_product == 'is_featured') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">{{trans('admin_string.is_featured')}}</label>
                                         </div>
@@ -396,11 +419,11 @@
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
-                                                class="form-check-input h-20px w-20px"
-                                                value="1" name="is_product"
-                                                id="is_product"
-                                                type="radio" data-bs-original-title=""
-                                                title="" @if($vehicle->is_product == 'is_popular') checked @endif>
+                                                    class="form-check-input h-20px w-20px"
+                                                    value="1" name="is_product"
+                                                    id="is_product"
+                                                    type="radio" data-bs-original-title=""
+                                                    title="" @if($vehicle->is_product == 'is_popular') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">{{trans('admin_string.is_popular')}}</label>
                                         </div>
@@ -408,11 +431,11 @@
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
-                                                class="form-check-input h-20px w-20px"
-                                                value="1" name="is_product"
-                                                id="is_product"
-                                                type="radio" data-bs-original-title=""
-                                                title="" @if($vehicle->is_product == 'is_hot_deal') checked @endif>
+                                                    class="form-check-input h-20px w-20px"
+                                                    value="1" name="is_product"
+                                                    id="is_product"
+                                                    type="radio" data-bs-original-title=""
+                                                    title="" @if($vehicle->is_product == 'is_hot_deal') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">{{trans('admin_string.hot_deal')}}</label>
                                         </div>
@@ -471,9 +494,11 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="required fs-6 fw-bold" for="image">{{trans('admin_string.multiple_image')}} ({{trans('admin_string.allow_max')}})
+                                    <label class="required fs-6 fw-bold"
+                                           for="image">{{trans('admin_string.multiple_image')}}
+                                        ({{trans('admin_string.allow_max')}})
                                         <span
-                                            class="error"></span></label><br>
+                                                class="error"></span></label><br>
                                     <div id="gallery">
                                         @include('admin.vehicle.gallery')
                                     </div>

@@ -84,6 +84,27 @@
 
 <section id="hero">
     <div class="container">
+        <div class="col-md-3">
+            @php
+                $v_categories = DB::table('categories')
+                                                   ->leftjoin('category_translations','categories.id','category_translations.category_id')
+                                                   ->where('categories.status','active')
+                                                   ->where('category_translations.locale',App::getLocale())
+                                                   ->whereNull('deleted_at')
+                                                   ->select('categories.*','category_translations.name')
+                                                   ->get();
+            @endphp
+            <div class="category">
+                <select class="form-select" name="home_category" id="home_category"
+                        aria-label="Default select example">
+                    <option value="all">{{trans('web_string.select_all')}}</option>
+                    @foreach($v_categories as $v_category)
+                        <option value="{{$v_category->id}}"
+                                @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="heading">

@@ -39,6 +39,8 @@ class VehicleStoreRequest extends FormRequest
             'description_*' => 'required',
             'auction_start_time' => 'required',
             'auction_end_time' => 'required',
+            'advance_payment' => 'required',
+            'advance_payment_type' => 'required',
             'name_*' => 'required',
         ];
     }

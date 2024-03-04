@@ -244,4 +244,12 @@
   'contact_info_update_successfully' => 'Contact Info Update Successfully',
   'social_media_update_successfully' => 'Social Media Update Successfully',
   'image_delete_successfully' => 'Image Delete Successfully',
+  'user_name' => 'User Name',
+  'city' => 'City',
+  'owners' => 'Owners',
+  'bid_increment' => 'Bid Increment',
+  'ratting' => 'Ratting',
+  'advance_payment' => 'Advance Payment',
+  'advance_payment_type' => 'Advance Payment Type',
+  'export' => 'Export',
 );

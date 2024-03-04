@@ -131,6 +131,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::delete('vehicle-image-delete/{temp_time}', [VehicleController::class, 'imageDelete'])->name('vehicle-image-delete');
     Route::post('getVehicleGallery', [VehicleController::class, 'getVehicleGallery'])->name('getVehicleGallery');
     Route::get('deleteVehicleImage/{id}', [VehicleController::class, 'deleteVehicleImage'])->name('deleteVehicleImage');
+    Route::post('vehicleExport', [VehicleController::class, 'vehicleExport'])->name('vehicleExport');
 
     Route::resource('banner', BannerController::class);
     Route::get('get-banner-list', [BannerController::class, 'getBannerList'])->name('get-banner-list');

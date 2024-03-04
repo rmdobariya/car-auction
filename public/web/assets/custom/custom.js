@@ -143,38 +143,42 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 })
-$('#filterData').on('click',function (){
-   // var condition = $("input[type='radio'][name='condition']:checked").val();
+$('#filterData').on('click', function () {
+    // var condition = $("input[type='radio'][name='condition']:checked").val();
     var category = $('#category').val();
-   var min_amount = $('#min_amount').val();
-   var max_amount = $('#max_amount').val();
-   var price_range = $('#amount').val();
-   var model = $('#model').val();
-   var make = $('#make').val();
+    var min_amount = $('#min_amount').val();
+    var max_amount = $('#max_amount').val();
+    var price_range = $('#amount').val();
+    var model = $('#model').val();
+    var make = $('#make').val();
     var body_type = $('#body_type').val();
-   var ratting = $('#ratings').val();
-   var city = $('#city').val();
-    var exterior = $.map($('input[name="exterior"]:checked'), function(c){return c.value; })
+    var ratting = $('#ratings').val();
+    var city = $('#city').val();
+    var exterior = $.map($('input[name="exterior"]:checked'), function (c) {
+        return c.value;
+    })
     window.location.href = '/filter?category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
-    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
+        '&model=' + model + '&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
 
 })
-$('#seller_filterData').on('click',function (){
-   // var condition = $("input[type='radio'][name='condition']:checked").val();
+$('#seller_filterData').on('click', function () {
+    // var condition = $("input[type='radio'][name='condition']:checked").val();
     var category = $('#category').val();
-   var min_amount = $('#min_amount').val();
-   var max_amount = $('#max_amount').val();
-   var price_range = $('#amount').val();
-   var model = $('#model').val();
-   var make = $('#make').val();
-   var user_id = $('#user_id').val();
-   var encrypt_user_id = $('#encrypt_user_id').val();
+    var min_amount = $('#min_amount').val();
+    var max_amount = $('#max_amount').val();
+    var price_range = $('#amount').val();
+    var model = $('#model').val();
+    var make = $('#make').val();
+    var user_id = $('#user_id').val();
+    var encrypt_user_id = $('#encrypt_user_id').val();
     var body_type = $('#body_type').val();
-   var ratting = $('#ratings').val();
+    var ratting = $('#ratings').val();
     var city = $('#city').val();
-    var exterior = $.map($('input[name="exterior"]:checked'), function(c){return c.value; })
+    var exterior = $.map($('input[name="exterior"]:checked'), function (c) {
+        return c.value;
+    })
     window.location.href = '/seller/' + encrypt_user_id + '?' + 'category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
-    '&model=' + model +'&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
+        '&model=' + model + '&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
 
 })
 let $askQuestionForm = $('#askQuestionForm')
@@ -196,6 +200,30 @@ $askQuestionForm.on('submit', function (e) {
             notificationToast(error.response.data.message, 'warning')
             loaderHide();
         });
+})
+
+$('#home_category').on('change', function () {
+    // var condition = $("input[type='radio'][name='condition']:checked").val();
+    var category = $('#home_category').val();
+    if (category === 'all') {
+        window.location.href = '/';
+    } else {
+        var min_amount = $('#min_amount').val();
+        var max_amount = $('#max_amount').val();
+        var price_range = $('#amount').val();
+        var model = $('#model').val();
+        var make = $('#make').val();
+        var body_type = $('#body_type').val();
+        var ratting = $('#ratings').val();
+        var city = $('#city').val();
+        var exterior = $.map($('input[name="exterior"]:checked'), function (c) {
+            return c.value;
+        })
+        window.location.href = '/filter?category=' + category + '&price_range=' + price_range + '&min_amount=' + min_amount + '&max_amount=' + max_amount +
+            '&model=' + model + '&make=' + make + '&body_type=' + body_type + '&exterior=' + exterior + '&ratting=' + ratting + '&city=' + city;
+
+    }
+
 })
 
 

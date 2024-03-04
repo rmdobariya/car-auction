@@ -35,7 +35,10 @@ return [
             'root' => storage_path('app'),
             'throw' => false,
         ],
-
+        'excel_uploads' => [
+            'driver' => 'local',
+            'root' => public_path('assets/uploads'),
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

@@ -5,7 +5,9 @@
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
                 @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.vehicles')])
                 @include('admin.layouts2.components.create-button',['url'=>route('admin.vehicle.create')])
-
+                <button class="btn btn-sm btn-primary" id="export">
+                    <i class="fa fa-paper-plane"></i> {{ trans('admin_string.export') }}
+                </button>
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
@@ -23,19 +25,22 @@
                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true"
                                      id="kt-toolbar-filter">
                                     <div class="px-7 py-5">
-                                        <div class="fs-4 text-dark fw-bold">{{trans('admin_string.filter_options')}}</div>
+                                        <div
+                                            class="fs-4 text-dark fw-bold">{{trans('admin_string.filter_options')}}</div>
                                     </div>
                                     <div class="separator border-gray-200"></div>
                                     <div class="px-7 py-5">
                                         <div class="mb-10">
-                                            <label class="form-label fs-5 fw-semibold mb-3">{{trans('admin_string.filter')}}</label>
+                                            <label
+                                                class="form-label fs-5 fw-semibold mb-3">{{trans('admin_string.filter')}}</label>
                                             <div class="d-flex flex-column flex-wrap fw-semibold"
                                                  data-kt-customer-table-filter="payment_type">
                                                 <label
                                                     class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
                                                     <input class="form-check-input" type="checkbox" name="deleted_at"
                                                            id="deleted_at">
-                                                    <span class="form-check-label text-gray-600">{{trans('admin_string.deleted_record')}} </span>
+                                                    <span
+                                                        class="form-check-label text-gray-600">{{trans('admin_string.deleted_record')}} </span>
                                                 </label>
                                             </div>
                                         </div>
@@ -59,7 +64,7 @@
                              data-kt-customer-table-toolbar="selected" id="select_delete_btn">
                             <div class="fw-bold me-5">
                                 <span class="me-2" data-kt-customer-table-select="selected_count"
-                                      id="selected_count"></span>  {{trans('admin_string.selected')}}
+                                      id="selected_count"></span> {{trans('admin_string.selected')}}
                             </div>
 
                             <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected"
@@ -128,6 +133,27 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
             order: [[0, 'DESC']],
+        })
+
+        $('#export').on('click', function () {
+            let status = $('#status').val();
+            let deleted_at = $('#deleted_at').val();
+            axios
+                .post(APP_URL + '/vehicleExport',{
+                    status:status,
+                    deleted_at:deleted_at
+                })
+                .then(function (response) {
+                    var link = document.createElement('a')
+                    link.href = response.data.url
+                    link.download = 'Vehicle.xlsx'
+                    link.click()
+                    link.remove()
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
         })
     </script>
 

@@ -213,4 +213,5 @@
   'city' => 'Cities',
   'select_city' => 'Select City',
   'last_amount_is' => 'Last Amount Is:',
+  'select_all' => 'Select All',
 );

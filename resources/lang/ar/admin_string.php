@@ -244,4 +244,12 @@
   'contact_info_update_successfully' => 'تحديث معلومات الاتصال بنجاح',
   'social_media_update_successfully' => 'تحديث وسائل التواصل الاجتماعي بنجاح',
   'image_delete_successfully' => 'تم حذف الصورة بنجاح',
+  'user_name' => 'اسم المستخدم',
+  'city' => 'مدينة',
+  'owners' => 'المالكون',
+  'bid_increment' => 'زيادة العطاء',
+  'ratting' => 'الجرذان',
+  'advance_payment' => 'الدفعة المقدمة',
+  'advance_payment_type' => 'نوع الدفعة المقدمة',
+  'export' => 'تصدير',
 );

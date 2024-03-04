@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Exports\VehicleExport;
 use App\Helpers\CatchCreateHelper;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\AdminDataTableButtonHelper;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class VehicleController extends Controller
@@ -284,6 +286,8 @@ class VehicleController extends Controller
                 $vehicle->auction_end_date = $request->auction_end_date;
                 $vehicle->auction_start_time = $request->auction_start_time;
                 $vehicle->auction_end_time = $request->auction_end_time;
+                $vehicle->advance_payment = $request->advance_payment;
+                $vehicle->advance_payment_type = $request->advance_payment_type;
                 if ($request->hasfile('image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -337,6 +341,8 @@ class VehicleController extends Controller
                 $vehicle->auction_end_date = $request->auction_end_date;
                 $vehicle->auction_start_time = $request->auction_start_time;
                 $vehicle->auction_end_time = $request->auction_end_time;
+                $vehicle->advance_payment = $request->advance_payment;
+                $vehicle->advance_payment_type = $request->advance_payment_type;
                 if ($request->hasfile('image')) {
                     $image = ImageUploadHelper::imageUpload($request->file('image'), 'vehicle');
                     $vehicle->main_image = $image;
@@ -405,6 +411,36 @@ class VehicleController extends Controller
         }
         return response()->json(['success' => true, 'message' => trans('admin_string.image_delete_successfully')]);
 
+    }
+
+    public function vehicleExport(Request $request): JsonResponse
+    {
+        $vehicle = DB::table('vehicles')
+            ->leftJoin('users', 'vehicles.user_id', 'users.id')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->leftJoin('city_translations', 'vehicles.city_id', 'city_translations.city_id')
+            ->leftjoin('model_has_roles', 'users.id', 'model_has_roles.model_id')
+            ->leftjoin('roles', 'model_has_roles.role_id', 'roles.id')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('city_translations.locale', App::getLocale())
+            ->orderBy('id', 'desc');
+
+        if (!is_null($request->status)) {
+            $vehicle->where('vehicles.status', $request->status);
+        }
+
+        if (!empty($request->deleted)) {
+            if ((int)$request->deleted === 1) {
+                $vehicle->whereNotNull('vehicles.deleted_at');
+            } else {
+                $vehicle->whereNull('vehicles.deleted_at');
+            }
+        }
+        $vehicle = $vehicle->select('vehicles.*', 'users.name as user_name', 'users.user_type as user_type', 'category_translations.name as vehicle_category', 'city_translations.name as city', 'vehicle_translations.name as name')->get();
+        Excel::store(new VehicleExport($vehicle), 'Vehicle.xlsx', 'excel_uploads');
+        return response()->json(['url' => url('assets/uploads/Vehicle.xlsx')]);
     }
 
 }

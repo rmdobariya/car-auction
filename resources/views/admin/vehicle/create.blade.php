@@ -309,6 +309,20 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-2">
+                                    <label class="required fs-6 fw-bold mb-2" for="advance_payment">
+                                        {{trans('admin_string.advance_payment')}}
+                                    </label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" aria-label="Advance Payment" name="advance_payment" required>
+                                        <select class="form-select form-select-solid fw-bold"
+                                                name="advance_payment_type"
+                                                id="advance_payment_type">
+                                                <option value="fix" selected>Fix</option>
+                                                <option value="percentage">Percentage</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
