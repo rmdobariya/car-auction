@@ -54,6 +54,15 @@ class LoginController extends Controller
         $user->user_type = $request->user_type;
         $user->save();
         Auth::login($user);
+        DB::table('notifications')->insert([
+            'user_id' => $user->id,
+            'first_name' => $user->name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'mobile_no' => $user->mobile_no,
+            'type' => 'user_registration',
+            'message' => $user->full_name . '|' . $user->email . ' ' . 'Registered On Zodha',
+        ]);
         return response()->json([
             'message' => trans('web_string.register_successfully'),
         ]);
@@ -116,7 +125,15 @@ class LoginController extends Controller
             if ($user) {
                 $user->password = Hash::make($password);
                 $user->update();
-
+                DB::table('notifications')->insert([
+                    'user_id' => $user->id,
+                    'first_name' => $user->name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'mobile_no' => $user->mobile_no,
+                    'type' => 'forgot_password_request',
+                    'message' => $user->email . ' ' . 'requested a password change',
+                ]);
                 DB::table('password_reset_tokens')->where('email', $request['email'])->delete();
             } else {
                 return response()->json(['message' => trans('web_string.email_not_found')], 422);

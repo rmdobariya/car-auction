@@ -33,7 +33,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($sell_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                            src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
+                                                src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
                                     @if(!is_null(Auth::user()))
                                         @if($sell_vehicle->user_id != Auth::user()->id)
                                             <a class="like" href="#" data-id="{{$sell_vehicle->id}}"
@@ -140,7 +140,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($featured_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
+                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
                                             {{trans('web_string.featured')}}
                                         @elseif($featured_vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -225,7 +225,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                        class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -293,7 +293,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($popular_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
+                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
                                             {{trans('web_string.feature')}}
                                         @elseif($popular_vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -378,7 +378,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                        class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -446,7 +446,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($hot_deal_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
+                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
                                             {{trans('web_string.featured')}}
                                         @elseif($hot_deal_vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -531,7 +531,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                        class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -739,7 +739,41 @@
         </div>
     </section>
     <div class="clearfix"></div>
-
+    <div class="modal fade" id="hotDealModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hot Deal Vehicle</h5>
+                    <button type="button" class="btn-close btn btn-secondary" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            @foreach($modal_hot_deal_vehicles as $key =>$modal_hot_deal_vehicle)
+                                <a href="#" class="vehicle_detail" data-id="{{$modal_hot_deal_vehicle->id}}">
+                                    <div class="carousel-item @if($key === 0) active @endif">
+                                        <img src="{{asset($modal_hot_deal_vehicle->main_image)}}" class="d-block w-100"
+                                             alt="...">
+                                        <h5 class="text-dark">{{$modal_hot_deal_vehicle->vehicle_name}}</h5>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon btn btn-secondary" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon btn btn-secondary" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('custom-script')
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
@@ -847,7 +881,15 @@
                 })
         })
 
-
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#hotDealModal').modal('show');
+            }, 10000); // 30 seconds
+        });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-..."
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-..."
+            crossorigin="anonymous"></script>
     <script src="{{asset('web/assets/custom/home/home.js')}}?v={{time()}}"></script>
 @endsection

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LanguageStringController;
 use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PasswordController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
@@ -132,6 +133,11 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::post('getVehicleGallery', [VehicleController::class, 'getVehicleGallery'])->name('getVehicleGallery');
     Route::get('deleteVehicleImage/{id}', [VehicleController::class, 'deleteVehicleImage'])->name('deleteVehicleImage');
     Route::post('vehicleExport', [VehicleController::class, 'vehicleExport'])->name('vehicleExport');
+
+    Route::get('notification', [NotificationController::class, 'index'])->name('notification');
+    Route::get('get-notification-list', [NotificationController::class, 'getNotificationList'])->name('get-notification-list');
+    Route::post('multiple-notification-delete', [NotificationController::class, 'multipleNotificationDelete'])->name('multiple-notification-delete');
+    Route::get('notification-detail/{id}', [NotificationController::class, 'show'])->name('notification-detail');
 
     Route::resource('banner', BannerController::class);
     Route::get('get-banner-list', [BannerController::class, 'getBannerList'])->name('get-banner-list');
