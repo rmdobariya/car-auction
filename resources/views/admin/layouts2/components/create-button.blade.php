@@ -5,5 +5,5 @@
 {{--            <i class="fa fa-sort"></i> OrderBy }}--}}
 {{--        </a>--}}
 {{--    @endif--}}
-    <a href="{{ $url }}" class="btn btn-sm btn-primary">Create</a>
+    <a href="{{ $url }}" class="btn btn-sm btn-primary">{{trans('admin_string.create')}}</a>
 </div>

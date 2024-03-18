@@ -23,8 +23,8 @@ class CustomerController extends Controller
     {
         $this->middleware('permission:customer-read|customer-create|customer-update|customer-delete|customer-restore|customer-status', ['only' => ['index']]);
         $this->middleware('permission:customer-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:customer-update', ['only' => ['edit', 'update','store']]);
-        $this->middleware('permission:customer-delete', ['only' => ['destroy','hardDelete','multipleUserDelete']]);
+        $this->middleware('permission:customer-update', ['only' => ['edit', 'update', 'store']]);
+        $this->middleware('permission:customer-delete', ['only' => ['destroy', 'hardDelete', 'multipleUserDelete']]);
         $this->middleware('permission:customer-restore', ['only' => ['restoreCustomer']]);
         $this->middleware('permission:customer-status', ['only' => ['changeStatus']]);
     }
@@ -180,17 +180,32 @@ class CustomerController extends Controller
                         ];
                     } else {
                         if (is_null($user->deleted_at)) {
-                            $array = [
-                                'id' => $user->id,
-                                'actions' => [
-                                    'edit' => route('admin.customer.edit', [$user->id]),
-                                    'delete' => $user->id,
-                                    'status' => $user->status,
-                                    'edit_permission' => Auth::user()->can('customer-update'),
-                                    'delete_permission' => Auth::user()->can('customer-delete'),
-                                    'status_permission' => Auth::user()->can('customer-status'),
-                                ]
-                            ];
+                            if ($user->is_corporate_seller === 1) {
+                                $array = [
+                                    'id' => $user->id,
+                                    'actions' => [
+                                        'edit' => route('admin.customer.edit', [$user->id]),
+                                        'add_vehicle' => route('admin.vehicle.create',['id'=>$user->id]),
+                                        'delete' => $user->id,
+                                        'status' => $user->status,
+                                        'edit_permission' => Auth::user()->can('customer-update'),
+                                        'delete_permission' => Auth::user()->can('customer-delete'),
+                                        'status_permission' => Auth::user()->can('customer-status'),
+                                    ]
+                                ];
+                            } else {
+                                $array = [
+                                    'id' => $user->id,
+                                    'actions' => [
+                                        'edit' => route('admin.customer.edit', [$user->id]),
+                                        'delete' => $user->id,
+                                        'status' => $user->status,
+                                        'edit_permission' => Auth::user()->can('customer-update'),
+                                        'delete_permission' => Auth::user()->can('customer-delete'),
+                                        'status_permission' => Auth::user()->can('customer-status'),
+                                    ]
+                                ];
+                            }
                         } else {
                             $array = [
                                 'id' => $user->id,

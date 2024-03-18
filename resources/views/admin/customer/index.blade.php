@@ -133,7 +133,7 @@
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
                 {data: 'id', name: 'users.id'},
-                {data: 'role_name', name: 'role_name'},
+                {data: 'role_name', name: 'roles.name'},
                 {data: 'full_name', name: 'users.full_name'},
                 {data: 'email', name: 'users.email'},
                 {data: 'created_at', name: 'users.created_at'},

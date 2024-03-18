@@ -55,6 +55,12 @@ class SettingController extends Controller
                 'setting_value' => $favicon_icon
             ]);
         }
+        if ($request->hasfile('WEBSITE_MAIN_IMAGE')) {
+            $favicon_icon = ImageUploadHelper::imageUpload($request->file('WEBSITE_MAIN_IMAGE'), 'logo');
+            DB::table('site_settings')->where('setting_key', 'WEBSITE_MAIN_IMAGE')->update([
+                'setting_value' => $favicon_icon
+            ]);
+        }
         if ($request->setting_key['SITE_TITLE']) {
             DB::table('site_settings')->where('setting_key', 'SITE_TITLE')->update([
                 'setting_value' => $request->setting_key['SITE_TITLE']

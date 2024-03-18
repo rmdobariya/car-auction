@@ -750,7 +750,7 @@
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             @foreach($modal_hot_deal_vehicles as $key =>$modal_hot_deal_vehicle)
-                                <a href="#" class="vehicle_detail" data-id="{{$modal_hot_deal_vehicle->id}}">
+                                <a href="{{route('vehicle-detail',$modal_hot_deal_vehicle->id)}}">
                                     <div class="carousel-item @if($key === 0) active @endif">
                                         <img src="{{asset($modal_hot_deal_vehicle->main_image)}}" class="d-block w-100"
                                              alt="...">

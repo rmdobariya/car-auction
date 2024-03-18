@@ -116,7 +116,7 @@
             columns: [
                 {data: 'check', name: 'check', orderable: false, searchable: false},
                 {data: 'id', name: 'categories.id'},
-                {data: 'name', name: 'categories.name'},
+                {data: 'name', name: 'category_translations.name'},
                 {data: 'status', name: 'categories.status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],

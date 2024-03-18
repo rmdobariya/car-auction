@@ -449,6 +449,29 @@ class HomeController extends Controller
             'modal_title' => $vehicle->name,
         ]);
     }
+    public function homeVehicleDetail($id)
+    {
+        $vehicle = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.id', $id)
+            ->select('vehicles.*', 'vehicle_translations.name',
+                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+            ->first();
+        $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $id)->count();
+        $vehicle_images = DB::table('vehicle_images')->where('vehicle_id', $id)->get();
+        $vehicle_documents = DB::table('vehicle_documents')->where('vehicle_id', $id)->get();
+
+        return view('website.home.vehicle-detail-page', [
+            'vehicle' => $vehicle,
+            'vehicle_images' => $vehicle_images,
+            'vehicle_documents' => $vehicle_documents,
+            'bid_count' => $bid_count,
+        ]);
+    }
 
     public function vehicleInquiry($vehicle_id)
     {

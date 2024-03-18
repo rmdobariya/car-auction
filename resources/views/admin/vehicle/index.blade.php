@@ -127,7 +127,7 @@
                 {data: 'id', name: 'vehicles.id'},
                 {data: 'user_name', name: 'users.name'},
                 {data: 'user_type', name: 'users.user_type'},
-                {data: 'name', name: 'vehicles.name'},
+                {data: 'name', name: 'vehicle_translations.name'},
                 {data: 'image', name: 'image'},
                 {data: 'status', name: 'vehicles.status'},
                 {data: 'action', name: 'action', orderable: false, searchable: false},

@@ -64,11 +64,11 @@
                                 <form id="general_setting_form" class="form" action="#">
                                     <div class="row mb-7">
                                         <div class="col-md-9 offset-md-3">
-                                            <h2>General Settings {{trans('admin_string.general_settings')}}</h2>
+                                            <h2>{{trans('admin_string.general_settings')}}</h2>
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
-                                        @if((string)$setting->setting_key === 'LOGO_IMG' || (string)$setting->setting_key === 'FAVICON_IMG')
+                                        @if((string)$setting->setting_key === 'LOGO_IMG' || (string)$setting->setting_key === 'FAVICON_IMG' || (string)$setting->setting_key === 'WEBSITE_MAIN_IMAGE')
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-bold mb-2" for="{{$setting->setting_key}}">

@@ -68,7 +68,7 @@
                                                 <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($users as $user)
                                                     <option
-                                                        value="{{$user->id}}">{{$user->name .' ' . $user->last_name}}
+                                                        value="{{$user->id}}" @if(isset(request()->id)) @if($user->id == request()->id) selected @endif @endif>{{$user->name .' ' . $user->last_name}}
                                                         ({{$user->email .'/' . $user->contact_no}})
                                                     </option>
                                                 @endforeach

@@ -4,8 +4,8 @@
                 id="status"
                 data-control="select2"
                 data-hide-search="true"
-                data-placeholder="Status"
-                data-kt-ecommerce-product-filter="Status">
+                data-placeholder="{{trans('admin_string.status')}}"
+                data-kt-ecommerce-product-filter="{{trans('admin_string.status')}}">
             <option></option>
             <option value="all">{{trans('admin_string.all')}}</option>
             <option value="active">{{trans('admin_string.active')}}</option>

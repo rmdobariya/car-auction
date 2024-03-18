@@ -28,7 +28,7 @@ body.rtl .testimonial {
     direction: ltr;
 }
 body.rtl #hero {
-    background-image: url(../images/hero-banner-1.jpg)!important;
+    /*background-image: url(../images/hero-banner-1.jpg)!important;*/
 }
 body.rtl .user-login-info {
     padding-left: 0px!important;
@@ -65,7 +65,7 @@ body.rtl{
 	background-color: #149B9E33;
 }
 #hero {
-    background-image: url(../images/hero-banner.jpg);
+    /*background-image: url(../images/hero-banner.jpg);*/
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -245,7 +245,7 @@ body.rtl{
 }
 .reg-btn button {
 	font-weight: 500;
-    padding: 6px 24px;	
+    padding: 6px 24px;
     background: #673AAA;
     color: #fff;
 }
@@ -557,7 +557,7 @@ section#vehicles .heading a {
     padding: 9px 6px;
 }
 .car-price {
-    width: 29%;	
+    width: 29%;
     padding: 6px 10px 6px 20px;
 }
 span.cat-tags {
@@ -1092,7 +1092,7 @@ footer hr {
 .car-dtlist .dtl-box .value p {
     color: #2C2C2C;
     font-size: 16px;
-    font-weight: 500;    
+    font-weight: 500;
 }
 .bid-model {
     background: rgb(96 214 214 / 94%);
@@ -1258,7 +1258,7 @@ div#getting-started6{
     align-items: center;
     justify-content: space-around;
     gap: 10px;
-    padding-left: 32px;    
+    padding-left: 32px;
 }
 
 .time-temain>span {
@@ -2091,14 +2091,14 @@ div#feedback .modal-header {
     padding-top: 60px;
     padding-bottom: 20px;
 }
-.profile-box .head, 
+.profile-box .head,
 .notification-setting .head {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 30px;
 }
-.profile-box .head .place-bid-blue, 
+.profile-box .head .place-bid-blue,
 .notification-setting .head .place-bid-blue{
     padding: 10px 40px;
 }
@@ -2413,7 +2413,7 @@ section#vehicles .heading.auction-detailss{
     width: 42%;
 }
 .auction-detailss .add-car .edate{
-    width: 42%;    
+    width: 42%;
 }
 .auction-detailss .add-car .action-btn {
     width: 152px;
@@ -2679,7 +2679,7 @@ body.rtl .form-check .form-check-input {
         padding: 8px 12px!important;
     }
     div.my-auction-counter span{
-        padding: 8px 12px!important;   
+        padding: 8px 12px!important;
     }
     body.rtl span.cat-tags {
         left: unset;
@@ -2725,7 +2725,7 @@ body.rtl .form-check .form-check-input {
     }
     .noti-img {
         display: inline-block;
-        position: unset; 
+        position: unset;
         width: 100%;
         text-align: center;
     }
@@ -3106,7 +3106,7 @@ body.rtl .form-check .form-check-input {
     }
     .noti-img {
         display: inline-block;
-        position: unset; 
+        position: unset;
         width: 100%;
         text-align: center;
     }
@@ -3454,7 +3454,7 @@ body.rtl .form-check .form-check-input {
     }
     .noti-img {
         display: inline-block;
-        position: unset; 
+        position: unset;
         width: 260px;
         text-align: center;
     }

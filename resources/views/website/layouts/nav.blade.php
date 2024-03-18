@@ -65,7 +65,7 @@
                 </li>
                 <li class="nav-item language">
                     <div
-                        class="form-check form-switch language-change @if((string)App::getLocale() === 'en') chked @endif">
+                            class="form-check form-switch language-change @if((string)App::getLocale() === 'en') chked @endif">
                         <label class="form-check-label" for="flexSwitchCheckDefault">AR</label>
                         @if((string)App::getLocale() === 'en')
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
@@ -81,8 +81,10 @@
         </div>
     </div>
 </nav>
-
-<section id="hero">
+@php
+    $main_image = DB::table('site_settings')->where('setting_key','WEBSITE_MAIN_IMAGE')->first()->setting_value;
+@endphp
+<section id="hero" @if(!empty($main_image)) style="background-image: url('{{ asset($main_image) }}')" @else style="background-image: url('{{asset('web/assets/images/hero-banner.jpg')}}')" @endif>
     <div class="container">
         <div class="col-md-3">
             @php
@@ -138,11 +140,11 @@
             <div class="col-lg-2 col-md-3 offset-md-3 offset-lg-6">
                 <div class="download-app text-center">
                     <a href="{{$app_store_link}}" target="_blank"
-                        {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                            {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                     >
                         <img src="{{asset('web/assets/images/app-store.png')}}"></a>
                     <a href="{{$play_store_link}}" target="_blank"
-                        {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
+                            {{--                       data-bs-toggle="modal" data-bs-target="#commingsoon"--}}
                     >
                         <img src="{{asset('web/assets/images/google-play.png')}}"></a>
                     <p>{{trans('web_string.download_now')}}</p>
@@ -219,7 +221,7 @@
                                         <button type="button"
                                                 id="seller_filterData">{{trans('web_string.submit')}}</button>
                                         <a href="javascript:void(0)" class="close-filter"><i
-                                                class="las la-times"></i></a>
+                                                    class="las la-times"></i></a>
                                     </div>
                                     <div class="f-body">
                                         <div class="row">
@@ -276,7 +278,7 @@
                                                     <select class="form-select" name="category" id="category"
                                                             aria-label="Default select example">
                                                         <option
-                                                            value="">{{trans('web_string.select_category')}}</option>
+                                                                value="">{{trans('web_string.select_category')}}</option>
                                                         @foreach($v_categories as $v_category)
                                                             <option value="{{$v_category->id}}"
                                                                     @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
@@ -290,7 +292,7 @@
                                                     <select class="form-select" name="city" id="city"
                                                             aria-label="Default select example">
                                                         <option
-                                                            value="">{{trans('web_string.select_city')}}</option>
+                                                                value="">{{trans('web_string.select_city')}}</option>
                                                         @foreach($cities as $city)
                                                             <option value="{{$city->id}}"
                                                                     @if(request()->get('city') == $city->id) selected @endif>{{$city->name}}</option>
@@ -432,7 +434,7 @@
                                         <a href="{{route('/')}}">{{trans('web_string.reset_all')}}</a>
                                         <button type="button" id="filterData">{{trans('web_string.submit')}}</button>
                                         <a href="javascript:void(0)" class="close-filter"><i
-                                                class="las la-times"></i></a>
+                                                    class="las la-times"></i></a>
                                     </div>
                                     <div class="f-body">
                                         <div class="row">
@@ -489,7 +491,7 @@
                                                     <select class="form-select" name="category" id="category"
                                                             aria-label="Default select example">
                                                         <option
-                                                            value="">{{trans('web_string.select_category')}}</option>
+                                                                value="">{{trans('web_string.select_category')}}</option>
                                                         @foreach($v_categories as $v_category)
                                                             <option value="{{$v_category->id}}"
                                                                     @if(request()->get('category') == $v_category->id) selected @endif>{{$v_category->name}}</option>
@@ -503,7 +505,7 @@
                                                     <select class="form-select" name="city" id="city"
                                                             aria-label="Default select example">
                                                         <option
-                                                            value="">{{trans('web_string.select_city')}}</option>
+                                                                value="">{{trans('web_string.select_city')}}</option>
                                                         @foreach($cities as $city)
                                                             <option value="{{$city->id}}"
                                                                     @if(request()->get('city') == $city->id) selected @endif>{{$city->name}}</option>

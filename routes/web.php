@@ -36,6 +36,7 @@ Route::group(['middleware' => ['websiteLanguageCheck']], function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('/logout');
     Route::get('language/{code}', [LanguageController::class, 'changeLanguage'])->name('language');
     Route::get('vehicle-details/{id}', [HomeController::class, 'vehicleDetail'])->name('vehicle-details');
+    Route::get('vehicle-detail/{id}', [HomeController::class, 'homeVehicleDetail'])->name('vehicle-detail');
     Route::get('car-inquiry/{id}', [HomeController::class, 'vehicleInquiry'])->name('car-inquiry');
     Route::get('vehicle-bid-modal/{id}', [HomeController::class, 'vehicleBid'])->name('vehicle-bid-modal');
     Route::get('type-wise-car/{flag}', [HomeController::class, 'typeWiseCar'])->name('type-wise-car');

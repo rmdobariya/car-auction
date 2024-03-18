@@ -46,7 +46,7 @@
                 <div class="menu-item">
                     <div class="menu-content pt-8 pb-2">
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">
-                           Dashboard
+                           {{trans('admin_string.dashboard')}}
                         </span>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 </div>
                 @if(Auth::user()->can('setting-read') || Auth::user()->can('page-read')|| Auth::user()->can('news-read')|| Auth::user()->can('testimonial-read'))
                 <div data-kt-menu-trigger="click"
-                     class="menu-item menu-accordion  {{ (request()->segment(2) == 'setting' || (request()->segment(2) == 'page')) ? 'show' : '' }} ">
+                     class="menu-item menu-accordion  {{ (request()->segment(2) == 'setting' || (request()->segment(2) == 'page') || (request()->segment(2) == 'testimonial') || (request()->segment(2) == 'news')) ? 'show' : '' }} ">
                 <span class="menu-link">
                     <span class="menu-icon">
 						<span class="menu-icon">
@@ -307,3 +307,5 @@
     </div>
 
 </div>
+
+63548 36994
