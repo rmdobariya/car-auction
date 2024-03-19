@@ -214,4 +214,9 @@
   'select_city' => 'Select City',
   'last_amount_is' => 'Last Amount Is:',
   'select_all' => 'Select All',
+  'bank_name' => 'Bank Name',
+  'iban' => 'IBAN',
+  'account_no' => 'Account No',
+  'location' => 'Location',
+  'national_id_no' => 'National Id No',
 );

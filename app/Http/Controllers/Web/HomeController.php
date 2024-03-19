@@ -129,7 +129,7 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
-                ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         return view('website.home.index', [
@@ -449,6 +449,7 @@ class HomeController extends Controller
             'modal_title' => $vehicle->name,
         ]);
     }
+
     public function homeVehicleDetail($id)
     {
         $vehicle = DB::table('vehicles')
@@ -507,6 +508,11 @@ class HomeController extends Controller
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->first();
+        $bank_name = DB::table('site_settings')->where('setting_key', 'BANK_NAME')->first()->setting_value;
+        $iban = DB::table('site_settings')->where('setting_key', 'IBAN')->first()->setting_value;
+        $account_no = DB::table('site_settings')->where('setting_key', 'ACCOUNT_NO')->first()->setting_value;
+        $location = DB::table('site_settings')->where('setting_key', 'LOCATION')->first()->setting_value;
+        $national_id_no = DB::table('site_settings')->where('setting_key', 'NATIONAL_ID_NO')->first()->setting_value;
         $last_bid_amount = $vehicle->price;
         $bid_amount = $vehicle->price + $vehicle->bid_increment;
         $bid = DB::table('vehicle_bids')->where('vehicle_id', $id)->orderBy('id', 'desc')->first();
@@ -518,6 +524,11 @@ class HomeController extends Controller
             'vehicle' => $vehicle,
             'last_bid_amount' => $last_bid_amount,
             'bid_amount' => $bid_amount,
+            'bank_name' => $bank_name,
+            'iban' => $iban,
+            'account_no' => $account_no,
+            'location' => $location,
+            'national_id_no' => $national_id_no,
         ])->render();
 
         return response()->json([

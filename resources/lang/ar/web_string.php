@@ -214,4 +214,9 @@
   'select_city' => 'اختر المدينة',
   'last_amount_is' => 'المبلغ الأخير هو:',
   'select_all' => 'حدد الكل',
+  'bank_name' => 'اسم البنك',
+  'iban' => 'ايبان',
+  'account_no' => 'رقم الحساب',
+  'location' => 'مكان',
+  'national_id_no' => 'رقم الهوية الوطنية',
 );

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BankStoreRequest;
 use App\Http\Requests\Admin\ContactInfoStoreRequest;
 use App\Http\Requests\Admin\GeneralSettingStoreRequest;
 use App\Http\Requests\Admin\EmailSettingStoreRequest;
@@ -123,6 +124,19 @@ class SettingController extends Controller
 
         return response()->json([
             'message' => trans('admin_string.social_media_update_successfully'),
+        ]);
+    }
+    public function bankStoreStore(BankStoreRequest $request)
+    {
+        $array = $request->setting_key;
+        foreach ($array as $key => $setting_value) {
+            DB::table('site_settings')->where('setting_key', $key)->update([
+                'setting_value' => $setting_value
+            ]);
+        }
+
+        return response()->json([
+            'message' => trans('admin_string.bank_detail_update_successfully'),
         ]);
     }
 

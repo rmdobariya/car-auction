@@ -57,6 +57,14 @@
                                     {{trans('admin_string.social_media')}}
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary d-flex align-items-center pb-5"
+                                   data-bs-toggle="tab" href="#bank_setting">
+                                    <i class="ki-duotone ki-home fs-2 me-2"></i>
+                                    {{trans('admin_string.bank_detail')}}
+                                </a>
+                            </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
@@ -458,6 +466,49 @@
                                     </div>
                                 </form>
                             </div>
+
+                            <div class="tab-pane fade" id="bank_setting" role="tabpanel">
+                                <form id="bank_form" class="form" action="#">
+                                    <div class="row mb-7">
+                                        <div class="col-md-9 offset-md-3">
+                                            <h2>{{trans('admin_string.bank_detail')}}</h2>
+                                        </div>
+                                    </div>
+                                    @foreach($settings as $setting)
+                                        @if((string)$setting->setting_key === 'BANK_NAME' || (string)$setting->setting_key === 'IBAN' || (string)$setting->setting_key === 'ACCOUNT_NO' || (string)$setting->setting_key === 'LOCATION' || (string)$setting->setting_key === 'NATIONAL_ID_NO')
+                                            <div class="row fv-row mb-7">
+                                                <div class="col-md-3 text-md-end">
+                                                    <label class="fs-6 fw-semibold form-label mt-3">
+                                                        <span
+                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                        <span class="ms-1" data-bs-toggle="tooltip"
+                                                              title="Set the name of the store">
+	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
+            class="path2"></span><span class="path3"></span></i></span> </label>
+                                                </div>
+
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control form-control-solid"
+                                                           name="setting_key[{{$setting->setting_key}}]"
+                                                           id="{{$setting->setting_key}}"
+                                                           value="{{$setting->setting_value}}"/>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+
+                                    <div class="d-flex justify-content-end mt-3 text-end p-3 btn-showcase">
+                                        <button class="btn btn-primary me-3" type="submit">
+                                            {{trans('admin_string.common_submit')}}
+                                        </button>
+                                        <a href="#">
+                                            <button class="btn btn-secondary" type="button">
+                                                {{trans('admin_string.common_cancel')}}
+                                            </button>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -472,6 +523,7 @@
         var app_setting_form_url = '/app-setting-store';
         var contact_info_form_url = '/contact-info-store';
         var social_media_form_url = '/social-media-store';
+        var bank_form_url = '/bank-detail-store';
         var redirect_url = '/setting';
     </script>
     <script>

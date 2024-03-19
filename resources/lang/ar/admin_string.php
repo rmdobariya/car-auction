@@ -262,4 +262,6 @@
   'create' => 'خلق',
   'designed_developed_by_promar_creative' => 'تصميم وتطوير برومار كرييتف',
   'bid_count' => 'عدد العطاءات',
+  'bank_detail' => 'تفاصيل البنك',
+  'bank_detail_update_successfully' => 'تحديث تفاصيل البنك بنجاح',
 );

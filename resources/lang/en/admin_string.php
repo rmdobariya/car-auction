@@ -262,4 +262,6 @@
   'create' => 'Create',
   'designed_developed_by_promar_creative' => 'Designed & Developed by ProMar Creative',
   'bid_count' => 'Bid Count',
+  'bank_detail' => 'Bank Detail',
+  'bank_detail_update_successfully' => 'Bank Detail Update Successfully',
 );

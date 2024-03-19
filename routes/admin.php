@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::post('app-setting-store', [SettingController::class, 'appSettingStore'])->name('app-setting-store');
     Route::post('contact-info-store', [SettingController::class, 'contactInfoStore'])->name('contact-info-store');
     Route::post('social-media-store', [SettingController::class, 'socialMediaStore'])->name('social-media-store');
+    Route::post('bank-detail-store', [SettingController::class, 'bankStoreStore'])->name('bank-detail-store');
 
     Route::resource('page', PageController::class);
     Route::get('get-page-list', [PageController::class, 'getPageList'])->name('get-page-list');
