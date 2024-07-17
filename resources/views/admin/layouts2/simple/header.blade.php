@@ -3,27 +3,27 @@
         <div class="d-flex align-items-center d-lg-none ms-n2 me-2" title="Show aside menu">
             <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
                  id="kt_aside_mobile_toggle">
-                <span class="svg-icon svg-icon-1">
+                <span class="svg-icon svg-icon-1 theme-color">
                     <span data-feather="align-justify"></span>
                 </span>
             </div>
         </div>
         <button type="button" style="display: none" id="trigger_click"></button>
 
-        <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
+        <div class="d-flex align-items-stretch justify-content-end flex-lg-grow-1">
             <div class="d-flex align-items-stretch" id="kt_header_nav"></div>
-            <div class="d-flex align-items-stretch flex-shrink-0">
+            <div class="d-flex align-items-stretch flex-shrink-0 m-5">
                 <!-- Notification Bell Icon with Count -->
-                <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+                <div class="d-flex align-items-center ms-1 ms-lg-3 " id="kt_header_user_menu_toggle">
                     <a href="{{route('admin.notification')}}">
                     <span class="menu-icon position-relative">
-                        <span class="svg-icon svg-icon-2">
+                        <span class="svg-icon svg-icon-2 theme-color">
                             <span data-feather="bell"></span>
                         </span>
                         @php
                             $notification_count = DB::table('notifications')->where('is_read',0)->count();
                         @endphp
-                        <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle">
+                        <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle" style="background-color: #673aaa !important;">
                             {{$notification_count}}
                         </span>
                     </span>
@@ -77,7 +77,7 @@
                                         @else
                                             عربى
                                             <img class="rounded-1"
-                                                 src="{{ asset('assets/media/flags/united-arab-emirates.svg') }}"
+                                                 src="{{ asset('assets/media/flags/saudi-arabia.svg') }}"
                                                  alt=""/>
                                         @endif
                                     </span>
@@ -99,7 +99,7 @@
                                        class="menu-link d-flex px-5 @if(Auth::guard('admin')->user()->locale=='ar') active @endif">
                                         <span class="symbol symbol-20px me-4">
                                             <img class="rounded-1"
-                                                 src="{{ asset('assets/media/flags/united-arab-emirates.svg') }}" alt=""/>
+                                                 src="{{ asset('assets/media/flags/saudi-arabia.svg') }}" alt=""/>
                                         </span>عربى
                                     </a>
                                 </div>

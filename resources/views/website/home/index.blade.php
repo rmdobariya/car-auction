@@ -33,7 +33,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($sell_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
+                                            src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
                                     @if(!is_null(Auth::user()))
                                         @if($sell_vehicle->user_id != Auth::user()->id)
                                             <a class="like" href="#" data-id="{{$sell_vehicle->id}}"
@@ -64,38 +64,46 @@
                                     </div>
                                 </div>
                                 <div class="car-specifation">
-                                    <div class="car-dt">
-                                        <div class="icon">
-                                            <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                    @if(!is_null($sell_vehicle->kms_driven))
+                                        <div class="car-dt">
+                                            <div class="icon">
+                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                            </div>
+                                            <div class="detsl">
+                                                {{$sell_vehicle->kms_driven}}
+                                            </div>
                                         </div>
-                                        <div class="detsl">
-                                            {{$sell_vehicle->kms_driven}}
+                                    @endif
+                                    @if(!is_null($sell_vehicle->mileage))
+                                        <div class="car-dt">
+                                            <div class="icon">
+                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                            </div>
+                                            <div class="detsl">
+                                                {{$sell_vehicle->mileage}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="car-dt">
-                                        <div class="icon">
-                                            <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                    @endif
+                                    @if(!is_null($sell_vehicle->fuel_type))
+                                        <div class="car-dt">
+                                            <div class="icon">
+                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                            </div>
+                                            <div class="detsl">
+                                                {{$sell_vehicle->fuel_type}}
+                                            </div>
                                         </div>
-                                        <div class="detsl">
-                                            {{$sell_vehicle->mileage}}
+                                    @endif
+                                    @if(!is_null($sell_vehicle->body_type))
+                                        <div class="car-dt">
+                                            <div class="icon">
+                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                            </div>
+                                            <div class="detsl">
+                                                {{$sell_vehicle->body_type}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="car-dt">
-                                        <div class="icon">
-                                            <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                        </div>
-                                        <div class="detsl">
-                                            {{$sell_vehicle->fuel_type}}
-                                        </div>
-                                    </div>
-                                    <div class="car-dt">
-                                        <div class="icon">
-                                            <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                        </div>
-                                        <div class="detsl">
-                                            {{$sell_vehicle->body_type}}
-                                        </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 <div class="car-price">
                                     <div class="initial-price-box">
@@ -140,7 +148,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($featured_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
+                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
                                             {{trans('web_string.featured')}}
                                         @elseif($featured_vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -190,42 +198,50 @@
                                         </div>
                                     </div>
                                     <div class="car-specifation">
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        @if(!is_null($featured_vehicle->kms_driven))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$featured_vehicle->kms_driven}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$featured_vehicle->kms_driven}}
+                                        @endif
+                                        @if(!is_null($featured_vehicle->mileage))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$featured_vehicle->mileage}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        @endif
+                                        @if(!is_null($featured_vehicle->fuel_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$featured_vehicle->fuel_type}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$featured_vehicle->mileage}}
+                                        @endif
+                                        @if(!is_null($featured_vehicle->body_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$featured_vehicle->body_type}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$featured_vehicle->fuel_type}}
-                                            </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$featured_vehicle->body_type}}
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div
-                                        class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -245,7 +261,38 @@
                                         $startDate = Carbon\Carbon::parse($featured_vehicle->auction_start_date);
                                         $endDate = Carbon\Carbon::parse($featured_vehicle->auction_end_date);
                                         $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                        $bid_count = 0;
+                                        $proof_check = null;
+                                        $payment_status = 'pending';
+                                        if(!is_null(Auth::guard('web')->user())){
+                                             $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$featured_vehicle->id)->count();
+                                             $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$featured_vehicle->id)->first();
+                                             if(!is_null($proof_check)){
+                                             $payment_status = $proof_check->status;
+                                             }
+                                        }
                                     @endphp
+                                    @if($dateToCheck->between($startDate, $endDate))
+                                        @if($payment_status == 'reject')
+                                            <a href="#" class="mb-1 text-danger"
+                                               data-id="{{$featured_vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
+                                        @else
+                                            <a href="#"
+                                               class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif"
+                                               data-id="{{$featured_vehicle->id}}">{{trans('web_string.place_bid')}}</a>
+                                        @endif
+
+                                        @if(!is_null($proof_check) && $proof_check->status == 'pending')
+                                            <a href="#" class="mb-1 mt-1"
+                                               data-id="{{$featured_vehicle->id}}">{{trans('web_string.waiting_for_admin_approval')}}</a>
+                                        @elseif(!is_null($proof_check) && $proof_check->status == 'approved')
+                                            <a href="#" class="mb-1 mt-1"
+                                               data-id="{{$featured_vehicle->id}}">{{trans('web_string.payment_proof_approved')}}</a>
+                                        @else
+                                            <a href="#" class="payment-proof mb-1"
+                                               data-id="{{$featured_vehicle->id}}">{{trans('web_string.payment_proof')}}</a>
+                                        @endif
+                                    @endif
                                     @if($dateToCheck->between($startDate, $endDate))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                            data-id="{{$featured_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
@@ -293,7 +340,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($popular_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
+                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
                                             {{trans('web_string.feature')}}
                                         @elseif($popular_vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -343,42 +390,50 @@
                                         </div>
                                     </div>
                                     <div class="car-specifation">
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        @if(!is_null($popular_vehicle->kms_driven))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$popular_vehicle->kms_driven}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$popular_vehicle->kms_driven}}
+                                        @endif
+                                        @if(!is_null($popular_vehicle->mileage))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$popular_vehicle->mileage}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        @endif
+                                        @if(!is_null($popular_vehicle->fuel_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$popular_vehicle->fuel_type}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$popular_vehicle->mileage}}
+                                        @endif
+                                        @if(!is_null($popular_vehicle->body_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$popular_vehicle->body_type}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$popular_vehicle->fuel_type}}
-                                            </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$popular_vehicle->body_type}}
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div
-                                        class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -398,7 +453,38 @@
                                         $startDate = Carbon\Carbon::parse($popular_vehicle->auction_start_date);
                                         $endDate = Carbon\Carbon::parse($popular_vehicle->auction_end_date);
                                         $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                    $bid_count = 0;
+                                        $proof_check = null;
+                                        $payment_status = 'pending';
+                                        if(!is_null(Auth::guard('web')->user())){
+                                             $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$popular_vehicle->id)->count();
+                                             $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$popular_vehicle->id)->first();
+                                             if(!is_null($proof_check)){
+                                             $payment_status = $proof_check->status;
+                                             }
+                                        }
                                     @endphp
+                                    @if($dateToCheck->between($startDate, $endDate))
+                                        @if($payment_status == 'reject')
+                                            <a href="#" class="mb-1 text-danger"
+                                               data-id="{{$popular_vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
+                                        @else
+                                            <a href="#"
+                                               class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif"
+                                               data-id="{{$popular_vehicle->id}}">{{trans('web_string.place_bid')}}</a>
+                                        @endif
+
+                                        @if(!is_null($proof_check) && $proof_check->status == 'pending')
+                                            <a href="#" class="mb-1 mt-1"
+                                               data-id="{{$popular_vehicle->id}}">{{trans('web_string.waiting_for_admin_approval')}}</a>
+                                        @elseif(!is_null($proof_check) && $proof_check->status == 'approved')
+                                            <a href="#" class="mb-1 mt-1"
+                                               data-id="{{$popular_vehicle->id}}">{{trans('web_string.payment_proof_approved')}}</a>
+                                        @else
+                                            <a href="#" class="payment-proof mb-1"
+                                               data-id="{{$popular_vehicle->id}}">{{trans('web_string.payment_proof')}}</a>
+                                        @endif
+                                    @endif
                                     @if($dateToCheck->between($startDate, $endDate))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                            data-id="{{$popular_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
@@ -446,7 +532,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($hot_deal_vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
+                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
                                             {{trans('web_string.featured')}}
                                         @elseif($hot_deal_vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -496,42 +582,50 @@
                                         </div>
                                     </div>
                                     <div class="car-specifation">
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        @if(!is_null($hot_deal_vehicle->kms_driven))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$hot_deal_vehicle->kms_driven}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$hot_deal_vehicle->kms_driven}}
+                                        @endif
+                                        @if(!is_null($hot_deal_vehicle->mileage))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$hot_deal_vehicle->mileage}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        @endif
+                                        @if(!is_null($hot_deal_vehicle->fuel_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$hot_deal_vehicle->fuel_type}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$hot_deal_vehicle->mileage}}
+                                        @endif
+                                        @if(!is_null($hot_deal_vehicle->body_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$hot_deal_vehicle->body_type}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$hot_deal_vehicle->fuel_type}}
-                                            </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$hot_deal_vehicle->body_type}}
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div
-                                        class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -551,7 +645,38 @@
                                         $startDate = Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date);
                                         $endDate = Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date);
                                         $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                   $bid_count = 0;
+                                        $proof_check = null;
+                                        $payment_status = 'pending';
+                                        if(!is_null(Auth::guard('web')->user())){
+                                             $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$hot_deal_vehicle->id)->count();
+                                             $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$hot_deal_vehicle->id)->first();
+                                             if(!is_null($proof_check)){
+                                             $payment_status = $proof_check->status;
+                                             }
+                                        }
                                     @endphp
+                                    @if($dateToCheck->between($startDate, $endDate))
+                                        @if($payment_status == 'reject')
+                                            <a href="#" class="mb-1 text-danger"
+                                               data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
+                                        @else
+                                            <a href="#"
+                                               class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif"
+                                               data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.place_bid')}}</a>
+                                        @endif
+
+                                        @if(!is_null($proof_check) && $proof_check->status == 'pending')
+                                            <a href="#" class="mb-1 mt-1"
+                                               data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.waiting_for_admin_approval')}}</a>
+                                        @elseif(!is_null($proof_check) && $proof_check->status == 'approved')
+                                            <a href="#" class="mb-1 mt-1"
+                                               data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.payment_proof_approved')}}</a>
+                                        @else
+                                            <a href="#" class="payment-proof mb-1"
+                                               data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.payment_proof')}}</a>
+                                        @endif
+                                    @endif
                                     @if($dateToCheck->between($startDate, $endDate))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                            data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
@@ -575,11 +700,15 @@
     <section id="testimonial">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12">
                     <div class="title">
                         <h1>{{trans('web_string.corporate_seller')}}</h1>
+                        @if(count($corporate_sellers) > 2)
+                            <a href="{{route('corporate-seller-page')}}">{{trans('web_string.common_view_all')}}</a>
+                        @endif
                     </div>
                 </div>
+                <div class="clearfix"></div>
                 <div class="col-md-12">
                     <div class="testimonial">
                         <div class="container">
@@ -721,8 +850,8 @@
                                                                 <span>{{Carbon\Carbon::parse($new->created_at)->format('M d ,Y')}}</span>
                                                             </div>
                                                             <h1>{{$new->title}}</h1>
-                                                            <p>{{$new->description}}</p>
-                                                            <a href="#">{{trans('web_string.read_now')}}</a>
+                                                            <p>{{ Str::limit($new->description, 50) }}</p>
+                                                            <a href="{{route('newDetail',$new->id)}}">{{trans('web_string.read_now')}}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -743,8 +872,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hot Deal Vehicle</h5>
-                    <button type="button" class="btn-close btn btn-secondary" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">{{trans('web_string.hot_deal_vehicles')}}</h5>
+                    <button type="button" class="btn-close btn btn-primary" data-bs-dismiss="modal"
+                            aria-label="Close"
+                            style="color: #000;text-decoration: none;opacity: .75;background-color: #2C2C2C;border-color: #2C2C2C;"></button>
                 </div>
                 <div class="modal-body">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -776,8 +907,16 @@
     </div>
 @endsection
 @section('custom-script')
+    <script>
+        let day_string = '{{trans('web_string.day')}}';
+        let hour_string = '{{trans('web_string.hours')}}';
+        let min_string = '{{trans('web_string.mins')}}';
+        let sec_string = '{{trans('web_string.sec')}}';
+    </script>
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
+        var modal_hot_deal_count = '{{$modal_hot_deal_vehicles->count()}}'
+        console.log(modal_hot_deal_count)
         var $j_object = $(".vehicle_id");
         $j_object.each(function (i) {
             var id = $(this).val();
@@ -791,7 +930,7 @@
             $("#my-auction-counter_" + id)
                 .countdown(formattedDateTime, function (event) {
                     $("#my-auction-counter_" + id).html(
-                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+                        event.strftime('<span>' + day_string + '<strong>%D</strong></span> <span>' + hour_string + '<strong>%H</strong></span> <span>' + min_string + '<strong>%M</strong> </span> <span>' + sec_string + '<strong>%S</strong></span>')
                     );
                 });
         });
@@ -880,12 +1019,47 @@
                     loaderHide()
                 })
         })
+        if (modal_hot_deal_count > 0) {
+            $(document).ready(function () {
+                setTimeout(function () {
+                    $('#hotDealModal').modal('show');
+                }, 10000); // 30 seconds
+            });
+        }
+        $('.place-bid').on('click', function () {
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/vehicle-bid-modal' + '/' + value_id)
+                .then(function (response) {
+                    $('#vehicle_bid_label').html(response.data.modal_title)
+                    $('#vehicle_bid_body').html(response.data.data)
 
-        $(document).ready(function () {
-            setTimeout(function () {
-                $('#hotDealModal').modal('show');
-            }, 10000); // 30 seconds
-        });
+                    $('#vehicle_bid_modal').modal('show')
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
+
+        })
+        $('.payment-proof').on('click', function () {
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/payment-proof-modal' + '/' + value_id)
+                .then(function (response) {
+                    $('#paymentProofLabel').html(response.data.modal_title)
+                    $('#payment_poof_body').html(response.data.data)
+
+                    $('#payment_poof_modal').modal('show')
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
+
+        })
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-..."
             crossorigin="anonymous"></script>

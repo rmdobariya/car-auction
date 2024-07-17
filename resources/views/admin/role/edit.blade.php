@@ -42,7 +42,12 @@
                                                     @foreach($permissions as $permission)
                                                         <tr>
                                                             <th scope="row"
-                                                                class="fs-6 fw-bold mb-2">{{$permission->module_name}}
+                                                                class="fs-6 fw-bold mb-2">
+                                                                @if(App::getLocale() == 'ar')
+                                                                    {{$permission->ar_module_name}}
+                                                                @else
+                                                                    {{$permission->module_name}}
+                                                                @endif
                                                             </th>
                                                             <?php
                                                             $pers = \Spatie\Permission\Models\Permission::where('module_name', $permission->module_name)->get();
@@ -60,7 +65,13 @@
                                                                                    @if(in_array($per->id,$rolePermissions)) checked
                                                                                 @endif/>
                                                                             <span
-                                                                                class="form-check-label">{{$per->name}}</span>
+                                                                                class="form-check-label">
+                                                                                 @if(App::getLocale() == 'ar')
+                                                                                    {{$per->ar_name}}
+                                                                                @else
+                                                                                    {{$per->name}}
+                                                                                @endif
+                                                                            </span>
                                                                         </label>
                                                                     </div>
                                                                 </td>

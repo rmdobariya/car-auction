@@ -114,12 +114,16 @@ class VehicleController extends Controller
                     $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
                     $vehicle->main_image = $image;
                 }
+                if ($request->hasfile('car_report')) {
+                    $car_report = ImageUploadHelper::imageUpload($request->file('car_report'), 'vehicle');
+                    $vehicle->car_report = $car_report;
+                }
                 $vehicle->save();
                 $languages = CatchCreateHelper::getLanguage(App::getLocale());
                 foreach ($languages as $language) {
                     VehicleTranslation::create([
                         'name' => $request->input($language['language_code'] . '_name'),
-                        'short_description' => $request->input($language['language_code'] . '_short_description'),
+//                        'short_description' => $request->input($language['language_code'] . '_short_description'),
                         'make' => $request->input($language['language_code'] . '_make'),
                         'model' => $request->input($language['language_code'] . '_model'),
                         'trim' => $request->input($language['language_code'] . '_trim'),
@@ -175,6 +179,10 @@ class VehicleController extends Controller
                     $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
                     $vehicle->main_image = $image;
                 }
+                if ($request->hasfile('car_report')) {
+                    $car_report = ImageUploadHelper::imageUpload($request->file('car_report'), 'vehicle');
+                    $vehicle->car_report = $car_report;
+                }
                 $vehicle->save();
                 $languages = CatchCreateHelper::getLanguage(App::getLocale());
                 foreach ($languages as $language) {
@@ -187,7 +195,7 @@ class VehicleController extends Controller
                             'vehicle_id' => $validated['edit_value'],
                             'locale' => $language['language_code'],
                             'name' => $request->input($language['language_code'] . '_name'),
-                            'short_description' => $request->input($language['language_code'] . '_short_description'),
+//                            'short_description' => $request->input($language['language_code'] . '_short_description'),
                             'make' => $request->input($language['language_code'] . '_make'),
                             'model' => $request->input($language['language_code'] . '_model'),
                             'trim' => $request->input($language['language_code'] . '_trim'),

@@ -34,7 +34,7 @@
                                     <input type="email" class="form-control form-control-solid"
                                            name="email" readonly id="email"
                                            value="{{ Auth::guard('admin')->user()->email }}"
-                                           placeholder="Email" required/>
+                                           placeholder="{{trans('admin_string.email')}}" required/>
                                 </div>
 
 {{--                                <div class="fv-row mb-7 fv-plugins-icon-container">--}}

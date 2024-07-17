@@ -22,6 +22,7 @@ class NotificationController extends Controller
             ->where('notifications.user_id', Auth::user()->id)
             ->whereNull('notifications.deleted_at')
             ->select('notifications.*', 'vehicle_translations.name as vehicle_name', 'vehicles.main_image as vehicle_image')
+            ->orderBy('notifications.id','desc')
             ->get();
         return view('website.user.notification', [
             'notifications' => $notifications,

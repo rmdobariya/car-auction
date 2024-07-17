@@ -25,7 +25,7 @@ class VehicleStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'edit_value' => 'required',
             'year' => 'required',
             'make_*' => 'required',
@@ -48,11 +48,17 @@ class VehicleStoreRequest extends FormRequest
             'color_*' => 'required',
             'car_type_*' => 'required',
             'vehicle_category_id' => 'required',
-            'short_description_*' => 'required',
+//            'short_description_*' => 'required',
             'description_*' => 'required',
             'name_*' => 'required',
             'is_vehicle_type' => 'required',
+            'car_report_changed' => 'required',
         ];
+        if ($this->input('car_report_changed') == 1) {
+            $rules['car_report'] = 'required|mimes:pdf';
+        }
+
+        return $rules;
     }
 
     public function failedValidation(Validator $validator)

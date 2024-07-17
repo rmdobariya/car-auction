@@ -16,9 +16,10 @@
 <script src="{{asset('assets/js/custom/utilities/modals/create-campaign.js')}}"></script>
 <script src="{{asset('assets/js/custom/utilities/modals/create-app.js')}}"></script>
 <script src="{{asset('assets/js/custom/utilities/modals/users-search.js')}}"></script>
-  <script src="{{ asset('assets/plugins/parsley-js/en.js') }}"></script>
+<script src="{{ asset('assets/plugins/parsley-js/en.js') }}"></script>
 <script src="{{ asset('assets/plugins/blockUI/blockUI.js') }}"></script>
 <script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script src="{{ asset('assets/admin/custom/custom.js') }}"></script>
 
@@ -27,4 +28,16 @@
         src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css"
       href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+@if(Auth::guard('admin')->user()->locale=='ar')
+    <script src="{{asset('assets/admin/datatables/ar.json')}}"></script>
+    <script>
+        $.extend(true, $.fn.dataTable.defaults, {
+            responsive: true,
+            language: {
+                url: "/assets/admin/datatables/ar.json"
+            },
+        })
+    </script>
+@endif
 @yield('custom-script')
+

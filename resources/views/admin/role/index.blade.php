@@ -13,7 +13,7 @@
             <div id="kt_content_container" class="container-fluid">
                 <div class="card">
                     <div class="card-header border-0 pt-6">
-                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=>'Search Role'])
+                        @include('admin.layouts2.components.search-text-box',['search_place_holder'=> trans('admin_string.search_role')])
                     </div>
 
                     <div class="card-body pt-0">

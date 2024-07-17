@@ -80,41 +80,50 @@
                                              id="my-auction-counter_{{$winner_bid->id}}"></div>
                                     </div>
                                     <div class="car-specifation">
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        @if(!is_null($winner_bid->kms_driven))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$winner_bid->kms_driven}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$winner_bid->kms_driven}}
+                                        @endif
+                                        @if(!is_null($winner_bid->mileage))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$winner_bid->mileage}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        @endif
+                                        @if(!is_null($winner_bid->fuel_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$winner_bid->fuel_type}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$winner_bid->mileage}}
+                                        @endif
+                                        @if(!is_null($winner_bid->body_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$winner_bid->body_type}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$winner_bid->fuel_type}}
-                                            </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$winner_bid->body_type}}
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
+                                <div
+                                    class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($winner_bid->price)}}</h3>

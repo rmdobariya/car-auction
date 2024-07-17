@@ -6,15 +6,19 @@
 
         <h3 class="mt-3 text-black mx-auto">
             @if(!empty($logo))
+                <a href="{{route('admin.dashboard')}}">
                 <img alt="Logo"
                      src="{{asset($logo)}}"
                      class="h-40px logo"
                      style="background-color: white;"/>
+                </a>
             @else
+                <a href="{{route('admin.dashboard')}}">
                 <img alt="Logo"
                      src="{{ asset('assets/media/logos/logo-1.png') }}"
                      class="h-40px logo"
                      style="background-color: white;"/>
+                </a>
             @endif
         </h3>
 
@@ -24,7 +28,7 @@
              data-kt-toggle-state="active"
              data-kt-toggle-target="body"
              data-kt-toggle-name="aside-minimize">
-            <span class="svg-icon svg-icon-1 rotate-180">
+            <span class="svg-icon svg-icon-1 rotate-180 theme-color">
                    <span data-feather="chevrons-left"></span>
                 </span>
         </div>
@@ -291,6 +295,32 @@
                             </span>
                         </span>
                             <span class="menu-title"> {{trans('admin_string.language_string')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('bid-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'bid') ? 'active' : '' }}"
+                           href="{{ route('admin.bid.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                               <span data-feather="archive"></span>
+                            </span>
+                        </span>
+                            <span class="menu-title"> {{trans('admin_string.bids')}}</span>
+                        </a>
+                    </div>
+                @endif
+                @if(Auth::user()->can('payment-proof-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'payment-proof') ? 'active' : '' }}"
+                           href="{{ route('admin.payment-proof.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                               <span data-feather="dollar-sign"></span>
+                            </span>
+                        </span>
+                            <span class="menu-title"> {{trans('admin_string.payment_proofs')}}</span>
                         </a>
                     </div>
                 @endif

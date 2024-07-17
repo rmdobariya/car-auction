@@ -39,7 +39,7 @@
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="contact_no"
                                                    id="contact_no"
-                                                   placeholder="Contact No"/>
+                                                   placeholder="{{trans('admin_string.contact_no')}}"/>
                                         </div>
                                     </div>
                                 </div>

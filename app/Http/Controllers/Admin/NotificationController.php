@@ -30,7 +30,9 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $notifications = DB::table('notifications')->where('is_read', 0)->get();
+        $notifications = DB::table('notifications')
+            ->where('is_read', 0)
+            ->get();
         foreach ($notifications as $notification) {
             DB::table('notifications')->where('id', $notification->id)->update([
                 'is_read' => 1
@@ -52,7 +54,8 @@ class NotificationController extends Controller
         if ($request->ajax()) {
             $notification = DB::table('notifications')
                 ->leftJoin('users', 'notifications.user_id', 'users.id')
-                ->select('notifications.*', 'users.name as user_name');
+                ->select('notifications.*', 'users.name as user_name')
+            ->orderBy('id','desc');
             return Datatables::of($notification)
                 ->addColumn('action', function ($notification) {
                     $array = [
@@ -70,7 +73,7 @@ class NotificationController extends Controller
 
                     return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $notification->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $notification->id . ' id="single_select">
                     </div>
                 </td>';
                 })

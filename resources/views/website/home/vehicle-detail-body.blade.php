@@ -8,9 +8,9 @@
                     </div>
 
                     @foreach($vehicle_images as $vehicle_image)
-                    <div class="swiper-slide">
-                        <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
-                    </div>
+                        <div class="swiper-slide">
+                            <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
+                        </div>
                     @endforeach
                 </div>
                 <div class="swiper-button-next"></div>
@@ -23,24 +23,26 @@
                         <img src="{{asset($vehicle->main_image)}}" alt="..." class="img-fluid">
                     </div>
                     @foreach($vehicle_images as $vehicle_image)
-                    <div class="swiper-slide">
-                        <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
-                    </div>
+                        <div class="swiper-slide">
+                            <img src="{{asset($vehicle_image->image)}}" alt="..." class="img-fluid">
+                        </div>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
     <div class="car-dtlist">
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
-                <p>{{trans('web_string.registration_year')}}</p>
+        @if(!is_null($vehicle->year))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
+                    <p>{{trans('web_string.registration_year')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->year}}</p>
+                </div>
             </div>
-            <div class="value">
-                <p>{{$vehicle->year}}</p>
-            </div>
-        </div>
+        @endif
         <div class="dtl-box">
             <div class="tit">
                 <img src="{{asset('web/assets/images/make.svg')}}" align="road">
@@ -59,78 +61,92 @@
                 <p>{{$vehicle->model}}</p>
             </div>
         </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/trim.svg')}}" align="road">
-                <p>{{trans('web_string.trim')}}</p>
+        @if(!is_null($vehicle->trim))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/trim.svg')}}" align="road">
+                    <p>{{trans('web_string.trim')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->trim}}</p>
+                </div>
             </div>
-            <div class="value">
-                <p>{{$vehicle->trim}}</p>
+        @endif
+        @if(!is_null($vehicle->kms_driven))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/kms-driven.svg')}}" align="road">
+                    <p>{{trans('web_string.kms_driven')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->kms_driven}}</p>
+                </div>
             </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/kms-driven.svg')}}" align="road">
-                <p>{{trans('web_string.kms_driven')}}</p>
+        @endif
+        {{--        <div class="dtl-box">--}}
+        {{--            <div class="tit">--}}
+        {{--                <img src="{{asset('web/assets/images/no-of-owners.svg')}}" align="road">--}}
+        {{--                <p>{{trans('web_string.no_of_owners')}}</p>--}}
+        {{--            </div>--}}
+        {{--            <div class="value">--}}
+        {{--                <p>{{$vehicle->owners}}</p>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
+        @if(!is_null($vehicle->transmission))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/transmission.svg')}}" align="road">
+                    <p>{{trans('web_string.transmission')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->transmission}}</p>
+                </div>
             </div>
-            <div class="value">
-                <p>{{$vehicle->kms_driven}}</p>
+        @endif
+        @if(!is_null($vehicle->fuel_type))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/fuel-type.svg')}}" align="petrol">
+                    <p>{{trans('web_string.fuel_type')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->fuel_type}}</p>
+                </div>
             </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/no-of-owners.svg')}}" align="road">
-                <p>{{trans('web_string.no_of_owners')}}</p>
+        @endif
+        @if(!is_null($vehicle->body_type))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/body-type.svg')}}" align="auto">
+                    <p>{{trans('web_string.body_type')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->body_type}}</p>
+                </div>
             </div>
-            <div class="value">
-                <p>{{$vehicle->owners}}</p>
+        @endif
+        @if(!is_null($vehicle->registration))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
+                    <p>{{trans('web_string.registration')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->registration}}</p>
+                </div>
             </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/transmission.svg')}}" align="road">
-                <p>{{trans('web_string.transmission')}}</p>
+        @endif
+        @if(!is_null($vehicle->mileage))
+            <div class="dtl-box">
+                <div class="tit">
+                    <img src="{{asset('web/assets/images/mileage.svg')}}" align="km">
+                    <p>{{trans('web_string.mileage')}}</p>
+                </div>
+                <div class="value">
+                    <p>{{$vehicle->mileage}}</p>
+                </div>
             </div>
-            <div class="value">
-                <p>{{$vehicle->transmission}}</p>
-            </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/fuel-type.svg')}}" align="petrol">
-                <p>{{trans('web_string.fuel_type')}}</p>
-            </div>
-            <div class="value">
-                <p>{{$vehicle->fuel_type}}</p>
-            </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/body-type.svg')}}" align="auto">
-                <p>{{trans('web_string.body_type')}}</p>
-            </div>
-            <div class="value">
-                <p>{{$vehicle->body_type}}</p>
-            </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/registration.svg')}}" align="road">
-                <p>{{trans('web_string.registration')}}</p>
-            </div>
-            <div class="value">
-                <p>{{$vehicle->registration}}</p>
-            </div>
-        </div>
-        <div class="dtl-box">
-            <div class="tit">
-                <img src="{{asset('web/assets/images/mileage.svg')}}" align="km">
-                <p>{{trans('web_string.mileage')}}</p>
-            </div>
-            <div class="value">
-                <p>{{$vehicle->mileage}}</p>
-            </div>
-        </div>
+        @endif
     </div>
     <div class="car-opt">
         <div class="carnm">
@@ -144,38 +160,66 @@
         <div class="int-box">
             {{-- @dd('2023-09-22' > '2023-09-26' && '2023-09-22' < '2023-10-06');--}}
             @if($bid_count > 0)
-            <p><i class="las la-user"></i> {{$bid_count}} {{trans('web_string.people_are_interested')}}</p>
+                <p><i class="las la-user"></i> {{$bid_count}} {{trans('web_string.people_are_interested')}}</p>
             @endif
             @php
-            $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
-            $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
-            $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
+                $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
+                $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+            $bid_count = 0;
+            $proof_check = null;
+            $payment_status = 'pending';
+            if(!is_null(Auth::guard('web')->user())){
+            $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$vehicle->id)->count();
+            $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$vehicle->id)->first();
+            if(!is_null($proof_check)){
+            $payment_status = $proof_check->status;
+            }
+            }
             @endphp
             @if($dateToCheck->between($startDate, $endDate))
-            <a href="#" class="place-bid" data-id="{{$vehicle->id}}">{{trans('web_string.place_bid')}}</a>
+                @if($payment_status == 'reject')
+                    <a href="#" class="mb-1 text-danger"
+                       data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
+                @else
+                    <a href="#"
+                       class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif"
+                       data-id="{{$vehicle->id}}">{{trans('web_string.place_bid')}}</a>
+                @endif
+
+                @if(!is_null($proof_check) && $proof_check->status == 'pending')
+                    <a href="#" class="mb-1 mt-1"
+                       data-id="{{$vehicle->id}}">{{trans('web_string.waiting_for_admin_approval')}}</a>
+                @elseif(!is_null($proof_check) && $proof_check->status == 'approved')
+                    <a href="#" class="mb-1 mt-1"
+                       data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_approved')}}</a>
+                @else
+                    <a href="#" class="payment-proof mb-1"
+                       data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof')}}</a>
+                @endif
             @else
-            @if($vehicle->auction_start_date > date('Y-m-d'))
-            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
-            @else
-            <a href="#" class="place-bid-blue">{{trans('web_string.auction_close')}}</a>
-            @endif
+                @if($vehicle->auction_start_date > date('Y-m-d'))
+                    <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                @else
+                    <a href="#" class="place-bid-blue">{{trans('web_string.auction_close')}}</a>
+                @endif
             @endif
             @php
-            if(!is_null(Auth::user())){
-            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->where('user_id',Auth::user()->id)->max('amount');
-            }else{
-            $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
-            }
+                if(!is_null(Auth::user())){
+                $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->where('user_id',Auth::user()->id)->max('amount');
+                }else{
+                $height_bid = DB::table('vehicle_bids')->where('vehicle_id',$vehicle->id)->max('amount');
+                }
             @endphp
             <div class="current-high @if($vehicle->auction_start_date > date('Y-m-d')) d-none @endif mt-1">
                 @if($height_bid == 0)
-                {{trans('web_string.bid_not_found')}}
+                    {{trans('web_string.bid_not_found')}}
                 @else
-                <p>{{trans('web_string.current_height_bid')}}</p>
-                <p><span>SAR {{ number_format($height_bid) }}
-                        @endif
+                    <p>{{trans('web_string.current_height_bid')}}</p>
+                    <p><span>SAR {{ number_format($height_bid) }}
+                @endif
                     </span>
-                </p>
+                    </p>
             </div>
         </div>
         <div class="auction-details">
@@ -216,24 +260,41 @@
     var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
     console.log(start_date)
     $("#getting-started")
-        .countdown(formattedDateTime, function(event) {
+        .countdown(formattedDateTime, function (event) {
             $(this).html(
                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
             );
         });
-    $('.place-bid').on('click', function() {
+    $('.place-bid').on('click', function () {
         const value_id = $(this).data('id')
         loaderView()
         axios
             .get(APP_URL + '/vehicle-bid-modal' + '/' + value_id)
-            .then(function(response) {
+            .then(function (response) {
                 $('#vehicle_bid_label').html(response.data.modal_title)
                 $('#vehicle_bid_body').html(response.data.data)
 
                 $('#vehicle_bid_modal').modal('show')
                 loaderHide()
             })
-            .catch(function(error) {
+            .catch(function (error) {
+                loaderHide()
+            })
+
+    })
+    $('.payment-proof').on('click', function () {
+        const value_id = $(this).data('id')
+        loaderView()
+        axios
+            .get(APP_URL + '/payment-proof-modal' + '/' + value_id)
+            .then(function (response) {
+                $('#paymentProofLabel').html(response.data.modal_title)
+                $('#payment_poof_body').html(response.data.data)
+                $('#carderails').modal('hide')
+                $('#payment_poof_modal').modal('show')
+                loaderHide()
+            })
+            .catch(function (error) {
                 loaderHide()
             })
 

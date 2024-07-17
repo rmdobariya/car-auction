@@ -82,10 +82,10 @@
                                     <th class="fw-bold" scope="row">{{trans('admin_string.price')}}</th>
                                     <td>{{ number_format($vehicle->price) }}</td>
                                 </tr>
-{{--                                <tr>--}}
-{{--                                    <th class="fw-bold" scope="row">Minimum Bid Increment Price</th>--}}
-{{--                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>--}}
-{{--                                </tr>--}}
+                                {{--                                <tr>--}}
+                                {{--                                    <th class="fw-bold" scope="row">Minimum Bid Increment Price</th>--}}
+                                {{--                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>--}}
+                                {{--                                </tr>--}}
                                 <tr>
                                     <th class="fw-bold" scope="row">{{trans('admin_string.mileage')}}</th>
                                     <td>{{ $vehicle->mileage }}</td>
@@ -94,11 +94,11 @@
                                     <th class="fw-bold" scope="row">{{trans('admin_string.car_type')}}</th>
                                     <td>{{ $vehicle->car_type }}</td>
                                 </tr>
-                                <tr>
-                                    <th class="fw-bold" scope="row">{{trans('admin_string.short_description')}}</th>
+                                {{--                                <tr>--}}
+                                {{--                                    <th class="fw-bold" scope="row">{{trans('admin_string.short_description')}}</th>--}}
 
-                                    <td>{{ $vehicle->short_description }}</td>
-                                </tr>
+                                {{--                                    <td>{{ $vehicle->short_description }}</td>--}}
+                                {{--                                </tr>--}}
                                 <tr>
                                     <th class="fw-bold" scope="row">{{trans('admin_string.description')}}</th>
 
@@ -108,16 +108,25 @@
                                     <th class="fw-bold" scope="row">{{trans('admin_string.status')}}</th>
                                     <td>
                                         @if ((string)$vehicle->status === 'pending')
-                                            <div class="badge badge-light-warning">{{trans('admin_string.pending')}}</div>
+                                            <div
+                                                class="badge badge-light-warning">{{trans('admin_string.pending')}}</div>
                                         @elseif((string)$vehicle->status === 'approve')
-                                            <div class="badge badge-light-success">{{trans('admin_string.approve')}}</div>
+                                            <div
+                                                class="badge badge-light-success">{{trans('admin_string.approve')}}</div>
                                         @elseif((string)$vehicle->status === 'auction_close')
-                                            <div class="badge badge-light-danger">{{trans('admin_string.auction_close')}}</div>
+                                            <div
+                                                class="badge badge-light-danger">{{trans('admin_string.auction_close')}}</div>
                                         @elseif((string)$vehicle->status === 'ongoing')
-                                            <div class="badge badge-light-success">{{trans('admin_string.ongoing')}}</div>
+                                            <div
+                                                class="badge badge-light-success">{{trans('admin_string.ongoing')}}</div>
                                         @else
                                             <div class="badge badge-light-danger">{{trans('admin_string.reject')}}</div>
                                         @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.car_report')}}</th>
+                                    <td><a href="{{asset($vehicle->car_report)}}" target="_blank">View Car Report</a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -167,7 +176,43 @@
             </div>
         </div>
     </div>
+    <div class="card card-flush py-4 flex-row-fluid mt-2">
+        <!--begin::Card header-->
+        <div class="card-header">
+            <div class="card-title">
+                <h2>{{trans('admin_string.vehicle_bid')}}</h2>
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <table class="table align-middle table-row-dashed fs-6 gy-5" id="basic-1">
+                <thead>
+                <tr class="text-start text-dark-400 fw-bolder fs-7 text-uppercase gs-0">
+                    <th>{{trans('admin_string.id')}}</th>
+                    <th>{{trans('admin_string.user')}}</th>
+                    <th>{{trans('admin_string.bid_amount')}}</th>
+                    <th>{{trans('admin_string.bid_time')}}</th>
+                    <th>{{trans('admin_string.is_winner')}}</th>
+                </tr>
+                </thead>
+                <tbody class="fw-bold text-gray-600"></tbody>
+            </table>
+        </div>
+    </div>
 @endsection
 @section('custom-script')
+    <script>
+        const datatable_url = '/get-vehicle-wise-bid-list/' + '{{$vehicle->vehicle_id}}';
 
+        $.extend(true, $.fn.dataTable.defaults, {
+            columns: [
+                {data: 'id', name: 'id'},
+                {data: 'user_name', name: 'users.name'},
+                {data: 'amount', name: 'amount'},
+                {data: 'bid_time', name: 'bid_time'},
+                {data: 'is_winner', name: 'is_winner'},
+            ],
+            order: [[0, 'DESC']],
+        })
+    </script>
+    <script src="{{URL::asset('assets/admin/custom/datatable.js')}}?v={{ time() }}"></script>
 @endsection

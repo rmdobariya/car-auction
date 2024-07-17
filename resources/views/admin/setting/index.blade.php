@@ -80,14 +80,14 @@
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-bold mb-2" for="{{$setting->setting_key}}">
-                                                        {{str_replace('_',' ',ucfirst($setting->setting_key))}}
+                                                        {{trans('admin_string.' . $setting->setting_key)}}
                                                         <span class="required"></span>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-9">
                                                     @include('admin.layouts2.components.image-selection',
                                                                 ['id'=>$setting->setting_key,
-                                                                 'description_string'=>'Logo Thumbnail Description',
+                                                                 'description_string'=>trans('admin_string.logo_thumbnail_description'),
                                                                  'image'=>$setting->setting_value,
                                                                  'value'=>$setting->setting_value,
                                                                  ])
@@ -99,11 +99,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required"> {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -143,11 +143,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -162,7 +162,8 @@
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
-                                                        <span class="required">{{trans('admin_string.smtp_scheme')}}</span>
+                                                        <span
+                                                                class="required">{{trans('admin_string.smtp_scheme')}}</span>
                                                     </label>
                                                 </div>
 
@@ -171,7 +172,8 @@
                                                             class="form-select form-select-solid fw-bolder"
                                                             name="setting_key[{{$setting->setting_key}}]"
                                                             data-parsley-errors-container="#smtp_scheme_error">
-                                                        <option value="">{{trans('admin_string.select_option')}}</option>
+                                                        <option
+                                                                value="">{{trans('admin_string.select_option')}}</option>
                                                         <option value="SSL"
                                                                 @if((string)$setting->setting_value === 'SSL') selected @endif>
                                                             {{trans('admin_string.ssl')}}
@@ -212,11 +214,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -234,11 +236,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -255,7 +257,7 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required"> {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required"> {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                     </label>
                                                 </div>
 
@@ -264,7 +266,8 @@
                                                             class="form-select form-select-solid fw-bolder"
                                                             name="setting_key[{{$setting->setting_key}}]"
                                                             data-parsley-errors-container="#smtp_scheme_error">
-                                                        <option value="">{{trans('admin_string.select_option')}}</option>
+                                                        <option
+                                                                value="">{{trans('admin_string.select_option')}}</option>
                                                         <option value="1"
                                                                 @if((int)$setting->setting_value === 1) selected @endif>
                                                             {{trans('admin_string.yes')}}
@@ -304,11 +307,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -326,11 +329,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -346,11 +349,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -368,11 +371,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -432,16 +435,16 @@
                                         </div>
                                     </div>
                                     @foreach($settings as $setting)
-                                        @if((string)$setting->setting_key === 'FACEBOOK_LINK' || (string)$setting->setting_key === 'INSTAGRAM_LINK' || (string)$setting->setting_key === 'TWITTER_LINK' || (string)$setting->setting_key === 'PINTEREST_LINK' || (string)$setting->setting_key === 'DRIBBLE_LINK')
+                                        @if((string)$setting->setting_key === 'FACEBOOK_LINK' || (string)$setting->setting_key === 'INSTAGRAM_LINK' || (string)$setting->setting_key === 'TWITTER_LINK' || (string)$setting->setting_key === 'SNAP_LINK' || (string)$setting->setting_key === 'TIKTOK_LINK')
                                             <div class="row fv-row mb-7">
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">
@@ -480,11 +483,11 @@
                                                 <div class="col-md-3 text-md-end">
                                                     <label class="fs-6 fw-semibold form-label mt-3">
                                                         <span
-                                                            class="required">  {{str_replace('_',' ',ucfirst($setting->setting_key))}}</span>
+                                                                class="required">  {{trans('admin_string.' . $setting->setting_key)}}</span>
                                                         <span class="ms-1" data-bs-toggle="tooltip"
                                                               title="Set the name of the store">
 	<i class="ki-duotone ki-information-5 text-gray-500 fs-6"><span class="path1"></span><span
-            class="path2"></span><span class="path3"></span></i></span> </label>
+                class="path2"></span><span class="path3"></span></i></span> </label>
                                                 </div>
 
                                                 <div class="col-md-9">

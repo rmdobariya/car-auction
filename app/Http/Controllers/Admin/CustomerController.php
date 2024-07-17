@@ -51,10 +51,12 @@ class CustomerController extends Controller
             $user->is_sub_admin = 1;
             $user->name = $request->first_name;
             $user->is_corporate_seller = isset($request->is_corporate_seller) ? 1 : 0;
+            $user->corporate_seller = $request->corporate_seller;
             $user->last_name = $request->last_name;
             $user->contact_no = $request->contact_no;
             $user->full_name = $request->first_name . ' ' . $request->last_name;
             $user->email = $request->email;
+            $user->user_type = $request->user_type;
             $user->password = Hash::make($request->password);
             $user->save();
             $user->assignRole($validated['role_id']);
@@ -67,10 +69,12 @@ class CustomerController extends Controller
             $user->is_sub_admin = 1;
             $user->name = $request->first_name;
             $user->is_corporate_seller = isset($request->is_corporate_seller) ? 1 : 0;
+            $user->corporate_seller = $request->corporate_seller;
             $user->last_name = $request->last_name;
             $user->contact_no = $request->contact_no;
             $user->full_name = $request->first_name . ' ' . $request->last_name;
             $user->email = $request->email;
+            $user->user_type = $request->user_type;
             if (!empty($request->password)) {
                 $user->password = Hash::make($request->password);
             }
@@ -185,7 +189,7 @@ class CustomerController extends Controller
                                     'id' => $user->id,
                                     'actions' => [
                                         'edit' => route('admin.customer.edit', [$user->id]),
-                                        'add_vehicle' => route('admin.vehicle.create',['id'=>$user->id]),
+                                        'add_vehicle' => route('admin.vehicle.create', ['id' => $user->id]),
                                         'delete' => $user->id,
                                         'status' => $user->status,
                                         'edit_permission' => Auth::user()->can('customer-update'),
@@ -227,10 +231,18 @@ class CustomerController extends Controller
                     return AdminDataTableButtonHelper::statusBadge($array);
                 })
                 ->addColumn('role', function ($user) {
-                    return $user->user_type;
+                    return str_replace('_', ' ', ucfirst($user->user_type));
                 })
                 ->addColumn('full_name', function ($user) {
                     return $user->name . ' ' . $user->last_name;
+                })
+                ->addColumn('is_corporate_seller', function ($user) {
+                    if($user->is_corporate_seller == 1){
+                        $badge = '<div class="badge badge-light-success">' . trans('admin_string.yes') . '</div>';
+                    }else{
+                        $badge = '<div class="badge badge-light-danger">' . trans('admin_string.no') . '</div>';
+                    }
+                    return $badge;
                 })
                 ->addColumn('check', function ($user) {
                     if ((int)$user->id === 1) {
@@ -238,13 +250,13 @@ class CustomerController extends Controller
                     } else {
                         return '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $user->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $user->id . ' id="single_select">
                     </div>
                 </td>';
                     }
 
                 })
-                ->rawColumns(['action', 'status', 'check'])
+                ->rawColumns(['action', 'status', 'check','is_corporate_seller'])
                 ->make(true);
         }
     }

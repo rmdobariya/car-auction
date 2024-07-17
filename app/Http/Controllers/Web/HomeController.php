@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->where('category_translations.locale', App::getLocale())
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->limit(3)
             ->get();
         $popular_vehicles = DB::table('vehicles')
@@ -49,7 +49,7 @@ class HomeController extends Controller
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->limit(3)
             ->get();
         $hot_deal_vehicles = DB::table('vehicles')
@@ -63,7 +63,7 @@ class HomeController extends Controller
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->limit(3)
             ->get();
         $sell_vehicles = DB::table('vehicles')
@@ -77,7 +77,7 @@ class HomeController extends Controller
             ->where('vehicles.is_vehicle_type', 'car_for_sell')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->limit(3)
             ->get();
         $testimonials = DB::table('testimonials')
@@ -117,8 +117,10 @@ class HomeController extends Controller
         $corporate_sellers = DB::table('users')
             ->where('is_corporate_seller', 1)
             ->where('user_type', 'seller')
+            ->where('status', 'approve')
             ->whereNull('deleted_at')
             ->get();
+//        dd($corporate_sellers);
         $modal_hot_deal_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
@@ -130,7 +132,7 @@ class HomeController extends Controller
             ->where('vehicles.is_vehicle_type', 'car_for_auction')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         return view('website.home.index', [
             'featured_vehicles' => $featured_vehicles,
@@ -151,6 +153,19 @@ class HomeController extends Controller
     public function seller(Request $request, $id)
     {
         $id = decrypt($id);
+        $modal_hot_deal_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+            ->get();
         $user = DB::table('users')->where('id', $id)->first();
         if ($user->is_corporate_seller == 1) {
             $featured_vehicles = DB::table('vehicles')
@@ -195,7 +210,7 @@ class HomeController extends Controller
             $featured_vehicles = $featured_vehicles->where('vehicle_translations.locale', App::getLocale())
                 ->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
             $popular_vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -239,7 +254,7 @@ class HomeController extends Controller
             }
             $popular_vehicles = $popular_vehicles->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
             $hot_deal_vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -283,7 +298,7 @@ class HomeController extends Controller
             }
             $hot_deal_vehicles = $hot_deal_vehicles->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
             $sell_vehicles = DB::table('vehicles')
                 ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -324,7 +339,7 @@ class HomeController extends Controller
             }
             $sell_vehicles = $sell_vehicles->orderBy('vehicles.id', 'desc')
                 ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
                 ->get();
 
             return view('website.seller.index', [
@@ -332,6 +347,7 @@ class HomeController extends Controller
                 'popular_vehicles' => $popular_vehicles,
                 'hot_deal_vehicles' => $hot_deal_vehicles,
                 'sell_vehicles' => $sell_vehicles,
+                'modal_hot_deal_vehicles' => $modal_hot_deal_vehicles,
                 'user' => $user,
             ]);
         }
@@ -358,7 +374,7 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         $testimonials = DB::table('testimonials')
             ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
@@ -376,17 +392,43 @@ class HomeController extends Controller
             ->orderBy('blogs.id', 'desc')
             ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
             ->get();
-
+        $modal_hot_deal_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+            ->get();
         return view('website.home.type_wise_vehicle', [
             'vehicles' => $vehicles,
             'news' => $news,
             'testimonials' => $testimonials,
             'title' => $title,
+            'modal_hot_deal_vehicles' => $modal_hot_deal_vehicles,
         ]);
     }
 
     public function carForSell($flag)
     {
+        $modal_hot_deal_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+            ->get();
         $vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
@@ -397,7 +439,7 @@ class HomeController extends Controller
             ->where('vehicles.status', 'approve')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         $testimonials = DB::table('testimonials')
             ->leftJoin('testimonial_translations', 'testimonials.id', 'testimonial_translations.testimonial_id')
@@ -420,6 +462,7 @@ class HomeController extends Controller
             'vehicles' => $vehicles,
             'news' => $news,
             'testimonials' => $testimonials,
+            'modal_hot_deal_vehicles' => $modal_hot_deal_vehicles,
         ]);
     }
 
@@ -433,7 +476,7 @@ class HomeController extends Controller
             ->where('category_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
             ->select('vehicles.*', 'vehicle_translations.name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->first();
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $id)->count();
         $vehicle_images = DB::table('vehicle_images')->where('vehicle_id', $id)->get();
@@ -460,7 +503,7 @@ class HomeController extends Controller
             ->where('category_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
             ->select('vehicles.*', 'vehicle_translations.name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->first();
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $id)->count();
         $vehicle_images = DB::table('vehicle_images')->where('vehicle_id', $id)->get();
@@ -506,7 +549,7 @@ class HomeController extends Controller
             ->where('category_translations.locale', App::getLocale())
             ->where('vehicles.id', $id)
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->first();
         $bank_name = DB::table('site_settings')->where('setting_key', 'BANK_NAME')->first()->setting_value;
         $iban = DB::table('site_settings')->where('setting_key', 'IBAN')->first()->setting_value;
@@ -536,6 +579,28 @@ class HomeController extends Controller
             'modal_title' => $vehicle->vehicle_name . ' ' . trans('web_string.bid_place_modal'),
         ]);
     }
+    public function paymentProof($id)
+    {
+        $vehicle = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.id', $id)
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+            ->first();
+
+        $view = view('website.home.payment-proof-body', [
+            'vehicle' => $vehicle,
+        ])->render();
+
+        return response()->json([
+            'data' => $view,
+            'modal_title' => $vehicle->vehicle_name . ' ' . trans('web_string.payment_proof'),
+        ]);
+    }
 
     public function carInquirySubmit(CarInquiryStoreRequest $request)
     {
@@ -551,7 +616,7 @@ class HomeController extends Controller
             ->where('vehicles.id', $request->vehicle_id)
             ->where('vehicle_translations.locale', App::getLocale())
             ->select('vehicles.user_id as user_id', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->first();
         $car_inquiry = new CarInquiry();
         $car_inquiry->user_id = $vehicle->user_id;
@@ -651,6 +716,19 @@ class HomeController extends Controller
 
     public function filter(Request $request)
     {
+        $modal_hot_deal_vehicles = DB::table('vehicles')
+            ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+            ->whereNull('vehicles.deleted_at')
+            ->where('vehicle_translations.locale', App::getLocale())
+            ->where('category_translations.locale', App::getLocale())
+            ->where('vehicles.is_product', 'is_hot_deal')
+            ->where('vehicles.status', 'approve')
+            ->where('vehicles.is_vehicle_type', 'car_for_auction')
+            ->orderBy('vehicles.id', 'desc')
+            ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+            ->get();
         $featured_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
@@ -692,7 +770,7 @@ class HomeController extends Controller
         $featured_vehicles = $featured_vehicles->where('vehicle_translations.locale', App::getLocale())
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         $popular_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -735,7 +813,7 @@ class HomeController extends Controller
         }
         $popular_vehicles = $popular_vehicles->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         $hot_deal_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -778,7 +856,7 @@ class HomeController extends Controller
         }
         $hot_deal_vehicles = $hot_deal_vehicles->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
         $sell_vehicles = DB::table('vehicles')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
@@ -818,7 +896,7 @@ class HomeController extends Controller
         }
         $sell_vehicles = $sell_vehicles->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'category_translations.name as category_name')
             ->get();
 
         $featured_vehicle_count = $featured_vehicles->count();
@@ -860,6 +938,7 @@ class HomeController extends Controller
             'hot_deal_count' => $hot_deal_count,
             'car_for_sell_count' => $car_for_sell_count,
             'corporate_sellers' => $corporate_sellers,
+            'modal_hot_deal_vehicles' => $modal_hot_deal_vehicles,
         ]);
     }
 
@@ -879,7 +958,7 @@ class HomeController extends Controller
                 ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
 //                ->where('vehicle_bids.is_winner', 1)
                 ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
+                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
                 ->get();
 
             return view('website.user.my_bid', [
@@ -905,7 +984,7 @@ class HomeController extends Controller
                 ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
                 ->where('vehicle_bids.is_winner', 1)
                 ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
+                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
                 ->get();
 
             return view('website.user.winner_bid', [
@@ -913,5 +992,57 @@ class HomeController extends Controller
             ]);
         }
         abort(404);
+    }
+
+    public function newDetail($id)
+    {
+        $new = DB::table('blogs')
+            ->leftJoin('blog_translations', 'blogs.id', 'blog_translations.blog_id')
+            ->where('blog_translations.locale', App::getLocale())
+            ->where('blogs.status', 'active')
+            ->where('blogs.id', $id)
+            ->whereNull('blogs.deleted_at')
+            ->orderBy('blogs.id', 'desc')
+            ->select('blogs.*', 'blog_translations.title', 'blog_translations.description')
+            ->first();
+        return view('website.page.new_detail', [
+            'new' => $new
+        ]);
+
+    }
+
+    public function corporateSellerPage()
+    {
+        $corporate_sellers = DB::table('users')
+            ->where('is_corporate_seller', 1)
+            ->where('user_type', 'seller')
+            ->where('status', 'approve')
+            ->whereNull('deleted_at')
+            ->get();
+        return view('website.page.corporate_seller_page', [
+            'corporate_sellers' => $corporate_sellers
+        ]);
+    }
+
+    public function renderCorporateSellerPage(Request $request)
+    {
+        $search = $request->value;
+        $corporate_sellers = DB::table('users')
+            ->where('is_corporate_seller', 1)
+            ->where('user_type', 'seller')
+            ->whereNull('deleted_at')
+            ->where(function ($query) use ($search) {
+                $query->where('full_name', 'like', '%' . $search . '%')
+                    ->orWhere('email', 'like', '%' . $search . '%');
+            })
+            ->get();
+        $view = view('website.page.render-corporate-seller', [
+            'corporate_sellers' => $corporate_sellers,
+            'search' => $search,
+        ])->render();
+
+        return response()->json([
+            'data' => $view,
+        ]);
     }
 }

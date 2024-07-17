@@ -53,38 +53,46 @@
                                 </div>
                             </div>
                             <div class="car-specifation">
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                @if(!is_null($vehicle->kms_driven))
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->kms_driven}}
+                                        </div>
                                     </div>
-                                    <div class="detsl">
-                                        {{$vehicle->kms_driven}}
+                                @endif
+                                @if(!is_null($vehicle->mileage))
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->mileage}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                @endif
+                                @if(!is_null($vehicle->fuel_type))
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->fuel_type}}
+                                        </div>
                                     </div>
-                                    <div class="detsl">
-                                        {{$vehicle->mileage}}
+                                @endif
+                                @if(!is_null($vehicle->body_type))
+                                    <div class="car-dt">
+                                        <div class="icon">
+                                            <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                        </div>
+                                        <div class="detsl">
+                                            {{$vehicle->body_type}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                    </div>
-                                    <div class="detsl">
-                                        {{$vehicle->fuel_type}}
-                                    </div>
-                                </div>
-                                <div class="car-dt">
-                                    <div class="icon">
-                                        <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                    </div>
-                                    <div class="detsl">
-                                        {{$vehicle->body_type}}
-                                    </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="car-price">
                                 {{--                            <span>Bid Start on <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>--}}
@@ -92,7 +100,8 @@
                                     <p>{{trans('web_string.common_price')}}</p>
                                     <h3>SAR {{number_format($vehicle->price)}}</h3>
                                 </div>
-                                <a href="#" class="place-bid-blue car_inquiry" data-id="{{$vehicle->id}}">{{trans('web_string.contact_seller')}}</a>
+                                <a href="#" class="place-bid-blue car_inquiry"
+                                   data-id="{{$vehicle->id}}">{{trans('web_string.contact_seller')}}</a>
                             </div>
                         </div>
                     @endforeach

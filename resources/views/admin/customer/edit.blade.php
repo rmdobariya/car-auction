@@ -14,20 +14,22 @@
                             @csrf
                             <div class="card-body">
                                 <input type="hidden" id="edit_value" value="{{$user->id}}" name="edit_value">
+                                <input type="hidden" id="user_type" value="{{$user->user_type}}" name="user_type">
 
                                 <input type="hidden" id="form-method" value="add">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2">{{trans('admin_string.roles')}}</label>
+                                            <label
+                                                class="required fs-6 fw-bold mb-2">{{trans('admin_string.roles')}}</label>
                                             <select class="form-select form-select-solid fw-bold" name="role_id"
                                                     id="role_id">
                                                 <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($roles as $role)
                                                     @if($role->name == 'Buyer' || $role->name == 'Seller')
-                                                    <option
-                                                        value="{{$role->id}}"
-                                                        @if($user->user_type == strtolower($role->name)) selected @endif>{{$role->name}}</option>
+                                                        <option
+                                                            value="{{$role->id}}"
+                                                            @if($user->user_type == strtolower($role->name)) selected @endif>{{$role->name}}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -42,7 +44,7 @@
                                                    name="contact_no"
                                                    id="contact_no"
                                                    value="{{$user->contact_no}}"
-                                                   placeholder="Contact No"/>
+                                                   placeholder="{{trans('admin_string.contact_no')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +60,7 @@
                                                    name="first_name"
                                                    id="first_name"
                                                    value="{{$user->name}}"
-                                                   placeholder="First Name"/>
+                                                   placeholder=" {{trans('admin_string.first_name')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -70,7 +72,7 @@
                                                    name="last_name"
                                                    id="last_name"
                                                    value="{{$user->last_name}}"
-                                                   placeholder="Last Name"/>
+                                                   placeholder="{{trans('admin_string.last_name')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +87,7 @@
                                                    name="email"
                                                    id="email"
                                                    value="{{$user->email}}"
-                                                   placeholder="Email"/>
+                                                   placeholder="{{trans('admin_string.email')}}"/>
                                         </div>
                                     </div>
                                     <div class="mb-3 col-md-6">
@@ -96,7 +98,7 @@
                                             <input type="password" class="form-control form-control-solid"
                                                    name="password"
                                                    id="password"
-                                                   placeholder="Password"/>
+                                                   placeholder="{{trans('admin_string.password')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -112,6 +114,21 @@
                                                    value="0"
                                                    id="is_corporate_seller"
                                                    @if($user->is_corporate_seller == 1) checked @endif/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row  @if($user->is_corporate_seller == 0) d-none @endif"
+                                     id="corporate_seller_input_part">
+                                    <div class="mb-3 col-md-6">
+                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                            <label class="required fs-6 fw-bold mb-2" for="corporate_seller">
+                                                {{trans('admin_string.corporate_seller')}}
+                                            </label>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="corporate_seller"
+                                                   id="corporate_seller"
+                                                   value="{{$user->corporate_seller}}"
+                                                   placeholder="{{trans('admin_string.corporate_seller')}}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -145,12 +162,20 @@
             if (val == 11) {
                 $('#corporate_seller_part').removeClass('d-none')
                 $('#is_corporate_seller').val(1)
+                $('#user_type').val('seller')
             } else {
                 $('#corporate_seller_part').addClass('d-none')
                 $('#is_corporate_seller').val(0)
+                $('#user_type').val('buyer')
             }
         })
-
+        $('#is_corporate_seller').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#corporate_seller_input_part').removeClass('d-none')
+            } else {
+                $('#corporate_seller_input_part').addClass('d-none')
+            }
+        });
     </script>
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>
 @endsection

@@ -49,7 +49,7 @@ class VehicleController extends Controller
             $vehicle = $vehicle->where('vehicles.vehicle_category_id', 'like', '%' . $request->vehicle_category_id . '%');
         }
         $vehicle = $vehicle->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-            'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
+            'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
         $result = VehicleResource::collection($vehicle);
         if (count($vehicle) > 0) {
@@ -77,7 +77,7 @@ class VehicleController extends Controller
             ->where('vehicles.status', 'pending')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',)
             ->get();
         $result = VehicleResource::collection($vehicle);
         if (count($vehicle) > 0) {
@@ -118,12 +118,16 @@ class VehicleController extends Controller
                 $image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
                 $vehicle->main_image = $image;
             }
+            if ($request->hasfile('car_report')) {
+                $car_report = ImageUploadHelper::imageUpload($request->file('car_report'), 'vehicle');
+                $vehicle->car_report = $car_report;
+            }
             $vehicle->save();
             $languages = CatchCreateHelper::getLanguage(App::getLocale());
             foreach ($languages as $language) {
                 VehicleTranslation::create([
                     'name' => $request->input($language['language_code'] . '_name'),
-                    'short_description' => $request->input($language['language_code'] . '_short_description'),
+//                    'short_description' => $request->input($language['language_code'] . '_short_description'),
                     'make' => $request->input($language['language_code'] . '_make'),
                     'model' => $request->input($language['language_code'] . '_model'),
                     'trim' => $request->input($language['language_code'] . '_trim'),
@@ -199,6 +203,10 @@ class VehicleController extends Controller
             $main_image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
             $vehicle->main_image = $main_image;
         }
+        if ($request->hasfile('car_report')) {
+            $car_report = ImageUploadHelper::imageUpload($request->file('car_report'), 'vehicle');
+            $vehicle->car_report = $car_report;
+        }
         $vehicle->save();
 
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
@@ -212,7 +220,7 @@ class VehicleController extends Controller
                     'vehicle_id' => $validated['edit_value'],
                     'locale' => $language['language_code'],
                     'name' => $request->input($language['language_code'] . '_name'),
-                    'short_description' => $request->input($language['language_code'] . '_short_description'),
+//                    'short_description' => $request->input($language['language_code'] . '_short_description'),
                     'make' => $request->input($language['language_code'] . '_make'),
                     'model' => $request->input($language['language_code'] . '_model'),
                     'trim' => $request->input($language['language_code'] . '_trim'),
@@ -308,7 +316,7 @@ class VehicleController extends Controller
 //            ->where('vehicles.user_id', $user->id)
             ->whereNull('vehicles.deleted_at')
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->get();
         $result = VehicleResource::collection($vehicle);
         return response()->json([
@@ -329,7 +337,7 @@ class VehicleController extends Controller
 //            ->where('vehicles.user_id', $user->id)
             ->whereNull('vehicles.deleted_at')
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name','category_translations.category_id as vehicle_category_id','city_translations.name as city_name','city_translations.city_id as city_id', 'vehicle_translations.name  as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make',
+                'vehicle_translations.description', 'vehicle_translations.make',
                 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission',
                 'vehicle_translations.fuel_type', 'vehicle_translations.body_type',
                 'vehicle_translations.registration', 'vehicle_translations.color',

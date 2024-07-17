@@ -27,7 +27,7 @@
                                                     @if($role->name != 'Buyer' && $role->name != 'Seller')
                                                         <option
                                                             value="{{$role->id}}"
-                                                            @if($user->user_type == $role->name) selected @endif>{{$role->name}}</option>
+                                                            @if($user->role->role_id == $role->name) selected @endif>{{$role->name}}</option>
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -96,7 +96,7 @@
                                             <input type="password" class="form-control form-control-solid"
                                                    name="password"
                                                    id="password"
-                                                   placeholder="Password"/>
+                                                   placeholder="{{trans('admin_string.password')}}"/>
                                         </div>
                                     </div>
                                 </div>

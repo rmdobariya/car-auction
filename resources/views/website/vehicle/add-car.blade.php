@@ -133,8 +133,7 @@
                                                        name="{{ $language['language_code'] }}_trim"
                                                        id="{{ $language['language_code'] }}_trim"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.trim')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.trim')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -149,8 +148,7 @@
                                                        name="{{ $language['language_code'] }}_transmission"
                                                        id="{{ $language['language_code'] }}_transmission"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.transmission')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.transmission')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -164,8 +162,7 @@
                                                        name="{{ $language['language_code'] }}_fuel_type"
                                                        id="{{ $language['language_code'] }}_fuel_type"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.fuel_type')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.fuel_type')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -179,8 +176,7 @@
                                                        name="{{ $language['language_code'] }}_body_type"
                                                        id="{{ $language['language_code'] }}_body_type"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.body_type')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.body_type')}}" required/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -194,8 +190,7 @@
                                                        name="{{ $language['language_code'] }}_registration"
                                                        id="{{ $language['language_code'] }}_registration"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.registration')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.registration')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -209,8 +204,7 @@
                                                        name="{{ $language['language_code'] }}_mileage"
                                                        id="{{ $language['language_code'] }}_mileage"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.mileage')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.mileage')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -224,8 +218,7 @@
                                                        name="{{ $language['language_code'] }}_color"
                                                        id="{{ $language['language_code'] }}_color"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.exterior_color')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.exterior_color')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -239,8 +232,7 @@
                                                        name="{{ $language['language_code'] }}_car_type"
                                                        id="{{ $language['language_code'] }}_car_type"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.car_type')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.car_type')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -270,19 +262,19 @@
                                                for="is_vehicle_type">{{trans('web_string.car_for_sell')}}</label>
                                     </div>
                                 </div>
-                                @foreach($languages as $language)
-                                    <div class="fv-row mb-7 fv-plugins-icon-container mt-2">
-                                        <label for="{{ $language['language_code'] }}_short_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.short_description')}}
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                               name="{{ $language['language_code'] }}_short_description"
-                                               id="{{ $language['language_code'] }}_short_description"
-                                               @if($language['is_rtl']==1) dir="rtl" @endif
-                                               placeholder="{{ $language['name'] }} {{trans('web_string.short_description')}}"
-                                               required/>
-                                    </div>
-                                @endforeach
+{{--                                @foreach($languages as $language)--}}
+{{--                                    <div class="fv-row mb-7 fv-plugins-icon-container mt-2">--}}
+{{--                                        <label for="{{ $language['language_code'] }}_short_description"--}}
+{{--                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.short_description')}}--}}
+{{--                                        </label>--}}
+{{--                                        <input type="text" class="form-control form-control-solid"--}}
+{{--                                               name="{{ $language['language_code'] }}_short_description"--}}
+{{--                                               id="{{ $language['language_code'] }}_short_description"--}}
+{{--                                               @if($language['is_rtl']==1) dir="rtl" @endif--}}
+{{--                                               placeholder="{{ $language['name'] }} {{trans('web_string.short_description')}}"--}}
+{{--                                               required/>--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
 
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -310,7 +302,14 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-4">
+                                        <label class="required fs-6 fw-bold mb-2" for="car_report">
+                                            {{trans('web_string.car_report')}}
+                                        </label>
+                                        <input type="hidden" name="car_report_changed" id="car_report_changed" value="1">
+                                        <input type="file" name="car_report" data-bs-toggle="tooltip" title="only PDF files are allowed."/>
+                                    </div>
+                                    <div class="col-md-4">
                                         <label class="required fs-6 fw-bold mb-2" for="main_image">
                                             {{trans('web_string.main_image')}}
                                         </label>

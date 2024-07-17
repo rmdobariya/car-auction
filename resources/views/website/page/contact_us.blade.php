@@ -7,7 +7,6 @@
         <div class="container">
             <div class="row" id="contatti">
                 <div class="container mt-5">
-
                     <div class="row" style="height:550px;">
                         <input type="hidden" id="address" value="{{$address_1}}">
                         <div class="col-md-6 maps" id="map-container">
@@ -88,7 +87,6 @@
                                 @endif
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -17,7 +17,9 @@
                                 <img src="{{asset($user->image)}}" id="displayedImage" alt="profile">
                                 <input type="file" id="imgupload" name="image" accept="image/*"
                                        onchange="loadFile(event)" style="display:none"/>
-                                <a href="javascript:void(0)" onClick="openSelect('#imgupload')" class="edit-profile" data-bs-toggle="tooltip" title="Allowed max 2MB and only JPG, PNG, GIF files are allowed.">
+                                <a href="javascript:void(0)" onClick="openSelect('#imgupload')" class="edit-profile"
+                                   data-bs-toggle="tooltip"
+                                   title="Allowed max 2MB and only JPG, PNG, GIF files are allowed.">
 
                                     <i class="las la-pen"></i>
                                 </a>
@@ -182,38 +184,46 @@
                                         <div class="my-auction-counter" id="my-auction-counter_{{$bid->id}}"></div>
                                     </div>
                                     <div class="car-specifation">
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        @if(!is_null($bid->kms_driven))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$bid->kms_driven}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$bid->kms_driven}}
+                                        @endif
+                                        @if(!is_null($bid->mileage))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$bid->mileage}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        @endif
+                                        @if(!is_null($bid->fuel_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$bid->fuel_type}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$bid->mileage}}
+                                        @endif
+                                        @if(!is_null($bid->body_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$bid->body_type}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$bid->fuel_type}}
-                                            </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$bid->body_type}}
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div
@@ -417,6 +427,12 @@
     <div class="clearfix"></div>
 @endsection
 @section('custom-script')
+    <script>
+        let day_string = '{{trans('web_string.day')}}';
+        let hour_string = '{{trans('web_string.hours')}}';
+        let min_string = '{{trans('web_string.mins')}}';
+        let sec_string = '{{trans('web_string.sec')}}';
+    </script>
     <script>
         $('.vehicle_detail').on('click', function () {
             const value_id = $(this).data('id')

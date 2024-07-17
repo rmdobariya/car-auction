@@ -43,7 +43,7 @@
                                         <input type="text" class="form-control form-control-solid" required
                                                name="slug"
                                                id="slug"
-                                               placeholder="Slug"/>
+                                               placeholder="{{ trans('admin_string.slug') }}"/>
                                     </div>
                                 </div>
 

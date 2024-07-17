@@ -29,7 +29,7 @@
                                                        id="{{ $language['language_code'] }}_title"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $blog->translateOrNew($language['language_code'])->title }}"
-                                                       placeholder="{{ $language['name'] }} Title"
+                                                       placeholder="{{ $language['name'] }} {{trans('admin_string.title')}}"
                                                        required/>
                                             </div>
                                         </div>
@@ -56,7 +56,7 @@
                                                   name="{{ $language['language_code'] }}_description"
                                                   id="{{ $language['language_code'] }}_description"
                                                   @if($language['is_rtl']==1) dir="rtl" @endif
-                                                  placeholder="{{ $language['name'] }} Description">{{ $blog->translateOrNew($language['language_code'])->description }}</textarea>
+                                                  placeholder="{{ $language['name'] }} {{trans('admin_string.description')}}">{{ $blog->translateOrNew($language['language_code'])->description }}</textarea>
                                     </div>
                                 @endforeach
                             </div>

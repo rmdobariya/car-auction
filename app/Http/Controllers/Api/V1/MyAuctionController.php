@@ -23,7 +23,7 @@ class MyAuctionController extends Controller
             ->where('category_translations.locale', App::getLocale())
             ->where('vehicles.auction_end_date', '>=', date('Y-m-d'))
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
+                'vehicle_translations.description',  'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
 //           ->groupBy('vehicle_bids.vehicle_id')
             ->get();
 
@@ -38,7 +38,7 @@ class MyAuctionController extends Controller
             ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
             ->where('vehicle_bids.is_winner', 1)
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
+                'vehicle_translations.description',  'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
 
         $completed_auction = DB::table('vehicle_bids')
@@ -52,7 +52,7 @@ class MyAuctionController extends Controller
             ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
             ->where('vehicle_bids.is_winner', 0)
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
+                'vehicle_translations.description',  'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
         $ongoing_auction = BidResource::collection($ongoing_auction);
         $wining_bids = BidResource::collection($wining_bids);
@@ -77,7 +77,7 @@ class MyAuctionController extends Controller
             ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
             ->where('vehicle_bids.is_winner', 1)
             ->select('vehicle_bids.id as bid_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
+                'vehicle_translations.description',  'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
             ->get();
         $result = BidResource::collection($bids);
         if (count($bids) > 0) {

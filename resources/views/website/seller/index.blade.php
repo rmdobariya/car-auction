@@ -61,38 +61,46 @@
                                         </div>
                                     </div>
                                     <div class="car-specifation">
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                        @if(!is_null($sell_vehicle->kms_driven))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/road.png')}}" align="road">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$sell_vehicle->kms_driven}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$sell_vehicle->kms_driven}}
+                                        @endif
+                                        @if(!is_null($sell_vehicle->mileage))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$sell_vehicle->mileage}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/km.png')}}" align="km">
+                                        @endif
+                                        @if(!is_null($sell_vehicle->fuel_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$sell_vehicle->fuel_type}}
+                                                </div>
                                             </div>
-                                            <div class="detsl">
-                                                {{$sell_vehicle->mileage}}
+                                        @endif
+                                        @if(!is_null($sell_vehicle->body_type))
+                                            <div class="car-dt">
+                                                <div class="icon">
+                                                    <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
+                                                </div>
+                                                <div class="detsl">
+                                                    {{$sell_vehicle->body_type}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/petrol.png')}}" align="petrol">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$sell_vehicle->fuel_type}}
-                                            </div>
-                                        </div>
-                                        <div class="car-dt">
-                                            <div class="icon">
-                                                <img src="{{asset('web/assets/images/auto.png')}}" align="auto">
-                                            </div>
-                                            <div class="detsl">
-                                                {{$sell_vehicle->body_type}}
-                                            </div>
-                                        </div>
+                                        @endif
                                     </div>
                                     <div class="car-price">
                                         <div class="initial-price-box">

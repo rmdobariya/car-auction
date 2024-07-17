@@ -16,12 +16,26 @@
     display: block;
     color: #fff;
     text-decoration: none;
-    padding: 10px;
+    padding: 9px;
     text-align: center;
     font-weight: 500;
     font-size: 16px;
 }
 a.place-bid:hover {
+    color: #fff;
+}
+.payment-proof {
+    background: #673AAA 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 9px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+}
+a.payment-proof:hover {
     color: #fff;
 }
 
@@ -142,4 +156,13 @@ div.my-auction-counter span strong {
     background: #fff;
     color: #673AAA;
 }
-
+#carderails.modal {z-index: 9999;}
+#vehicle_bid_modal.modal {z-index: 9999;}
+.filter-fix{
+    z-index: 1;
+}
+.disabled-link {
+    pointer-events: none;
+    color: grey;
+    cursor: not-allowed;
+}

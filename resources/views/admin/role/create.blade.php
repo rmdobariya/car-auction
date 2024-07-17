@@ -39,23 +39,34 @@
                                                     @foreach($permissions as $permission)
                                                         <tr>
                                                             <th scope="row"
-                                                                class="fs-6 fw-bold mb-2">{{$permission->module_name}}
+                                                                class="fs-6 fw-bold mb-2">
+                                                                @if(App::getLocale() == 'ar')
+                                                                    {{$permission->ar_module_name}}
+                                                                @else
+                                                                    {{$permission->module_name}}
+                                                                @endif
                                                             </th>
-                                                            <?php
-                                                            $pers = \Spatie\Permission\Models\Permission::where('module_name', $permission->module_name)->get();
-                                                            ?>
+                                                                <?php
+                                                                $pers = \Spatie\Permission\Models\Permission::where('module_name', $permission->module_name)->get();
+                                                                ?>
                                                             @foreach($pers as $per)
                                                                 <td>
                                                                     <div
-                                                                        class="form-check form-check-inline checkbox checkbox-dark mb-0">
+                                                                            class="form-check form-check-inline checkbox checkbox-dark mb-0">
                                                                         <label
-                                                                            class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
                                                                             <input class="form-check-input"
                                                                                    type="checkbox"
                                                                                    id={{$per->id}} value="{{$per->id}}"
                                                                                    name="permission[]"/>
                                                                             <span
-                                                                                class="form-check-label">{{$per->name}}</span>
+                                                                                    class="form-check-label">
+                                                                                @if(App::getLocale() == 'ar')
+                                                                                    {{$per->ar_name}}
+                                                                                @else
+                                                                                    {{$per->name}}
+                                                                                @endif
+                                                                            </span>
                                                                         </label>
                                                                     </div>
                                                                 </td>

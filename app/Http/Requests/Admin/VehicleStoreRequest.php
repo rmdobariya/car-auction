@@ -17,25 +17,14 @@ class VehicleStoreRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $rules = [
             'edit_value' => 'required',
-            'year' => 'required',
             'make_*' => 'required',
             'model_*' => 'required',
-            'trim_*' => 'required',
-            'kms_driven' => 'required',
-            'owners' => 'required',
-            'transmission_*' => 'required',
-            'fuel_type_*' => 'required',
             'body_type_*' => 'required',
-            'registration_*' => 'required',
-            'mileage_*' => 'required',
             'price' => 'required',
-            'car_type_*' => 'required',
-            'color_*' => 'required',
             'is_product' => 'required',
             'bid_increment' => 'required',
-            'short_description_*' => 'required',
             'description_*' => 'required',
             'auction_start_time' => 'required',
             'auction_end_time' => 'required',
@@ -43,6 +32,11 @@ class VehicleStoreRequest extends FormRequest
             'advance_payment_type' => 'required',
             'name_*' => 'required',
         ];
+        if ($this->input('car_report_changed') == 1) {
+            $rules['car_report'] = 'required|mimes:pdf';
+        }
+
+        return $rules;
     }
 
     public function failedValidation(Validator $validator)

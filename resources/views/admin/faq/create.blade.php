@@ -23,7 +23,7 @@
                                     <input type="text" class="form-control form-control-solid"
                                            name="question"
                                            id="question"
-                                           placeholder="Question"/>
+                                           placeholder="{{trans('admin_string.question')}}"/>
                                 </div>
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class="form-label">{{trans('admin_string.answer')}}</label>

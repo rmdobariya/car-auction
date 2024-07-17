@@ -132,7 +132,7 @@ class FaqController extends Controller
                 ->addColumn('check', function ($faq) {
 
                     return '<td>
-                   <div class="form-check form-check-sm form-check-custom form-check-solid">
+                    <div class="form-check form-check-sm form-check-custom form-check-solid">
                         <input class="form-check-input all_selected" type="checkbox" value=' . $faq->id . ' id="single_select">
                     </div>
                 </td>';

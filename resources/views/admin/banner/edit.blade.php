@@ -24,7 +24,7 @@
                                            name="title"
                                            id="title"
                                            value="{{$banner->title}}"
-                                           placeholder="Title"/>
+                                           placeholder="{{trans('admin_string.title')}}"/>
                                 </div>
 
                                 <div class="fv-row mb-7 fv-plugins-icon-container">

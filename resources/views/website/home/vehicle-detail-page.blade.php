@@ -35,42 +35,56 @@
                                 <th class="fw-bold" scope="row">{{trans('admin_string.model')}}</th>
                                 <td>({{ $vehicle->model }})</td>
                             </tr>
-                            <tr>
-                                <th class="fw-bold" scope="row">{{trans('admin_string.year')}}</th>
-                                <td>{{ $vehicle->year }}</td>
-                            </tr>
+                            @if(!is_null($vehicle->year))
+                                <tr>
+                                    <th class="fw-bold" scope="row">{{trans('admin_string.year')}}</th>
+                                    <td>{{ $vehicle->year }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.make')}}</th>
                                 <td>{{ $vehicle->make }}</td>
                             </tr>
+                            @if(!is_null($vehicle->trim))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.trim')}}</th>
                                 <td>{{ $vehicle->trim }}</td>
                             </tr>
+                            @endif
+                            @if(!is_null($vehicle->kms_driven))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.kms_driven')}}</th>
                                 <td>{{ $vehicle->kms_driven }}</td>
                             </tr>
-                            <tr>
-                                <th class="fw-bold" scope="row">{{trans('admin_string.no_of_owners')}}</th>
-                                <td>{{ $vehicle->owners }}</td>
-                            </tr>
+                            @endif
+                            {{--                            <tr>--}}
+                            {{--                                <th class="fw-bold" scope="row">{{trans('admin_string.no_of_owners')}}</th>--}}
+                            {{--                                <td>{{ $vehicle->owners }}</td>--}}
+                            {{--                            </tr>--}}
+                            @if(!is_null($vehicle->transmission))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.transmission')}}</th>
                                 <td>{{ $vehicle->transmission }}</td>
                             </tr>
+                            @endif
+                            @if(!is_null($vehicle->fuel_type))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.fuel')}}</th>
                                 <td>{{ $vehicle->fuel_type }}</td>
                             </tr>
+                            @endif
+                            @if(!is_null($vehicle->body_type))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.body_type')}}</th>
                                 <td>{{ $vehicle->body_type }}</td>
                             </tr>
+                            @endif
+                            @if(!is_null($vehicle->registration))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.registration')}}</th>
                                 <td>{{ $vehicle->registration }}</td>
                             </tr>
+                            @endif
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.exterior_color')}}</th>
                                 <td>{{ $vehicle->color }}</td>
@@ -83,23 +97,27 @@
                             {{--                                    <th class="fw-bold" scope="row">Minimum Bid Increment Price</th>--}}
                             {{--                                    <td>{{ number_format($vehicle->minimum_bid_increment_price) }}</td>--}}
                             {{--                                </tr>--}}
+                            @if(!is_null($vehicle->mileage))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.mileage')}}</th>
                                 <td>{{ $vehicle->mileage }}</td>
                             </tr>
+                            @endif
+                            @if(!is_null($vehicle->car_type))
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.car_type')}}</th>
                                 <td>{{ $vehicle->car_type }}</td>
                             </tr>
+                            @endif
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.bid_count')}}</th>
                                 <td>{{ $bid_count }}</td>
                             </tr>
-                            <tr>
-                                <th class="fw-bold" scope="row">{{trans('admin_string.short_description')}}</th>
+{{--                            <tr>--}}
+{{--                                <th class="fw-bold" scope="row">{{trans('admin_string.short_description')}}</th>--}}
 
-                                <td>{{ $vehicle->short_description }}</td>
-                            </tr>
+{{--                                <td>{{ $vehicle->short_description }}</td>--}}
+{{--                            </tr>--}}
                             <tr>
                                 <th class="fw-bold" scope="row">{{trans('admin_string.description')}}</th>
 

@@ -38,15 +38,16 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2">{{trans('admin_string.vehicle_category')}}</label>
+                                            <label
+                                                class="required fs-6 fw-bold mb-2">{{trans('admin_string.vehicle_category')}}</label>
                                             <select class="form-select form-select-solid fw-bold"
                                                     name="vehicle_category_id"
                                                     id="vehicle_category_id">
                                                 <option value="">{{trans('admin_string.select_option')}}</option>
                                                 @foreach($vehicle_categories as $vehicle_category)
                                                     <option
-                                                            value="{{$vehicle_category->id}}"
-                                                            @if((int)$vehicle->vehicle_category_id === $vehicle_category->id) selected @endif>{{$vehicle_category->name}}</option>
+                                                        value="{{$vehicle_category->id}}"
+                                                        @if((int)$vehicle->vehicle_category_id === $vehicle_category->id) selected @endif>{{$vehicle_category->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -109,7 +110,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_trim"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.trim')}}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.trim')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_trim"
@@ -126,7 +127,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="kms_driven">
+                                            <label class="fs-6 fw-bold mb-2" for="kms_driven">
                                                 {{trans('admin_string.kms_driven')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
@@ -138,7 +139,7 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="owners">
+                                            <label class="fs-6 fw-bold mb-2" for="owners">
                                                 {{trans('admin_string.no_of_owners')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
@@ -154,7 +155,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_transmission"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }}
                                                     {{trans('admin_string.transmission')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
@@ -174,7 +175,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_fuel_type"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.fuel')}}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.fuel')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_fuel_type"
@@ -212,7 +213,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_registration"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }}
                                                     {{trans('admin_string.registration')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
@@ -232,7 +233,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_color"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }}
                                                     {{trans('admin_string.exterior_color')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
@@ -252,7 +253,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_car_type"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.car_type')}}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.car_type')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
                                                        name="{{ $language['language_code'] }}_car_type"
@@ -271,7 +272,7 @@
                                         <div class="mb-3 col-md-6">
                                             <div class="fv-row mb-7 fv-plugins-icon-container">
                                                 <label for="{{ $language['language_code'] }}_mileage"
-                                                       class="required fs-6 fw-bold mb-2">{{ $language['name'] }}
+                                                       class="fs-6 fw-bold mb-2">{{ $language['name'] }}
                                                     {{trans('admin_string.mileage')}}
                                                 </label>
                                                 <input type="text" class="form-control form-control-solid"
@@ -289,7 +290,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="year">
+                                            <label class="fs-6 fw-bold mb-2" for="year">
                                                 {{trans('admin_string.year')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid"
@@ -305,7 +306,7 @@
                                             <label class="required fs-6 fw-bold mb-2" for="price">
                                                 {{trans('admin_string.price')}}
                                             </label>
-                                            <input type="text" class="form-control form-control-solid"
+                                            <input type="text" class="form-control integer form-control-solid"
                                                    name="price"
                                                    id="price"
                                                    value="{{$vehicle->price}}"
@@ -406,11 +407,11 @@
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
-                                                    class="form-check-input h-20px w-20px"
-                                                    value="1" name="is_product"
-                                                    id="is_product"
-                                                    type="radio" data-bs-original-title=""
-                                                    title="" @if($vehicle->is_product == 'is_featured') checked @endif>
+                                                class="form-check-input h-20px w-20px"
+                                                value="is_featured" name="is_product"
+                                                id="is_product"
+                                                type="checkbox" data-bs-original-title=""
+                                                title="" @if($vehicle->is_product == 'is_featured') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">{{trans('admin_string.is_featured')}}</label>
                                         </div>
@@ -419,11 +420,11 @@
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
-                                                    class="form-check-input h-20px w-20px"
-                                                    value="1" name="is_product"
-                                                    id="is_product"
-                                                    type="radio" data-bs-original-title=""
-                                                    title="" @if($vehicle->is_product == 'is_popular') checked @endif>
+                                                class="form-check-input h-20px w-20px"
+                                                value="is_popular" name="is_product"
+                                                id="is_product"
+                                                type="checkbox" data-bs-original-title=""
+                                                title="" @if($vehicle->is_product == 'is_popular') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">{{trans('admin_string.is_popular')}}</label>
                                         </div>
@@ -431,11 +432,11 @@
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
-                                                    class="form-check-input h-20px w-20px"
-                                                    value="1" name="is_product"
-                                                    id="is_product"
-                                                    type="radio" data-bs-original-title=""
-                                                    title="" @if($vehicle->is_product == 'is_hot_deal') checked @endif>
+                                                class="form-check-input h-20px w-20px"
+                                                value="is_hot_deal" name="is_product"
+                                                id="is_product"
+                                                type="checkbox" data-bs-original-title=""
+                                                title="" @if($vehicle->is_product == 'is_hot_deal') checked @endif>
                                             <label class="form-check-label fw-bold"
                                                    for="is-quantity-1">{{trans('admin_string.hot_deal')}}</label>
                                         </div>
@@ -454,20 +455,20 @@
                                     </div>
                                 </div>
 
-                                @foreach($languages as $language)
-                                    <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label for="{{ $language['language_code'] }}_short_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.short_description')}}
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                               name="{{ $language['language_code'] }}_short_description"
-                                               id="{{ $language['language_code'] }}_short_description"
-                                               @if($language['is_rtl']==1) dir="rtl" @endif
-                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"
-                                               placeholder="{{ $language['name'] }} {{trans('admin_string.short_description')}}"
-                                               required/>
-                                    </div>
-                                @endforeach
+                                {{--                                @foreach($languages as $language)--}}
+                                {{--                                    <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+                                {{--                                        <label for="{{ $language['language_code'] }}_short_description"--}}
+                                {{--                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.short_description')}}--}}
+                                {{--                                        </label>--}}
+                                {{--                                        <input type="text" class="form-control form-control-solid"--}}
+                                {{--                                               name="{{ $language['language_code'] }}_short_description"--}}
+                                {{--                                               id="{{ $language['language_code'] }}_short_description"--}}
+                                {{--                                               @if($language['is_rtl']==1) dir="rtl" @endif--}}
+                                {{--                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"--}}
+                                {{--                                               placeholder="{{ $language['name'] }} {{trans('admin_string.short_description')}}"--}}
+                                {{--                                               required/>--}}
+                                {{--                                    </div>--}}
+                                {{--                                @endforeach--}}
 
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -480,7 +481,18 @@
                                                   @if($language['is_rtl']==1) dir="rtl" @endif>{{ $vehicle->translateOrNew($language['language_code'])->description }}</textarea>
                                     </div>
                                 @endforeach
-
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label class=" fs-6 fw-bold mb-2"
+                                           for="car_report">{{trans('admin_string.car_report_pdf')}}
+                                        ({{trans('admin_string.only_pdf_files_are_allowed')}})
+                                    </label><br>
+                                    <input type="file" name="car_report" id="car_report"
+                                           value="{{$vehicle->car_report}}" data-default-file="{{$vehicle->car_report}}" onchange="fileChanged()">
+                                    <input type="hidden" name="car_report_changed" id="car_report_changed" value="0">
+                                    @if(!is_null($vehicle->car_report))
+                                        <a href="{{asset($vehicle->car_report)}}" target="_blank">View Car Report</a>
+                                    @endif
+                                </div>
                                 <div class="fv-row mb-7 fv-plugins-icon-container">
                                     <label class=" fs-6 fw-bold mb-2"
                                            for="image">{{trans('admin_string.image')}}
@@ -498,7 +510,7 @@
                                            for="image">{{trans('admin_string.multiple_image')}}
                                         ({{trans('admin_string.allow_max')}})
                                         <span
-                                                class="error"></span></label><br>
+                                            class="error"></span></label><br>
                                     <div id="gallery">
                                         @include('admin.vehicle.gallery')
                                     </div>
@@ -537,6 +549,14 @@
         const delete_offer_image_text = 'Are You Sure Delete This Image'
         const confirmButtonText = "Yes";
         const cancelButtonText = "No";
+
+        $('input[name="is_product"]').change(function () {
+            $('input[name="is_product"]').not(this).prop('checked', false);
+        });
+
+        function fileChanged() {
+            document.getElementById('car_report_changed').value = '1';
+        }
     </script>
 
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>

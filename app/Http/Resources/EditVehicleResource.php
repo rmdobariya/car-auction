@@ -23,7 +23,7 @@ class EditVehicleResource extends JsonResource
         $ar_color = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->color;
         $ar_car_type = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->car_type;
         $ar_mileage = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->mileage;
-        $ar_short_description = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->short_description;
+//        $ar_short_description = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->short_description;
         $ar_description = DB::table('vehicle_translations')->where('vehicle_id', $this->id)->where('locale','ar')->first()->description;
         $ar_vc_name = DB::table('category_translations')->where('category_id', $this->vehicle_category_id)->where('locale','ar')->first()->name;
         $ar_city_name = DB::table('city_translations')->where('city_id', $this->city_id)->where('locale','ar')->first()->name;
@@ -114,8 +114,8 @@ class EditVehicleResource extends JsonResource
             'auction_end_date' => $this->auction_end_date,
             'auction_start_time' => $this->auction_start_time,
             'auction_end_time' => $this->auction_end_time,
-            'short_description' => $this->short_description,
-            'ar_short_description' => $ar_short_description,
+//            'short_description' => $this->short_description,
+//            'ar_short_description' => $ar_short_description,
             'description' => $this->description,
             'ar_description' => $ar_description,
             'people_are_interested' => $bid_count,

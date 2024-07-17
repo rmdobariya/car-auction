@@ -61,6 +61,17 @@ class AdminDataTableButtonHelper
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">' . trans('admin_string.reject') . '</a>';
                 $action_button_dropdown .= '</div>';
+            }else if ((string)$key === 'payment-status' && (string)$value === 'approved' && $array['actions']['status_permission'] == true) {
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 payment-status-change">' . trans('admin_string.reject') . '</a>';
+                $action_button_dropdown .= '</div>';
+            }else if ((string)$key === 'payment-status' && (string)$value === 'pending' && $array['actions']['status_permission'] == true) {
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="approved" data-id="' . $array['id'] . '" class="menu-link px-3 payment-status-change">' . trans('admin_string.approve') . '</a>';
+                $action_button_dropdown .= '</div>';
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 payment-status-change">' . trans('admin_string.reject') . '</a>';
+                $action_button_dropdown .= '</div>';
             }
         }
         $action_button_dropdown .= ' </div>';
@@ -74,6 +85,16 @@ class AdminDataTableButtonHelper
             return '<div class="badge badge-light-success">' . trans('admin_string.active') . '</div>';
         } else {
             return '<div class="badge badge-light-danger">' . trans('admin_string.inactive') . '</div>';
+        }
+    }
+ public static function paymentStatusBadge($array): string
+    {
+        if ((string)$array['status'] === 'pending') {
+            return '<div class="badge badge-light-warning">' . trans('admin_string.pending') . '</div>';
+        } elseif((string)$array['status'] === 'approved') {
+            return '<div class="badge badge-light-success">' . trans('admin_string.approved') . '</div>';
+        }else{
+            return '<div class="badge badge-light-danger">' . trans('admin_string.reject') . '</div>';
         }
     }
 

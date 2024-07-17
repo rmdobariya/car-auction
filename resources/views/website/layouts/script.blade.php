@@ -5,6 +5,7 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.js'></script>
 <script src='https://unpkg.com/swiper@6.5.4/swiper-bundle.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/nBWZtZD4r4AX6YOt5ynLN2g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('web/assets/js/script.js')}}?v={{time()}}"></script>
 {{--<script src="{{asset('web/assets/js/ar_script.js')}}?v={{time()}}"></script>--}}
 <script src="{{asset('web/assets/js/countdown.js')}}"></script>
@@ -14,6 +15,7 @@
 <script src="{{ asset('assets/plugins/axios/axios.min.js') }}"></script>
 <script src="{{asset('web/assets/custom/custom.js')}}?v={{time()}}"></script>
 <script>
+
     $("input[type=checkbox]").change(function () {
         $(this).parent().toggleClass("chked");
     });

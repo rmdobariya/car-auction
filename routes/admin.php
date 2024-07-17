@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BidController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactUsController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\LanguageStringController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\PasswordController;
+use App\Http\Controllers\Admin\PaymentProofController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\QuestionController;
@@ -125,6 +127,7 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
 
     Route::resource('vehicle', VehicleController::class);
     Route::get('get-vehicle-list', [VehicleController::class, 'getVehicleList'])->name('get-vehicle-list');
+    Route::get('get-vehicle-wise-bid-list/{vehicle_id}', [VehicleController::class, 'getVehicleWiseBidList'])->name('get-vehicle-wise-bid-list');
     Route::get('restore-vehicle/{id}', [VehicleController::class, 'restore'])->name('restore-vehicle');
     Route::delete('vehicle-hard-delete/{id}', [VehicleController::class, 'hardDelete'])->name('vehicle-hard-delete');
     Route::post('multiple-vehicle-delete', [VehicleController::class, 'multipleVehicleDelete'])->name('multiple-vehicle-delete');
@@ -150,4 +153,11 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::resource('language-string', LanguageStringController::class);
     Route::get('get-language-string-list', [LanguageStringController::class, 'getLanguageStringList'])->name('get-language-string-list');
     Route::get('create-language-string-file', [LanguageStringController::class, 'createLanguageStringFile'])->name('create-language-string-file');
+
+    Route::resource('bid', BidController::class);
+    Route::get('get-bid-list', [BidController::class, 'getBidList'])->name('get-bid-list');
+
+    Route::resource('payment-proof', PaymentProofController::class);
+    Route::get('get-payment-proof', [PaymentProofController::class, 'getPaymentProofList'])->name('get-payment-proof');
+    Route::get('payment-proof/status/{id}/{status}', [PaymentProofController::class, 'changeStatus'])->name('payment-proof.status.change');
 });

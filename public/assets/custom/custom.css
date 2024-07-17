@@ -296,3 +296,10 @@ text-content .field label input[type="checkbox"] {
     z-index:999;
     width: 100%;
 }
+
+.theme-color{
+    color: #673aaa;
+}
+. bg-theme-color{
+    background-color: #673aaa !important;
+}

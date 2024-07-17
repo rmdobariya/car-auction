@@ -45,7 +45,7 @@ class QuestionController extends Controller
             ->where('vehicles.id', $request->vehicle_id)
             ->where('vehicle_translations.locale', App::getLocale())
             ->select('vehicles.user_id as user_id', 'vehicle_translations.name as vehicle_name',
-                'vehicle_translations.description', 'vehicle_translations.short_description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
             ->first();
         $car_inquiry = new CarInquiry();
         $car_inquiry->user_id = $vehicle->user_id;

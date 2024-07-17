@@ -76,7 +76,7 @@ class RoleController extends Controller
             $role->syncPermissions($request->input('permission'));
             return response()->json([
                 'success' => true,
-                'message' => trans('admin_string.record_add_successfully')
+                'message' => 'Record Add Successfully'
             ]);
         }
         $role = Role::find($validated['edit_value']);
@@ -86,7 +86,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permission'));
         return response()->json([
             'success' => true,
-            'message' => trans('admin_string.record_update_successfully')
+            'message' => 'Record Update Successfully'
         ]);
     }
 
@@ -110,14 +110,14 @@ class RoleController extends Controller
         $count = ModelHasRole::where('role_id', $id)->count();
         if ($count > 0) {
             return response()->json([
-                'message' => trans('admin_string.this_role_already_use_in')
+                'message' => 'This Role Already Use In'
             ], 422);
         }
 
         Role::where('id', $id)->delete();
         return response()->json([
             'success' => true,
-            'message' => trans('admin_string.record_delete_successfully')
+            'message' => 'Record Delete Successfully'
         ]);
     }
 }

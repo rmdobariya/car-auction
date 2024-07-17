@@ -221,9 +221,9 @@ class SubAdminController extends Controller
                     if ((int)$user->id === 1) {
                         return '';
                     } else {
-                        return '<td>
+                        return  '<td>
                     <div class="form-check form-check-sm form-check-custom form-check-solid">
-                        <input class="form-check-input" type="checkbox" value=' . $user->id . '>
+                        <input class="form-check-input all_selected" type="checkbox" value=' . $user->id . ' id="single_select">
                     </div>
                 </td>';
                     }

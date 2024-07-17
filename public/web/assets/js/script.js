@@ -1,26 +1,39 @@
+//Page footer hide filter
+$(window).scroll(function() {
+    $("body").removeClass("pagebottom");
+    if($(window).scrollTop() + $(window).height() > ($(document).height() - 200) ) {
+        $("body").addClass("pagebottom");
+    }
+});
+
+
+
+
 // $("#flexSwitchCheckDefault").change(function() {
     $('body').toggleClass("rtl");
 // });
 
 //-----JS for Price Range slider-----
 
-$(function () {
-    $("#slider-range").slider({
-        range: true,
-        min: 0,
-        max: 900,
-        values: [0, 300],
-        slide: function (event, ui) {
-            $("#amount").val("SAR " + ui.values[0] + "k" + " - " + ui.values[1] + "k");
-        }
-    });
-    $("#amount").val("SAR " + $("#slider-range").slider("values", 0) + "k" + " - " + $("#slider-range").slider("values", 1) + "k");
-});
-
+// $(function () {
+//     $("#slider-range").slider({
+//         range: true,
+//         min: 0,
+//         max: 900,
+//         values: [0, 300],
+//         slide: function (event, ui) {
+//             $("#amount").val("SAR " + ui.values[0] + "k" + " - " + ui.values[1] + "k");
+//         }
+//     });
+//     $("#amount").val("SAR " + $("#slider-range").slider("values", 0) + "k" + " - " + $("#slider-range").slider("values", 1) + "k");
+// });
+console.log(min)
+console.log(max)
 $("#min_amount").val(parseInt(min));
 $("#max_amount").val(parseInt(max));
 $("#min_ratting").val(parseInt(min_ratting));
 $("#max_ratting").val(parseInt(max_ratting));
+$("#amount").val(max);
 $(function () {
     $("#slider-range-price").slider({
         range: true,
@@ -31,7 +44,7 @@ $(function () {
             console.log(ui)
             $("#min_amount").val(ui.values[0]);
             $("#max_amount").val(ui.values[1]);
-            $("#amount").val("SAR " + ui.values[0] + "  " + "k" + " - " + ui.values[1] + "  " + "k");
+            $("#amount").val(ui.values[0] + "  " + "k" + " - " + ui.values[1] + "  " + "k");
         }
 })
     ;
@@ -73,7 +86,7 @@ $(function () {
         range: true,
         min: parseInt(min),
         max: parseInt(max),
-        values: [parseInt(min), parseInt(max)],
+        values: [parseInt(max), parseInt(min)],
         slide: function (event, ui) {
             $("#incamount").val("SAR " + ui.values[0]);
         }

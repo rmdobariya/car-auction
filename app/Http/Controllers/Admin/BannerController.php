@@ -137,8 +137,8 @@ class  BannerController extends Controller
                 })
                 ->addColumn('check', function ($banner) {
 
-                    return '<td>
-                     <div class="form-check form-check-sm form-check-custom form-check-solid">
+                    return  '<td>
+                    <div class="form-check form-check-sm form-check-custom form-check-solid">
                         <input class="form-check-input all_selected" type="checkbox" value=' . $banner->id . ' id="single_select">
                     </div>
                 </td>';

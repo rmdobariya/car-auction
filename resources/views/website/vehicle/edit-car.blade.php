@@ -142,8 +142,7 @@
                                                        id="{{ $language['language_code'] }}_trim"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->trim }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.trim')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.trim')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -159,8 +158,7 @@
                                                        id="{{ $language['language_code'] }}_transmission"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->transmission }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.transmission')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.transmission')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -175,8 +173,7 @@
                                                        id="{{ $language['language_code'] }}_fuel_type"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->fuel_type }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.fuel_type')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.fuel_type')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -207,8 +204,7 @@
                                                        id="{{ $language['language_code'] }}_registration"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->registration }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.registration')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.registration')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -223,8 +219,7 @@
                                                        id="{{ $language['language_code'] }}_mileage"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->mileage }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.mileage')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.mileage')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -239,8 +234,7 @@
                                                        id="{{ $language['language_code'] }}_color"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->color }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.exterior_color')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.exterior_color')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -255,8 +249,7 @@
                                                        id="{{ $language['language_code'] }}_car_type"
                                                        @if($language['is_rtl']==1) dir="rtl" @endif
                                                        value="{{ $vehicle->translateOrNew($language['language_code'])->car_type }}"
-                                                       placeholder="{{ $language['name'] }} {{trans('web_string.car_type')}}"
-                                                       required/>
+                                                       placeholder="{{ $language['name'] }} {{trans('web_string.car_type')}}"/>
                                             </div>
                                         </div>
                                     @endforeach
@@ -288,20 +281,20 @@
                                                for="is_vehicle_type">{{trans('web_string.car_for_sell')}}</label>
                                     </div>
                                 </div>
-                                @foreach($languages as $language)
-                                    <div class="fv-row mb-7 fv-plugins-icon-container mt-2">
-                                        <label for="{{ $language['language_code'] }}_short_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.short_description')}}
-                                        </label>
-                                        <input type="text" class="form-control form-control-solid"
-                                               name="{{ $language['language_code'] }}_short_description"
-                                               id="{{ $language['language_code'] }}_short_description"
-                                               @if($language['is_rtl']==1) dir="rtl" @endif
-                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"
-                                               placeholder="{{ $language['name'] }} {{trans('web_string.short_description')}}"
-                                               required/>
-                                    </div>
-                                @endforeach
+{{--                                @foreach($languages as $language)--}}
+{{--                                    <div class="fv-row mb-7 fv-plugins-icon-container mt-2">--}}
+{{--                                        <label for="{{ $language['language_code'] }}_short_description"--}}
+{{--                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('web_string.short_description')}}--}}
+{{--                                        </label>--}}
+{{--                                        <input type="text" class="form-control form-control-solid"--}}
+{{--                                               name="{{ $language['language_code'] }}_short_description"--}}
+{{--                                               id="{{ $language['language_code'] }}_short_description"--}}
+{{--                                               @if($language['is_rtl']==1) dir="rtl" @endif--}}
+{{--                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"--}}
+{{--                                               placeholder="{{ $language['name'] }} {{trans('web_string.short_description')}}"--}}
+{{--                                               required/>--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
 
                                 @foreach($languages as $language)
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
@@ -333,22 +326,43 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
+
+                                    <div class="col-md-4">
+                                        <label class="required fs-6 fw-bold mb-2" for="car_report">
+                                            {{trans('web_string.car_report')}}
+                                        </label>
+                                        @if(!is_null($vehicle->car_report))
+                                            <a href="{{asset($vehicle->car_report)}}" class="mt-5" target="_blank">View Car Report</a>
+                                        @endif
+
+                                        <input type="file" name="car_report"
+                                               data-bs-toggle="tooltip"
+                                               data-default-file="{{asset($vehicle->car_report)}}"
+                                               value="{{$vehicle->car_report}}"
+                                               title="only PDF files are allowed." onchange="fileChanged()"/>
+                                        <input type="hidden" name="car_report_changed" id="car_report_changed" value="0">
+
+                                    </div>
+                                    <div class="col-md-4">
                                         <label class="required fs-6 fw-bold mb-2" for="main_image">
                                             {{trans('web_string.main_image')}}
                                         </label>
                                         <input type="file" name="main_image" id="file" class="dropify"
-                                               data-default-file="{{asset($vehicle->main_image)}}" data-bs-toggle="tooltip" title="Allowed max 2MB and only JPG, PNG, GIF files are allowed."
+                                               data-default-file="{{asset($vehicle->main_image)}}"
+                                               data-bs-toggle="tooltip"
+                                               title="Allowed max 2MB and only JPG, PNG, GIF files are allowed."
                                                value="{{$vehicle->main_image}}">
                                     </div>
-                                    <b style="font-size: 32px">{{trans('web_string.car_images')}} </b>({{trans('admin_string.allow_max')}})
+                                    <b style="font-size: 32px">{{trans('web_string.car_images')}} </b>({{trans('admin_string.allow_max')}}
+                                    )
                                     <div class="row">
                                         <div id="car_gallery">
                                             @include('website.vehicle.car_gallery')
                                         </div>
                                         <div id="fine-uploader"></div>
                                     </div>
-                                    <b style="font-size: 32px">{{trans('web_string.car_documents')}}</b>({{trans('web_string.allow_document')}})
+                                    <b style="font-size: 32px">{{trans('web_string.car_documents')}}</b>({{trans('web_string.allow_document')}}
+                                    )
                                     <div class="row">
                                         <div id="car_document">
                                             @include('website.vehicle.car_document')
@@ -421,6 +435,25 @@
                                                        placeholder="{{trans('web_string.end_date')}}">
                                             </div>
                                         </div>
+                                        <div class="mb-1 col-md-3">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_time">
+                                                    {{trans('web_string.start_time')}}
+                                                </label>
+                                                <input type="time" name="auction_start_time" value="{{$vehicle->auction_start_time}}" class="form-control"
+                                                       placeholder="{{trans('web_string.start_time')}}" >
+                                            </div>
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
+                                                    {{trans('web_string.end_time')}}
+                                                </label>
+                                                <input type="time" name="auction_end_time"
+                                                       class="form-control" value="{{$vehicle->auction_end_time}}"
+                                                       placeholder=" {{trans('web_string.end_time')}}">
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="row">
@@ -442,13 +475,16 @@
 @section('custom-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var label = document.querySelector("label[for='main_image']").textContent;
             var tooltipMessage = "Allowed max 2MB and only JPG, PNG, GIF files are allowed.";
-            var tooltipTitle =  tooltipMessage;
+            var tooltipTitle = tooltipMessage;
             var inputElement = document.querySelector("input[name='main_image']");
             inputElement.setAttribute("title", tooltipTitle);
         });
+        function fileChanged() {
+            document.getElementById('car_report_changed').value = '1';
+        }
     </script>
     <script>
         var IMAGE_UPLOAD_URL = '/vehicle-image-upload'

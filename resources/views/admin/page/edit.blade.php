@@ -45,7 +45,7 @@
                                                name="slug"
                                                id="slug"
                                                value="{{$page->slug}}"
-                                               placeholder="Slug"/>
+                                               placeholder="{{ trans('admin_string.slug') }}"/>
                                     </div>
                                 </div>
 

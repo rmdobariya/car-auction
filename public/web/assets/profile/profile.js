@@ -92,7 +92,7 @@ $j_object.each(function (i) {
     $("#my-auction-counter_" + id)
         .countdown(formattedDateTime, function (event) {
             $("#my-auction-counter_" + id).html(
-                event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+                event.strftime('<span>' + day_string + '<strong>%D</strong></span> <span>' + hour_string + '<strong>%H</strong></span> <span>' + min_string + '<strong>%M</strong> </span> <span>' + sec_string + '<strong>%S</strong></span>')
             );
         });
 });
@@ -110,7 +110,7 @@ $win_object.each(function (i) {
     $("#win_my-auction-counter_" + win_id)
         .countdown(winFormattedDateTime, function (event) {
             $("#win_my-auction-counter_" + win_id).html(
-                event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+                event.strftime('<span>' + day_string + '<strong>%D</strong></span> <span>' + hour_string + '<strong>%H</strong></span> <span>' + min_string + '<strong>%M</strong> </span> <span>' + sec_string + '<strong>%S</strong></span>')
             );
         });
 });

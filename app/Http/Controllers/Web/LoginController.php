@@ -9,6 +9,7 @@ use App\Http\Requests\Web\LoginRequest;
 use App\Http\Requests\Web\RegisterRequest;
 use App\Mail\Web\ForgotPasswordMail;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -61,6 +62,7 @@ class LoginController extends Controller
             'email' => $user->email,
             'mobile_no' => $user->mobile_no,
             'type' => 'user_registration',
+            'created_at' => Carbon::now(),
             'message' => $user->full_name . '|' . $user->email . ' ' . 'Registered On Zodha',
         ]);
         return response()->json([
@@ -131,6 +133,7 @@ class LoginController extends Controller
                     'last_name' => $user->last_name,
                     'email' => $user->email,
                     'mobile_no' => $user->mobile_no,
+                    'created_at' => Carbon::now(),
                     'type' => 'forgot_password_request',
                     'message' => $user->email . ' ' . 'requested a password change',
                 ]);

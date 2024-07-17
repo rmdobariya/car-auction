@@ -39,11 +39,15 @@ Route::group(['middleware' => ['websiteLanguageCheck']], function () {
     Route::get('vehicle-detail/{id}', [HomeController::class, 'homeVehicleDetail'])->name('vehicle-detail');
     Route::get('car-inquiry/{id}', [HomeController::class, 'vehicleInquiry'])->name('car-inquiry');
     Route::get('vehicle-bid-modal/{id}', [HomeController::class, 'vehicleBid'])->name('vehicle-bid-modal');
+    Route::get('payment-proof-modal/{id}', [HomeController::class, 'paymentProof'])->name('payment-proof-modal');
     Route::get('type-wise-car/{flag}', [HomeController::class, 'typeWiseCar'])->name('type-wise-car');
     Route::get('car-for-sell/{flag}', [HomeController::class, 'carForSell'])->name('car-for-sell');
     Route::get('seller/{id}', [HomeController::class, 'seller'])->name('seller');
+    Route::get('corporate-seller-page', [HomeController::class, 'corporateSellerPage'])->name('corporate-seller-page');
+    Route::post('render-corporate-seller', [HomeController::class, 'renderCorporateSellerPage'])->name('render-corporate-seller');
 //Route::get('socialAccount', [SocialLoginController::class,'socialAccount'])->name('socialAccount');
     Route::get('googleCallback', [SocialLoginCOntroller::class, 'googleCallback'])->name('googleCallback');
+    Route::get('newDetail/{id}', [HomeController::class, 'newDetail'])->name('newDetail');
     Route::get('facebookCallback', [SocialLoginController::class, 'facebookCallback'])->name('facebookCallback');
     Route::get('socialLogin/{type}', [SocialLoginController::class, 'socialLogin'])->name('socialLogin');
     Route::get('page/{slug}', [PageController::class, 'index'])->name('page');
@@ -67,6 +71,7 @@ Route::group(['middleware' => ['websiteLanguageCheck']], function () {
     Route::get('deleteVehicleDocument/{id}', [VehicleController::class, 'deleteVehicleDocument'])->name('deleteVehicleDocument');
     Route::get('deleteCar/{id}', [VehicleController::class, 'destroy'])->name('deleteCar');
     Route::post('vehicle-bid-store', [BidController::class, 'addBid'])->name('vehicle-bid-store');
+    Route::post('payment-proof-store', [BidController::class, 'paymentProofStore'])->name('payment-proof-store');
     Route::post('vehicle-inquiry-store', [HomeController::class, 'carInquirySubmit'])->name('vehicle-inquiry-store');
     Route::post('contact-us-store', [HomeController::class, 'contactUsSubmit'])->name('contact-us-store');
 

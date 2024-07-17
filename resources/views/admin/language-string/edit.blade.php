@@ -3,7 +3,7 @@
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
         <div class="toolbar" id="kt_toolbar">
             <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack">
-                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_String.edit_language_string')])
+                @include('admin.layouts2.components.bread-crumbs',['main_name'=>trans('admin_string.edit_language_strings')])
             </div>
         </div>
         <div class="post d-flex flex-column-fluid" id="kt_post">

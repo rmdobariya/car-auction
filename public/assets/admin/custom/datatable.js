@@ -23,11 +23,12 @@ $(function () {
             KTMenu.init()
             KTMenu.init()
         },
-        language: {
-            processing: '<div class="spinner-border text-primary m-1" role="status"><span class="sr-only">Loading...</span></div>'
-        },
+
+
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, 'All']]
     })
+
+
 
     $('#data-table-search').keyup(function () {
         table.search($(this).val()).draw()
@@ -65,7 +66,7 @@ $(function () {
             confirmButtonText: delete_button_text,
             cancelButtonText: cancel_button_text,
             customClass: {
-                confirmButton: 'btn fw-bold btn-danger',
+                confirmButton: 'btn fw-bold btn-primary',
                 cancelButton: 'btn fw-bold btn-active-light-primary'
             }
         }).then((function (t) {
@@ -104,7 +105,7 @@ $(function () {
             confirmButtonText: yes_change_it,
             cancelButtonText: cancel_button_text,
             customClass: {
-                confirmButton: 'btn fw-bold btn-danger',
+                confirmButton: 'btn fw-bold btn-primary',
                 cancelButton: 'btn fw-bold btn-active-light-primary'
             },
         }).then((function (t) {
@@ -141,7 +142,7 @@ $(function () {
             confirmButtonText: 'Yes',
             cancelButtonText: 'No',
             customClass: {
-                confirmButton: 'btn fw-bold btn-danger',
+                confirmButton: 'btn fw-bold btn-primary',
                 cancelButton: 'btn fw-bold btn-active-light-primary'
             }
         }).then((function (t) {
@@ -179,7 +180,7 @@ $(function () {
             confirmButtonText: 'Yes',
             cancelButtonText: 'No',
             customClass: {
-                confirmButton: 'btn fw-bold btn-danger',
+                confirmButton: 'btn fw-bold btn-primary',
                 cancelButton: 'btn fw-bold btn-active-light-primary'
             }
         }).then((function (t) {
@@ -255,7 +256,7 @@ $(function () {
             confirmButtonText: delete_button_text,
             cancelButtonText: cancel_button_text,
             customClass: {
-                confirmButton: 'btn fw-bold btn-danger',
+                confirmButton: 'btn fw-bold btn-primary',
                 cancelButton: 'btn fw-bold btn-active-light-primary'
             }
         }).then((function (t) {
@@ -283,6 +284,42 @@ $(function () {
             })
 
     }
+    $(document).on('click', '.payment-status-change', function () {
+        const value_id = $(this).data('id')
+        const status = $(this).data('status')
+        console.log(11)
+        Swal.fire({
+            title: sweetalert_change_status,
+            text: sweetalert_change_status_text,
+            icon: 'warning',
+            showCancelButton: !0,
+            buttonsStyling: !1,
+            confirmButtonText: yes_change_it,
+            cancelButtonText: cancel_button_text,
+            customClass: {
+                confirmButton: 'btn fw-bold btn-primary',
+                cancelButton: 'btn fw-bold btn-active-light-primary'
+            },
+        }).then((function (t) {
+            if (t.isConfirmed) {
+                paymentChangeStatus(value_id, status)
+            }
+        }))
+    })
 
+    function paymentChangeStatus(value_id, status) {
+        loaderView()
+        axios
+            .get(APP_URL + form_url + '/status' + '/' + value_id + '/' + status)
+            .then(function (response) {
+                table.draw()
+                notificationToast(response.data.message, 'success')
+                loaderHide()
+            })
+            .catch(function (error) {
+                notificationToast(error.response.data.message, 'warning')
+                loaderHide()
+            })
+    }
     // integerOnly()
 })

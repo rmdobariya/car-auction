@@ -56,6 +56,7 @@ class AuctionBeforeNotification extends Command
                 'email' => $user->email,
                 'mobile_no' => $user->mobile_no,
                 'type' => 'auction_about_to_expire',
+                'created_at' => Carbon::now(),
                 'message' => $auction->vehicle_name . ' ' . 'is about to expire',
             ]);
         }

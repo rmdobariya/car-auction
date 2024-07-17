@@ -31,7 +31,7 @@
                                     </label>
                                     <input type="text" class="form-control"
                                            name="new_password" id="new_password"
-                                           placeholder="New Password" required/>
+                                           placeholder="{{trans('admin_string.new_password')}}" required/>
                                 </div>
                             </div>
 
@@ -42,7 +42,7 @@
                                     </label>
                                     <input type="text" class="form-control"
                                            name="confirm_password" id="confirm_password"
-                                           placeholder="Confirm Password" required/>
+                                           placeholder="{{trans('admin_string.confirm_password')}}" required/>
                                 </div>
                             </div>
                             <div class="text-center">

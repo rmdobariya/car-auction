@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguageCheck']], function () {
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::post('register', [LoginController::class, 'register'])->name('register');
+    Route::get('modalHotDealVehicle', [LoginController::class, 'modalHotDealVehicle'])->name('modalHotDealVehicle');
     Route::post('forgotPassword', [ProfileController::class, 'forgotPassword'])->name('forgotPassword');
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('page', [PageController::class, 'index'])->name('page');
@@ -45,6 +46,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
     Route::post('socialGoogle', [SocialLoginController::class, 'socialGoogle'])->name('socialGoogle');
     Route::post('socialFacebook', [SocialLoginController::class, 'socialFacebook'])->name('socialFacebook');
+    Route::get('bankDetail', [LoginController::class, 'bankDetail'])->name('bankDetail');
+
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');

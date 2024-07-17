@@ -1834,8 +1834,8 @@ li.nav-item.language .form-check.form-switch.chked label.form-check-label {
 .my-bids-price .current-highest-bid-box,
 .my-bids-price .my-bid-box,
 .my-bids-price .initial-price-box{
-    margin-bottom: 14px;
-    margin-top: 12px;
+    /*margin-bottom: 14px;*/
+    /*margin-top: 12px;*/
 }
 .car-price.my-bids-price.time-close a.place-bid-blue{
     background: #DCDCDC;
@@ -2654,6 +2654,52 @@ section#vehicles .heading.auction-detailss form h1 {
 }
 body.rtl .form-check .form-check-input {
     margin-left: 0.5em;
+}
+.category .form-select {
+    background-color: #2c2c2c;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: none!important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+}
+body.rtl .category select#home_category {
+    background-position: left .75rem center;
+}
+div#hotDealModal .carousel-inner .carousel-item img {
+    max-width: 100% !important;
+}
+div#hotDealModal .modal-body {
+    background: #2c2c2c;
+    padding-top: 0;
+    padding-bottom: 10px;
+}
+div#hotDealModal .modal-header {
+    background: #2c2c2c;
+    color: #fff;
+    border-bottom: 0;
+}
+div#hotDealModal .modal-header .modal-title {
+    text-align: center !important;
+    width: 100%;
+}
+div#hotDealModal .modal-body .carousel-inner h5.text-dark {
+    color: #fff !important;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+div#hotDealModal {
+    background: transparent;
+}
+body.pagebottom .filter-fix {
+    display: none;
+}
+@media (min-width: 576px){
+    div#hotDealModal .modal-dialog {
+        max-width: 600px;
+    }
 }
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -3479,7 +3525,7 @@ body.rtl .form-check .form-check-input {
         padding: 10px 20px;
     }
     .car-price a.place-bid-blue {
-        padding: 10px;
+        padding: 9px;
         font-size: 16px;
     }
     .initial-price-box p, .my-bid-box p, .current-highest-bid-box p {
@@ -3549,6 +3595,10 @@ body.rtl .form-check .form-check-input {
     }
 }
 @media only screen and (min-width: 1200px) {
+    div.my-auction-counter span {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
     .profile-pic {
         width: 230px;
     }
@@ -3580,26 +3630,29 @@ body.rtl .form-check .form-check-input {
         flex-direction: unset;
     }
     .bid-details-box .car-img {
-        width: 25%;
+        width: 22%;
         transform: translateY(-50%);
         top: 50%;
     }
     .bid-details-box .car-name {
-        width: 22%;
+        width: 20%;
         height: 250px;
         padding-left: 6px;
     }
     .bid-details-box {
-        height: 250px;
+        height: 300px;
     }
     .bid-details-box .car-time-specification {
         margin: 0;
-        width: 27%;
+        width: 33%;
         display: inline-block;
         float: left;
     }
     .bid-details-box .car-price {
-        width: 26%;
+        width: 25%;
+    }
+    div.my-auction-counter span {
+        padding: 8px 14px!important;
     }
     .feedback a {
         padding: 10px 30px;
@@ -3689,6 +3742,29 @@ body.rtl .form-check .form-check-input {
     }
 }
 @media only screen and (min-width: 1366px) {
+    div.my-auction-counter span {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+    .bid-details-box .car-img {
+        width: 23%;
+        transform: translateY(-50%);
+        top: 50%;
+    }
+    .bid-details-box .car-name {
+        width: 21%;
+        height: 250px;
+        padding-left: 6px;
+    }
+    .bid-details-box .car-time-specification {
+        margin: 0;
+        width: 31%;
+        display: inline-block;
+        float: left;
+    }
+    .bid-details-box .car-price {
+        width: 24%;
+    }
     .work-box {
         padding: 60px 30px 30px 30px;
     }
