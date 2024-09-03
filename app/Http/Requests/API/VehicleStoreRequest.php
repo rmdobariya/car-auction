@@ -43,6 +43,7 @@ class VehicleStoreRequest extends FormRequest
             'auction_start_date' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_end_date' => 'required_if:is_vehicle_type,=,car_for_auction',
             'auction_start_time' => 'required_if:is_vehicle_type,=,car_for_auction',
+            'car_report' => 'required_if:edit_value,=,0|mimes:pdf',
             'auction_end_time' => 'required_if:is_vehicle_type,=,car_for_auction',
             'main_image' => 'required_if:edit_value,=,0',
             'color_*' => 'required',
@@ -52,11 +53,7 @@ class VehicleStoreRequest extends FormRequest
             'description_*' => 'required',
             'name_*' => 'required',
             'is_vehicle_type' => 'required',
-            'car_report_changed' => 'required',
         ];
-        if ($this->input('car_report_changed') == 1) {
-            $rules['car_report'] = 'required|mimes:pdf';
-        }
 
         return $rules;
     }

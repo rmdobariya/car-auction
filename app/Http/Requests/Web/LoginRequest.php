@@ -16,6 +16,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'login_otp' => 'required',
             'email' => 'required|email:rfc,dns',
             'password' => 'required|min:8',
         ];

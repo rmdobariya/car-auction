@@ -10,7 +10,7 @@ class VehicleDocumentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'document' => ENV('APP_URL') .$this->document,
+            'document' => 'https://car-auction.projectdemo.click/' .$this->document,
             'file_name' => pathinfo($this->document, PATHINFO_BASENAME),
         ];
     }

@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VehicleBuyerEmail extends Mailable
+class vehicleBuyerEmail extends Mailable
 {
     use Queueable, SerializesModels;
 

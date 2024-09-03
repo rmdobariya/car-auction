@@ -166,36 +166,36 @@
                 $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
                 $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
                 $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-            $bid_count = 0;
-            $proof_check = null;
-            $payment_status = 'pending';
-            if(!is_null(Auth::guard('web')->user())){
-            $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$vehicle->id)->count();
-            $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$vehicle->id)->first();
-            if(!is_null($proof_check)){
-            $payment_status = $proof_check->status;
-            }
+                $bid_count = 0;
+                $proof_check = null;
+                $payment_status = 'pending';
+                if(!is_null(Auth::guard('web')->user())){
+                $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->count();
+                $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->first();
+                if(!is_null($proof_check)){
+                $payment_status = $proof_check->status;
+                }
             }
             @endphp
             @if($dateToCheck->between($startDate, $endDate))
-                @if($payment_status == 'reject')
-                    <a href="#" class="mb-1 text-danger"
-                       data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
-                @else
+                @if($payment_status != 'reject')
                     <a href="#"
-                       class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif"
+                       class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending' || $payment_status == 'reject') disabled-link @endif"
                        data-id="{{$vehicle->id}}">{{trans('web_string.place_bid')}}</a>
                 @endif
-
                 @if(!is_null($proof_check) && $proof_check->status == 'pending')
-                    <a href="#" class="mb-1 mt-1"
+                    <a class="mb-1 mt-1 waiting_for_admin_approval"
                        data-id="{{$vehicle->id}}">{{trans('web_string.waiting_for_admin_approval')}}</a>
                 @elseif(!is_null($proof_check) && $proof_check->status == 'approved')
-                    <a href="#" class="mb-1 mt-1"
+                    <a class="mb-1 mt-1 payment_proof_approved"
                        data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_approved')}}</a>
                 @else
                     <a href="#" class="payment-proof mb-1"
                        data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof')}}</a>
+                    @if($payment_status == 'reject')
+                        <a class="mb-1 text-danger payment_proof_reject_by_admin"
+                           data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
+                    @endif
                 @endif
             @else
                 @if($vehicle->auction_start_date > date('Y-m-d'))
@@ -217,7 +217,7 @@
                 @else
                     <p>{{trans('web_string.current_height_bid')}}</p>
                     <p><span>SAR {{ number_format($height_bid) }}
-                @endif
+                            @endif
                     </span>
                     </p>
             </div>
@@ -251,21 +251,52 @@
 </div>
 <script src="{{asset('web/assets/js/countdown.js')}}"></script>
 <script>
+    // console.log(start_date)
+    // $("#getting-started")
+    //     .countdown(formattedDateTime, function (event) {
+    //         $(this).html(
+    //             event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+    //         );
+    //     });
+    var id = '{{$vehicle->id}}';
     var start_date = '{{$vehicle->auction_end_date}}';
-    var auction_end_date = new Date(start_date);
-    var targetDate = new Date(auction_end_date);
-    targetDate.setHours(23);
-    targetDate.setMinutes(60);
-    targetDate.setSeconds(60);
-    var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
-    console.log(start_date)
-    $("#getting-started")
-        .countdown(formattedDateTime, function (event) {
-            $(this).html(
-                event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-            );
-        });
-    $('.place-bid').on('click', function () {
+    var start_time = '{{$vehicle->auction_start_time}}';
+    var end_date = '{{$vehicle->auction_end_date}}';
+    var end_time = '{{$vehicle->auction_end_time}}';
+
+    var startDateTime = new Date(start_date + ' ' + start_time);
+    var endDateTime = new Date(end_date + ' ' + end_time);
+
+    function updateCountdown() {
+        var now = new Date().getTime();
+        var timeLeft = endDateTime - now;
+
+        var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        $("#getting-started").html(
+            '<span>' + day_string + '<strong>' + days + '</strong></span> ' +
+            '<span>' + hour_string + '<strong>' + hours + '</strong></span> ' +
+            '<span>' + min_string + '<strong>' + minutes + '</strong> </span> ' +
+            '<span>' + sec_string + '<strong>' + seconds + '</strong></span>'
+        );
+
+        if (timeLeft < 0) {
+            clearInterval(countdownInterval);
+            $("#getting-started").html("");
+            $("#time-temain_" + id).addClass("d-none");
+        }
+    }
+
+    // Update the countdown every second
+    var countdownInterval = setInterval(updateCountdown, 1000);
+
+    // Initial call to display the countdown immediately
+    updateCountdown();
+    $('.place-bid').on('click', function (e) {
+        e.preventDefault();
         const value_id = $(this).data('id')
         loaderView()
         axios
@@ -282,7 +313,8 @@
             })
 
     })
-    $('.payment-proof').on('click', function () {
+    $('.payment-proof').on('click', function (e) {
+        e.preventDefault();
         const value_id = $(this).data('id')
         loaderView()
         axios

@@ -48,7 +48,7 @@ $registerform.on('submit', function (e) {
                 window.location.href = APP_URL + '/';
             }, 1000);
             notificationToast(response.data.message, 'success');
-            $('#login').modal('hide');
+            $('#signup').modal('hide');
         })
         .catch(function (error) {
             console.log(error);

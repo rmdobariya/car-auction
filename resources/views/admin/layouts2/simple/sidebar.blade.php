@@ -324,6 +324,19 @@
                         </a>
                     </div>
                 @endif
+                @if(Auth::user()->can('review-read'))
+                    <div class="menu-item">
+                        <a class="menu-link {{ (request()->segment(2) == 'review-proof') ? 'active' : '' }}"
+                           href="{{ route('admin.review.index') }}">
+                        <span class="menu-icon">
+                            <span class="svg-icon svg-icon-2">
+                               <span data-feather="book"></span>
+                            </span>
+                        </span>
+                            <span class="menu-title"> {{trans('admin_string.reviews')}}</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

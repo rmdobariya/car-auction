@@ -18,10 +18,11 @@ class RegisterRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone' => 'required|digits_between:1,10',
-            'email' => 'required_if:user_type,=,seller,email:rfc,dns|unique:users,email,',
-            'user_type' => 'required',
+            'phone' => 'required|digits_between:7,10',
+            'email' => 'required_if:user_type,seller|email:rfc,dns|unique:users,email',
+            'user_type' => 'required|in:seller,buyer',
             'term' => 'required',
+            'otp' => 'required',
             'password' => 'required|min:8',
         ];
     }

@@ -1,9 +1,39 @@
+<style>
+    .btn-minus {
+        background-image: url('web/assets/images/opaticity_logo.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: none;
+        width: 40px; /* Adjust width as needed */
+        height: 40px; /* Adjust height as needed */
+        margin: 5px;
+        /*background-position-y: 7px;*/
+    }
+
+    .btn-plus {
+        background-image: url('web/assets/images/opaticity_logo.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        border: none;
+        width: 40px; /* Adjust width as needed */
+        height: 40px; /* Adjust height as needed */
+        margin: 5px;
+        /*background-position-y: 7px;*/
+    }
+
+    .btn-minus i, .btn-plus i {
+        display: none; /* Hide the <i> element inside the button */
+    }
+
+</style>
 <div class="login-form">
     <form id="bidForm" method="POST">
         <input type="hidden" name="vehicle_id" class="form-control" value="{{$vehicle->id}}">
         <div class="row mb-3">
             <div class="col-md-12">
-                <input type="text" name="last_amount" class="form-control"
+                <input type="text" name="last_amount" id="last_amount" class="form-control"
                        placeholder="{{trans('web_string.current_bid_amount')}}"
                        value="{{$last_bid_amount}}" readonly>
             </div>
@@ -13,7 +43,7 @@
         <div class="input-group">
           <span class="input-group-btn">
               <button type="button" class="btn btn-default btn-minus" id="btn-minus">
-                  <i class="fas fa-solid fa-minus"></i>
+                  <i style="color:#673AAA !important" class="fas fa-solid fa-minus"></i>
               </button>
           </span>
             <input type="text" name="amount" id="amount" class="form-control input-number integer"
@@ -21,21 +51,22 @@
                    placeholder="{{trans('web_string.amount')}}" min="{{$bid_amount}}">
             <span class="input-group-btn">
               <button type="button" class="btn btn-default btn-plus" id="btn-plus">
-                 <i class="fas fa-solid fa-plus"></i>
+                 <i style="color:#673AAA !important" class="fas fa-solid fa-plus"></i>
               </button>
           </span>
         </div>
 
-{{--        <div class="mb-3 mt-3 col-md-12">--}}
-{{--            <div class="fv-row mb-7 fv-plugins-icon-container">--}}
-{{--                <label class="required fs-6 fw-bold mb-2" for="year">--}}
-{{--                    {{trans('web_string.payment_proof')}}--}}
-{{--                </label>--}}
-{{--                <input type="file" class="form-control form-control-solid"--}}
-{{--                       name="payment_proof"--}}
-{{--                       placeholder="{{trans('web_string.payment_proof')}}"/>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+
+        {{--        <div class="mb-3 mt-3 col-md-12">--}}
+        {{--            <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+        {{--                <label class="required fs-6 fw-bold mb-2" for="year">--}}
+        {{--                    {{trans('web_string.payment_proof')}}--}}
+        {{--                </label>--}}
+        {{--                <input type="file" class="form-control form-control-solid"--}}
+        {{--                       name="payment_proof"--}}
+        {{--                       placeholder="{{trans('web_string.payment_proof')}}"/>--}}
+        {{--            </div>--}}
+        {{--        </div>--}}
 
         <h4 class="mt-3">{{trans('web_string.bank_detail')}}</h4>
         @if(!empty($bank_name) || !empty($iban) || !empty($account_no) || !empty($national_id_no))
@@ -85,7 +116,7 @@
 
 <script>
     var min_bid_increment = '{{$vehicle->bid_increment}}';
-    $('#btn-plus').click(function () {
+    $(document).on('click', '#btn-plus', function () {
         var currentValue = parseInt($('input[name="amount"]').val());
         var minValue = parseInt($('input[name="amount"]').attr('min'));
         var maxValue = parseInt($('input[name="amount"]').attr('max'));
@@ -94,14 +125,14 @@
         }
     });
 
-    $('#btn-minus').click(function () {
+    $(document).on('click', '#btn-minus', function () {
         var currentValue = parseInt($('input[name="amount"]').val());
         var minValue = parseInt($('input[name="amount"]').attr('min'));
         var maxValue = parseInt($('input[name="amount"]').attr('max'));
 
         if (!isNaN(currentValue) && currentValue > minValue) {
             $('input[name="amount"]').val(currentValue - parseInt(min_bid_increment));
-        }else{
+        } else {
             notificationToast('The minimum amount you can make is this much', 'warning')
         }
     });
@@ -132,7 +163,7 @@
             });
     })
 
-    $('.btn-number').click(function (e) {
+    $(document).on('click','.btn-number',function (e) {
         e.preventDefault();
 
         fieldName = $(this).attr('data-field');
@@ -163,10 +194,10 @@
             input.val(0);
         }
     });
-    $('.input-number').focusin(function () {
+    $(document).on('focusin','.input-number',function () {
         $(this).data('oldValue', $(this).val());
     });
-    $('.input-number').change(function () {
+    $(document).on('change','.input-number',function () {
 
         minValue = parseInt($(this).attr('min'));
         maxValue = parseInt($(this).attr('max'));
@@ -176,6 +207,7 @@
         if (valueCurrent >= minValue) {
             $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
         } else {
+            // notificationToast(error.response.data.message, 'warning')
             alert('Sorry, the minimum value was reached');
             $(this).val($(this).data('oldValue'));
         }
@@ -188,7 +220,7 @@
 
 
     });
-    $(".input-number").keydown(function (e) {
+    $(document).on('keydown','.input-number',function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
             // Allow: Ctrl+A

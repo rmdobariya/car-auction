@@ -19,17 +19,20 @@ class VehicleStoreRequest extends FormRequest
     {
         $rules = [
             'edit_value' => 'required',
+            'is_vehicle_type' => 'required',
             'make_*' => 'required',
             'model_*' => 'required',
             'body_type_*' => 'required',
-            'price' => 'required',
-            'is_product' => 'required',
-            'bid_increment' => 'required',
+            'price' => 'required|integer',
+            'bid_increment' => 'required_if:is_vehicle_type,car_for_auction|integer',
+            'is_product' => 'required_if:is_vehicle_type,car_for_auction',
             'description_*' => 'required',
-            'auction_start_time' => 'required',
-            'auction_end_time' => 'required',
-            'advance_payment' => 'required',
-            'advance_payment_type' => 'required',
+            'auction_start_date' => 'required_if:is_vehicle_type,car_for_auction',
+            'auction_end_date' => 'required_if:is_vehicle_type,car_for_auction',
+            'auction_start_time' => 'required_if:is_vehicle_type,car_for_auction',
+            'auction_end_time' => 'required_if:is_vehicle_type,car_for_auction',
+            'advance_payment' => 'required_if:is_vehicle_type,car_for_auction',
+            'advance_payment_type' => 'required_if:is_vehicle_type,car_for_auction',
             'name_*' => 'required',
         ];
         if ($this->input('car_report_changed') == 1) {

@@ -309,74 +309,109 @@
                                         </div>
                                     </div>
                                 </div>
+                                <label class="required fs-6 fw-bold mb-2"
+                                       for="price">{{trans('admin_string.vehicle_type')}}</label>
+                                <div class="mb-1 col-md-2">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
 
-                                <div class="row mb-2">
-                                    <label class="required fs-6 fw-bold mb-2" for="advance_payment">
-                                        {{trans('admin_string.advance_payment')}}
-                                    </label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Advance Payment"
-                                               name="advance_payment" required>
-                                        <select class="form-select form-select-solid fw-bold"
-                                                name="advance_payment_type"
-                                                id="advance_payment_type">
-                                            <option value="fix" selected>Fix</option>
-                                            <option value="percentage">Percentage</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                {{trans('admin_string.auction_start_date')}}
-                                            </label>
-                                            <input type="date" class="form-control form-control-solid"
-                                                   name="auction_start_date"
-                                                   id="auction_start_date"
-                                                   placeholder="{{trans('admin_string.auction_start_date')}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_date">
-                                                {{trans('admin_string.auction_end_date')}}
-                                            </label>
-                                            <input type="date" class="form-control form-control-solid"
-                                                   name="auction_end_date"
-                                                   id="auction_end_date"
-                                                   placeholder="{{trans('admin_string.auction_end_date')}}"/>
-                                        </div>
+                                        <input
+                                            class="form-check-input h-20px w-20px is_vehicle_type"
+                                            value="car_for_auction" name="is_vehicle_type"
+                                            id="is_vehicle_type"
+                                            type="radio" data-bs-original-title=""
+                                            title="" checked>
+                                        <label class="form-check-label fw-bold"
+                                               for="is_vehicle_type">{{trans('web_string.car_for_auction')}}</label>
                                     </div>
                                 </div>
 
+                                <div class="mb-1 col-md-2">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <input
+                                            class="form-check-input h-20px w-20px is_vehicle_type"
+                                            value="car_for_sell" name="is_vehicle_type"
+                                            id="is_vehicle_type"
+                                            type="radio" data-bs-original-title=""
+                                            title="">
+                                        <label class="form-check-label fw-bold"
+                                               for="is_vehicle_type">{{trans('web_string.car_for_sell')}}</label>
+                                    </div>
+                                </div>
 
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
-                                                {{trans('admin_string.auction_start_time')}}
-                                            </label>
-                                            <input type="time" class="form-control form-control-solid"
-                                                   name="auction_start_time"
-                                                   id="auction_start_time"
-                                                   placeholder="{{trans('admin_string.auction_start_time')}}"/>
+                                <div id="advance_part">
+                                    <div class="row mb-2">
+                                        <label class="required fs-6 fw-bold mb-2" for="advance_payment">
+                                            {{trans('admin_string.advance_payment')}}
+                                        </label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" aria-label="Advance Payment"
+                                                   name="advance_payment" required>
+                                            <select class="form-select form-select-solid fw-bold"
+                                                    name="advance_payment_type"
+                                                    id="advance_payment_type">
+                                                <option value="fix" selected>Fix</option>
+                                                <option value="percentage">Percentage</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
-                                                {{trans('admin_string.auction_end_time')}}
-                                            </label>
-                                            <input type="time" class="form-control form-control-solid"
-                                                   name="auction_end_time"
-                                                   id="auction_end_time"
-                                                   placeholder="{{trans('admin_string.auction_end_time')}}"/>
+                                </div>
+                                <div id="auction_date_time_part">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                    {{trans('admin_string.auction_start_date')}}
+                                                </label>
+                                                <input type="date" class="form-control form-control-solid"
+                                                       name="auction_start_date"
+                                                       id="auction_start_date"
+                                                       placeholder="{{trans('admin_string.auction_start_date')}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_date">
+                                                    {{trans('admin_string.auction_end_date')}}
+                                                </label>
+                                                <input type="date" class="form-control form-control-solid"
+                                                       name="auction_end_date"
+                                                       id="auction_end_date"
+                                                       placeholder="{{trans('admin_string.auction_end_date')}}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
+                                                    {{trans('admin_string.auction_start_time')}}
+                                                </label>
+                                                <input type="time" class="form-control form-control-solid"
+                                                       name="auction_start_time"
+                                                       id="auction_start_time"
+                                                       placeholder="{{trans('admin_string.auction_start_time')}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
+                                                    {{trans('admin_string.auction_end_time')}}
+                                                </label>
+                                                <input type="time" class="form-control form-control-solid"
+                                                       name="auction_end_time"
+                                                       id="auction_end_time"
+                                                       placeholder="{{trans('admin_string.auction_end_time')}}"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
+
+                                <div class="row" id="is_product_part">
+                                    <label class="required fs-6 fw-bold mb-2"
+                                           for="price">{{trans('admin_string.is_product')}}</label>
                                     {{--                                                                        <div class="mb-3 col-md-6">--}}
                                     {{--                                                                            <div class="fv-row mb-7 fv-plugins-icon-container">--}}
                                     {{--                                                                                <label class="required fs-6 fw-bold mb-2" for="minimumBidIncrement">--}}
@@ -424,14 +459,13 @@
                                                    for="is-quantity-1">{{trans('admin_string.hot_deal')}}</label>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
+                                    <div class="mb-3 col-md-6" id="bid_increment">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <label class="required fs-6 fw-bold mb-2" for="bid_increment">
                                                 {{trans('admin_string.bid_increment_price')}}
                                             </label>
                                             <input type="text" class="form-control form-control-solid integer"
                                                    name="bid_increment"
-                                                   id="bid_increment"
                                                    placeholder="{{trans('admin_string.bid_increment_price')}}"/>
                                         </div>
                                     </div>
@@ -530,6 +564,23 @@
         var redirect_url = '/vehicle'
         var IMAGE_UPLOAD_URL = '/vehicle-image-upload'
         var IMAGE_DELETE_URL = '/vehicle-image-delete'
+
+        $('.is_vehicle_type').on('click', function () {
+            var val = $(this).val();
+            if (val == 'car_for_sell') {
+                $('#advance_part').addClass('d-none')
+                $('#is_product_part').addClass('d-none')
+                $('#auction_date_time_part').addClass('d-none')
+                $('#minimumBidIncrement').addClass('d-none')
+                $('#bid_increment').addClass('d-none')
+            } else {
+                $('#advance_part').removeClass('d-none')
+                $('#is_product_part').removeClass('d-none')
+                $('#auction_date_time_part').removeClass('d-none')
+                $('#minimumBidIncrement').removeClass('d-none')
+                $('#bid_increment').removeClass('d-none')
+            }
+        })
     </script>
 
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>

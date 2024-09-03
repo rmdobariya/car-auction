@@ -1,5 +1,8 @@
 <?php
  return array (
+  'email' => 'Email',
+  'corporate_seller' => 'Corporate Seller',
+  'is_popular' => 'Is Popular',
   'data_not_found' => 'Data Not Found',
   'bid_update_successfully' => 'Bid Update Successfully',
   'enter_an_amount_greater_than' => 'Enter en amount greater than',
@@ -21,7 +24,7 @@
   'add_car_inquiry_successfully' => 'Add Car Inquiry Successfully',
   'car_inquiry' => 'Car Inquiry',
   'user_login_successfully' => 'User Login Successfully',
-  'the_email_is_already_be_taken' => 'The Email Is Already Be Taken',
+  'the_email_is_already_be_taken' => 'This email is taken. Try another',
   'vehicle_insert_successfully' => 'Vehicle Insert Successfully',
   'vehicle_update_successfully' => 'Vehicle Update Successfully',
   'vehicle_delete_successfully' => 'Vehicle Delete Successfully',
@@ -31,4 +34,11 @@
   'remove_in_wishlist_successfully' => 'Remove In Wishlist Successfully',
   'add_in_wishlist_successfully' => 'Add In Wishlist Successfully',
   'you_can_not_add_your_car_to_the_wish_list' => 'You Can Not Add Your Car To The Wishlist',
+  'search_role' => 'Search Role',
+  'Category' => 'Subcategory',
+  'Whatsapp Link' => 'Whatsapp Link',
+  'TikTok Link' => 'TikTok Link',
+  'Technical Support' => 'Support',
+  'your_otp_code_is' => 'Your OTP code is',
+  'please_do_not_share_this_code_with_anyone' => 'Please do not share this code with anyone.',
 );

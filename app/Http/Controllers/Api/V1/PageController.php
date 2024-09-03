@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ColorResource;
 use App\Http\Resources\PageResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -56,5 +57,27 @@ class PageController extends Controller
             'message' => trans('app_string.data_not_found'),
             'data' => ['page_detail' => $result],
         ]);
+    }
+
+    public function color()
+    {
+        $colors = DB::table('vehicle_translations')
+            ->where('locale', App::getLocale())
+            ->whereNotNull('color')
+            ->pluck('color')
+            ->unique();
+        $result = ColorResource::collection($colors);
+        if (count($colors) > 0) {
+            return response()->json([
+                'status' => true,
+                'data' => ['color' => $result],
+            ]);
+        } else {
+            return response()->json([
+                'status' => true,
+                'message' => trans('app_string.data_not_found'),
+                'data' => ['color' => $result],
+            ]);
+        }
     }
 }

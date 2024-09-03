@@ -14,12 +14,15 @@ class NotificationResource extends JsonResource
         return [
             'id' => $this->id,
             'vehicle_id' => $this->vehicle_id,
+            'vehicle_name' => $this->vehicle_name,
+            'vehicle_image' => asset($this->vehicle_image),
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
             'mobile_no' => $this->mobile_no,
             'question' => $this->question,
-            'type' => $this->type,
+            'message' => $this->message,
+            'type' => str_replace('_',' ',ucfirst($this->type)),
             'is_read' => $this->is_read,
             'created_at' => Carbon::parse($this->created_at)->format(config('app.date_format'))
         ];

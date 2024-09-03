@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\PaymentProofStoreRequest;
+use App\Models\Notification;
 use App\Models\PaymentProof;
 use App\Models\VehicleBid;
 use App\Models\VehicleBidPaymentDetail;
@@ -39,10 +40,12 @@ class BidController extends Controller
                 ]);
             }
             $amount = $vehicle->price + $vehicle->bid_increment;
+            $amount_msg = $vehicle->price .' Bid Increment Amount: ' . $vehicle->bid_increment .'='.$vehicle->price + $vehicle->bid_increment;
             $user_id = Auth::user()->id;
             $bid = DB::table('vehicle_bids')->where('user_id', $user_id)->where('vehicle_id', $request->vehicle_id)->first();
             if (!is_null($bid)) {
-                $amount = $bid->amount + $vehicle->bid_increment;
+                $amount = $bid->amount +  $vehicle->bid_increment;
+                $amount_msg = $bid->amount .' Bid Increment Amount: ' . $vehicle->bid_increment .'='.$bid->amount + $vehicle->bid_increment;
                 if ($amount <= $request->amount) {
                     DB::table('vehicle_bids')
                         ->where('user_id', $user_id)
@@ -79,7 +82,7 @@ class BidController extends Controller
                 } else {
                     return response()->json([
                         'success' => false,
-                        'message' => trans('web_string.enter_an_amount_greater_than') . $amount
+                        'message' => trans('web_string.enter_an_amount_greater_than') . $amount_msg
                     ]);
                 }
             } else {
@@ -119,7 +122,7 @@ class BidController extends Controller
                 } else {
                     return response()->json([
                         'success' => false,
-                        'message' => trans('web_string.enter_an_amount_greater_than') . $amount
+                        'message' => trans('web_string.enter_an_amount_greater_than') . $amount_msg
                     ]);
                 }
             }
@@ -134,7 +137,7 @@ class BidController extends Controller
     public function paymentProofStore(PaymentProofStoreRequest $request)
     {
         if (!is_null(Auth::user())) {
-            $record = DB::table('payment_proofs')->where('user_id',Auth::user()->id)->where('vehicle_id',$request->vehicle_id)->first();
+            $record = DB::table('payment_proofs')->where('user_id',Auth::user()->id)->first();
             if (!is_null($record)){
                 $payment_proof = PaymentProof::find($record->id);
                 $proof = ImageUploadHelper::imageUpload($request->file('payment_proof'), 'vehicle-bid-payment-proof');
@@ -143,6 +146,23 @@ class BidController extends Controller
                 $payment_proof->payment_proof = $proof;
                 $payment_proof->status = 'pending';
                 $payment_proof->save();
+                $vehicle = DB::table('vehicles')
+                    ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+                    ->where('vehicles.id', $request->vehicle_id)
+                    ->where('vehicle_translations.locale', App::getLocale())
+                    ->select('vehicles.user_id as user_id', 'vehicle_translations.name as vehicle_name',
+                        'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+                    ->first();
+                $notification = new Notification();
+                $notification->user_id = Auth::user()->id;
+                $notification->vehicle_id = $request->vehicle_id;
+                $notification->type = 'payment_proof_re_upload';
+                $notification->first_name = Auth::user()->name;
+                $notification->last_name = Auth::user()->last_name;
+                $notification->email = Auth::user()->email;
+                $notification->mobile_no = Auth::user()->contact_no;
+                $notification->message = 'You have received new Payment Proof For' . ' (' . $vehicle->vehicle_name . ')<br><br>' . 'Name : ' . Auth::user()->name . ' ' . Auth::user()->last_name . '<br>' . 'Email : ' . Auth::user()->email . '<br>' . 'Mobile : ' . Auth::user()->contact_no . '<br>';
+                $notification->save();
                 return response()->json([
                     'success' => true,
                     'message' => trans('web_string.payment_proof_update_successfully')
@@ -154,6 +174,24 @@ class BidController extends Controller
                 $payment_proof->vehicle_id = $request->vehicle_id;
                 $payment_proof->payment_proof = $proof;
                 $payment_proof->save();
+
+                $vehicle = DB::table('vehicles')
+                    ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
+                    ->where('vehicles.id', $request->vehicle_id)
+                    ->where('vehicle_translations.locale', App::getLocale())
+                    ->select('vehicles.user_id as user_id', 'vehicle_translations.name as vehicle_name',
+                        'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage')
+                    ->first();
+                $notification = new Notification();
+                $notification->user_id = Auth::user()->id;
+                $notification->vehicle_id = $request->vehicle_id;
+                $notification->type = 'payment_proof_upload';
+                $notification->first_name = Auth::user()->name;
+                $notification->last_name = Auth::user()->last_name;
+                $notification->email = Auth::user()->email;
+                $notification->mobile_no = Auth::user()->contact_no;
+                $notification->message = 'You have received new Payment Proof For' . ' (' . $vehicle->vehicle_name . ')<br><br>' . 'Name : ' . Auth::user()->name . ' ' . Auth::user()->last_name . '<br>' . 'Email : ' . Auth::user()->email . '<br>' . 'Mobile : ' . Auth::user()->contact_no . '<br>';
+                $notification->save();
                 return response()->json([
                     'success' => true,
                     'message' => trans('web_string.payment_proof_add_successfully')

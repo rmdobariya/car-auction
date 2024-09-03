@@ -28,9 +28,11 @@ class RegisterStoreRequest extends FormRequest
         return [
             'user_type' => 'required',
             'email' => 'required_if:user_type,=,seller,email:rfc,dns|unique:users,email,',
+//            'is_corporate_seller' => 'required_if:user_type,=,seller',
+//            'corporate_seller' => 'required_if:is_corporate_seller,=,1',
             'first_name' => 'required',
             'last_name' => 'required',
-            'contact_no' => 'required|digits_between:1,10',
+            'contact_no' => 'required|digits_between:7,10',
             'password' => 'required',
             'device_type' => 'required',
             'device_token' => 'required',

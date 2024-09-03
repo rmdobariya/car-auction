@@ -30,9 +30,17 @@ class VehicleController extends Controller
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('category_translations.locale', App::getLocale())
             ->whereNull('vehicles.deleted_at')
+            ->orderByRaw("CASE
+                    WHEN CURDATE() BETWEEN vehicles.auction_start_date AND vehicles.auction_end_date THEN 1
+                    ELSE 2
+                  END")
             ->orderBy('vehicles.id', 'desc');
+
         if (!is_null($request->name)) {
             $vehicle = $vehicle->where('vehicle_translations.name', 'like', '%' . $request->name . '%');
+        }
+        if (!is_null($request->corporate_seller_id)) {
+            $vehicle = $vehicle->where('vehicles.user_id', $request->corporate_seller_id);
         }
         if (!is_null($request->status)) {
             $vehicle = $vehicle->where('vehicles.status', 'like', '%' . $request->status . '%');
@@ -68,12 +76,14 @@ class VehicleController extends Controller
 
     public function pendingVehicle(Request $request): JsonResponse
     {
+        $user = $request->user();
         $vehicle = DB::table('vehicles')
             ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
             ->leftJoin('vehicle_translations', 'vehicles.id', 'vehicle_translations.vehicle_id')
             ->where('vehicle_translations.locale', App::getLocale())
             ->where('category_translations.locale', App::getLocale())
             ->whereNull('vehicles.deleted_at')
+            ->where('vehicles.user_id', $user->id)
             ->where('vehicles.status', 'pending')
             ->orderBy('vehicles.id', 'desc')
             ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'vehicle_translations.name  as vehicle_name',
@@ -203,10 +213,13 @@ class VehicleController extends Controller
             $main_image = ImageUploadHelper::imageUpload($request->file('main_image'), 'vehicle');
             $vehicle->main_image = $main_image;
         }
-        if ($request->hasfile('car_report')) {
-            $car_report = ImageUploadHelper::imageUpload($request->file('car_report'), 'vehicle');
-            $vehicle->car_report = $car_report;
+        if (!is_null($request->car_report)) {
+            if ($request->hasfile('car_report')) {
+                $car_report = ImageUploadHelper::imageUpload($request->file('car_report'), 'vehicle');
+                $vehicle->car_report = $car_report;
+            }
         }
+
         $vehicle->save();
 
         $languages = CatchCreateHelper::getLanguage(App::getLocale());
@@ -324,6 +337,7 @@ class VehicleController extends Controller
             'data' => ['vehicle_detail' => $result],
         ]);
     }
+
     public function editVehicleResponse($id, Request $request): JsonResponse
     {
         $vehicle = DB::table('vehicles')
@@ -336,7 +350,7 @@ class VehicleController extends Controller
             ->where('vehicles.id', $id)
 //            ->where('vehicles.user_id', $user->id)
             ->whereNull('vehicles.deleted_at')
-            ->select('vehicles.*', 'category_translations.name as vehicle_category_name','category_translations.category_id as vehicle_category_id','city_translations.name as city_name','city_translations.city_id as city_id', 'vehicle_translations.name  as vehicle_name',
+            ->select('vehicles.*', 'category_translations.name as vehicle_category_name', 'category_translations.category_id as vehicle_category_id', 'city_translations.name as city_name', 'city_translations.city_id as city_id', 'vehicle_translations.name  as vehicle_name',
                 'vehicle_translations.description', 'vehicle_translations.make',
                 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission',
                 'vehicle_translations.fuel_type', 'vehicle_translations.body_type',

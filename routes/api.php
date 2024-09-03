@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\BidController;
 use App\Http\Controllers\Api\V1\CityController;
 use App\Http\Controllers\Api\V1\ContactusController;
+use App\Http\Controllers\Api\V1\CorporateSellerController;
 use App\Http\Controllers\Api\V1\LanguageStringController;
 use App\Http\Controllers\Api\V1\MyAuctionController;
 use App\Http\Controllers\Api\V1\NotificationController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Api\V1\PageController;
 use App\Http\Controllers\Api\V1\BlogController;
 use App\Http\Controllers\Api\V1\FaqController;
 use App\Http\Controllers\Api\V1\LoginController;
+use App\Http\Controllers\Api\V1\PaymentProofController;
 use App\Http\Controllers\Api\V1\ProfileController;
 use App\Http\Controllers\Api\V1\QuestionController;
 use App\Http\Controllers\Api\V1\SearchController;
@@ -25,11 +27,14 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguageCheck']], function () {
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::post('register', [LoginController::class, 'register'])->name('register');
+    Route::post('verify-otp', [LoginController::class, 'verifyOtp'])->name('verify-otp');
+    Route::post('verify-login-otp', [LoginController::class, 'verifyLoginOtp'])->name('verify-login-otp');
     Route::get('modalHotDealVehicle', [LoginController::class, 'modalHotDealVehicle'])->name('modalHotDealVehicle');
     Route::post('forgotPassword', [ProfileController::class, 'forgotPassword'])->name('forgotPassword');
     Route::get('setting', [SettingController::class, 'index'])->name('setting');
     Route::get('page', [PageController::class, 'index'])->name('page');
     Route::get('city', [CityController::class, 'index'])->name('city');
+    Route::get('color', [PageController::class, 'color'])->name('color');
     Route::get('page/{slug}', [PageController::class, 'show'])->name('page');
     Route::get('faq', [FaqController::class, 'index'])->name('faq');
     Route::get('testimonial', [TestimonialController::class, 'index'])->name('testimonial');
@@ -40,15 +45,17 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
     Route::get('contact-us', [ContactusController::class, 'index'])->name('contact-us');
     Route::post('contact-us-submit', [ContactusController::class, 'store'])->name('contact-us-submit');
     Route::get('get-vehicle', [VehicleController::class, 'index'])->name('get-vehicle');
-    Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
+
     Route::get('get-vehicle-detail/{id}', [VehicleController::class, 'show'])->name('get-vehicle-detail');
     Route::get('edit-vehicle-detail/{id}', [VehicleController::class, 'editVehicleResponse'])->name('edit-vehicle-detail');
     Route::get('get-vehicle-category', [VehicleCategoryController::class, 'index'])->name('get-vehicle-category');
     Route::post('socialGoogle', [SocialLoginController::class, 'socialGoogle'])->name('socialGoogle');
     Route::post('socialFacebook', [SocialLoginController::class, 'socialFacebook'])->name('socialFacebook');
     Route::get('bankDetail', [LoginController::class, 'bankDetail'])->name('bankDetail');
+    Route::get('corporate-seller', [CorporateSellerController::class, 'index'])->name('corporate-seller');
 
     Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::get('get-pending-vehicle', [VehicleController::class, 'pendingVehicle'])->name('get-pending-vehicle');
         Route::get('getProfile', [ProfileController::class, 'getProfile'])->name('getProfile');
         Route::post('updateProfile', [ProfileController::class, 'updateProfile'])->name('updateProfile');
         Route::post('updatePassword', [ProfileController::class, 'updatePassword'])->name('updatePassword');
@@ -70,5 +77,6 @@ Route::group(['prefix' => 'v1', 'as' => 'api.v1.', 'middleware' => ['apiLanguage
         Route::get('delete-notification/{id}', [NotificationController::class, 'destroy'])->name('delete-notification');
         Route::get('delete-account', [ProfileController::class, 'deleteAccount'])->name('delete-account');
         Route::post('car-inquiry', [QuestionController::class, 'carInquiry'])->name('car-inquiry');
+        Route::post('payment-proof-store', [PaymentProofController::class, 'paymentProofStore'])->name('payment-proof-store');
     });
 });

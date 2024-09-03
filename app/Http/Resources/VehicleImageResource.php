@@ -10,7 +10,7 @@ class VehicleImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => ENV('APP_URL') .$this->image,
+            'image' => 'https://car-auction.projectdemo.click/' .$this->image,
             'file_name' => pathinfo($this->image, PATHINFO_BASENAME),
         ];
     }

@@ -1,8 +1,11 @@
 <?php
  return array (
+  'email' => 'البريد الإلكتروني',
+  'corporate_seller' => 'عروض الشركات',
+  'is_popular' => 'مزادات الشاحنات والمعدات',
   'data_not_found' => 'لم يتم العثور على البيانات',
   'bid_update_successfully' => 'تم تحديث عرض الأسعار بنجاح',
-  'enter_an_amount_greater_than' => 'أدخل en مبلغ أكبر من',
+  'enter_an_amount_greater_than' => 'أدخل مبلغ أكبر من',
   'bid_add_successfully' => 'إضافة المزايدة بنجاح',
   'please_enter_correct_username_or_password' => 'الرجاء إدخال اسم المستخدم أو كلمة المرور الصحيحة',
   'account_is_inactive' => 'الحساب غير نشط',
@@ -21,7 +24,7 @@
   'add_car_inquiry_successfully' => 'إضافة استفسار عن السيارة بنجاح',
   'car_inquiry' => 'الاستعلام عن السيارة',
   'user_login_successfully' => 'تسجيل دخول المستخدم بنجاح',
-  'the_email_is_already_be_taken' => 'البريد الإلكتروني مأخوذ بالفعل',
+  'the_email_is_already_be_taken' => 'البريد الالكتروني موجود مسبقا',
   'vehicle_insert_successfully' => 'إدخال السيارة بنجاح',
   'vehicle_update_successfully' => 'تم تحديث السيارة بنجاح',
   'vehicle_delete_successfully' => 'تم حذف السيارة بنجاح',
@@ -31,4 +34,11 @@
   'remove_in_wishlist_successfully' => 'إزالة في قائمة الرغبات بنجاح',
   'add_in_wishlist_successfully' => 'أضف قائمة الرغبات بنجاح',
   'you_can_not_add_your_car_to_the_wish_list' => 'لا يمكنك إضافة سيارتك إلى قائمة الرغبات',
+  'search_role' => 'البحث عن المهام',
+  'Category' => 'الفئات الفرعية',
+  'Whatsapp Link' => 'رابط واتساب',
+  'TikTok Link' => 'رابط تيك توك',
+  'Technical Support' => 'الدعم الفني',
+  'your_otp_code_is' => 'رمز OTP الخاص بك هو',
+  'please_do_not_share_this_code_with_anyone' => 'يرجى عدم مشاركة هذا الرمز مع أي شخص.',
 );

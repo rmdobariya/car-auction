@@ -314,77 +314,110 @@
                                         </div>
                                     </div>
                                 </div>
+                                <label class="required fs-6 fw-bold mb-2"
+                                       for="price">{{trans('admin_string.vehicle_type')}}</label>
+                                <div class="mb-1 col-md-2">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
 
-                                <div class="row mb-2">
-                                    <label class="required fs-6 fw-bold mb-2" for="advance_payment">
-                                        {{trans('admin_string.advance_payment')}}
-                                    </label>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Advance Payment"
-                                               name="advance_payment" value="{{$vehicle->advance_payment}}" required>
-                                        <select class="form-select form-select-solid fw-bold"
-                                                name="advance_payment_type"
-                                                id="advance_payment_type">
-                                            <option value="fix"
-                                                    @if($vehicle->advance_payment_type == 'fix') selected @endif>Fix
-                                            </option>
-                                            <option value="percentage"
-                                                    @if($vehicle->advance_payment_type == 'percentage') selected @endif>
-                                                Percentage
-                                            </option>
-                                        </select>
+                                        <input
+                                            class="form-check-input h-20px w-20px is_vehicle_type"
+                                            value="car_for_auction" name="is_vehicle_type"
+                                            id="is_vehicle_type"
+                                            type="radio" data-bs-original-title=""
+                                            title="" @if($vehicle->is_vehicle_type == 'car_for_auction') checked @endif>
+                                        <label class="form-check-label fw-bold"
+                                               for="is_vehicle_type">{{trans('web_string.car_for_auction')}}</label>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
-                                                {{trans('admin_string.auction_start_date')}}
-                                            </label>
-                                            <input type="date" class="form-control form-control-solid"
-                                                   name="auction_start_date"
-                                                   id="auction_start_date"
-                                                   value="{{$vehicle->auction_start_date}}"
-                                                   placeholder="{{trans('admin_string.auction_start_date')}}"/>
-                                        </div>
+                                <div class="mb-1 col-md-2">
+                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                        <input
+                                            class="form-check-input h-20px w-20px is_vehicle_type"
+                                            value="car_for_sell" name="is_vehicle_type"
+                                            id="is_vehicle_type"
+                                            type="radio" data-bs-original-title=""
+                                            title=""
+                                            @if($vehicle->is_vehicle_type == 'car_for_sell') checked @endif>
+                                        <label class="form-check-label fw-bold"
+                                               for="is_vehicle_type">{{trans('web_string.car_for_sell')}}</label>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_date">
-                                                {{trans('admin_string.auction_end_date')}}
-                                            </label>
-                                            <input type="date" class="form-control form-control-solid"
-                                                   name="auction_end_date"
-                                                   id="auction_end_date"
-                                                   value="{{$vehicle->auction_end_date}}"
-                                                   placeholder="{{trans('admin_string.auction_end_date')}}"/>
+                                </div>
+                                <div id="advance_part"
+                                     class="row @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif">
+                                    <div class="row mb-2">
+                                        <label class="required fs-6 fw-bold mb-2" for="advance_payment">
+                                            {{trans('admin_string.advance_payment')}}
+                                        </label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" aria-label="Advance Payment"
+                                                   name="advance_payment" value="{{$vehicle->advance_payment}}"
+                                                   required>
+                                            <select class="form-select form-select-solid fw-bold"
+                                                    name="advance_payment_type"
+                                                    id="advance_payment_type">
+                                                <option value="fix"
+                                                        @if($vehicle->advance_payment_type == 'fix') selected @endif>Fix
+                                                </option>
+                                                <option value="percentage"
+                                                        @if($vehicle->advance_payment_type == 'percentage') selected @endif>
+                                                    Percentage
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
-                                                {{trans('admin_string.auction_start_time')}}
-                                            </label>
-                                            <input type="time" class="form-control form-control-solid"
-                                                   name="auction_start_time"
-                                                   id="auction_start_time"
-                                                   value="{{$vehicle->auction_start_time}}"
-                                                   placeholder="{{trans('admin_string.auction_start_time')}}"/>
+                                <div id="auction_date_time_part" class="row @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif">
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_start_date">
+                                                    {{trans('admin_string.auction_start_date')}}
+                                                </label>
+                                                <input type="date" class="form-control form-control-solid"
+                                                       name="auction_start_date"
+                                                       id="auction_start_date"
+                                                       value="{{$vehicle->auction_start_date}}"
+                                                       placeholder="{{trans('admin_string.auction_start_date')}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_date">
+                                                    {{trans('admin_string.auction_end_date')}}
+                                                </label>
+                                                <input type="date" class="form-control form-control-solid"
+                                                       name="auction_end_date"
+                                                       id="auction_end_date"
+                                                       value="{{$vehicle->auction_end_date}}"
+                                                       placeholder="{{trans('admin_string.auction_end_date')}}"/>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
-                                                {{trans('admin_string.auction_end_time')}}
-                                            </label>
-                                            <input type="time" class="form-control form-control-solid"
-                                                   name="auction_end_time"
-                                                   id="auction_end_time"
-                                                   value="{{$vehicle->auction_end_time}}"
-                                                   placeholder="{{trans('admin_string.auction_end_time')}}"/>
+                                    <div class="row">
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
+                                                    {{trans('admin_string.auction_start_time')}}
+                                                </label>
+                                                <input type="time" class="form-control form-control-solid"
+                                                       name="auction_start_time"
+                                                       id="auction_start_time"
+                                                       value="{{$vehicle->auction_start_time}}"
+                                                       placeholder="{{trans('admin_string.auction_start_time')}}"/>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 col-md-6">
+                                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                <label class="required fs-6 fw-bold mb-2" for="auction_end_time">
+                                                    {{trans('admin_string.auction_end_time')}}
+                                                </label>
+                                                <input type="time" class="form-control form-control-solid"
+                                                       name="auction_end_time"
+                                                       id="auction_end_time"
+                                                       value="{{$vehicle->auction_end_time}}"
+                                                       placeholder="{{trans('admin_string.auction_end_time')}}"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -403,7 +436,9 @@
                                 {{--                                    </div>--}}
                                 {{--                                </div>--}}
 
-                                <div class="row">
+                                <div class="row @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif" id="is_product_part">
+                                    <label class="required fs-6 fw-bold mb-2"
+                                           for="price">{{trans('admin_string.is_product')}}</label>
                                     <div class="mt-5 mb-3 col-md-2">
                                         <div class="fv-row mb-7 fv-plugins-icon-container">
                                             <input
@@ -441,99 +476,100 @@
                                                    for="is-quantity-1">{{trans('admin_string.hot_deal')}}</label>
                                         </div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <div class="fv-row mb-7 fv-plugins-icon-container">
-                                            <label class="required fs-6 fw-bold mb-2" for="bid_increment">
-                                                {{trans('admin_string.bid_increment_price')}}
-                                            </label>
-                                            <input type="text" class="form-control form-control-solid integer"
-                                                   name="bid_increment"
-                                                   id="bid_increment"
-                                                   value="{{$vehicle->bid_increment}}"
-                                                   placeholder="{{trans('admin_string.bid_increment_price')}}"/>
-                                        </div>
-                                    </div>
                                 </div>
-
-                                {{--                                @foreach($languages as $language)--}}
-                                {{--                                    <div class="fv-row mb-7 fv-plugins-icon-container">--}}
-                                {{--                                        <label for="{{ $language['language_code'] }}_short_description"--}}
-                                {{--                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.short_description')}}--}}
-                                {{--                                        </label>--}}
-                                {{--                                        <input type="text" class="form-control form-control-solid"--}}
-                                {{--                                               name="{{ $language['language_code'] }}_short_description"--}}
-                                {{--                                               id="{{ $language['language_code'] }}_short_description"--}}
-                                {{--                                               @if($language['is_rtl']==1) dir="rtl" @endif--}}
-                                {{--                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"--}}
-                                {{--                                               placeholder="{{ $language['name'] }} {{trans('admin_string.short_description')}}"--}}
-                                {{--                                               required/>--}}
-                                {{--                                    </div>--}}
-                                {{--                                @endforeach--}}
-
-                                @foreach($languages as $language)
+                                <div class="mb-3 col-md-6 @if($vehicle->is_vehicle_type == 'car_for_sell') d-none @endif" id="bid_increment">
                                     <div class="fv-row mb-7 fv-plugins-icon-container">
-                                        <label for="{{ $language['language_code'] }}_description"
-                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.description')}}
+                                        <label class="required fs-6 fw-bold mb-2" for="bid_increment">
+                                            {{trans('admin_string.bid_increment_price')}}
                                         </label>
-                                        <textarea class="form-control"
-                                                  name="{{ $language['language_code'] }}_description"
-                                                  id="{{ $language['language_code'] }}_description"
-                                                  @if($language['is_rtl']==1) dir="rtl" @endif>{{ $vehicle->translateOrNew($language['language_code'])->description }}</textarea>
+                                        <input type="text" class="form-control form-control-solid integer"
+                                               name="bid_increment"
+                                               id="bid_increment"
+                                               value="{{$vehicle->bid_increment}}"
+                                               placeholder="{{trans('admin_string.bid_increment_price')}}"/>
                                     </div>
-                                @endforeach
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class=" fs-6 fw-bold mb-2"
-                                           for="car_report">{{trans('admin_string.car_report_pdf')}}
-                                        ({{trans('admin_string.only_pdf_files_are_allowed')}})
-                                    </label><br>
-                                    <input type="file" name="car_report" id="car_report"
-                                           value="{{$vehicle->car_report}}" data-default-file="{{$vehicle->car_report}}" onchange="fileChanged()">
-                                    <input type="hidden" name="car_report_changed" id="car_report_changed" value="0">
-                                    @if(!is_null($vehicle->car_report))
-                                        <a href="{{asset($vehicle->car_report)}}" target="_blank">View Car Report</a>
-                                    @endif
-                                </div>
-                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                    <label class=" fs-6 fw-bold mb-2"
-                                           for="image">{{trans('admin_string.image')}}
-                                    </label><br>
-                                    @include('admin.layouts2.components.image-selection',
-                                      [
-                                     'id'=>'image',
-                                      'description_string'=>'',
-                                      'image' => asset($vehicle->main_image)
-                                      ])
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="required fs-6 fw-bold"
-                                           for="image">{{trans('admin_string.multiple_image')}}
-                                        ({{trans('admin_string.allow_max')}})
-                                        <span
-                                            class="error"></span></label><br>
-                                    <div id="gallery">
-                                        @include('admin.vehicle.gallery')
-                                    </div>
-                                    <div id="fine-uploader"></div>
-                                </div>
+                            {{--                                @foreach($languages as $language)--}}
+                            {{--                                    <div class="fv-row mb-7 fv-plugins-icon-container">--}}
+                            {{--                                        <label for="{{ $language['language_code'] }}_short_description"--}}
+                            {{--                                               class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.short_description')}}--}}
+                            {{--                                        </label>--}}
+                            {{--                                        <input type="text" class="form-control form-control-solid"--}}
+                            {{--                                               name="{{ $language['language_code'] }}_short_description"--}}
+                            {{--                                               id="{{ $language['language_code'] }}_short_description"--}}
+                            {{--                                               @if($language['is_rtl']==1) dir="rtl" @endif--}}
+                            {{--                                               value="{{ $vehicle->translateOrNew($language['language_code'])->short_description }}"--}}
+                            {{--                                               placeholder="{{ $language['name'] }} {{trans('admin_string.short_description')}}"--}}
+                            {{--                                               required/>--}}
+                            {{--                                    </div>--}}
+                            {{--                                @endforeach--}}
 
+                            @foreach($languages as $language)
+                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                    <label for="{{ $language['language_code'] }}_description"
+                                           class="required fs-6 fw-bold mb-2">{{ $language['name'] }} {{trans('admin_string.description')}}
+                                    </label>
+                                    <textarea class="form-control"
+                                              name="{{ $language['language_code'] }}_description"
+                                              id="{{ $language['language_code'] }}_description"
+                                              @if($language['is_rtl']==1) dir="rtl" @endif>{{ $vehicle->translateOrNew($language['language_code'])->description }}</textarea>
+                                </div>
+                            @endforeach
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <label class=" fs-6 fw-bold mb-2"
+                                       for="car_report">{{trans('admin_string.car_report_pdf')}}
+                                    ({{trans('admin_string.only_pdf_files_are_allowed')}})
+                                </label><br>
+                                <input type="file" name="car_report" id="car_report"
+                                       value="{{$vehicle->car_report}}" data-default-file="{{$vehicle->car_report}}"
+                                       onchange="fileChanged()">
+                                <input type="hidden" name="car_report_changed" id="car_report_changed" value="0">
+                                @if(!is_null($vehicle->car_report))
+                                    <a href="{{asset($vehicle->car_report)}}" target="_blank">View Car Report</a>
+                                @endif
+                            </div>
+                            <div class="fv-row mb-7 fv-plugins-icon-container">
+                                <label class=" fs-6 fw-bold mb-2"
+                                       for="image">{{trans('admin_string.image')}}
+                                </label><br>
+                                @include('admin.layouts2.components.image-selection',
+                                  [
+                                 'id'=>'image',
+                                  'description_string'=>'',
+                                  'image' => asset($vehicle->main_image)
+                                  ])
                             </div>
 
-                            <div class="card-footer text-end p-3 btn-showcase">
-                                <button class="btn btn-primary" type="submit">
-                                    {{trans('admin_string.common_submit')}}
-                                </button>
-                                <a href="{{ route('admin.vehicle.index') }}">
-                                    <button class="btn btn-secondary" type="button">
-                                        {{trans('admin_string.common_cancel')}}
-                                    </button>
-                                </a>
+                            <div class="form-group">
+                                <label class="required fs-6 fw-bold"
+                                       for="image">{{trans('admin_string.multiple_image')}}
+                                    ({{trans('admin_string.allow_max')}})
+                                    <span
+                                        class="error"></span></label><br>
+                                <div id="gallery">
+                                    @include('admin.vehicle.gallery')
+                                </div>
+                                <div id="fine-uploader"></div>
                             </div>
-                        </form>
+
                     </div>
+
+                    <div class="card-footer text-end p-3 btn-showcase">
+                        <button class="btn btn-primary" type="submit">
+                            {{trans('admin_string.common_submit')}}
+                        </button>
+                        <a href="{{ route('admin.vehicle.index') }}">
+                            <button class="btn btn-secondary" type="button">
+                                {{trans('admin_string.common_cancel')}}
+                            </button>
+                        </a>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 @include('admin.layouts2.components.fineUploader')
@@ -557,6 +593,23 @@
         function fileChanged() {
             document.getElementById('car_report_changed').value = '1';
         }
+
+        $('.is_vehicle_type').on('click', function () {
+            var val = $(this).val();
+            if (val == 'car_for_sell') {
+                $('#advance_part').addClass('d-none')
+                $('#is_product_part').addClass('d-none')
+                $('#auction_date_time_part').addClass('d-none')
+                $('#minimumBidIncrement').addClass('d-none')
+                $('#bid_increment').addClass('d-none')
+            } else {
+                $('#advance_part').removeClass('d-none')
+                $('#is_product_part').removeClass('d-none')
+                $('#auction_date_time_part').removeClass('d-none')
+                $('#minimumBidIncrement').removeClass('d-none')
+                $('#bid_increment').removeClass('d-none')
+            }
+        })
     </script>
 
     <script src="{{URL::asset('assets/admin/custom/form.js')}}?v={{ time() }}"></script>

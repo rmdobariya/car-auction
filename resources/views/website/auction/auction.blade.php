@@ -11,11 +11,10 @@
                         <h1>My Auctions</h1>
                         @if(!is_null(Auth::user()))
                             @if(Auth::user()->user_type == 'seller')
-                                <a class="add_auction" data-id="{{Auth::user()->id}}"
-                                   href="#">{{trans('web_string.add_auction')}}</a>
+                                <a href="{{route('add-car')}}">{{trans('web_string.add_auction')}}</a>
                             @endif
-                        @else
-                            <a class="add_auction" data-id="0" href="#">{{trans('web_string.add_auction')}}</a>
+                            {{--                        @else--}}
+                            {{--                            <a class="add_auction" data-id="0" href="#">{{trans('web_string.add_auction')}}</a>--}}
                         @endif
                         {{--                        <a href="javascript:void(0)">View All</a>--}}
                     </div>
@@ -41,7 +40,7 @@
                                 <div class="car-img">
                                     <img src="{{asset($vehicle->main_image)}}" align="car">
                                     <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($vehicle->is_product == 'is_featured')
+                                            src="{{asset('web/assets/images/dymand.png')}}"> @if($vehicle->is_product == 'is_featured')
                                             {{trans('web_string.featured')}}
                                         @elseif($vehicle->is_product == 'is_popular')
                                             {{trans('web_string.popular')}}
@@ -78,16 +77,21 @@
                                     </div>
                                 </div>
                                 <div class="car-time-specification">
-                                    <div class="time-temain"
+                                    <div class="time-temain" id="time-temain_{{$vehicle->id}}"
                                          @if($vehicle->auction_end_date <  date('Y-m-d') || $vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                         <span><i class="las la-clock"></i></span>
                                         <input type="hidden" id="vehicle_id" value="{{$vehicle->id}}"
                                                class="vehicle_id">
                                         <input type="hidden" id="start_date_{{$vehicle->id}}"
+                                               value="{{$vehicle->auction_start_date}}">
+                                        <input type="hidden" id="start_time_{{$vehicle->id}}"
+                                               value="{{$vehicle->auction_start_time}}">
+                                        <input type="hidden" id="end_time_{{$vehicle->id}}"
+                                               value="{{$vehicle->auction_end_time}}">
+                                        <input type="hidden" id="end_date_{{$vehicle->id}}"
                                                value="{{$vehicle->auction_end_date}}">
                                         <div class="my-auction-counter"
                                              id="my-auction-counter_{{$vehicle->id}}">
-
                                         </div>
                                     </div>
                                     <div class="car-specifation">
@@ -132,9 +136,66 @@
                                             </div>
                                         @endif
                                     </div>
+                                    @php
+                                        $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
+                                        $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
+
+                                        $startDateTime = Carbon\Carbon::parse($vehicle->auction_start_date .' '. $vehicle->auction_start_time);
+                                        $endDateTime = Carbon\Carbon::parse($vehicle->auction_end_date .' ' .$vehicle->auction_end_time);
+                                        $dateToCheck = Carbon\Carbon::now();
+    //                                    $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                        $bid_count = 0;
+                                        $proof_check = null;
+                                        $payment_status = 'pending';
+                                        if(!is_null(Auth::guard('web')->user())){
+                                             $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->count();
+                                             $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->first();
+                                             if(!is_null($proof_check)){
+                                             $payment_status = $proof_check->status;
+                                             }
+                                        }
+
+                                    $bid = DB::table('vehicle_bids')->where('vehicle_id', $vehicle->id)->orderBy('amount', 'desc')->first();
+                                    $bid_amount = $vehicle->price;
+                                    if (!is_null($bid)) {
+                                    $last_bid_amount = $bid->amount;
+                                    $bid_amount = $bid->amount;
+                                    }
+                                    @endphp
+                                    @if($dateToCheck->between($startDateTime, $endDateTime) == true)
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-minus btn-minus-manually"
+                                                    id="btn-minus"
+                                                    data-minimum-bid-increment="{{$vehicle->bid_increment}}"
+                                                    data-id="{{$vehicle->id}}">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                        </span>
+                                            <input type="text" name="amount[{{$vehicle->id}}]"
+                                                   id="amount_{{$vehicle->id}}"
+                                                   class="form-control input-number integer"
+                                                   value="{{$bid_amount}}"
+                                                   placeholder="{{trans('web_string.amount')}}"
+                                                   min="{{$bid_amount}}" readonly>
+                                            <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-plus btn-plus-manually"
+                                                    id="btn-plus"
+                                                    data-minimum-bid-increment="{{$vehicle->bid_increment}}"
+                                                    data-id="{{$vehicle->id}}">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                            <a class="btn place-bid-blue-manually @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif bid-manually-submit"
+                                               data-id="{{$vehicle->id}}">
+                                                {{trans('web_string.place_bid')}}
+                                            </a>
+                                        </span>
+                                        </div>
+                                    @endif
                                 </div>
+
                                 <div
-                                        class="car-price my-bids-price @if($vehicle->auction_end_date < date('Y-m-d') || $vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    class="car-price my-bids-price @if($dateToCheck->between($startDateTime, $endDateTime) == false) time-close @endif">
                                     <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                     <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                     <div class="initial-price-box">
@@ -150,48 +211,40 @@
                                         <h3>
                                             SAR {{$total_bids == 0 ? number_format($vehicle->price) : number_format($height_bid)}}</h3>
                                     </div>
-                                    @php
-                                        $startDate = Carbon\Carbon::parse($vehicle->auction_start_date);
-                                        $endDate = Carbon\Carbon::parse($vehicle->auction_end_date);
-                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-                                     $bid_count = 0;
-            $proof_check = null;
-            $payment_status = 'pending';
-            if(!is_null(Auth::guard('web')->user())){
-            $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$vehicle->id)->count();
-            $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->where('vehicle_id',$vehicle->id)->first();
-            if(!is_null($proof_check)){
-            $payment_status = $proof_check->status;
-            }
-            }
-                                    @endphp
-                                    @if($dateToCheck->between($startDate, $endDate))
-                                        @if($payment_status == 'reject')
-                                            <a href="#" class="mb-1 text-danger"
-                                               data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
-                                        @else
+
+                                    @if($dateToCheck->between($startDateTime, $endDateTime))
+                                        @if($payment_status != 'reject')
                                             <a href="#"
                                                class="place-bid mb-1  @if($bid_count == 0 && $payment_status == 'pending') disabled-link @endif"
                                                data-id="{{$vehicle->id}}">{{trans('web_string.place_bid')}}</a>
                                         @endif
 
                                         @if(!is_null($proof_check) && $proof_check->status == 'pending')
-                                            <a href="#" class="mb-1 mt-1"
+                                            <a class="mb-1 mt-1 waiting_for_admin_approval"
                                                data-id="{{$vehicle->id}}">{{trans('web_string.waiting_for_admin_approval')}}</a>
                                         @elseif(!is_null($proof_check) && $proof_check->status == 'approved')
-                                            <a href="#" class="mb-1 mt-1"
+                                            <a class="mb-1 mt-1 payment_proof_approved"
                                                data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_approved')}}</a>
                                         @else
                                             <a href="#" class="payment-proof mb-1"
                                                data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof')}}</a>
+                                            @if($payment_status == 'reject')
+                                                <a class="mb-1 text-danger payment_proof_reject_by_admin"
+                                                   data-id="{{$vehicle->id}}">{{trans('web_string.payment_proof_reject_by_admin')}}</a>
+                                            @endif
                                         @endif
                                     @endif
-                                    @if($dateToCheck->between($startDate, $endDate))
+                                    @if($dateToCheck->between($startDateTime, $endDateTime))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                            data-id="{{$vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                     @else
-                                        @if($vehicle->auction_start_date > date('Y-m-d'))
-                                            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                        @if($vehicle->auction_start_date >= date('Y-m-d'))
+                                            @if($dateToCheck->lt($startDateTime))
+                                                <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                            @else
+                                                <a href="javascript:void(0)"
+                                                   class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                            @endif
                                         @else
                                             <a href="javascript:void(0)"
                                                class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
@@ -212,25 +265,48 @@
 @section('custom-script')
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
-        var $j_object = $(".vehicle_id");
         $j_object.each(function (i) {
             var id = $(this).val();
-            var start_date = $('#start_date_' + id).val()
-            var auction_end_date = new Date(start_date);
-            var targetDate = new Date(auction_end_date);
-            targetDate.setHours(23);
-            targetDate.setMinutes(60);
-            targetDate.setSeconds(60);
-            var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
-            $("#my-auction-counter_" + id)
-                .countdown(formattedDateTime, function (event) {
-                    $("#my-auction-counter_" + id).html(
-                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-                    );
-                });
+            var start_date = $('#start_date_' + id).val();
+            var start_time = $('#start_time_' + id).val();
+            var end_date = $('#end_date_' + id).val();
+            var end_time = $('#end_time_' + id).val();
+
+            var startDateTime = new Date(start_date + ' ' + start_time);
+            var endDateTime = new Date(end_date + ' ' + end_time);
+
+            function updateCountdown() {
+                var now = new Date().getTime();
+                var timeLeft = endDateTime - now;
+
+                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                $("#my-auction-counter_" + id).html(
+                    '<span>' + day_string + '<strong>' + days + '</strong></span> ' +
+                    '<span>' + hour_string + '<strong>' + hours + '</strong></span> ' +
+                    '<span>' + min_string + '<strong>' + minutes + '</strong> </span> ' +
+                    '<span>' + sec_string + '<strong>' + seconds + '</strong></span>'
+                );
+
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    $("#my-auction-counter_" + id).html("");
+                    $("#time-temain_" + id).addClass("d-none");
+                }
+            }
+
+            // Update the countdown every second
+            var countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Initial call to display the countdown immediately
+            updateCountdown();
         });
 
-        $('.place-bid').on('click', function () {
+        $('.place-bid').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios
@@ -257,7 +333,8 @@
                 window.location.href = APP_URL + '/add-auction'
             }
         })
-        $('.vehicle_detail').on('click', function () {
+        $('.vehicle_detail').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios
@@ -308,7 +385,8 @@
                     loaderHide()
                 })
         })
-        $('.payment-proof').on('click', function () {
+        $('.payment-proof').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios
@@ -324,6 +402,32 @@
                     loaderHide()
                 })
 
+        })
+
+        $(document).on('click', '.bid-manually-submit', function () {
+            loaderView();
+            var vehicle_id = $(this).data('id')
+            var amount = $('#amount_' + vehicle_id).val()
+            axios
+                .post(APP_URL + '/vehicle-bid-store', {
+                    vehicle_id: vehicle_id,
+                    amount: amount,
+                })
+                .then(function (response) {
+                    loaderHide();
+                    if (response.data.success == true) {
+                        window.location.reload()
+                        notificationToast(response.data.message, 'success');
+                    } else {
+                        notificationToast(response.data.message, 'warning')
+                    }
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    notificationToast(error.response.data.message, 'warning')
+                    loaderHide();
+                });
         })
     </script>
     <script src="{{asset('web/assets/custom/home/home.js')}}?v={{time()}}"></script>

@@ -102,6 +102,8 @@
                                 </div>
                                 <a href="#" class="place-bid-blue car_inquiry"
                                    data-id="{{$vehicle->id}}">{{trans('web_string.contact_seller')}}</a>
+                                <a href="javascript:void(0)" class="place-bid-blue car_for_sell_vehicle_detail mt-2"
+                                   data-id="{{$vehicle->id}}">{{trans('web_string.view_details')}}</a>
                             </div>
                         </div>
                     @endforeach
@@ -142,54 +144,62 @@
             </div>
         </div>
     </section>
-    <section id="testimonial">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="title">
-                        <h1>{{trans('web_string.testimonial')}}</h1>
+    @if(count($testimonials) > 0)
+        <section id="testimonial">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="title">
+                            <h1>{{trans('web_string.testimonial')}}</h1>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="testimonial">
-                        <div class="container">
-                            <div class="testimonial__inner">
-                                <div class="testimonial-slider">
-                                    @foreach($testimonials as $testimonial)
-                                        <div class="testimonial-slide">
-                                            <div class="testimonial_box">
-                                                <div class="testimonial_box-inner">
-                                                    <div class="testimonial_box-top">
-                                                        <div class="testimonial_box-icon">
-                                                            <img src="{{asset('web/assets/images/quotes.svg')}}">
-                                                        </div>
-                                                        <div class="testimonial_box-text">
-                                                            <p>{!! $testimonial->description !!}</p>
-                                                        </div>
-                                                        <div class="testimonial_box-name">
-                                                            <h4>{{$testimonial->title}}</h4>
-                                                        </div>
-                                                        <div class="testimonial_box-job">
-                                                            <p>{{$testimonial->role}}</p>
-                                                        </div>
-                                                        <div class="testimonial_box-img">
-                                                            <img src="{{asset($testimonial->image)}}" alt="profile">
+                    <div class="col-md-12">
+                        <div class="testimonial">
+                            <div class="container">
+                                <div class="testimonial__inner">
+                                    <div class="testimonial-slider">
+                                        @foreach($testimonials as $testimonial)
+                                            <div class="testimonial-slide">
+                                                <div class="testimonial_box">
+                                                    <div class="testimonial_box-inner">
+                                                        <div class="testimonial_box-top">
+                                                            <div class="testimonial_box-icon">
+                                                                <img src="{{asset('web/assets/images/quotes.svg')}}">
+                                                            </div>
+                                                            <div class="testimonial_box-text">
+                                                                <p>{{ $testimonial->review }}</p>
+                                                            </div>
+                                                            <div class="testimonial_box-name">
+                                                                <h4>{{$testimonial->user_name}}</h4>
+                                                            </div>
+                                                            <div class="testimonial_box-job">
+                                                                <div class="rated">
+                                                                    @for($i=1; $i<=$testimonial->rating; $i++)
+                                                                        <label class="star-rating-complete"
+                                                                               title="text">{{$i}}
+                                                                            stars</label>
+                                                                    @endfor
+                                                                </div>
+                                                            </div>
+                                                            <div class="testimonial_box-img">
+                                                                <img src="{{asset('web/assets/images/icon.png')}}"
+                                                                     alt="profile">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    @endif
     <section id="news">
         <div class="container">
             <div class="row">
@@ -235,7 +245,8 @@
 @endsection
 @section('custom-script')
     <script>
-        $('.car_inquiry').on('click', function () {
+        $('.car_inquiry').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios
@@ -260,6 +271,58 @@
                     } else {
                         notificationToast(response.data.message, 'warning')
                     }
+
+                    loaderHide()
+                })
+                .catch(function (error) {
+                    loaderHide()
+                })
+        })
+        $('.car_for_sell_vehicle_detail').on('click', function (e) {
+            e.preventDefault();
+            const value_id = $(this).data('id')
+            loaderView()
+            axios
+                .get(APP_URL + '/car-for-sell-vehicle-details' + '/' + value_id)
+                .then(function (response) {
+                    $('#carForSellDerailsTitle').html(response.data.modal_title)
+                    $('#carForSellDerailsBody').html(response.data.data)
+
+                    $('#carForSellDerails').modal('show')
+                    // var mySwiper = new Swiper('.swiper-container', {
+                    //     speed: 400,
+                    //     loop: true,
+                    //     slidesPerView: 1,
+                    //     calculateHeight: true,
+                    //     spaceBetween: 50,
+                    //     watchActiveIndex: true,
+                    //     prevButton: '.swiper-button-prev',
+                    //     nextButton: '.swiper-button-next'
+                    // })
+
+                    var productSlider = new Swiper('.product-slider', {
+                        spaceBetween: 0,
+                        centeredSlides: false,
+                        loop: true,
+                        direction: 'horizontal',
+                        loopedSlides: 3,
+                        navigation: {
+                            nextEl: ".swiper-button-next",
+                            prevEl: ".swiper-button-prev",
+                        },
+                        resizeObserver: true,
+                    });
+                    var productThumbs = new Swiper('.product-thumbs', {
+                        spaceBetween: 0,
+                        centeredSlides: true,
+                        loop: true,
+                        slideToClickedSlide: true,
+                        direction: 'horizontal',
+                        slidesPerView: 3,
+                        loopedSlides: 3,
+                    });
+                    productSlider.controller.control = productThumbs;
+                    productThumbs.controller.control = productSlider;
 
                     loaderHide()
                 })

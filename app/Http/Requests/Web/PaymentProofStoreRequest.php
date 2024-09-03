@@ -16,7 +16,7 @@ class PaymentProofStoreRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'vehicle_id' => 'required',
+//            'vehicle_id' => 'required',
             'payment_proof' => 'required|mimes:jpeg,jpg,png'
         ];
 

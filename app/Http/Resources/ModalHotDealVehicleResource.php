@@ -14,7 +14,7 @@ class ModalHotDealVehicleResource extends JsonResource
         return [
             'id' => $this->vehicle_id,
             'name' => $this->vehicle_name,
-            'main_image' => ENV('APP_URL') . $this->main_image,
+            'main_image' => 'https://car-auction.projectdemo.click/' . $this->main_image,
             'file_name' => pathinfo($this->main_image, PATHINFO_BASENAME),
         ];
     }

@@ -33,7 +33,7 @@ $("#min_amount").val(parseInt(min));
 $("#max_amount").val(parseInt(max));
 $("#min_ratting").val(parseInt(min_ratting));
 $("#max_ratting").val(parseInt(max_ratting));
-$("#amount").val(max);
+$("#amount").val(min);
 $(function () {
     $("#slider-range-price").slider({
         range: true,

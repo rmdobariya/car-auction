@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Helpers\ImageUploadHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\ChangePasswordStoreRequest;
+use App\Http\Requests\Web\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,61 +18,65 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user_id = Auth::user()->id;
-        $user = User::where('id', $user_id)->first();
-        if ($user) {
-            $bids = DB::table('vehicle_bids')
-                ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
-                ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
-                ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
-                ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
-                ->where('vehicle_translations.locale', App::getLocale())
-                ->where('category_translations.locale', App::getLocale())
-                ->where('vehicle_bids.user_id', $user_id)
-                ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
+        if(Auth::user()) {
+            $user_id = Auth::user()->id;
+            $user = User::where('id', $user_id)->first();
+            if ($user) {
+                $bids = DB::table('vehicle_bids')
+                    ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
+                    ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+                    ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+                    ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
+                    ->where('vehicle_translations.locale', App::getLocale())
+                    ->where('category_translations.locale', App::getLocale())
+                    ->where('vehicle_bids.user_id', $user_id)
+                    ->where('vehicles.auction_end_date', '>', date('Y-m-d'))
 //                ->where('vehicle_bids.is_winner', 0)
-                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage',  'users.full_name as user_name', 'category_translations.name as category_name')
-                ->limit(3)
-                ->get();
-            $winner_bids = DB::table('vehicle_bids')
-                ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
-                ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
-                ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
-                ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
-                ->where('vehicle_translations.locale', App::getLocale())
-                ->where('category_translations.locale', App::getLocale())
-                ->where('vehicle_bids.user_id', $user_id)
-                ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
-                ->where('vehicle_bids.is_winner', 1)
-                ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
-                    'vehicle_translations.description','vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
-                ->limit(3)
-                ->get();
-            $my_bid_count = DB::table('vehicle_bids')
-                ->where('vehicle_bids.user_id', $user_id)
-                ->where('vehicle_bids.is_winner', 0)
-                ->count();
-            $winner_count = DB::table('vehicle_bids')
-                ->where('vehicle_bids.user_id', $user_id)
-                ->where('vehicle_bids.is_winner', 1)
-                ->count();
-            return view('website.profile.user_profile', [
-                'user' => $user,
-                'bids' => $bids,
-                'winner_bids' => $winner_bids,
-                'my_bid_count' => $my_bid_count,
-                'winner_count' => $winner_count,
-            ]);
+                    ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
+                        'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
+                    ->limit(3)
+                    ->get();
+                $winner_bids = DB::table('vehicle_bids')
+                    ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
+                    ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
+                    ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
+                    ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
+                    ->where('vehicle_translations.locale', App::getLocale())
+                    ->where('category_translations.locale', App::getLocale())
+                    ->where('vehicle_bids.user_id', $user_id)
+                    ->where('vehicles.auction_end_date', '<', date('Y-m-d'))
+                    ->where('vehicle_bids.is_winner', 1)
+                    ->select('vehicle_bids.*', 'vehicles.*', 'vehicle_translations.name as vehicle_name',
+                        'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'category_translations.name as category_name')
+                    ->limit(3)
+                    ->get();
+                $my_bid_count = DB::table('vehicle_bids')
+                    ->where('vehicle_bids.user_id', $user_id)
+                    ->where('vehicle_bids.is_winner', 0)
+                    ->count();
+                $winner_count = DB::table('vehicle_bids')
+                    ->where('vehicle_bids.user_id', $user_id)
+                    ->where('vehicle_bids.is_winner', 1)
+                    ->count();
+                return view('website.profile.user_profile', [
+                    'user' => $user,
+                    'bids' => $bids,
+                    'winner_bids' => $winner_bids,
+                    'my_bid_count' => $my_bid_count,
+                    'winner_count' => $winner_count,
+                ]);
+            }
+            abort(404);
         }
         abort(404);
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(ProfileUpdateRequest $request)
     {
         $user = User::find(Auth::user()->id);
         $user->name = $request->fname;
         $user->last_name = $request->lname;
+        $user->contact_no = $request->contact_no;
         $user->full_name = $request->fname . ' ' . $request->lname;
         $user->save();
 

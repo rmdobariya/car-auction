@@ -13,7 +13,7 @@ class BlogResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'image' => ENV('APP_URL') . $this->image,
+            'image' => 'https://car-auction.projectdemo.click/' . $this->image,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d'),
         ];
     }

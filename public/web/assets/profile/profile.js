@@ -11,13 +11,54 @@ $profileForm.on('submit', function (e) {
     axios
         .post(APP_URL + '/update-profile', formData)
         .then(function (response) {
-            $profileForm[0].reset();
-            loaderHide();
+            if (response.data.reload) {
+                loaderHide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                notificationToast(response.data.message, 'warning');
+            }else{
+                $profileForm[0].reset();
+                loaderHide();
 
-            setTimeout(function () {
-                window.location.href = APP_URL + '/user-profile';
-            }, 1000);
-            notificationToast(response.data.message, 'success');
+                setTimeout(function () {
+                    window.location.href = APP_URL + '/user-profile';
+                }, 1000);
+                notificationToast(response.data.message, 'success');
+            }
+
+        })
+        .catch(function (error) {
+            console.log(error);
+            notificationToast(error.response.data.message, 'warning')
+            loaderHide();
+        });
+})
+
+let $reviewRattingForm = $('#reviewRattingForm')
+$reviewRattingForm.on('submit', function (e) {
+    e.preventDefault()
+    loaderView();
+    let formData = new FormData($reviewRattingForm[0]);
+    axios
+        .post(APP_URL + '/store-review', formData)
+        .then(function (response) {
+            if (response.data.reload) {
+                loaderHide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                notificationToast(response.data.message, 'warning');
+            }else{
+                $reviewRattingForm[0].reset();
+                loaderHide();
+                $('#review_ratting_modal').modal('hide')
+                $('#review_user_id').val('')
+                $('#edit_value').val(0)
+                window.location.reload()
+                notificationToast(response.data.message, 'success');
+            }
+
         })
         .catch(function (error) {
             console.log(error);
@@ -34,11 +75,19 @@ $changePasswordForm.on('submit', function (e) {
     axios
         .post(APP_URL + '/update-password', formData)
         .then(function (response) {
-            $changePasswordForm[0].reset();
-            loaderHide();
+            if (response.data.reload) {
+                loaderHide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                notificationToast(response.data.message, 'warning');
+            }else {
+                $changePasswordForm[0].reset();
+                loaderHide();
 
-            window.location.reload();
-            notificationToast(response.data.message, 'success');
+                window.location.reload();
+                notificationToast(response.data.message, 'success');
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -64,13 +113,21 @@ var loadFile = function (event) {
     axios
         .post(APP_URL + '/change-image', formData)
         .then(function (response) {
-            $changeImageForm[0].reset();
-            loaderHide();
+            if (response.data.reload) {
+                loaderHide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                notificationToast(response.data.message, 'warning');
+            }else {
+                $changeImageForm[0].reset();
+                loaderHide();
 
-            // setTimeout(function () {
-            //     window.location.href = APP_URL + '/user-profile';
-            // }, 1000);
-            notificationToast(response.data.message, 'success');
+                // setTimeout(function () {
+                //     window.location.href = APP_URL + '/user-profile';
+                // }, 1000);
+                notificationToast(response.data.message, 'success');
+            }
         })
         .catch(function (error) {
             console.log(error);

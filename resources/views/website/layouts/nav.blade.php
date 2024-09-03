@@ -53,13 +53,14 @@
                         <a class="nav-link" href="{{route('notification')}}">{{trans('web_string.notifications')}}
                             <span class="badge" style="background-color: white">{{$count}}</span>
                         </a>
-                     </li>
+                    </li>
                 @endif
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#ask-question"
-                       title="{{trans('web_string.ask_question')}}">
-                        <i class="fas fa-question-circle"></i>
+                    <a class="nav-link" href="#" data-bs-toggle="modal"
+                       data-bs-target="#ask-question">{{trans('web_string.ask_question')}}
+                        <!--<i class="fas fa-question-circle"></i>-->
+
                     </a>
                 </li>
                 <li class="nav-item language">
@@ -158,7 +159,7 @@
                     </div>
                     <div class="search-box">
                         <div class="input-group">
-                            <input type="text" class="form-control"
+                            <input type="text" class="form-control" name="search" id="search"
                                    placeholder="{{trans('web_string.search_by_make')}}">
                             <span class="input-group-text" id="basic-addon2"><i class="las la-search"></i></span>
                         </div>
@@ -400,19 +401,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <div class="price-range-slider">
-                                                <p class="range-value">
-                                                    {{trans('web_string.seller_ratings')}}
-                                                    <input type="text" id="ratings" name="ratting" readonly>
-                                                    <input type="hidden" id="min_ratting" name="min_ratting"
-                                                           readonly>
-                                                    <input type="hidden" id="max_ratting" name="max_ratting"
-                                                           readonly>
-                                                </p>
-                                                <div id="ratings-range" class="range-bar"></div>
-                                            </div>
-                                        </div>
+                                        {{--                                        <div class="col-md-3">--}}
+                                        {{--                                            <div class="price-range-slider">--}}
+                                        {{--                                                <p class="range-value">--}}
+                                        {{--                                                    {{trans('web_string.seller_ratings')}}--}}
+                                        {{--                                                    <input type="text" id="ratings" name="ratting" readonly>--}}
+                                        {{--                                                    <input type="hidden" id="min_ratting" name="min_ratting"--}}
+                                        {{--                                                           readonly>--}}
+                                        {{--                                                    <input type="hidden" id="max_ratting" name="max_ratting"--}}
+                                        {{--                                                           readonly>--}}
+                                        {{--                                                </p>--}}
+                                        {{--                                                <div id="ratings-range" class="range-bar"></div>--}}
+                                        {{--                                            </div>--}}
+                                        {{--                                        </div>--}}
                                     </div>
                                 </div>
                 </div>
@@ -591,19 +592,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="price-range-slider">
-                                            <p class="range-value">
-                                                {{trans('web_string.seller_ratings')}}
-                                                <input type="text" id="ratings" name="ratting" readonly>
-                                                <input type="hidden" id="min_ratting" name="min_ratting"
-                                                       readonly>
-                                                <input type="hidden" id="max_ratting" name="max_ratting"
-                                                       readonly>
-                                            </p>
-                                            <div id="ratings-range" class="range-bar"></div>
-                                        </div>
-                                    </div>
+                                    {{--                                    <div class="col-md-3">--}}
+                                    {{--                                        <div class="price-range-slider">--}}
+                                    {{--                                            <p class="range-value">--}}
+                                    {{--                                                {{trans('web_string.seller_ratings')}}--}}
+                                    {{--                                                <input type="text" id="ratings" name="ratting" readonly>--}}
+                                    {{--                                                <input type="hidden" id="min_ratting" name="min_ratting"--}}
+                                    {{--                                                       readonly>--}}
+                                    {{--                                                <input type="hidden" id="max_ratting" name="max_ratting"--}}
+                                    {{--                                                       readonly>--}}
+                                    {{--                                            </p>--}}
+                                    {{--                                            <div id="ratings-range" class="range-bar"></div>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -667,7 +668,6 @@
                                         $min_ratting = DB::table('vehicles')->whereNull('deleted_at')->min('ratting');
                                         $max_ratting = DB::table('vehicles')->whereNull('deleted_at')->max('ratting');
                                         $colors = DB::table('vehicle_translations')->where('locale',App::getLocale())->pluck('color')->unique()->toArray();
-
                                     @endphp
                                     <div class="col-md-3">
                                         <label>{{trans('web_string.category')}}</label>
@@ -777,17 +777,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="price-range-slider">
-                                            <p class="range-value">
-                                                {{trans('web_string.seller_ratings')}}
-                                                <input type="text" id="ratings" name="ratting" readonly>
-                                                <input type="hidden" id="min_ratting" name="min_ratting" readonly>
-                                                <input type="hidden" id="max_ratting" name="max_ratting" readonly>
-                                            </p>
-                                            <div id="ratings-range" class="range-bar"></div>
-                                        </div>
-                                    </div>
+                                    {{--                                    <div class="col-md-3">--}}
+                                    {{--                                        <div class="price-range-slider">--}}
+                                    {{--                                            <p class="range-value">--}}
+                                    {{--                                                {{trans('web_string.seller_ratings')}}--}}
+                                    {{--                                                <input type="text" id="ratings" name="ratting" readonly>--}}
+                                    {{--                                                <input type="hidden" id="min_ratting" name="min_ratting" readonly>--}}
+                                    {{--                                                <input type="hidden" id="max_ratting" name="max_ratting" readonly>--}}
+                                    {{--                                            </p>--}}
+                                    {{--                                            <div id="ratings-range" class="range-bar"></div>--}}
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -804,4 +804,5 @@
     var max = '{{$max}}';
     var min_ratting = '{{$min_ratting}}';
     var max_ratting = '{{$max_ratting}}';
+
 </script>

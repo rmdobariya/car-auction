@@ -22,7 +22,7 @@
                         </div>
                         <div class="noti-details">
                             <div class="noti-heading">
-                                <h2>{{trans('web_string.car_inquiry')}}</h2>
+                                <h2>{{str_replace('_',' ',ucfirst($notification->type))}}</h2>
                                 <span>{{Carbon\Carbon::parse($notification->created_at)->format('h:i A | l  d F Y')}}</span>
                                 <span><a href="#" class="notification_delete" data-id="{{$notification->id}}"> <i class="fa fa-trash" style="color: red"></i></a></span>
                             </div>

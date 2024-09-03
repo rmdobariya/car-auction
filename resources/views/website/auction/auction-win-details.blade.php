@@ -173,7 +173,7 @@
                                 <p>Luxe Sensory 7ST</p>
                             </div>
                             <div class="ini-price">
-                                <p>Initial Price</p>
+                                <p>{{trans('web_string.common_price')}}</p>
                                 <p><span>SAR 50,000</span></p>
                             </div>
                             <h4>Congratulations!</h4>

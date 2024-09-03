@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PaymentProofController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
@@ -160,4 +161,8 @@ Route::group(['middleware' => ['auth:admin', 'adminCheck']], function () {
     Route::resource('payment-proof', PaymentProofController::class);
     Route::get('get-payment-proof', [PaymentProofController::class, 'getPaymentProofList'])->name('get-payment-proof');
     Route::get('payment-proof/status/{id}/{status}', [PaymentProofController::class, 'changeStatus'])->name('payment-proof.status.change');
+
+    Route::resource('review', ReviewController::class);
+    Route::get('get-review', [ReviewController::class, 'getReviewList'])->name('get-review');
+    Route::get('review/status/{id}/{status}', [ReviewController::class, 'changeStatus'])->name('review.status.change');
 });

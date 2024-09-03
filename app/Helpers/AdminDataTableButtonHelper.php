@@ -61,11 +61,19 @@ class AdminDataTableButtonHelper
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">' . trans('admin_string.reject') . '</a>';
                 $action_button_dropdown .= '</div>';
-            }else if ((string)$key === 'payment-status' && (string)$value === 'approved' && $array['actions']['status_permission'] == true) {
+            } else if ((string)$key === 'vehicle-status' && (string)$value === 'reject' && $array['actions']['status_permission'] == true) {
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="approve" data-id="' . $array['id'] . '" class="menu-link px-3 status-change">' . trans('admin_string.approve') . '</a>';
+                $action_button_dropdown .= '</div>';
+            } else if ((string)$key === 'payment-status' && (string)$value === 'approved' && $array['actions']['status_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="reject" data-id="' . $array['id'] . '" class="menu-link px-3 payment-status-change">' . trans('admin_string.reject') . '</a>';
                 $action_button_dropdown .= '</div>';
-            }else if ((string)$key === 'payment-status' && (string)$value === 'pending' && $array['actions']['status_permission'] == true) {
+            } else if ((string)$key === 'payment-status' && (string)$value === 'reject' && $array['actions']['status_permission'] == true) {
+                $action_button_dropdown .= '<div class="menu-item px-3">';
+                $action_button_dropdown .= '<a href="javascript:void(0)" data-status="approved" data-id="' . $array['id'] . '" class="menu-link px-3 payment-status-change">' . trans('admin_string.approve') . '</a>';
+                $action_button_dropdown .= '</div>';
+            } else if ((string)$key === 'payment-status' && (string)$value === 'pending' && $array['actions']['status_permission'] == true) {
                 $action_button_dropdown .= '<div class="menu-item px-3">';
                 $action_button_dropdown .= '<a href="javascript:void(0)" data-status="approved" data-id="' . $array['id'] . '" class="menu-link px-3 payment-status-change">' . trans('admin_string.approve') . '</a>';
                 $action_button_dropdown .= '</div>';

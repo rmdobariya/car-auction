@@ -146,7 +146,7 @@ body.rtl{
     margin-bottom: 30px;
 }
 .navbar-light .navbar-nav .nav-link {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 16px;
     color: #fff;
     font-weight: 500;
@@ -396,7 +396,7 @@ body.rtl{
 .price-range-slider .range-value input {
     background: none;
     color: #60D6D6;
-    font-size: 15px;
+    font-size: 9px;
     font-weight: initial;
     box-shadow: none;
     border: none;
@@ -782,7 +782,7 @@ section#testimonial {
     justify-content: center;
     position: absolute;
     bottom: -27px;
-    background: transparent linear-gradient(270deg, #149B9E 0%, #673AAA 100%) 0% 0% no-repeat padding-box;
+    /*background: transparent linear-gradient(270deg, #149B9E 0%, #673AAA 100%) 0% 0% no-repeat padding-box;*/
     box-shadow: 0px 10px 20px #00000029;
     padding: 4px;
     border-radius: 50%;

@@ -30,7 +30,7 @@
                                     <div class="car-img">
                                         <img src="{{asset($sell_vehicle->main_image)}}" align="car">
                                         <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
+                                                    src="{{asset('web/assets/images/dymand.png')}}"> {{trans('web_string.car_for_sell')}}</span>
                                         @if(!is_null(Auth::user()))
                                             @if($sell_vehicle->user_id != Auth::user()->id)
                                                 <a class="like" href="#" data-id="{{$sell_vehicle->id}}"
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="car-price">
                                         <div class="initial-price-box">
-                                            <p>Initial Price</p>
+                                            <p>{{trans('web_string.common_price')}}</p>
                                             <h3>SAR {{number_format($sell_vehicle->price)}}</h3>
                                         </div>
                                         <a href="#" class="place-bid-blue car_inquiry"
@@ -142,7 +142,7 @@
                                     <div class="car-img">
                                         <img src="{{asset($featured_vehicle->main_image)}}" align="car">
                                         <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
+                                                    src="{{asset('web/assets/images/dymand.png')}}"> @if($featured_vehicle->is_product == 'is_featured')
                                                 {{trans('web_string.featured')}}
                                             @elseif($featured_vehicle->is_product == 'is_popular')
                                                 {{trans('web_string.popular')}}
@@ -179,12 +179,18 @@
                                         </div>
                                     </div>
                                     <div class="car-time-specification">
-                                        <div class="time-temain"
+                                        <div class="time-temain" id="time-temain_{{$featured_vehicle->id}}"
                                              @if($featured_vehicle->auction_end_date <  date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                             <span><i class="las la-clock"></i></span>
                                             <input type="hidden" id="vehicle_id" value="{{$featured_vehicle->id}}"
                                                    class="vehicle_id">
                                             <input type="hidden" id="start_date_{{$featured_vehicle->id}}"
+                                                   value="{{$featured_vehicle->auction_start_date}}">
+                                            <input type="hidden" id="start_time_{{$featured_vehicle->id}}"
+                                                   value="{{$featured_vehicle->auction_start_time}}">
+                                            <input type="hidden" id="end_time_{{$featured_vehicle->id}}"
+                                                   value="{{$featured_vehicle->auction_end_time}}">
+                                            <input type="hidden" id="end_date_{{$featured_vehicle->id}}"
                                                    value="{{$featured_vehicle->auction_end_date}}">
                                             <div class="my-auction-counter"
                                                  id="my-auction-counter_{{$featured_vehicle->id}}">
@@ -226,8 +232,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="car-price my-bids-price @if($featured_vehicle->auction_end_date < date('Y-m-d') || $featured_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    @php
+                                        $startDate = Carbon\Carbon::parse($featured_vehicle->auction_start_date);
+                                        $endDate = Carbon\Carbon::parse($featured_vehicle->auction_end_date);
+                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                        $startDateTime = Carbon\Carbon::parse($featured_vehicle->auction_start_date .' '. $featured_vehicle->auction_start_time);
+                                        $endDateTime = Carbon\Carbon::parse($featured_vehicle->auction_end_date .' ' .$featured_vehicle->auction_end_time);
+                                    @endphp
+                                    <div class="car-price my-bids-price @if($dateToCheck->between($startDateTime, $endDateTime) == false) time-close @endif">
                                         <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                         <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($featured_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                         <div class="initial-price-box">
@@ -243,17 +255,19 @@
                                             <h3>
                                                 SAR {{$total_bids == 0 ? number_format($featured_vehicle->price) : number_format($height_bid)}}</h3>
                                         </div>
-                                        @php
-                                            $startDate = Carbon\Carbon::parse($featured_vehicle->auction_start_date);
-                                            $endDate = Carbon\Carbon::parse($featured_vehicle->auction_end_date);
-                                            $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-                                        @endphp
-                                        @if($dateToCheck->between($startDate, $endDate))
+
+                                        @if($dateToCheck->between($startDateTime, $endDateTime))
                                             <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                                data-id="{{$featured_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                         @else
-                                            @if($featured_vehicle->auction_start_date > date('Y-m-d'))
-                                                <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                            @if($featured_vehicle->auction_start_date >= date('Y-m-d'))
+                                                @if($dateToCheck->lt($startDateTime))
+                                                    <a href="#"
+                                                       class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                                @else
+                                                    <a href="javascript:void(0)"
+                                                       class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                                @endif
                                             @else
                                                 <a href="javascript:void(0)"
                                                    class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
@@ -292,7 +306,7 @@
                                     <div class="car-img">
                                         <img src="{{asset($popular_vehicle->main_image)}}" align="car">
                                         <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
+                                                    src="{{asset('web/assets/images/dymand.png')}}"> @if($popular_vehicle->is_product == 'is_featured')
                                                 {{trans('web_string.feature')}}
                                             @elseif($popular_vehicle->is_product == 'is_popular')
                                                 {{trans('web_string.popular')}}
@@ -329,12 +343,18 @@
                                         </div>
                                     </div>
                                     <div class="car-time-specification">
-                                        <div class="time-temain"
+                                        <div class="time-temain" id="time-temain_{{$popular_vehicle->id}}"
                                              @if($popular_vehicle->auction_end_date <  date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                             <span><i class="las la-clock"></i></span>
                                             <input type="hidden" id="vehicle_id" value="{{$popular_vehicle->id}}"
                                                    class="vehicle_id">
                                             <input type="hidden" id="start_date_{{$popular_vehicle->id}}"
+                                                   value="{{$popular_vehicle->auction_start_date}}">
+                                            <input type="hidden" id="start_time_{{$popular_vehicle->id}}"
+                                                   value="{{$popular_vehicle->auction_start_time}}">
+                                            <input type="hidden" id="end_time_{{$popular_vehicle->id}}"
+                                                   value="{{$popular_vehicle->auction_end_time}}">
+                                            <input type="hidden" id="end_date_{{$popular_vehicle->id}}"
                                                    value="{{$popular_vehicle->auction_end_date}}">
                                             <div class="my-auction-counter"
                                                  id="my-auction-counter_{{$popular_vehicle->id}}">
@@ -376,8 +396,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="car-price my-bids-price @if($popular_vehicle->auction_end_date < date('Y-m-d') || $popular_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    @php
+                                        $startDate = Carbon\Carbon::parse($popular_vehicle->auction_start_date);
+                                        $endDate = Carbon\Carbon::parse($popular_vehicle->auction_end_date);
+                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                        $startDateTime = Carbon\Carbon::parse($popular_vehicle->auction_start_date .' '. $popular_vehicle->auction_start_time);
+                                        $endDateTime = Carbon\Carbon::parse($popular_vehicle->auction_end_date .' ' .$popular_vehicle->auction_end_time);
+                                    @endphp
+                                    <div class="car-price my-bids-price @if($dateToCheck->between($startDateTime, $endDateTime) == false) time-close @endif">
                                         <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                         <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($popular_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                         <div class="initial-price-box">
@@ -393,17 +419,19 @@
                                             <h3>
                                                 SAR {{$total_bids == 0 ? number_format($popular_vehicle->price) : number_format($height_bid)}}</h3>
                                         </div>
-                                        @php
-                                            $startDate = Carbon\Carbon::parse($popular_vehicle->auction_start_date);
-                                            $endDate = Carbon\Carbon::parse($popular_vehicle->auction_end_date);
-                                            $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-                                        @endphp
-                                        @if($dateToCheck->between($startDate, $endDate))
+
+                                        @if($dateToCheck->between($startDateTime, $endDateTime))
                                             <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                                data-id="{{$popular_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                         @else
-                                            @if($popular_vehicle->auction_start_date > date('Y-m-d'))
-                                                <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                            @if($popular_vehicle->auction_start_date >= date('Y-m-d'))
+                                                @if($dateToCheck->lt($startDateTime))
+                                                    <a href="#"
+                                                       class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                                @else
+                                                    <a href="javascript:void(0)"
+                                                       class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                                @endif
                                             @else
                                                 <a href="javascript:void(0)"
                                                    class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
@@ -442,7 +470,7 @@
                                     <div class="car-img">
                                         <img src="{{asset($hot_deal_vehicle->main_image)}}" align="car">
                                         <span class="cat-tags"><img
-                                                src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
+                                                    src="{{asset('web/assets/images/dymand.png')}}"> @if($hot_deal_vehicle->is_product == 'is_featured')
                                                 {{trans('web_string.featured')}}
                                             @elseif($hot_deal_vehicle->is_product == 'is_popular')
                                                 {{trans('web_string.popular')}}
@@ -479,12 +507,18 @@
                                         </div>
                                     </div>
                                     <div class="car-time-specification">
-                                        <div class="time-temain"
+                                        <div class="time-temain" id="time-temain_{{$hot_deal_vehicle->id}}"
                                              @if($hot_deal_vehicle->auction_end_date <  date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                             <span><i class="las la-clock"></i></span>
                                             <input type="hidden" id="vehicle_id" value="{{$hot_deal_vehicle->id}}"
                                                    class="vehicle_id">
                                             <input type="hidden" id="start_date_{{$hot_deal_vehicle->id}}"
+                                                   value="{{$hot_deal_vehicle->auction_start_date}}">
+                                            <input type="hidden" id="start_time_{{$hot_deal_vehicle->id}}"
+                                                   value="{{$hot_deal_vehicle->auction_start_time}}">
+                                            <input type="hidden" id="end_time_{{$hot_deal_vehicle->id}}"
+                                                   value="{{$hot_deal_vehicle->auction_end_time}}">
+                                            <input type="hidden" id="end_date_{{$hot_deal_vehicle->id}}"
                                                    value="{{$hot_deal_vehicle->auction_end_date}}">
                                             <div class="my-auction-counter"
                                                  id="my-auction-counter_{{$hot_deal_vehicle->id}}">
@@ -526,8 +560,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="car-price my-bids-price @if($hot_deal_vehicle->auction_end_date < date('Y-m-d') || $hot_deal_vehicle->auction_start_date > date('Y-m-d')) time-close @endif">
+                                    @php
+                                        $startDate = Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date);
+                                        $endDate = Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date);
+                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                         $startDateTime = Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date .' '. $hot_deal_vehicle->auction_start_time);
+                                        $endDateTime = Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date .' ' .$hot_deal_vehicle->auction_end_time);
+                                    @endphp
+                                    <div class="car-price my-bids-price @if($dateToCheck->between($startDateTime, $endDateTime) == false) time-close @endif">
                                         <span>{{trans('web_string.bid_start')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date)->format('d M Y')}}</b></span>
                                         <span>{{trans('web_string.bid_end')}} <b>{{Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date)->format('d M Y')}}</b></span>
                                         <div class="initial-price-box">
@@ -543,20 +583,22 @@
                                             <h3>
                                                 SAR {{$total_bids == 0 ? number_format($hot_deal_vehicle->price) : number_format($height_bid)}}</h3>
                                         </div>
-                                        @php
-                                            $startDate = Carbon\Carbon::parse($hot_deal_vehicle->auction_start_date);
-                                            $endDate = Carbon\Carbon::parse($hot_deal_vehicle->auction_end_date);
-                                            $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-                                        @endphp
-                                        @if($dateToCheck->between($startDate, $endDate))
+
+                                        @if($dateToCheck->between($startDateTime, $endDateTime))
                                             <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                                data-id="{{$hot_deal_vehicle->id}}">{{trans('web_string.view_auction')}}</a>
                                         @else
-                                            @if($hot_deal_vehicle->auction_start_date > date('Y-m-d'))
-                                                <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                            @if($hot_deal_vehicle->auction_start_date >= date('Y-m-d'))
+                                                @if($dateToCheck->lt($startDateTime))
+                                                    <a href="#"
+                                                       class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                                @else
+                                                    <a href="javascript:void(0)"
+                                                       class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                                @endif
                                             @else
                                                 <a href="javascript:void(0)"
-                                                   class="place-bid-blue update-bid">{{trans('web_string.auction_close')}}</a>
+                                                   class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
                                             @endif
                                         @endif
                                     </div>
@@ -577,25 +619,72 @@
 @section('custom-script')
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
+        let day_string = '{{trans('web_string.day')}}';
+        let hour_string = '{{trans('web_string.hours')}}';
+        let min_string = '{{trans('web_string.mins')}}';
+        let sec_string = '{{trans('web_string.sec')}}';
+    </script>
+    <script>
         var $j_object = $(".vehicle_id");
         $j_object.each(function (i) {
-            var id = $(this).val();
-            var start_date = $('#start_date_' + id).val()
-            var auction_end_date = new Date(start_date);
-            var targetDate = new Date(auction_end_date);
-            targetDate.setHours(23);
-            targetDate.setMinutes(60);
-            targetDate.setSeconds(60);
-            var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
-            $("#my-auction-counter_" + id)
-                .countdown(formattedDateTime, function (event) {
-                    $("#my-auction-counter_" + id).html(
-                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-                    );
-                });
-        });
+        //     var id = $(this).val();
+        //     var start_date = $('#start_date_' + id).val()
+        //     var auction_end_date = new Date(start_date);
+        //     var targetDate = new Date(auction_end_date);
+        //     targetDate.setHours(23);
+        //     targetDate.setMinutes(60);
+        //     targetDate.setSeconds(60);
+        //     var formattedDateTime = targetDate.toISOString().slice(0, 24).replace('T', ' ');
+        //     $("#my-auction-counter_" + id)
+        //         .countdown(formattedDateTime, function (event) {
+        //             $("#my-auction-counter_" + id).html(
+        //                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+        //             );
+        //         });
+        // });
 
-        $('.vehicle_detail').on('click', function () {
+            $j_object.each(function (i) {
+                var id = $(this).val();
+                var start_date = $('#start_date_' + id).val();
+                var start_time = $('#start_time_' + id).val();
+                var end_date = $('#end_date_' + id).val();
+                var end_time = $('#end_time_' + id).val();
+
+                var startDateTime = new Date(start_date + ' ' + start_time);
+                var endDateTime = new Date(end_date + ' ' + end_time);
+
+                function updateCountdown() {
+                    var now = new Date().getTime();
+                    var timeLeft = endDateTime - now;
+
+                    var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    $("#my-auction-counter_" + id).html(
+                        '<span>' + day_string + '<strong>' + days + '</strong></span> ' +
+                        '<span>' + hour_string + '<strong>' + hours + '</strong></span> ' +
+                        '<span>' + min_string + '<strong>' + minutes + '</strong> </span> ' +
+                        '<span>' + sec_string + '<strong>' + seconds + '</strong></span>'
+                    );
+
+                    if (timeLeft < 0) {
+                        clearInterval(countdownInterval);
+                        $("#my-auction-counter_" + id).html("");
+                        $("#time-temain_" + id).addClass("d-none");
+                    }
+                }
+
+                // Update the countdown every second
+                var countdownInterval = setInterval(updateCountdown, 1000);
+
+                // Initial call to display the countdown immediately
+                updateCountdown();
+            });
+
+        $('.vehicle_detail').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios
@@ -647,7 +736,8 @@
                 })
         })
 
-        $('.car_inquiry').on('click', function () {
+        $('.car_inquiry').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios

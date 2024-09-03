@@ -36,23 +36,32 @@ class AuctionStatusUpdate extends Command
             ->select('vehicles.*', 'vehicle_translations.name as vehicle_name', 'vehicle_categories.name as category_name')
             ->get();
         foreach ($vehicles as $vehicle) {
-            $startDate = Carbon::parse($vehicle->auction_start_date);
-            $endDate = Carbon::parse($vehicle->auction_end_date);
-            $dateToCheck = Carbon::parse(date('Y-m-d'));
-            if ($dateToCheck->between($startDate, $endDate)) {
-                DB::table('vehicles')->where('id', $vehicle->id)->update([
-                    'status' => 'ongoing'
-                ]);
+            $startDateTime = Carbon::parse($vehicle->auction_start_date . ' ' . $vehicle->auction_start_time);
+            $endDateTime = Carbon::parse($vehicle->auction_end_date . ' ' . $vehicle->auction_end_time);
+            $currentDateTime = Carbon::now();
+
+            // Check if current time is within the auction time range
+            if ($currentDateTime->between($startDateTime, $endDateTime)) {
+//                DB::table('vehicles')->where('id', $vehicle->id)->update([
+//                    'status' => 'ongoing'
+//                ]);
             } else {
-                if ($vehicle->auction_start_date > date('Y-m-d')) {
+                // If the auction is in the future, set status to "pending"
+                if ($vehicle->status === 'pending' && $vehicle->auction_start_date > date('Y-m-d')) {
                     DB::table('vehicles')->where('id', $vehicle->id)->update([
                         'status' => 'pending'
                     ]);
-                } else {
+                } // Check if the auction is "pending" and the date/time has expired
+                elseif ($vehicle->status === 'approve' && $currentDateTime->greaterThan($endDateTime)) {
                     DB::table('vehicles')->where('id', $vehicle->id)->update([
                         'status' => 'auction_close'
                     ]);
                 }
+//                elseif ($vehicle->status === 'auction_close' && $currentDateTime->lessThan($endDateTime)) {
+//                    DB::table('vehicles')->where('id', $vehicle->id)->update([
+//                        'status' => 'approve'
+//                    ]);
+//                }
             }
         }
     }

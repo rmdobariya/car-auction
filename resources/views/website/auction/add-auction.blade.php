@@ -146,22 +146,30 @@
             axios
                 .get(APP_URL + '/vehicle-bid-listing' + '/' + value_id)
                 .then(function (response) {
-                    // $('#bid_listing_title').html(response.data.modal_title)
-                    $('#bid_listing_model').html(response.data.data)
-                    startInterval()
-                    $('#auctiondetails').modal('show')
-                    var mySwiper = new Swiper('.swiper-container', {
-                        speed: 400,
-                        loop: true,
-                        slidesPerView: 1,
-                        calculateHeight: true,
-                        spaceBetween: 50,
-                        watchActiveIndex: true,
-                        prevButton: '.swiper-button-prev',
-                        nextButton: '.swiper-button-next'
-                    })
+                    if (response.data.reload) {
+                        loaderHide();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 5000);
+                        notificationToast(response.data.message, 'warning');
+                    }else {
+                        // $('#bid_listing_title').html(response.data.modal_title)
+                        $('#bid_listing_model').html(response.data.data)
+                        startInterval()
+                        $('#auctiondetails').modal('show')
+                        var mySwiper = new Swiper('.swiper-container', {
+                            speed: 400,
+                            loop: true,
+                            slidesPerView: 1,
+                            calculateHeight: true,
+                            spaceBetween: 50,
+                            watchActiveIndex: true,
+                            prevButton: '.swiper-button-prev',
+                            nextButton: '.swiper-button-next'
+                        })
 
-                    loaderHide()
+                        loaderHide()
+                    }
                 })
                 .catch(function (error) {
                     loaderHide()

@@ -11,13 +11,21 @@ $vehicleAddForm.on('submit', function (e) {
     axios
         .post(APP_URL + '/add-vehicle-store', formData)
         .then(function (response) {
-            $vehicleAddForm[0].reset();
-            loaderHide();
+            if (response.data.reload) {
+                loaderHide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                notificationToast(response.data.message, 'warning');
+            }else {
+                $vehicleAddForm[0].reset();
+                loaderHide();
 
-            setTimeout(function () {
-                window.location.href = APP_URL + '/add-auction';
-            }, 1000);
-            notificationToast(response.data.message, 'success');
+                setTimeout(function () {
+                    window.location.href = APP_URL + '/add-auction';
+                }, 1000);
+                notificationToast(response.data.message, 'success');
+            }
         })
         .catch(function (error) {
             console.log(error);
@@ -59,8 +67,16 @@ function deleteRecord(image_id, vehicle_id) {
         type: 'GET',
         url: APP_URL + '/deleteCar' + '/' + image_id,
         success: function (data) {
-            notificationToast(data.message, 'success');
-            getVehicleGallery(vehicle_id);
+            if (data.reload) {
+                loaderHide();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
+                notificationToast(data.message, 'warning');
+            }else {
+                notificationToast(data.message, 'success');
+                getVehicleGallery(vehicle_id);
+            }
 
         }, error: function (data) {
             console.log('Error:', data)

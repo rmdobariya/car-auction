@@ -22,6 +22,7 @@
                                     <th class="fw-bold" scope="row">{{trans('admin_string.type')}}</th>
                                     <td>{{ str_replace('_',' ',ucfirst($notification->type)) }}</td>
                                 </tr>
+                                @if(!is_null($notification->user_id))
                                 <tr>
                                     <th class="fw-bold" scope="row">{{trans('admin_string.user_name')}}</th>
                                     @php
@@ -29,6 +30,7 @@
                                     @endphp
                                     <td>{{ $user->name }}</td>
                                 </tr>
+                                @endif
                                 @if(!is_null($notification->vehicle_id))
                                     @php
                                         $vehicle = DB::table('vehicle_translations')
@@ -44,7 +46,7 @@
 
                                 <tr>
                                     <th class="fw-bold" scope="row">{{trans('admin_string.first_name')}}</th>
-                                    <td>({{ $notification->first_name }})</td>
+                                    <td>{{ $notification->first_name }}</td>
                                 </tr>
                                 <tr>
                                     <th class="fw-bold" scope="row">{{trans('admin_string.last_name')}}</th>

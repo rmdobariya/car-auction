@@ -69,11 +69,18 @@
                                     </div>
                                 </div>
                                 <div class="car-time-specification">
-                                    <div class="time-temain"
+                                    <div class="time-temain" id="time-temain_{{$bid->id}}"
                                          @if($bid->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
                                         <span><i class="las la-clock"></i></span>
-                                        <input type="hidden" id="vehicle_id" value="{{$bid->id}}" class="vehicle_id">
+                                        <input type="hidden" id="vehicle_id" value="{{$bid->id}}"
+                                               class="vehicle_id">
                                         <input type="hidden" id="start_date_{{$bid->id}}"
+                                               value="{{$bid->auction_start_date}}">
+                                        <input type="hidden" id="start_time_{{$bid->id}}"
+                                               value="{{$bid->auction_start_time}}">
+                                        <input type="hidden" id="end_time_{{$bid->id}}"
+                                               value="{{$bid->auction_end_time}}">
+                                        <input type="hidden" id="end_date_{{$bid->id}}"
                                                value="{{$bid->auction_end_date}}">
 
                                         <div class="my-auction-counter" id="my-auction-counter_{{$bid->id}}"></div>
@@ -120,9 +127,64 @@
                                             </div>
                                         @endif
                                     </div>
+                                    @php
+                                        $startDate = Carbon\Carbon::parse($bid->auction_start_date);
+                                        $endDate = Carbon\Carbon::parse($bid->auction_end_date);
+                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                         $startDateTime = Carbon\Carbon::parse($bid->auction_start_date .' '. $bid->auction_start_time);
+                                        $endDateTime = Carbon\Carbon::parse($bid->auction_end_date .' ' .$bid->auction_end_time);
+                                         $endDateTimeO = Carbon\Carbon::now();
+                                            $bid_count = 0;
+                                            $proof_check = null;
+                                          if(!is_null(Auth::guard('web')->user())){
+                                                 $bid_count = DB::table('vehicle_bids')->where('user_id',Auth::guard('web')->user()->id)->count();
+                                                 $proof_check = DB::table('payment_proofs')->where('user_id',Auth::guard('web')->user()->id)->first();
+                                                 if(!is_null($proof_check)){
+                                                 $payment_status = $proof_check->status;
+                                                 }
+                                            }
+                                        $bid_o = DB::table('vehicle_bids')->where('vehicle_id', $bid->id)->orderBy('amount', 'desc')->first();
+                                        $bid_amount = $bid->price;
+
+                                        if (!is_null($bid_o)) {
+                                        $last_bid_amount = $bid_o->amount;
+                                        $bid_amount = $bid_o->amount;
+                                        }
+                                    @endphp
+                                    @if($endDateTimeO->between($startDateTime, $endDateTime) == true)
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-minus btn-minus-manually"
+                                                    id="btn-minus"
+                                                    data-minimum-bid-increment="{{$bid->bid_increment}}"
+                                                    data-id="{{$bid->id}}">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                        </span>
+                                            <input type="text" name="amount[{{$bid->id}}]"
+                                                   id="amount_{{$bid->id}}"
+                                                   class="form-control input-number integer"
+                                                   value="{{$bid_amount}}"
+                                                   placeholder="{{trans('web_string.amount')}}"
+                                                   min="{{$bid_amount}}" readonly>
+                                            <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default btn-plus btn-plus-manually"
+                                                    id="btn-plus"
+                                                    data-minimum-bid-increment="{{$bid->bid_increment}}"
+                                                    data-id="{{$bid->id}}">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                            <a class="btn place-bid-blue-manually @if($bid_count == 0 && $payment_status == 'pending' || $payment_status == 'reject') disabled-link @endif bid-manually-submit"
+                                               data-id="{{$bid->id}}">
+                                                {{trans('web_string.place_bid')}}
+                                            </a>
+                                        </span>
+                                        </div>
+                                    @endif
                                 </div>
+
                                 <div
-                                    class="car-price my-bids-price @if($bid->auction_end_date < date('Y-m-d')) time-close @endif">
+                                    class="car-price my-bids-price @if($dateToCheck->between($startDateTime, $endDateTime) == false) time-close @endif">
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($bid->price)}}</h3>
@@ -136,20 +198,26 @@
                                         <h3>
                                             SAR {{$total_bids == 0 ? number_format($bid->price) : number_format($height_bid)}}</h3>
                                     </div>
-                                    @php
-                                        $startDate = Carbon\Carbon::parse($bid->auction_start_date);
-                                        $endDate = Carbon\Carbon::parse($bid->auction_end_date);
-                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-                                    @endphp
-                                    @if($dateToCheck->between($startDate, $endDate))
+
+                                    @if($dateToCheck->between($startDateTime, $endDateTime))
                                         <a href="javascript:void(0)" class="place-bid-blue vehicle_detail"
                                            data-id="{{$bid->id}}">{{trans('web_string.update_bid')}}</a>
                                     @else
                                         @if($bid->auction_start_date > date('Y-m-d'))
                                             <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
                                         @else
-                                            <a href="javascript:void(0)"
-                                               class="place-bid-blue update-bid">{{trans('web_string.auction_close')}}</a>
+                                            @if($bid->auction_start_date >= date('Y-m-d'))
+                                                @if($dateToCheck->lt($startDateTime))
+                                                    <a href="#"
+                                                       class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                                @else
+                                                    <a href="javascript:void(0)"
+                                                       class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                                @endif
+                                            @else
+                                                <a href="javascript:void(0)"
+                                                   class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                            @endif
                                         @endif
                                     @endif
                                 </div>
@@ -167,19 +235,65 @@
 @section('custom-script')
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
+        let day_string = '{{trans('web_string.day')}}';
+        let hour_string = '{{trans('web_string.hours')}}';
+        let min_string = '{{trans('web_string.mins')}}';
+        let sec_string = '{{trans('web_string.sec')}}';
+    </script>
+    <script>
         var $j_object = $(".vehicle_id");
+        // $j_object.each(function (i) {
+        //     var id = $(this).val();
+        //     var start_date = $('#start_date_' + id).val()
+        //     $("#my-auction-counter_" + id)
+        //         .countdown(start_date, function (event) {
+        //             $("#my-auction-counter_" + id).html(
+        //                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+        //             );
+        //         });
+        // });
         $j_object.each(function (i) {
             var id = $(this).val();
-            var start_date = $('#start_date_' + id).val()
-            $("#my-auction-counter_" + id)
-                .countdown(start_date, function (event) {
-                    $("#my-auction-counter_" + id).html(
-                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-                    );
-                });
+            var start_date = $('#start_date_' + id).val();
+            var start_time = $('#start_time_' + id).val();
+            var end_date = $('#end_date_' + id).val();
+            var end_time = $('#end_time_' + id).val();
+
+            var startDateTime = new Date(start_date + ' ' + start_time);
+            var endDateTime = new Date(end_date + ' ' + end_time);
+
+            function updateCountdown() {
+                var now = new Date().getTime();
+                var timeLeft = endDateTime - now;
+
+                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                $("#my-auction-counter_" + id).html(
+                    '<span>' + day_string + '<strong>' + days + '</strong></span> ' +
+                    '<span>' + hour_string + '<strong>' + hours + '</strong></span> ' +
+                    '<span>' + min_string + '<strong>' + minutes + '</strong> </span> ' +
+                    '<span>' + sec_string + '<strong>' + seconds + '</strong></span>'
+                );
+
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    $("#my-auction-counter_" + id).html("");
+                    $("#time-temain_" + id).addClass("d-none");
+                }
+            }
+
+            // Update the countdown every second
+            var countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Initial call to display the countdown immediately
+            updateCountdown();
         });
 
-        $('.vehicle_detail').on('click', function () {
+        $('.vehicle_detail').on('click', function (e) {
+            e.preventDefault();
             const value_id = $(this).data('id')
             loaderView()
             axios
@@ -229,6 +343,53 @@
                 .catch(function (error) {
                     loaderHide()
                 })
+        })
+        $('.btn-plus-manually').click(function () {
+            var id = $(this).data('id')
+            var min_bid_increment = $(this).data('minimum-bid-increment')
+            var currentValue = parseInt($('#amount_' + id).val());
+            if (!isNaN(currentValue)) {
+                $('#amount_' + id).val(currentValue + parseInt(min_bid_increment));
+            }
+        });
+
+        $('.btn-minus-manually').click(function () {
+            var id = $(this).data('id')
+            var min_bid_increment = $(this).data('minimum-bid-increment')
+            var currentValue = parseInt($('#amount_' + id).val());
+            var minValue = parseInt($('#amount_' + id).attr('min'));
+
+            if (!isNaN(currentValue) && currentValue > minValue) {
+                $('#amount_' + id).val(currentValue - parseInt(min_bid_increment));
+            } else {
+                notificationToast('The minimum amount you can make is this much', 'warning')
+            }
+        });
+
+        $(document).on('click', '.bid-manually-submit', function () {
+            loaderView();
+            var vehicle_id = $(this).data('id')
+            var amount = $('#amount_' + vehicle_id).val()
+            axios
+                .post(APP_URL + '/vehicle-bid-store', {
+                    vehicle_id: vehicle_id,
+                    amount: amount,
+                })
+                .then(function (response) {
+                    loaderHide();
+                    if (response.data.success == true) {
+                        window.location.reload()
+                        notificationToast(response.data.message, 'success');
+                    } else {
+                        notificationToast(response.data.message, 'warning')
+                    }
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    notificationToast(error.response.data.message, 'warning')
+                    loaderHide();
+                });
         })
     </script>
 @endsection

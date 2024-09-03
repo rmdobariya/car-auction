@@ -38,6 +38,7 @@ class BidController extends Controller
                 ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
                 ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
                 ->where('vehicle_translations.locale', App::getLocale())
+                ->orderBy('vehicle_bids.id','desc')
                 ->select('vehicle_bids.*', 'vehicle_translations.name  as vehicle_name', 'vehicles.status',
                     'users.full_name as user_name', 'users.user_type as user_type');
             return Datatables::of($bids)

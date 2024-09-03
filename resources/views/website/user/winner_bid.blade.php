@@ -69,13 +69,19 @@
                                     </div>
                                 </div>
                                 <div class="car-time-specification">
-                                    <div class="time-temain"
-                                         @if($winner_bid->auction_end_date <  date('Y-m-d')) style="visibility: hidden" @endif>
+                                    <div class="time-temain" id="time-temain_{{$winner_bid->id}}"
+                                         @if($winner_bid->auction_end_date <  date('Y-m-d') || $winner_bid->auction_start_date > date('Y-m-d')) style="visibility: hidden" @endif>
                                         <span><i class="las la-clock"></i></span>
                                         <input type="hidden" id="vehicle_id" value="{{$winner_bid->id}}"
                                                class="vehicle_id">
                                         <input type="hidden" id="start_date_{{$winner_bid->id}}"
                                                value="{{$winner_bid->auction_start_date}}">
+                                        <input type="hidden" id="start_time_{{$winner_bid->id}}"
+                                               value="{{$winner_bid->auction_start_time}}">
+                                        <input type="hidden" id="end_time_{{$winner_bid->id}}"
+                                               value="{{$winner_bid->auction_end_time}}">
+                                        <input type="hidden" id="end_date_{{$winner_bid->id}}"
+                                               value="{{$winner_bid->auction_end_date}}">
                                         <div class="my-auction-counter"
                                              id="my-auction-counter_{{$winner_bid->id}}"></div>
                                     </div>
@@ -122,8 +128,14 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div
-                                    class="car-price my-bids-price @if($winner_bid->auction_start_date < date('Y-m-d')) time-close @endif">
+                                @php
+                                    $startDate = Carbon\Carbon::parse($winner_bid->auction_start_date);
+                                    $endDate = Carbon\Carbon::parse($winner_bid->auction_end_date);
+                                    $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
+                                      $startDateTime = Carbon\Carbon::parse($winner_bid->auction_start_date .' '. $winner_bid->auction_start_time);
+                                $endDateTime = Carbon\Carbon::parse($winner_bid->auction_end_date .' ' .$winner_bid->auction_end_time);
+                                @endphp
+                                <div class="car-price my-bids-price @if($dateToCheck->between($startDateTime, $endDateTime) == false) time-close @endif">
                                     <div class="initial-price-box">
                                         <p>{{trans('web_string.common_price')}}</p>
                                         <h3>SAR {{number_format($winner_bid->price)}}</h3>
@@ -136,20 +148,21 @@
                                         <p>{{trans('web_string.winning_bid')}}</p>
                                         <h3>SAR {{number_format($winner_bid->amount)}}</h3>
                                     </div>
-                                    @php
-                                        $startDate = Carbon\Carbon::parse($winner_bid->auction_start_date);
-                                        $endDate = Carbon\Carbon::parse($winner_bid->auction_end_date);
-                                        $dateToCheck = Carbon\Carbon::parse(date('Y-m-d'));
-                                    @endphp
-                                    @if($dateToCheck->between($startDate, $endDate))
+
+                                    @if($dateToCheck->between($startDateTime, $endDateTime))
                                         <a href="javascript:void(0)"
                                            class="place-bid-blue update-bid">{{trans('web_string.view_auction')}}</a>
                                     @else
-                                        @if($winner_bid->auction_start_date > date('Y-m-d'))
-                                            <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                        @if($winner_bid->auction_start_date >= date('Y-m-d'))
+                                            @if($dateToCheck->lt($startDateTime))
+                                                <a href="#" class="place-bid-blue">{{trans('web_string.pending')}}</a>
+                                            @else
+                                                <a href="javascript:void(0)"
+                                                   class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
+                                            @endif
                                         @else
                                             <a href="javascript:void(0)"
-                                               class="place-bid-blue update-bid">{{trans('web_string.auction_close')}}</a>
+                                               class="place-bid-blue update-bid comtrans">{{trans('web_string.auction_close')}}</a>
                                         @endif
                                     @endif
                                 </div>
@@ -167,16 +180,61 @@
 @section('custom-script')
     <script src="{{asset('web/assets/js/countdown.js')}}"></script>
     <script>
+        let day_string = '{{trans('web_string.day')}}';
+        let hour_string = '{{trans('web_string.hours')}}';
+        let min_string = '{{trans('web_string.mins')}}';
+        let sec_string = '{{trans('web_string.sec')}}';
+    </script>
+    <script>
         var $j_object = $(".vehicle_id");
+        // $j_object.each(function (i) {
+        //     var id = $(this).val();
+        //     var start_date = $('#start_date_' + id).val()
+        //     $("#my-auction-counter_" + id)
+        //         .countdown(start_date, function (event) {
+        //             $("#my-auction-counter_" + id).html(
+        //                 event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
+        //             );
+        //         });
+        // });
         $j_object.each(function (i) {
             var id = $(this).val();
-            var start_date = $('#start_date_' + id).val()
-            $("#my-auction-counter_" + id)
-                .countdown(start_date, function (event) {
-                    $("#my-auction-counter_" + id).html(
-                        event.strftime('<span>Day<strong>%D</strong></span> <span>Hours<strong>%H</strong></span> <span>Mins<strong>%M</strong> </span> <span>Sec<strong>%S</strong></span>')
-                    );
-                });
+            var start_date = $('#start_date_' + id).val();
+            var start_time = $('#start_time_' + id).val();
+            var end_date = $('#end_date_' + id).val();
+            var end_time = $('#end_time_' + id).val();
+
+            var startDateTime = new Date(start_date + ' ' + start_time);
+            var endDateTime = new Date(end_date + ' ' + end_time);
+
+            function updateCountdown() {
+                var now = new Date().getTime();
+                var timeLeft = endDateTime - now;
+
+                var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                $("#my-auction-counter_" + id).html(
+                    '<span>' + day_string + '<strong>' + days + '</strong></span> ' +
+                    '<span>' + hour_string + '<strong>' + hours + '</strong></span> ' +
+                    '<span>' + min_string + '<strong>' + minutes + '</strong> </span> ' +
+                    '<span>' + sec_string + '<strong>' + seconds + '</strong></span>'
+                );
+
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    $("#my-auction-counter_" + id).html("");
+                    $("#time-temain_" + id).addClass("d-none");
+                }
+            }
+
+            // Update the countdown every second
+            var countdownInterval = setInterval(updateCountdown, 1000);
+
+            // Initial call to display the countdown immediately
+            updateCountdown();
         });
     </script>
 @endsection

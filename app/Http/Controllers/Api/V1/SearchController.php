@@ -23,9 +23,9 @@ class SearchController extends Controller
         //        if (!is_null($request->condition)){
 //
 //        }
-        if (!is_null($request->user_id)) {
-            $vehicles->where('vehicles.user_id', $request->user_id);
-        }
+//        if (!is_null($request->user_id)) {
+//            $vehicles->where('vehicles.user_id', $request->user_id);
+//        }
         if (!is_null($request->city_id)) {
             $vehicles->where('vehicles.city_id', $request->city_id);
         }
@@ -46,6 +46,9 @@ class SearchController extends Controller
         }
         if (!is_null($request->model)) {
             $vehicles->where('vehicle_translations.model', 'LIKE', '%' . $request->model . '%');
+        }
+        if (!is_null($request->make)) {
+            $vehicles->where('vehicle_translations.make', 'LIKE', '%' . $request->make . '%');
         }
         if (!is_null($request->body_type)) {
             $vehicles->where('vehicle_translations.body_type', 'LIKE', '%' . $request->body_type . '%');

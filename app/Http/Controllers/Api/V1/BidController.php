@@ -46,19 +46,44 @@ class BidController extends Controller
         }
     }
 
-    public function vehicleWiseBid($id): JsonResponse
+    public function vehicleWiseBid($id, Request $request): JsonResponse
     {
+        $user = $request->user();
+        $vehicle = DB::table('vehicles')->where('id', $id)->first();
         $bids = DB::table('vehicle_bids')
-            ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', 'vehicles.id')
-            ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', 'vehicle_translations.vehicle_id')
-            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', 'category_translations.category_id')
-            ->leftJoin('users', 'vehicle_bids.user_id', 'users.id')
-            ->where('vehicle_translations.locale', App::getLocale())
-            ->where('vehicle_bids.vehicle_id', $id)
-            ->where('category_translations.locale', App::getLocale())
-            ->select('vehicle_bids.id as bid_id', 'vehicle_bids.user_id as bid_user_id', 'vehicle_bids.amount as bid_amount', 'vehicle_bids.vehicle_id as bid_vehicle_id', 'vehicle_translations.name  as vehicle_name', 'category_translations.name as vehicle_category_name',
-                'vehicle_translations.description', 'vehicle_translations.make', 'vehicle_translations.model', 'vehicle_translations.trim', 'vehicle_translations.transmission', 'vehicle_translations.fuel_type', 'vehicle_translations.body_type', 'vehicle_translations.registration', 'vehicle_translations.color', 'vehicle_translations.car_type', 'vehicle_translations.mileage', 'users.full_name as user_name', 'vehicles.*')
-            ->get();
+            ->leftJoin('vehicles', 'vehicle_bids.vehicle_id', '=', 'vehicles.id')
+            ->leftJoin('vehicle_translations', 'vehicle_bids.vehicle_id', '=', 'vehicle_translations.vehicle_id')
+            ->leftJoin('category_translations', 'vehicles.vehicle_category_id', '=', 'category_translations.category_id')
+            ->leftJoin('users', 'vehicle_bids.user_id', '=', 'users.id')
+            ->where('vehicle_translations.locale', '=', App::getLocale())
+            ->where('category_translations.locale', '=', App::getLocale())
+            ->where('vehicle_bids.vehicle_id', '=', $id);
+
+        if ($vehicle->user_id != $user->id) {
+            $bids = $bids->where('vehicle_bids.user_id', '=', $user->id);
+        }
+
+        $bids = $bids->select(
+            'vehicle_bids.id as bid_id',
+            'vehicle_bids.user_id as bid_user_id',
+            'vehicle_bids.amount as bid_amount',
+            'vehicle_bids.vehicle_id as bid_vehicle_id',
+            'vehicle_translations.name as vehicle_name',
+            'category_translations.name as vehicle_category_name',
+            'vehicle_translations.description',
+            'vehicle_translations.make',
+            'vehicle_translations.model',
+            'vehicle_translations.trim',
+            'vehicle_translations.transmission',
+            'vehicle_translations.fuel_type',
+            'vehicle_translations.body_type',
+            'vehicle_translations.registration',
+            'vehicle_translations.color',
+            'vehicle_translations.car_type',
+            'vehicle_translations.mileage',
+            'users.full_name as user_name',
+            'vehicles.*'
+        )->get();
         $result = BidResource::collection($bids);
         if (count($bids) > 0) {
             return response()->json([
@@ -175,16 +200,18 @@ class BidController extends Controller
         $bid_count = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->where('user_id', $user_id)->count();
         if ($bid_count > 0) {
             $amount = $bid + $vehicle->bid_increment;
-            if ($amount < $request->amount) {
+            if ($amount <= $request->amount) {
                 DB::table('vehicle_bids')
                     ->where('user_id', $user_id)
                     ->where('vehicle_id', $request->vehicle_id)
                     ->update([
                         'amount' => $request->amount
                     ]);
+
                 $maxValue = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->max('amount');
                 DB::table('vehicle_bids')
                     ->where('vehicle_id', $request->vehicle_id)
+                    ->where('amount', '!=', $maxValue)
                     ->update(['is_winner' => 0]);
                 DB::table('vehicle_bids')
                     ->where('vehicle_id', $request->vehicle_id)
@@ -203,16 +230,26 @@ class BidController extends Controller
                 ]);
             }
         } else {
-            if ($amount < $request->amount) {
-                DB::table('vehicle_bids')
-                    ->where('vehicle_id', $request->vehicle_id)
-                    ->update(['is_winner' => 0]);
+            if ($amount <= $request->amount) {
                 $bid = new VehicleBid();
                 $bid->user_id = $user_id;
                 $bid->vehicle_id = $request->vehicle_id;
                 $bid->amount = $request->amount;
-                $bid->is_winner = 1;
+                $bid->is_winner = 0;
                 $bid->save();
+                $maxValue = DB::table('vehicle_bids')->where('vehicle_id', $request->vehicle_id)->max('amount');
+                DB::table('vehicle_bids')
+                    ->where('vehicle_id', $request->vehicle_id)
+                    ->where('amount', $maxValue)
+                    ->update([
+                        'is_winner' => 1,
+                    ]);
+                DB::table('vehicle_bids')
+                    ->where('vehicle_id', $request->vehicle_id)
+                    ->where('amount', '!=', $maxValue)
+                    ->update([
+                        'is_winner' => 0,
+                    ]);
                 return response()->json([
                     'success' => true,
                     'message' => trans('app_string.bid_add_successfully')

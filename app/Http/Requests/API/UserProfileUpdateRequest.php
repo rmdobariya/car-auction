@@ -29,7 +29,7 @@ class UserProfileUpdateRequest extends FormRequest
             'email' => 'required|email:rfc,dns|unique:users,email,' . $this->user()->id,
             'first_name' => 'required',
             'last_name' => 'required',
-            'contact_no' => 'required|digits_between:1,10',
+            'contact_no' => 'required|digits_between:7,10',
 //            'image' => 'required',
         ];
     }

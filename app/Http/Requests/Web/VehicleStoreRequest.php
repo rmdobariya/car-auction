@@ -30,7 +30,7 @@ class VehicleStoreRequest extends FormRequest
 //            'mileage_*' => 'required',
             'price' => 'required|integer',
             'bid_increment' => 'required_if:is_vehicle_type,car_for_auction|integer',
-            'minimumBidIncrement' => 'required_if:is_vehicle_type,car_for_auction|integer',
+//            'minimumBidIncrement' => 'required_if:is_vehicle_type,car_for_auction|integer',
             'auction_start_date' => 'required_if:is_vehicle_type,car_for_auction',
             'auction_end_date' => 'required_if:is_vehicle_type,car_for_auction',
             'auction_start_time' => 'required_if:is_vehicle_type,car_for_auction',

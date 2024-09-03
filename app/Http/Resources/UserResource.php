@@ -17,7 +17,7 @@ class UserResource extends JsonResource
             'contact_no' => $this->contact_no,
             'user_type' => $this->user_type,
             'is_corporate_seller' => $this->is_corporate_seller,
-            'image' => env('APP_URL') . $this->image
+            'image' => 'https://car-auction.projectdemo.click/' . $this->image
         ];
     }
 }
